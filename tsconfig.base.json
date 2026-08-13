@@ -1,23 +1,22 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
-    "importHelpers": true,
-    "isolatedModules": true,
-    "lib": ["es2022"],
+    "target": "es2022",
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "noEmitOnError": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
+    "lib": ["es2022"],
+    "baseUrl": ".",
+    "paths": { "@domo/*": ["libs/*/src"] },
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2022",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "importHelpers": true,
+    "isolatedModules": true,
     "customConditions": ["@domo/source"],
-    "noUncheckedSideEffectImports": false,
-    "types": ["*"]
+    "noUncheckedSideEffectImports": false
   }
 }
