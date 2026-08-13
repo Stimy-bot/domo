@@ -2,11 +2,11 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "../../dist/apps/api",
+    "outDir": "../../dist/out-tsc",
     "module": "NodeNext",
     "target": "es2022",
     "ignoreDeprecations": "6.0"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "../../dist", "node_modules"]
+  "exclude": ["**/*.spec.ts", "../../dist", "../../node_modules", "node_modules"]
 }

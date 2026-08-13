@@ -3,5 +3,7 @@ packages:
   - 'apps/*'
   - 'libs/*'
 allowBuilds:
-  unrs-resolver: true
+  '@swc/core': true
   esbuild: false
+  nx: true
+  unrs-resolver: true
