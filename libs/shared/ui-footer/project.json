@@ -1,0 +1,9 @@
+{
+  "name": "ui-footer",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/ui-footer/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project ui-footer --web",
+  "targets": {}
+}

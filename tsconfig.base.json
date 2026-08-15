@@ -6,7 +6,13 @@
     "lib": ["es2022"],
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
-    "paths": { "@domo/*": ["libs/*/src"] },
+    "paths": {
+      "@domo/*": ["libs/*/src"],
+      "@domo/ui-buttons": ["./libs/shared/ui-buttons/src/index.ts"],
+      "@domo/ui-footer": ["./libs/shared/ui-footer/src/index.ts"],
+      "@domo/ui-header": ["./libs/shared/ui-header/src/index.ts"],
+      "@domo/ui-sidebar": ["./libs/shared/ui-sidebar/src/index.ts"]
+    },
     "typeRoots": ["./types", "./node_modules/@types"],
     "esModuleInterop": true,
     "skipLibCheck": true,

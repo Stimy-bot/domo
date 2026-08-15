@@ -1,0 +1,9 @@
+{
+  "name": "ui-header",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/ui-header/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project ui-header --web",
+  "targets": {}
+}

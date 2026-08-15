@@ -1,27 +1,20 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
-    "types": [
-      "node",
-      "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts",
-      "vite/client"
-    ]
+    "outDir": "../../dist/out-tsc/apps/my_vite",
+    "types": ["vite/client"],
+    "typeRoots": [
+      "../../node_modules",
+      "../../node_modules/@types",
+      "../../node_modules/@nx/react/typings"
+    ],
+    "rootDirs": [
+      ".",
+      "../../libs/shared/ui-buttons/src",
+      "../../libs/shared/ui-footer/src",
+      "../../libs/shared/ui-header/src"
+    ],
+    "noEmit": true
   },
-  "exclude": [
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    "src/**/*.spec.tsx",
-    "src/**/*.test.tsx",
-    "src/**/*.spec.js",
-    "src/**/*.test.js",
-    "src/**/*.spec.jsx",
-    "src/**/*.test.jsx",
-    "vite.config.ts",
-    "vite.config.mts",
-    "vitest.config.ts",
-    "vitest.config.mts"
-  ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
