@@ -5,6 +5,7 @@
     "moduleResolution": "nodenext",
     "lib": ["es2022"],
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "paths": { "@domo/*": ["libs/*/src"] },
     "typeRoots": ["./types", "./node_modules/@types"],
     "esModuleInterop": true,

@@ -1,0 +1,9 @@
+{
+  "name": "@domo/my_vite",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/my_vite/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project my_vite --web",
+  "targets": {}
+}

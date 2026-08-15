@@ -5,6 +5,12 @@
   "references": [
     {
       "path": "./apps/api"
+    },
+    {
+      "path": "./apps/my_vite"
+    },
+    {
+      "path": "./apps/my_vite-e2e"
     }
   ],
   "compilerOptions": {}
