@@ -4,7 +4,7 @@ import {UiButton} from './ui-button';
 
 describe('UiButton', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<UiButton />);
+    const { baseElement } = render(<UiButton>Click me</UiButton>);
     expect(baseElement).toBeTruthy();
   });
 });

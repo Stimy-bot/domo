@@ -3,21 +3,16 @@ import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import path from 'node:path';
-
-// These options were migrated by @nx/vite:convert-to-inferred from the project.json file.
-const configValues: Record<string, object> = {
-  default: {},
-};
-
-const nxConfiguration = process.env.NX_TASK_TARGET_CONFIGURATION ?? 'default';
-
-const options = {
-  ...configValues.default,
-  ...(configValues[nxConfiguration] ?? {}),
-};
 
 export default defineConfig(() => ({
+  plugins: [
+    react(), 
+    tailwindcss(),
+    tsconfigPaths({
+      projects: ['../../tsconfig.base.json'],
+    }),
+  ],
+
   root: import.meta.dirname,
   cacheDir: '../../node_modules/.vite/my_vite',
   server: {
@@ -28,13 +23,6 @@ export default defineConfig(() => ({
     port: 5173,
     host: 'localhost',
   },
-  plugins: [
-    react(), 
-    tailwindcss(),
-    tsconfigPaths({
-      projects: [path.resolve(import.meta.dirname, '../../tsconfig.base.json')],
-    }),
-  ],
   define: {
     'process.env': {},
   },
@@ -61,5 +49,13 @@ export default defineConfig(() => ({
       reportsDirectory: '../../coverage/apps/my_vite',
       provider: 'v8' as const,
     },
+  },
+  optimizeDeps: {
+    exclude: [
+      '@domo/ui-header',
+      '@domo/ui-footer',
+      '@domo/ui-sidebar',
+      '@domo/ui-button',
+    ],
   },
 }));

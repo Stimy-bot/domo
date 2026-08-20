@@ -3,28 +3,22 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 
 export default defineConfig(() => ({
   root: import.meta.dirname,
   cacheDir: '../../../node_modules/.vite/libs/shared/ui-header',
+  resolve: {
+    tsconfigPaths: true,
+  },
   plugins: [
     react(),
-    nxViteTsPaths(),
-    nxCopyAssetsPlugin(['*.md']),
     dts({
       entryRoot: 'src',
       tsconfigPath: path.join(import.meta.dirname, 'tsconfig.lib.json'),
       pathsToAliases: false,
+      exclude: ['src/**/*.spec.ts', 'src/**/*.spec.tsx', 'src/**/*.test.ts', 'src/**/*.test.tsx'],
     }),
   ],
-  // Uncomment this if you are using workers.
-  // worker: {
-  //   plugins: () => [ nxViteTsPaths() ],
-  // },
-  // Configuration for building your library.
-  // See: https://vite.dev/guide/build.html#library-mode
   build: {
     outDir: '../../../dist/libs/shared/ui-header',
     emptyOutDir: true,
@@ -33,16 +27,12 @@ export default defineConfig(() => ({
       transformMixedEsModules: true,
     },
     lib: {
-      // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
       name: 'ui-header',
-      fileName: 'index',
-      // Change this to the formats you want to support.
-      // Don't forget to update your package.json as well.
-      formats: ['es' as const],
+      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
+      formats: ['es' as const, 'cjs' as const],
     },
-    rolldownOptions: {
-      // External packages that should not be bundled into your library.
+    rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
     },
   },

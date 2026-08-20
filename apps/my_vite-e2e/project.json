@@ -1,10 +1,10 @@
 {
-  "name": "my_vite-e2e",
+  "name": "@domo/my_vite-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/my_vite-e2e/src",
   "tags": [],
-  "implicitDependencies": ["my_vite"],
+  "implicitDependencies": ["@domo/my_vite"],
   "// targets": "to see all targets run: nx show project my_vite-e2e --web",
   "targets": {}
 }

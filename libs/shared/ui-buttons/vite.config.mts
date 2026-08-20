@@ -1,64 +1,50 @@
 /// <reference types='vitest' />
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import path from 'node:path';
-
-// These options were migrated by @nx/vite:convert-to-inferred from the project.json file.
-const configValues: Record<string, object> = {
-  default: {},
-};
-
-const nxConfiguration = process.env.NX_TASK_TARGET_CONFIGURATION ?? 'default';
-
-const options = {
-  ...configValues.default,
-  ...(configValues[nxConfiguration] ?? {}),
-};
+import dts from 'vite-plugin-dts';
+import * as path from 'path';
 
 export default defineConfig(() => ({
   root: import.meta.dirname,
-  cacheDir: '../../node_modules/.vite/my_vite',
-  server: {
-    port: 5173,
-    host: 'localhost',
-  },
-  preview: {
-    port: 5173,
-    host: 'localhost',
+  cacheDir: '../../../node_modules/.vite/libs/shared/ui-buttons',
+  resolve: {
+    tsconfigPaths: true,
   },
   plugins: [
-    react(), 
-    tailwindcss(),
-    tsconfigPaths({
-      projects: [path.resolve(import.meta.dirname, '../../tsconfig.base.json')],
+    react(),
+    dts({
+      entryRoot: 'src',
+      tsconfigPath: path.join(import.meta.dirname, 'tsconfig.lib.json'),
+      pathsToAliases: false,
+      exclude: ['src/**/*.spec.ts', 'src/**/*.spec.tsx', 'src/**/*.test.ts', 'src/**/*.test.tsx'],
     }),
   ],
-  define: {
-    'process.env': {},
-  },
-  resolve: {
-    // Disables native Vite resolution to prevent escaping to /home in Nx
-    tsconfigPaths: false,
-  },
   build: {
-    outDir: '../../dist/apps/my_vite',
+    outDir: '../../../dist/libs/shared/ui-buttons',
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
+    lib: {
+      entry: 'src/index.ts',
+      name: 'ui-buttons',
+      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
+      formats: ['es' as const, 'cjs' as const],
+    },
+    rollupOptions: {
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
+    },
   },
   test: {
-    name: 'vite',
+    name: 'ui-buttons',
     watch: false,
     globals: true,
     environment: 'jsdom',
     include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     reporters: ['default'],
     coverage: {
-      reportsDirectory: '../../coverage/apps/my_vite',
+      reportsDirectory: '../../../coverage/libs/shared/ui-buttons',
       provider: 'v8' as const,
     },
   },

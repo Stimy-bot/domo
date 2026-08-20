@@ -1,1 +1,1 @@
-export * from './lib/ui-header';
+export * from './lib/ui-header.js';

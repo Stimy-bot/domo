@@ -1,5 +1,5 @@
 {
-  "name": "ui-buttons",
+  "name": "@domo/ui-buttons",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/ui-buttons/src",
   "projectType": "library",

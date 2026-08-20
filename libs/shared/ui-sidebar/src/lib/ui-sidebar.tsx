@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import  cn  from './cn';
+import  cn  from './cn.js';
 import { 
   Home, 
   BarChart2, 
@@ -30,7 +30,7 @@ interface SidebarLinkProps extends React.ComponentPropsWithoutRef<'a'> {
   active?: boolean;
 }
 
- export const SidebarLink = React.forwardRef<HTMLAnchorElement, SidebarLinkProps>(
+ const SidebarLink = React.forwardRef<HTMLAnchorElement, SidebarLinkProps>(
   ({ className, asChild = false, active, ...props }, ref) => {
     const Comp = asChild ? Slot : 'a';
     return (
@@ -39,7 +39,7 @@ interface SidebarLinkProps extends React.ComponentPropsWithoutRef<'a'> {
         className={cn(
           "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group",
           active 
-            ? "bg-indigo-600 text-white" 
+            ? "bg-dark-hard text-dark-light" 
             : "text-slate-400 hover:bg-slate-800 hover:text-slate-100",
           className
         )}
@@ -56,7 +56,7 @@ export function Sidebar() {
   return (
     <aside 
       className={cn(
-        "flex flex-col h-screen bg-slate-900 text-slate-100 border-r border-slate-800 transition-all duration-300 ease-in-out",
+        "flex flex-col h-screen bg-dark-hard text-slate-100 border-r border-slate-800 transition-all duration-300 ease-in-out",
         isCollapsed ? "w-16" : "w-64"
       )}
     >
@@ -100,16 +100,18 @@ export function Sidebar() {
 
       {/* Footer Area */}
       <div className="p-4 border-t border-slate-800 flex items-center gap-3 overflow-hidden">
-        <div className="h-8 w-8 rounded-full bg-indigo-500 shrink-0 flex items-center justify-center font-semibold text-white">
+        <div className="h-8 w-8 rounded-full bg-dark-hard shrink-0 flex items-center justify-center font-semibold text-dark-light">
           D
         </div>
         {!isCollapsed && (
           <div className="flex flex-col min-w-0">
-            <span className="text-sm font-medium text-slate-200 truncate">Dominic</span>
-            <span className="text-xs text-slate-500 truncate">domo@workspace.internal</span>
+            <span className="text-sm font-medium text-dark-light truncate">Dominic</span>
+            <span className="text-xs text-dark-light truncate">domo@workspace.internal</span>
           </div>
         )}
       </div>
     </aside>
   );
 }
+
+export { Sidebar as UiSidebar };

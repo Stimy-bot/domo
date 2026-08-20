@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
-
 import UiFooter from './ui-footer';
+import { describe, it, expect } from 'vitest';
 
 describe('UiFooter', () => {
   it('should render successfully', () => {

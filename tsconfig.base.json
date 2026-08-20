@@ -3,11 +3,11 @@
     "target": "es2022",
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "lib": ["es2022"],
+    "lib": ["es2022", "dom", "dom.iterable"],
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
     "paths": {
-      "@domo/*": ["libs/*/src"],
+      "@domo/*": ["apps/*/src", "libs/*/src"],
       "@domo/ui-buttons": ["./libs/shared/ui-buttons/src/index.ts"],
       "@domo/ui-footer": ["./libs/shared/ui-footer/src/index.ts"],
       "@domo/ui-header": ["./libs/shared/ui-header/src/index.ts"],

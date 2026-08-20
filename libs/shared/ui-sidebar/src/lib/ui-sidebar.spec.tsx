@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import {UiSidebar} from './ui-sidebar';
+import {Sidebar} from './ui-sidebar.js';
 
-describe('UiSidebar', () => {
+describe('Sidebar', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<UiSidebar />);
+    const { baseElement } = render(<Sidebar />);
     expect(baseElement).toBeTruthy();
   });
 });

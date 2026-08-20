@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc/apps/my_vite",
+    "rootDir": "../..",
     "types": ["vite/client"],
     "typeRoots": [
       "../../node_modules",
@@ -12,7 +13,8 @@
       ".",
       "../../libs/shared/ui-buttons/src",
       "../../libs/shared/ui-footer/src",
-      "../../libs/shared/ui-header/src"
+      "../../libs/shared/ui-header/src",
+      "../../libs/shared/ui-sidebar/src"
     ],
     "noEmit": true
   },

@@ -1,1 +1,1 @@
-export * from './lib/ui-footer';
+export * from './lib/ui-footer.js';
