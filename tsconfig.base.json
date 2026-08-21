@@ -11,9 +11,12 @@
       "@domo/ui-buttons": ["./libs/shared/ui-buttons/src/index.ts"],
       "@domo/ui-footer": ["./libs/shared/ui-footer/src/index.ts"],
       "@domo/ui-header": ["./libs/shared/ui-header/src/index.ts"],
-      "@domo/ui-sidebar": ["./libs/shared/ui-sidebar/src/index.ts"]
+      "@domo/ui-sidebar": ["./libs/shared/ui-sidebar/src/index.ts"],
+      "@domo/utils": ["./libs/shared/utils/src/index.ts"],
+      "@domo/reusableComponents": ["./libs/shared/reusableComponents/src/index.ts"],
+      "@domo/constants": ["./libs/shared/constants/src/index.ts"]
     },
-    "typeRoots": ["./types", "./node_modules/@types"],
+    "typeRoots": ["./types", "./node_modules/@types","./node_modules"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
@@ -25,5 +28,8 @@
     "isolatedModules": true,
     "customConditions": ["@domo/source"],
     "noUncheckedSideEffectImports": false
-  }
+  },
+  "include": [
+    "types/**/*.d.ts"
+  ]
 }

@@ -38,19 +38,19 @@ import { Link } from 'react-router-dom';
       {/* Feature Grid */}
       <div className="grid md:grid-cols-3 gap-6 max-w-5xl mt-16 text-left">
         <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs">
-          <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 font-bold">⚡</div>
+          <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 font-bold"><span role="img" aria-label="Lightning fast">⚡</span></div>
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Lightning Fast</h3>
           <p className="text-sm text-slate-600 dark:text-slate-400">Powered by Vite and ESBuild for instant HMR and quick builds.</p>
         </div>
 
         <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs">
-          <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 font-bold">📦</div>
+          <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 font-bold"><span role="img" aria-label="Package">📦</span></div>
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Monorepo Ready</h3>
           <p className="text-sm text-slate-600 dark:text-slate-400">Modularized components imported cleanly from shared UI libraries.</p>
         </div>
 
         <div className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs">
-          <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 font-bold">🎨</div>
+          <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 font-bold"><span role="img" aria-label="Artist palette">🎨</span></div>
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Tailwind Styling</h3>
           <p className="text-sm text-slate-600 dark:text-slate-400">Utility-first CSS setup out-of-the-box for clean, responsive design.</p>
         </div>

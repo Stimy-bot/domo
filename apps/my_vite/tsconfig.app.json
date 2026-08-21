@@ -2,21 +2,20 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc/apps/my_vite",
-    "rootDir": "../..",
-    "types": ["vite/client"],
-    "typeRoots": [
-      "../../node_modules",
-      "../../node_modules/@types",
-      "../../node_modules/@nx/react/typings"
-    ],
-    "rootDirs": [
-      ".",
-      "../../libs/shared/ui-buttons/src",
-      "../../libs/shared/ui-footer/src",
-      "../../libs/shared/ui-header/src",
-      "../../libs/shared/ui-sidebar/src"
-    ],
+    "rootDir": "../../",
+    "types": ["node", "vite/client", "vitest/globals", "vitest/importMeta"],
     "noEmit": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "references": [
+    {
+      "path": "../../libs/shared/ui-sidebar/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/ui-footer/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/ui-header/tsconfig.lib.json"
+    }
+  ]
 }

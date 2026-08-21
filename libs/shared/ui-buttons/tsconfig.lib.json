@@ -7,6 +7,8 @@
       "../ui-footer/src",
       "../ui-header/src"
     ],
+    "composite": true,
+    "declaration": true,
     "types": [
       "node"
     ]

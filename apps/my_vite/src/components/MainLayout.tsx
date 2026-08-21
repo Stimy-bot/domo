@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { UiHeader } from '@domo/ui-header';
 import { UiFooter } from '@domo/ui-footer';

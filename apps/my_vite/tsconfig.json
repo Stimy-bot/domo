@@ -4,6 +4,7 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "moduleResolution": "bundler",
     "types": ["vite/client", "vitest"]
   },
   "files": [],

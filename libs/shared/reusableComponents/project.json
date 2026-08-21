@@ -1,0 +1,9 @@
+{
+  "name": "@domo/reusableComponents",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/reusableComponents/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project reusableComponents --web",
+  "targets": {}
+}

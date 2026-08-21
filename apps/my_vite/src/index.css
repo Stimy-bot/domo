@@ -1,7 +1,10 @@
 @import "tailwindcss";
 /* @plugin "tailwindcss-animate"; */
 
-@source '../../../libs/shared/*';
+@source '../../../libs/shared/ui-header';
+@source '../../../libs/shared/ui-footer';
+@source '../../../libs/shared/ui-button';
+@source '../../../libs/shared/ui-sidebar';
 
 
 @custom-variant dark (&:where(.dark, .dark *));
