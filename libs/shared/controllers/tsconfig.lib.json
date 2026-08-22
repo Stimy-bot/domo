@@ -3,15 +3,24 @@
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "../../../dist/libs/shared/controllers",
     "rootDir": "../../..",
     "composite": true,
     "declaration": true,
     "types": ["node"]
   },
   "exclude": ["**/*.spec.*", "**/*.test.*", "vite.config.*", "vitest.config.*"],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "types/**/*.d.ts"
+  ],
   "references": [
+    {
+      "path": "../models/tsconfig.lib.json"
+    },
     {
       "path": "../schemas/tsconfig.lib.json"
     },

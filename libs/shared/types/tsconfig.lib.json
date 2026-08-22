@@ -3,7 +3,7 @@
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "../../../dist/libs/shared/types",
     "rootDir": "../../..",
     "composite": true,
     "declaration": true,

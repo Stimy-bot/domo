@@ -112,6 +112,10 @@ export function getUserPermissions(roles: RoleType[] = []): string[] {
 
 export function sanitizeUser(user: UserEntity): SafeUser {
   const { password, otp, otpExpiresAt, roleHistory, _id, company, ...safe } = user;
+  void password;
+  void otp;
+  void otpExpiresAt;
+  void roleHistory;
 
   return {
     ...safe,
