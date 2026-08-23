@@ -2,8 +2,7 @@
 import fp from 'fastify-plugin';
 import fastifyJwt from '@fastify/jwt';
 import type { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { Audience } from '@domo/constants';
-import { UNAUTHORIZED } from '@domo/constants';
+import { Audience, UNAUTHORIZED } from '@domo/constants';
 
 export default fp(async (fastify: FastifyInstance) => {
   const secret = process.env.JWT_SECRET;

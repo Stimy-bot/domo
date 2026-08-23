@@ -5,6 +5,7 @@ export type VerificationCodeTypeKey = keyof typeof VerificationCodeType;
 
 export interface VerificationCodeInput {
   userId: ObjectId | string;
+  target?: string;
   type: VerificationCodeTypeKey;
   code?: string;
   expiresAt: Date | string;
@@ -14,6 +15,7 @@ export interface VerificationCodeInput {
 export interface VerificationCodeEntity {
   _id: ObjectId;
   userId: ObjectId;
+  target?: string;
   type: VerificationCodeTypeKey;
   code?: string;
   expiresAt: Date;
@@ -69,6 +71,7 @@ export function buildVerificationCodeDocument(
 
   return {
     userId: parsedUserId,
+    ...(input.target && { target: input.target.trim() }),
     type: input.type,
     ...(input.code && { code: input.code.trim() }),
     expiresAt: parsedExpiresAt,

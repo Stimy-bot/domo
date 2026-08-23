@@ -21,7 +21,10 @@
       "@domo/schemas": ["./libs/shared/schemas/src/index.ts"],
       "@domo/types": ["./libs/shared/types/src/index.ts"],
       "@domo/controllers": ["./libs/shared/controllers/src/index.ts"],
-      "@domo/services": ["./libs/shared/services/src/index.ts"]
+      "@domo/services": ["./libs/shared/services/src/index.ts"],
+      "@domo/config": ["./libs/shared/config/src/index.ts"],
+      "@domo/middleware": ["./libs/shared/middleware/src/index.ts"],
+      "@domo/validate": ["./libs/shared/validates/src/index.ts"]
     },
     "typeRoots": ["./types", "./node_modules/@types", "./node_modules"],
     "esModuleInterop": true,

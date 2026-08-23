@@ -5,7 +5,13 @@ declare module 'fastify' {
   interface FastifyRequest {
     db: Db;
     userId?: string;
-    user?: { userId: string };
+    user?: {
+       userId: string;
+       email: string;
+       fullName: string;
+       permissions: string[];
+
+       };
   }
 
   interface FastifyInstance {

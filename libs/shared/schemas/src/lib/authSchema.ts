@@ -45,11 +45,16 @@ export const otpSchema = z
   .length(6, { message: 'OTP must be 6 digits' })
   .regex(/^\d{6}$/, { message: 'OTP must be numeric' });
 
-export const bioSchema = z.string().trim().max(255).optional();
+export const bioSchema = z
+  .string()
+  .trim()
+  .max(255, 'Bio cannot exceed 255 characters')
+  .transform((val) => (val === '' ? undefined : val))
+  .optional();
 
 export const genderSchema = z.enum(['male', 'female', 'other', 'prefer_not_to_say']).optional();
 
-const calculateAge = (birthDate: Date | string): number => {
+export const calculateAge = (birthDate: Date | string): number => {
     const today = new Date();
     const birth = new Date(birthDate);
     let age = today.getFullYear() - birth.getFullYear();
@@ -60,20 +65,19 @@ const calculateAge = (birthDate: Date | string): number => {
     return age;
 };
 
-export const birthDateSchema = z.preprocess((arg) => {
-  if (typeof arg === "string" || typeof arg === "number") {
-    const d = new Date(arg);
-    if (!isNaN(d.getTime())) return d;
-    return arg;
-  }
+export const birthDateSchema = z
+  .union([z.string(), z.number(), z.date()], {
+    message: "Birth date is required",
+  })
+  .pipe(z.coerce.date({ message: "Invalid date format" }))
+  .refine((date) => !isNaN(date.getTime()), {
+    message: "Invalid date format",
+  })
+  .refine((date) => calculateAge(date) >= 18, {
+    message: "You must be at least 18 years old",
+  });
 
-  if (arg instanceof Date) {
-    if (!isNaN(arg.getTime())) return arg;
-    return arg;
-  }
-
-  return arg;
-}, z.date().refine((date) => calculateAge(date) >= 18, { message: "You must be at least 18 years old" }));
+export const ageSchema = z.coerce.number().min(18).max(120).optional();
 
 export const familyNameSchema = z.string().trim().min(3).max(64).optional().or(z.literal(""));
 
@@ -139,6 +143,7 @@ export const registerSchema = loginSchema
     lastName: lastNameSchema,
     familyName: familyNameSchema,
     bio: bioSchema,
+    age: ageSchema,
     gender: genderSchema,
     birthDate: birthDateSchema,
     profilePicture: profilePictureSchema.optional(),

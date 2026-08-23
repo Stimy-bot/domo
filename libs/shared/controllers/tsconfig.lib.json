@@ -19,16 +19,19 @@
   ],
   "references": [
     {
-      "path": "../models/tsconfig.lib.json"
-    },
-    {
-      "path": "../schemas/tsconfig.lib.json"
+      "path": "../types/tsconfig.lib.json"
     },
     {
       "path": "../utils/tsconfig.lib.json"
     },
     {
       "path": "../services/tsconfig.lib.json"
+    },
+    {
+      "path": "../schemas/tsconfig.lib.json"
+    },
+    {
+      "path": "../models/tsconfig.lib.json"
     },
     {
       "path": "../constants/tsconfig.lib.json"

@@ -47,6 +47,9 @@ export interface UserInput {
   age?: number;
   gender?: GenderType;
   birthDate?: Date;
+    ip?: string;
+    phoneVerified?: boolean;
+    active?: boolean;
   bio?: string;
   phone?: string;
   carrier?: 'att' | 'verizon' | 'tmobile';

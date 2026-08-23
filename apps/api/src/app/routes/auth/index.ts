@@ -20,4 +20,4 @@ const authRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.post("/password/reset", resetPasswordHandler);
 };
 
-export default authRoutes;
+export { authRoutes };

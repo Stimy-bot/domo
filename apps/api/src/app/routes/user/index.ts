@@ -1,54 +1,98 @@
-import { NOT_FOUND, OK } from '@domo/constants';
-import { sanitizeUser, type UserEntity } from '@domo/models';
-import { appAssert } from '@domo/utils';
-import type { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
-import { Type } from '@sinclair/typebox';
-import { ObjectId } from 'mongodb';
+import type { FastifyPluginAsync, RouteHandlerMethod } from 'fastify';
+import { 
+  getUserHandler, 
+  updateHandler, 
+  deleteHandler, 
+  deleteAllHandler, 
+  toggleUserActiveStatusHandler, 
+  getUsersHandler, 
+} from '@domo/controllers';
+import { updateSchema } from '@domo/schemas';
+import { 
+  enrichAudit, 
+  authorize, 
+  requireValidTargetId, 
+} from '@domo/middleware';
+import { validateBody } from '@domo/validate'
 
-// TypeBox response schema reflecting SafeUser
-const UserResponseSchema = Type.Object({
-  _id: Type.String(),
-  email: Type.String(),
-  firstName: Type.String(),
-  lastName: Type.String(),
-  fullName: Type.String(),
-  permissions: Type.Array(Type.String()),
-  active: Type.Boolean(),
-  verified: Type.Boolean(),
-  profilePicture: Type.String(),
-  bio: Type.String(),
-});
+const userRoutes: FastifyPluginAsync = async (fastify) => {
+  // --- 1. Current User Routes (Self) ---
+  fastify.get('/', getUserHandler);
 
-const userRoutes: FastifyPluginAsyncTypebox = async (fastify) => {
-  fastify.get(
-    '/user',
+  // --- 2. Admin/Management Routes (Bulk/General) ---
+  fastify.get('/users', getUsersHandler);
+
+  fastify.delete(
+    '/deleteAll',
     {
-      schema: {
-        response: {
-          200: UserResponseSchema,
-        },
-      },
-      preHandler: [fastify.authenticate],
+      preHandler: [
+        authorize(['canDeleteSelf', 'canDeleteAnyUser', 'canDeleteAllUsers']),
+        requireValidTargetId,
+        enrichAudit('all_accounts_deletion'),
+      ],
     },
-    async (request, reply) => {
-      const rawUserId = request.userId ?? request.user?.userId;
+    deleteAllHandler
+  );
 
-      appAssert(rawUserId, NOT_FOUND, 'User session invalid');
+  // --- 3. Targeted User Routes (:id) ---
+  fastify.get(
+    '/:id',
+    {
+      preHandler: [requireValidTargetId],
+    },
+    getUserHandler as RouteHandlerMethod
+  );
 
-      const userId =
-        typeof rawUserId === 'string' ? new ObjectId(rawUserId) : rawUserId;
+  fastify.patch(
+    '/update/:id',
+    {
+      preHandler: [
+        authorize('canEditSelf'),
+        requireValidTargetId,
+        validateBody(updateSchema),
+        enrichAudit('user_update'),
+      ],
+    },
+    updateHandler as RouteHandlerMethod
+  );
 
-      // Native MongoDB collection query
-      const user = await fastify.mongo.db
-        ?.collection<UserEntity>('users')
-        .findOne({ _id: userId, active: true });
+  fastify.patch(
+    '/deactivate/:id',
+    {
+      preHandler: [
+        authorize(['canDeactivateUser', 'canDeactivateAnyUser']),
+        requireValidTargetId,
+        validateBody(updateSchema),
+        enrichAudit('user_status_change'),
+      ],
+    },
+    toggleUserActiveStatusHandler as RouteHandlerMethod
+  );
 
-      appAssert(user, NOT_FOUND, 'User not found');
+  fastify.patch(
+    '/activate/:id',
+    {
+      preHandler: [
+        authorize(['canActivateUser', 'canActivateAnyUser']),
+        requireValidTargetId,
+        validateBody(updateSchema),
+        enrichAudit('user_status_change'),
+      ],
+    },
+    toggleUserActiveStatusHandler as RouteHandlerMethod
+  );
 
-      // Use functional sanitizer to transform UserEntity into SafeUser
-      return reply.status(OK).send(sanitizeUser(user));
-    }
+  fastify.delete(
+    '/delete/:id',
+    {
+      preHandler: [
+        authorize(['canDeleteSelf', 'canDeleteAnyUser']),
+        requireValidTargetId,
+        enrichAudit('account_deletion'),
+      ],
+    },
+    deleteHandler as RouteHandlerMethod
   );
 };
 
-export default userRoutes;
+export { userRoutes };

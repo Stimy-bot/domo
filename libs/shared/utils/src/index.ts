@@ -11,4 +11,5 @@ export * from './lib/cookies';
 export * from './lib/date';
 export * from './lib/sendMail';
 export * from './lib/emailTemplates'
-export * from './lib/catchErrors'
+export * from './lib/catchErrors';
+export * from './lib/twilio';

@@ -20,7 +20,13 @@
       "path": "../../libs/shared/utils/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/shared/models/tsconfig.lib.json"
+      "path": "../../libs/shared/validates/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/middleware/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/schemas/tsconfig.lib.json"
     },
     {
       "path": "../../libs/shared/controllers/tsconfig.lib.json"

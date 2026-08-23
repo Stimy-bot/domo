@@ -17,7 +17,7 @@ export interface SessionInput {
 }
 
 export interface SessionEntity {
-  _id: ObjectId;
+  _id?: ObjectId;
   userId: ObjectId;
   userAgent?: string;
   ip?: string;

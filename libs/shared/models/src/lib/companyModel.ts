@@ -1,111 +1,84 @@
-import { ObjectId, type Db } from 'mongodb';
+// server/src/models/companyModel.ts
+import { Db, ObjectId, Collection, IndexDescription } from 'mongodb';
 import { companyCategoryEnum } from '@domo/schemas';
 
-export type CompanyCategoryType = (typeof companyCategoryEnum.options)[number];
-
-export interface Address {
-  street: string;
-  city: string;
-  state: string;
-  country: string;
-  post_zip_code: string;
+// 1) Address Interface
+export interface CompanyAddress {
+  street?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  post_zip_code?: string;
 }
 
-export interface CompanyInput {
-  userId: ObjectId | string;
-  company_name: string;
-  company_email: string;
-  company_category: string;
-  company_description?: string;
-  company_phone?: string;
-  company_website?: string;
-  logo_url?: string;
-  date_founded?: Date | string;
-  address?: Partial<Address>;
-}
-
-// Raw MongoDB document structure
-export interface CompanyEntity {
-  _id: ObjectId;
+// 2) Company Document Interface
+export interface CompanyDocument {
+  _id?: ObjectId;
   userId: ObjectId;
   company_name: string;
   company_email: string;
-  company_description: string;
-  company_category: string;
-  company_phone: string;
-  company_website: string;
-  logo_url: string;
+  company_description?: string;
+  company_category: typeof companyCategoryEnum.options[number];
+  company_phone?: string;
+  company_website?: string;
+  logo_url?: string;
   date_founded?: Date;
-  address: Address;
-  createdAt: Date;
-  updatedAt: Date;
+  address?: CompanyAddress;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-// Formatted structure for API responses
-export type SafeCompany = Omit<CompanyEntity, '_id' | 'userId'> & {
-  _id: string;
-  userId: string;
+const DEFAULT_LOGO_URL =
+  'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png';
+
+// 3) Collection Accessor Helper
+export const getCompanyCollection = (
+  db: Db
+): Collection<CompanyDocument> => {
+  return db.collection<CompanyDocument>('companies');
 };
 
-// --- Sanitization Helper ---
+// 4) Index Initialization Setup
+export async function initCompanyIndexes(db: Db): Promise<void> {
+  const collection = getCompanyCollection(db);
 
-export function sanitizeCompany(company: CompanyEntity): SafeCompany {
-  const { _id, userId, ...rest } = company;
-  return {
-    ...rest,
-    _id: _id.toString(),
-    userId: userId.toString(),
-  };
+  const indexes: IndexDescription[] = [
+    { key: { company_email: 1 }, unique: true, name: 'uniq_company_email' },
+    { key: { userId: 1 }, name: 'idx_company_userId' },
+  ];
+
+  await collection.createIndexes(indexes);
 }
 
-// --- Factory for Creating Company Documents ---
-
-export function buildCompanyDocument(
-  input: CompanyInput,
-): Omit<CompanyEntity, '_id'> {
+// 5) Default Document Formatter Helper
+export function createCompanyPayload(
+  payload: Partial<CompanyDocument> & {
+    userId: ObjectId;
+    company_name: string;
+    company_email: string;
+    company_category: typeof companyCategoryEnum.options[number];
+  }
+): Omit<CompanyDocument, '_id'> {
   const now = new Date();
 
-  const defaultAddress: Address = {
-    street: input.address?.street?.trim() ?? '',
-    city: input.address?.city?.trim() ?? '',
-    state: input.address?.state?.trim() ?? '',
-    country: input.address?.country?.trim() ?? '',
-    post_zip_code: input.address?.post_zip_code?.trim() ?? '',
-  };
-
-  const parsedUserId =
-    typeof input.userId === 'string' ? new ObjectId(input.userId) : input.userId;
-
-  const parsedDateFounded = input.date_founded
-    ? new Date(input.date_founded)
-    : undefined;
-
   return {
-    userId: parsedUserId,
-    company_name: input.company_name.trim(),
-    company_email: input.company_email.toLowerCase().trim(),
-    company_description: input.company_description?.trim() ?? '',
-    company_category: input.company_category,
-    company_phone: input.company_phone?.trim() ?? '',
-    company_website: input.company_website?.trim() ?? '',
-    logo_url:
-      input.logo_url?.trim() ||
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png',
-    ...(parsedDateFounded && { date_founded: parsedDateFounded }),
-    address: defaultAddress,
+    userId: payload.userId,
+    company_name: payload.company_name.trim(),
+    company_email: payload.company_email.trim().toLowerCase(),
+    company_description: payload.company_description?.trim() ?? '',
+    company_category: payload.company_category,
+    company_phone: payload.company_phone?.trim() ?? '',
+    company_website: payload.company_website?.trim() ?? '',
+    logo_url: payload.logo_url?.trim() || DEFAULT_LOGO_URL,
+    date_founded: payload.date_founded,
+    address: {
+      street: payload.address?.street?.trim() ?? '',
+      city: payload.address?.city?.trim() ?? '',
+      state: payload.address?.state?.trim() ?? '',
+      country: payload.address?.country?.trim() ?? '',
+      post_zip_code: payload.address?.post_zip_code?.trim() ?? '',
+    },
     createdAt: now,
     updatedAt: now,
   };
-}
-
-// --- Collection Index Setup ---
-
-export async function ensureCompanyIndexes(db: Db): Promise<void> {
-  const collection = db.collection<CompanyEntity>('companies');
-
-  await collection.createIndexes([
-    { key: { company_email: 1 }, unique: true },
-    { key: { userId: 1 } },
-    { key: { company_category: 1 } },
-  ]);
 }
