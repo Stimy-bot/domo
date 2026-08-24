@@ -1,3 +1,4 @@
+// libs/shared/controllers/src/lib/authController.ts
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { ObjectId } from 'mongodb';
 import { z } from 'zod';
@@ -51,12 +52,6 @@ const getFullName = (user: {
   lastName?: string;
   fullName?: string;
 }) => user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim();
-
-type AuthRequest = FastifyRequest & {
-  jwt: Parameters<typeof createAccount>[0]['jwt'];
-};
-
-const getJwt = (req: FastifyRequest) => (req as AuthRequest).jwt;
 
 export const registerHandler = catchErrors(
   async (req: FastifyRequest, reply: FastifyReply) => {
@@ -128,10 +123,10 @@ export const registerHandler = catchErrors(
     }
 
     const { user, accessToken, refreshToken } = await createAccount(
-      { db: req.db, jwt: req.server.jwt },
+      { db: req.db, logger: req.log },
       {
         ...requestData,
-        age: requestData.age ? Number(requestData.age) : undefined, 
+        age: requestData.age ? Number(requestData.age) : undefined,
         userAgent: requestData.userAgent || 'Unknown',
       },
     );
@@ -152,7 +147,6 @@ export const registerHandler = catchErrors(
   },
 );
 
-
 export const loginHandler = catchErrors(
   async (req: FastifyRequest, reply: FastifyReply) => {
     const { email, password } = loginSchema.parse(req.body);
@@ -172,7 +166,8 @@ export const loginHandler = catchErrors(
     ipAddressSchema.parse(normalizedIp);
 
     const { user, accessToken, refreshToken } = await loginUser(
-{ db: req.db, jwt: req.server.jwt },      {
+      { db: req.db, logger: req.log },
+      {
         email,
         password,
         userAgent,
@@ -255,7 +250,7 @@ export const refreshHandler = catchErrors(
     appAssert(refreshToken, UNAUTHORIZED, 'Missing refresh token');
 
     const { accessToken, newRefreshToken } = await refreshUserAccessToken(
-      { db: req.db, jwt: getJwt(req) },
+      { db: req.db, logger: req.log },
       refreshToken,
     );
 
@@ -279,7 +274,7 @@ export const verifyEmailHandler = catchErrors(
   ) => {
     const verificationCode = verificationCodeSchema.parse(req.params.code);
     const result = await verifyEmail(
-      { db: req.db, jwt: getJwt(req) },
+      { db: req.db, logger: req.log },
       verificationCode,
     );
 
@@ -311,7 +306,7 @@ export const sendPasswordResetHandler = catchErrors(
     const body = req.body as { email?: string };
     const email = emailSchema.parse(body?.email);
 
-    await sendPasswordResetEmail({ db: req.db, jwt: getJwt(req) }, email);
+    await sendPasswordResetEmail({ db: req.db, logger: req.log }, email);
 
     await logAuthEvent(
       req,
@@ -336,7 +331,7 @@ export const resetPasswordHandler = catchErrors(
   async (req: FastifyRequest, reply: FastifyReply) => {
     const requestData = resetPasswordSchema.parse(req.body);
     const result = await resetPassword(
-      { db: req.db, jwt: getJwt(req) },
+      { db: req.db, logger: req.log },
       requestData,
     );
 
@@ -369,7 +364,7 @@ export const requestOtpHandler = catchErrors(
     const ip = req.ip || 'unknown';
 
     const result = await requestOtpService(
-      { db: req.db, jwt: getJwt(req) },
+      { db: req.db, logger: req.log },
       { phone, ip, userAgent },
     );
 
@@ -401,7 +396,7 @@ export const verifyOtpHandler = catchErrors(
     const ip = req.ip || 'unknown';
 
     const { user, accessToken, refreshToken } = await verifyOtpService(
-      { db: req.db, jwt: getJwt(req) },
+      { db: req.db, logger: req.log },
       {
         phone,
         otp,

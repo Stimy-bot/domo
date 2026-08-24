@@ -92,6 +92,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
+    "fast-jwt": "^6.3.2",
     "fastify": "~5.2.1",
     "fastify-plugin": "~5.0.1",
     "geoip-lite": "^2.0.3",

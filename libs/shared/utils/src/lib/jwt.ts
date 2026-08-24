@@ -1,10 +1,9 @@
-import jwt, { type Secret, type SignOptions, type VerifyOptions } from 'jsonwebtoken';
+import { createSigner, createVerifier, SignerOptions, VerifierOptions } from 'fast-jwt';
 import { Audience, loadEnv } from '@domo/constants';
 
 // --- Environment Variables ---
 
 const { JWT_SECRET, JWT_REFRESH_SECRET } = loadEnv();
-
 
 export const ROLES = ['user', 'admin', 'superAdmin'] as const;
 export type RoleType = (typeof ROLES)[number];
@@ -24,44 +23,58 @@ export type RefreshTokenPayload = {
   sessionId: string;
 };
 
-export type SignOptionsAndSecret = SignOptions & { secret: Secret };
+export type SignOptionsAndSecret = SignerOptions & { secret: string };
 
 // --- Configurations ---
 
-export const defaults: SignOptions & VerifyOptions = {
-  audience: [Audience.User, Audience.Admin, Audience.SuperAdmin],
-};
+const defaultAudience = [Audience.User, Audience.Admin, Audience.SuperAdmin];
 
-export const accessTokenSignOptions: SignOptionsAndSecret = {
-  expiresIn: '15m',
-  secret: JWT_SECRET,
-};
+// --- Signers & Verifiers ---
 
-export const refreshTokenSignOptions: SignOptionsAndSecret = {
-  expiresIn: '30d',
-  secret: JWT_REFRESH_SECRET,
-};
+const accessSigner = createSigner({
+  key: JWT_SECRET,
+  expiresIn: 15 * 60 * 1000, // 15 minutes in ms
+  aud: defaultAudience,
+});
+
+const refreshSigner = createSigner({
+  key: JWT_REFRESH_SECRET,
+  expiresIn: 30 * 24 * 60 * 60 * 1000, // 30 days in ms
+  aud: defaultAudience,
+});
+
+const defaultVerifier = createVerifier({
+  key: JWT_SECRET,
+});
 
 // --- Utilities ---
 
 /**
- * Signs a token using jsonwebtoken.
+ * Signs a token using fast-jwt signers.
  */
 export const signToken = (
   payload: AccessTokenPayload | RefreshTokenPayload,
   options?: Partial<SignOptionsAndSecret>,
 ): string => {
-  const { secret, ...signOpts } = {
-    ...accessTokenSignOptions,
-    ...options,
-  };
-
   const cleanPayload = JSON.parse(JSON.stringify(payload));
 
-  return jwt.sign(cleanPayload, secret, {
-    ...defaults,
-    ...signOpts,
-  });
+  // If a custom secret or options are supplied, instantiate dynamic signer
+  if (options?.secret || options?.expiresIn) {
+    const customSigner = createSigner({
+      key: options.secret || JWT_SECRET,
+      expiresIn: options.expiresIn,
+      aud: defaultAudience,
+      ...options,
+    });
+    return customSigner(cleanPayload);
+  }
+
+  // Check if signing refresh payload
+  if ('sessionId' in payload && !('userId' in payload)) {
+    return refreshSigner(cleanPayload);
+  }
+
+  return accessSigner(cleanPayload);
 };
 
 /**
@@ -69,19 +82,17 @@ export const signToken = (
  */
 export const verifyToken = <TPayload extends object = AccessTokenPayload>(
   token: string,
-  options?: VerifyOptions & { secret?: Secret },
+  options?: VerifierOptions & { secret?: string },
 ): { payload?: TPayload; error?: string } => {
-  const { secret = JWT_SECRET, ...verifyOpts } = options || {};
-
   try {
-    const result = jwt.verify(token, secret, {
-      ...defaults,
-      ...verifyOpts,
-    }) as TPayload;
+    const verifier = options?.secret
+      ? createVerifier({ key: options.secret, ...options })
+      : defaultVerifier;
 
+    const result = verifier(token) as TPayload;
     return { payload: result };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : String(error) };
   }
 };
 
@@ -111,7 +122,7 @@ export const createSessionAndTokens = (
 
   const refreshToken = signToken(
     { sessionId },
-    refreshTokenSignOptions,
+    { secret: JWT_REFRESH_SECRET, expiresIn: 30 * 24 * 60 * 60 * 1000 },
   );
 
   return { accessToken, refreshToken };

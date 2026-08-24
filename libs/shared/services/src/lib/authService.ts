@@ -1,6 +1,5 @@
 // libs/shared/services/src/lib/authService.ts
 import type { FastifyBaseLogger } from 'fastify';
-import type { JWT } from '@fastify/jwt';
 import type { Db } from 'mongodb';
 import { ObjectId } from '@fastify/mongodb';
 import {
@@ -12,6 +11,7 @@ import {
   UNAUTHORIZED,
   loadEnv,
 } from '@domo/constants';
+import { ONE_DAY_MS } from '@domo/utils'
 import { Role } from '@domo/types';
 
 import {
@@ -22,10 +22,11 @@ import {
   getVerifyEmailTemplate,
   fiveMinutesAgo,
   oneHourFromNow,
-  ONE_DAY_MS,
   oneYearFromNow,
   thirtyDaysFromNow,
   sendMail,
+  signToken,
+  verifyToken,
 } from '@domo/utils';
 import { insertLogIntoDb } from './auditService';
 import { twilioService } from './twilioService';
@@ -42,8 +43,9 @@ const normalizeIp = (ip?: string) =>
  * Helper to strip sensitive password hash before returning user
  */
 const sanitizeUser = <T extends Record<string, unknown>>(user: T) => {
-  const { password, ...sanitized } = user;
-  return sanitized;
+  const sanitized = { ...user };
+  delete sanitized['password'];
+  return sanitized as Omit<T, 'password'>;
 };
 
 // ==========================================
@@ -51,7 +53,6 @@ const sanitizeUser = <T extends Record<string, unknown>>(user: T) => {
 // ==========================================
 export interface ServiceContext {
   db: Db;
-  jwt: JWT;
   logger?: FastifyBaseLogger;
 }
 
@@ -135,6 +136,10 @@ export type OtpVerifyParams = {
 // ==========================================
 // Token Creation Helper
 // ==========================================
+/**
+ * Inserts a session document and returns signed access + refresh tokens.
+ * Uses shared signToken from @domo/utils for signing.
+ */
 export const createSessionAndTokens = async (
   ctx: ServiceContext,
   userId: ObjectId,
@@ -157,22 +162,19 @@ export const createSessionAndTokens = async (
   const sessionId = sessionResult.insertedId.toString();
   const rolesArray = Array.isArray(role) ? role : [role];
 
-  const accessToken = ctx.jwt.sign(
-    {
-      userId: userId.toString(),
-      email,
-      fullName,
-      role: rolesArray,
-      sessionId,
-    },
-    { expiresIn: '15m' },
-  );
+  // Access token: sign with default secret (handled by signToken)
+  const accessToken = signToken({
+    userId: userId.toString(),
+    email,
+    fullName,
+    role: rolesArray,
+    sessionId,
+  });
 
-  const refreshToken = ctx.jwt.sign(
-    {
-      sessionId,
-    },
-    { expiresIn: '30d' },
+  // Refresh token: sign with explicit refresh secret and expiry
+  const refreshToken = signToken(
+    { sessionId },
+    { secret: env.JWT_REFRESH_SECRET, expiresIn: 30 * 24 * 60 * 60 * 1000 },
   );
 
   return { accessToken, refreshToken, sessionId };
@@ -341,11 +343,14 @@ export const refreshUserAccessToken = async (
   ctx: ServiceContext,
   refreshToken: string,
 ) => {
-  const payload = ctx.jwt.verify<{ sessionId: string }>(refreshToken);
+  const { payload, error } = verifyToken<{ sessionId: string }>(refreshToken, {
+    secret: env.JWT_REFRESH_SECRET,
+  });
+
   appAssert(
     payload && payload.sessionId,
     UNAUTHORIZED,
-    'Invalid refresh token',
+    error ?? 'Invalid refresh token',
   );
 
   const sessionsCollection = ctx.db.collection('sessions');
@@ -373,7 +378,9 @@ export const refreshUserAccessToken = async (
   });
   appAssert(user, INTERNAL_SERVER_ERROR, 'User not found during token refresh');
 
-  const newAccessToken = ctx.jwt.sign(
+  // Create new tokens by reusing createSessionAndTokens logic but without inserting a new session.
+  // We will sign new tokens directly here to preserve the existing session id.
+  const newAccessToken = signToken(
     {
       userId: user._id.toString(),
       email: user.email,
@@ -381,14 +388,12 @@ export const refreshUserAccessToken = async (
       role: user.role,
       sessionId: session._id.toString(),
     },
-    { expiresIn: '15m' },
+    { expiresIn: 15 * 60 * 1000 }, // 15 minutes in ms
   );
 
-  const newRefreshToken = ctx.jwt.sign(
-    {
-      sessionId: session._id.toString(),
-    },
-    { expiresIn: '30d' },
+  const newRefreshToken = signToken(
+    { sessionId: session._id.toString() },
+    { secret: env.JWT_REFRESH_SECRET, expiresIn: 30 * 24 * 60 * 60 * 1000 },
   );
 
   return { accessToken: newAccessToken, newRefreshToken };
@@ -421,7 +426,7 @@ export const sendPasswordResetEmail = async (
   ctx: ServiceContext,
   email: string,
 ) => {
-  const usersCollection = ctx.db.collection<UserDocument>('users');
+  const usersCollection = ctx.db.collection('users');
   const codesCollection = ctx.db.collection('verificationCodes');
 
   const user = await usersCollection.findOne({ email });

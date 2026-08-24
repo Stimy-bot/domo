@@ -1,9 +1,9 @@
-// src/middleware/authorize.ts
+// libs/shared/middleware/src/lib/authorize.ts
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { FORBIDDEN, UNAUTHORIZED } from '@domo/constants';
 import {appAssert} from '@domo/utils';
 import { Permission } from '@domo/config';
-import { type UserEntity } from '@domo/models'; // adjust to your user entity location
+import { type UserEntity } from '@domo/models';
 
 export const authorize = (requiredPermissions: Permission | Permission[]) => {
   return async (req: FastifyRequest, _reply: FastifyReply) => {

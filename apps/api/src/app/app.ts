@@ -8,13 +8,14 @@ import swagger from './plugins/swagger';
 import errorHandlerPlugin from './plugins/error-handler';
 import root from './routes/root/index.js';
 import healthCheck from './routes/healthcheck/index';
-import {userRoutes} from './routes/user/index';
-import {authRoutes} from './routes/auth/index';
-import mongodb from './plugins/mongodb.js';
+import { userRoutes } from './routes/user/index';
+import { authRoutes } from './routes/auth/index';
+import { sessionRoutes } from './routes/session/index';
+import mongodb from './plugins/mongodb';
+import { authenticateHook } from '@domo/middleware'; // Import hook
 
 export interface AppOptions
-  extends FastifyServerOptions,
-    Partial<AutoloadPluginOptions> {
+  extends FastifyServerOptions, Partial<AutoloadPluginOptions> {
   skipOverride?: boolean;
 }
 
@@ -33,9 +34,13 @@ const app: FastifyPluginAsync<AppOptions> = async (
 
   // Register routes
   await fastify.register(healthCheck, { ...opts, prefix: '/healthcheck' });
+  await fastify.register(authRoutes, { ...opts, prefix: '/auth' });
   await fastify.register(root, { ...opts, prefix: '/' });
-  await fastify.register(userRoutes, { ...opts, prefix: '/user' });
-  await fastify.register(authRoutes, { ...opts, prefix: '/auth' })
+  await fastify.register(async (protectedScope) => {
+    protectedScope.addHook('preHandler', authenticateHook);
+    await protectedScope.register(userRoutes, { ...opts, prefix: '/user' });
+    await protectedScope.register(sessionRoutes, { ...opts, prefix: '/session' });
+  });
 };
 
 export default app;

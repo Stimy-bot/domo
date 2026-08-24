@@ -2,7 +2,6 @@
 import { ObjectId, type Db } from 'mongodb';
 import {
   signToken,
-  refreshTokenSignOptions,
 } from '@domo/utils';
 
  const thirtyDaysFromNow = () =>
@@ -35,8 +34,16 @@ export function getRefreshToken(sessionId: ObjectId | string): string {
   const payload: RefreshTokenPayload = {
     sessionId: sessionId.toString(),
   };
+  const secret = process.env['JWT_REFRESH_SECRET'];
 
-  return signToken(payload, refreshTokenSignOptions);
+  if (!secret) {
+    throw new Error('JWT_REFRESH_SECRET is not configured');
+  }
+
+  return signToken(payload, {
+    secret,
+    expiresIn: 30 * 24 * 60 * 60 * 1000,
+  });
 }
 
 // --- Factory for Creating Session Documents ---

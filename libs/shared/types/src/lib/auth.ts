@@ -10,6 +10,9 @@ export const AuthEventUserSchema = z.object({
 export type AuthEventUser = z.infer<typeof AuthEventUserSchema>;
 
 // Roles available in your system
+export const ROLES = ['user', 'admin', 'superAdmin'] as const;
+export type RoleType = typeof ROLES[number];
+
 export type Role = 'user' | 'admin' | 'superAdmin';
 
 // JWT Access Token Payload
@@ -46,13 +49,4 @@ export interface AuthenticatedRequest extends FastifyRequest {
   userId: string;
   sessionId: string;
   auth?: AccessTokenPayload;
-}
-
-// Augment Fastify Request type definition
-declare module 'fastify' {
-  interface FastifyRequest {
-    userId?: string;
-    sessionId?: string;
-    auth?: AccessTokenPayload;
-  }
 }
