@@ -1,0 +1,10 @@
+{
+  "name": "@domo/api-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/api-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["@domo/api"],
+  "// targets": "to see all targets run: nx show project api-e2e --web",
+  "targets": {}
+}

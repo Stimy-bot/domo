@@ -25,7 +25,7 @@ import React from 'react';
       </section>
 
       {/* Tech Stack List */}
-      <section className="space-y-4">
+      <section className="space-y-4 pb-20">
         <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
           Core Technologies
         </h2>

@@ -99,7 +99,7 @@ export function Sidebar() {
       </nav>
 
       {/* Footer Area */}
-      <div className="p-4 border-t border-slate-800 flex items-center gap-3 overflow-hidden">
+      <div className="p-4 border-t border-slate-800 flex items-center gap-3 overflow-hidden pb-30">
         <div className="h-8 w-8 rounded-full bg-dark-hard shrink-0 flex items-center justify-center font-semibold text-dark-light">
           D
         </div>

@@ -1,3 +1,4 @@
+// apps/my_vite-e2e/playwright.config.mts
 import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
 import { workspaceRoot } from '@nx/devkit';
@@ -28,6 +29,10 @@ export default defineConfig({
     baseURL,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+  extraHTTPHeaders: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
   },
   /* Run your local dev server before starting the tests */
   webServer: {

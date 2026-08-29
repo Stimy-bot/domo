@@ -70,7 +70,7 @@ importers:
         version: 5.0.1
       fastify-type-provider-zod:
         specifier: ^7.0.0
-        version: 7.0.0(@fastify/swagger@9.8.1)(fastify@5.2.2)(openapi-types@12.1.3)(zod@4.4.3)
+        version: 7.0.0(@fastify/swagger@9.8.1)(fastify@5.2.2)(openapi-types@12.1.3)(zod@4.5.1)
       geoip-lite:
         specifier: ^2.0.3
         version: 2.0.3
@@ -97,7 +97,7 @@ importers:
         version: 6.30.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       resend:
         specifier: ^6.21.0
-        version: 6.24.0
+        version: 6.25.0
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
@@ -112,7 +112,7 @@ importers:
         version: 13.15.35
       zod:
         specifier: ^4.4.3
-        version: 4.4.3
+        version: 4.5.1
     devDependencies:
       '@babel/core':
         specifier: ^7.14.5
@@ -6083,8 +6083,8 @@ packages:
   requires-port@1.0.0:
     resolution: {integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==}
 
-  resend@6.24.0:
-    resolution: {integrity: sha512-ZG+tRzTtg3usrzMMVK1THPILCDbxE0uefG3XEQro/+jb9hcRb8JiQeyzIo2BphMJk2OomBeciZU3rCgX3XWx5w==}
+  resend@6.25.0:
+    resolution: {integrity: sha512-iptUEycs+6Hu+W8mExK708LrDiMYOuGgnCP+wTD5L4Zrqqd2B86h1oyAmNe0khZWQw0ccI7jz8OgAaplEsyaIA==}
     engines: {node: '>=20'}
     peerDependencies:
       '@react-email/render': '*'
@@ -7089,8 +7089,8 @@ packages:
     resolution: {integrity: sha512-xYqdZFUK/VYazNl/oCDYN+3WloWQwMfZxBoiNt6qNyk+xfOdi598muWE42rNZFp1kNOiqW936q5RhUdnpqElSg==}
     engines: {node: '>=18'}
 
-  zod@4.4.3:
-    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+  zod@4.5.1:
+    resolution: {integrity: sha512-P3GqeAEOEDqKvafVGLezbg+39YW/ze4xrD4qdS0adOY8eoI3zfjv1PQM4UwQzgT8mZKXEbqtVt8K+ZKGqkMFKg==}
 
 snapshots:
 
@@ -11684,13 +11684,13 @@ snapshots:
 
   fastify-plugin@6.0.0: {}
 
-  fastify-type-provider-zod@7.0.0(@fastify/swagger@9.8.1)(fastify@5.2.2)(openapi-types@12.1.3)(zod@4.4.3):
+  fastify-type-provider-zod@7.0.0(@fastify/swagger@9.8.1)(fastify@5.2.2)(openapi-types@12.1.3)(zod@4.5.1):
     dependencies:
       '@fastify/error': 4.2.0
       '@fastify/swagger': 9.8.1
       fastify: 5.2.2
       openapi-types: 12.1.3
-      zod: 4.4.3
+      zod: 4.5.1
 
   fastify@5.2.2:
     dependencies:
@@ -13778,7 +13778,7 @@ snapshots:
 
   requires-port@1.0.0: {}
 
-  resend@6.24.0:
+  resend@6.25.0:
     dependencies:
       postal-mime: 2.7.5
       standardwebhooks: 1.0.0
@@ -14828,4 +14828,4 @@ snapshots:
 
   yoctocolors@2.2.0: {}
 
-  zod@4.4.3: {}
+  zod@4.5.1: {}
