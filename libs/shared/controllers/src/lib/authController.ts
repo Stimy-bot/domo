@@ -106,15 +106,17 @@ export const registerHandler = catchErrors(
         ' Registration attempt for existing user',
       );
 
+      const resolvedEmail = safeExisting.email || email || '';
+
       await logAuthEvent(
         req,
         {
           _id: safeExisting._id as string | ObjectId,
-          email: safeExisting.email as string | undefined,
+          email: resolvedEmail,
           fullName: getFullName(safeExisting),
         },
         'user_register_conflict',
-        { method: 'manual' },
+        { method: 'manual', email: resolvedEmail },
       );
 
       return reply.status(CONFLICT).send({
@@ -135,11 +137,13 @@ export const registerHandler = catchErrors(
       req,
       {
         _id: user['_id'] as string | ObjectId,
-        email: user['email'] as string | undefined,
+        email: user['email'] as string || email,
         fullName: getFullName(user),
       },
       'user_register',
-      { method: 'manual' },
+      { method: 'manual',
+        email: user['email'] as string || email,
+       },
     );
 
     setAuthCookies({ reply, accessToken, refreshToken });
@@ -283,7 +287,9 @@ export const verifyEmailHandler = catchErrors(
       {
         _id: result.user['_id'] as string | ObjectId,
         email:
-          typeof result.user['email'] === 'string' ? result.user['email'] : undefined,
+          typeof result.user['email'] === 'string'
+            ? result.user['email']
+            : undefined,
         fullName: getFullName(result.user),
       },
       'email_verification',
@@ -291,7 +297,9 @@ export const verifyEmailHandler = catchErrors(
         method: 'link_click',
         verificationId: verificationCode,
         email:
-          typeof result.user['email'] === 'string' ? result.user['email'] : undefined,
+          typeof result.user['email'] === 'string'
+            ? result.user['email']
+            : undefined,
       },
     );
 
@@ -340,7 +348,9 @@ export const resetPasswordHandler = catchErrors(
       {
         _id: result.user['_id'] as string | ObjectId,
         email:
-          typeof result.user['email'] === 'string' ? result.user['email'] : undefined,
+          typeof result.user['email'] === 'string'
+            ? result.user['email']
+            : undefined,
         fullName: getFullName(result.user),
       },
       'password_reset',
@@ -444,18 +454,17 @@ export const googleCallbackHandler = catchErrors(
     let user = await usersCollection.findOne({ email: googleUser.email });
 
     if (!user) {
-     const fallbackLastName = googleUser.family_name ||
-            googleUser.name?.split(' ').slice(1).join(' ') ||
-            ' ';
+      const fallbackLastName =
+        googleUser.family_name ||
+        googleUser.name?.split(' ').slice(1).join(' ') ||
+        ' ';
 
       const newUserDoc = {
         ...(await buildUserDocument({
           email: googleUser.email,
           firstName: googleUser.given_name || googleUser.name?.split(' ')[0],
           lastName: fallbackLastName,
-          ...(googleUser.picture
-            ? { profilePicture: googleUser.picture }
-            : {}),
+          ...(googleUser.picture ? { profilePicture: googleUser.picture } : {}),
           googleId: googleUser.sub,
           birthDate: googleUser.birthdate
             ? new Date(googleUser.birthdate)

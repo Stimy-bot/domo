@@ -1,7 +1,11 @@
 // apps/api/src/main.ts
 import Fastify from 'fastify'
-import { type TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
 import type { FastifyInstance } from 'fastify'
+import {
+  serializerCompiler,
+  validatorCompiler,
+  type ZodTypeProvider,
+} from 'fastify-type-provider-zod'
 import { lifecycle } from '@domo/utils'
 import { loadEnv } from '@domo/constants'
 import app, { options } from './app/app.js'
@@ -18,7 +22,10 @@ const server: FastifyInstance = Fastify({
     },
   },
   ...options,
-}).withTypeProvider<TypeBoxTypeProvider>()
+})
+  .setValidatorCompiler(validatorCompiler)
+  .setSerializerCompiler(serializerCompiler)
+  .withTypeProvider<ZodTypeProvider>()
 
 // Load environment variables via helper
 const env = loadEnv()

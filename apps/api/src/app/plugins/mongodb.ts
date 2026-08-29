@@ -20,6 +20,7 @@ export default fp(
     fastify.register(mongoPlugin, {
       forceClose: true,
       url,
+      // cspell:disable-next-line
       database: 'totaldata',
     });
 

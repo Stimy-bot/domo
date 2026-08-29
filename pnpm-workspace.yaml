@@ -3,6 +3,7 @@ packages:
   - 'apps/*'
   - 'libs/*'
 allowBuilds:
+  '@parcel/watcher': true
   '@swc/core': true
   esbuild: false
   nx: true

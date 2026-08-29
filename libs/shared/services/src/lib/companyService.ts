@@ -1,129 +1,112 @@
-// src/services/companyService.ts
-import { Db, ObjectId } from 'mongodb';
-import {
-  getCompanyCollection,
-  createCompanyPayload,
-  CompanyDocument,
-} from '@domo/models';
-import { CreateCompany, UpdateCompany } from '@domo/schemas';
+// libs/shared/services/src/lib/companyService.ts
+import { ObjectId, Collection, Db } from 'mongodb';
+import { BAD_REQUEST, NOT_FOUND } from '@domo/constants';
+import {appAssert} from '@domo/utils';
+
+// Define the shape of your MongoDB document interface
+export interface CompanyEntity {
+  _id?: ObjectId;
+  company_name: string;
+  company_email: string;
+  created_by: ObjectId;
+  createdAt?: Date;
+  updatedAt?: Date;
+  [key: string]: any;
+}
 
 export class CompanyService {
-  // 1) Retrieve all companies
-  public async getCompanies(db: Db): Promise<CompanyDocument[]> {
-    return await getCompanyCollection(db).find().toArray();
+  private static getCollection({ db }: { db: Db; }): Collection<CompanyEntity> {
+    return db.collection<CompanyEntity>('companies');
   }
 
-  // 2) Retrieve a single company by ID
-  public async getCompanyById(
-    db: Db,
-    companyId: string
-  ): Promise<CompanyDocument | null> {
-    if (!ObjectId.isValid(companyId)) return null;
-
-    return await getCompanyCollection(db).findOne({
-      _id: new ObjectId(companyId),
-    });
+  // --- Get All Companies ---
+  static async getCompanies(db: Db): Promise<CompanyEntity[]> {
+    return await this.getCollection({ db })
+      .find({})
+      .sort({ createdAt: -1 })
+      .toArray();
   }
 
-  // 3) Create a new company
-  public async createCompany(
+  // --- Get Single Company By ID ---
+  static async getCompanyById(
     db: Db,
-    companyData: CreateCompany,
-    userId: string
-  ): Promise<CompanyDocument> {
-    const collection = getCompanyCollection(db);
-    const { company_email, company_name } = companyData;
+    id: string | ObjectId,
+  ): Promise<CompanyEntity | null> {
+    const objectId = typeof id === 'string' ? new ObjectId(id) : id;
+    return await this.getCollection({ db }).findOne({ _id: objectId });
+  }
 
-    if (!company_name && !company_email) {
-      throw new Error('Bad Request: Must provide at least company name or email.');
-    }
+  // --- Create Company ---
+  static async createCompany(
+    db: Db,
+    data: Omit<CompanyEntity, '_id' | 'created_by' | 'createdAt' | 'updatedAt'> & {
+      company_name: string;
+      company_email: string;
+    },
+    userId: string | ObjectId,
+  ): Promise<CompanyEntity> {
+    const collection = this.getCollection({ db });
 
-    if (company_email) {
-      const existingCompany = await collection.findOne({
-        company_email: company_email.toLowerCase().trim(),
-      });
-      if (existingCompany) {
-        throw new Error('Bad Request: Company with this email already exists.');
-      }
-    }
+    // 1. Check duplicate company email directly on collection
+    const existing = await collection.findOne({ company_email: data.company_email });
+    appAssert(!existing, BAD_REQUEST, 'Company already exists');
 
-const parsedDateFounded = companyData.date_founded
-      ? new Date(companyData.date_founded)
-      : undefined;
+    // 2. Prepare document with native timestamps and ObjectIds
+    const userObjectId = typeof userId === 'string' ? new ObjectId(userId) : userId;
+    const now = new Date();
 
-    const docToInsert = createCompanyPayload({
-      ...companyData,
-      company_name: company_name ?? '',
-      company_email: company_email ?? '',
-      date_founded: parsedDateFounded,
-      userId: new ObjectId(userId),
-    });    
+    const docToInsert: CompanyEntity = {
+      ...data,
+      created_by: userObjectId,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    // 3. Insert and return created document
+    const result = await collection.insertOne(docToInsert);
     
-    const result = await collection.insertOne(docToInsert as CompanyDocument);
-
     return {
       _id: result.insertedId,
       ...docToInsert,
     };
   }
 
-  // 4) Update a company by ID
-  public async updateCompany(
+  // --- Update Company ---
+  static async updateCompany(
     db: Db,
-    companyId: string,
-    updateData: UpdateCompany
-  ): Promise<CompanyDocument> {
-    if (!ObjectId.isValid(companyId)) {
-      throw new Error('Not Found: Invalid company ID.');
-    }
+    id: string | ObjectId,
+    updateData: Partial<CompanyEntity>,
+  ): Promise<CompanyEntity> {
+    const objectId = typeof id === 'string' ? new ObjectId(id) : id;
 
-    const collection = getCompanyCollection(db);
+    // Filter out _id or immutable fields from update set
+    const { _id, createdAt, ...fieldsToUpdate } = updateData;
 
-    // Normalize input fields if present
-    const fieldsToUpdate: Record<string, any> = {
-      ...updateData,
-      updatedAt: new Date(),
-    };
-
-    if (updateData.company_email) {
-      fieldsToUpdate['company_email'] = updateData.company_email.toLowerCase().trim();
-    }
-    if (updateData.company_name) {
-      fieldsToUpdate['company_name'] = updateData.company_name.trim();
-    }
-
-    const result = await collection.findOneAndUpdate(
-      { _id: new ObjectId(companyId) },
-      { $set: fieldsToUpdate },
-      { returnDocument: 'after' }
+    const result = await this.getCollection({ db }).findOneAndUpdate(
+      { _id: objectId },
+      {
+        $set: {
+          ...fieldsToUpdate,
+          updatedAt: new Date(),
+        },
+      },
+      { returnDocument: 'after' }, // Returns the updated document
     );
 
-    if (!result) {
-      throw new Error('Not Found: Company not found.');
-    }
-
+    appAssert(result, NOT_FOUND, 'Company not found');
     return result;
   }
 
-  // 5) Delete a company by ID
-  public async deleteCompany(
+  // --- Delete Company ---
+  static async deleteCompany(
     db: Db,
-    companyId: string
-  ): Promise<{ message: string }> {
-    if (!ObjectId.isValid(companyId)) {
-      throw new Error('Not Found: Invalid company ID.');
-    }
+    id: string | ObjectId,
+  ): Promise<boolean> {
+    const objectId = typeof id === 'string' ? new ObjectId(id) : id;
 
-    const result = await getCompanyCollection(db).deleteOne({
-      _id: new ObjectId(companyId),
-    });
-
-    if (result.deletedCount === 0) {
-      throw new Error('Not Found: Company not found.');
-    }
-
-    return { message: 'Company deleted successfully' };
+    const result = await this.getCollection({ db }).deleteOne({ _id: objectId });
+    return result.deletedCount > 0;
   }
 }
 
-export default new CompanyService();
+export default CompanyService;

@@ -1,4 +1,3 @@
-// libs/shared/middleware/src/lib/authenticate.ts
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 import { ObjectId } from '@fastify/mongodb';
@@ -8,58 +7,36 @@ import type { AccessTokenPayload } from '@domo/types';
 import { UserEntity, RoleType } from '@domo/models';
 import { rolePermissions } from '@domo/config';
 
-/**
- * Runtime shape attached to request.authUser.
- * Keep optional everything that may be missing at runtime.
- */
-type RequestAuthUser = Partial<
-  AccessTokenPayload & {
-    permissions: string[];
-    _id: string | ObjectId;
-    profilePicture: string;
-    carrier: string;
-    phone: string;
-    age: number;
-    gender: string;
-    birthDate?: Date;
-    bio: string;
-    active: boolean;
-    verified: boolean;
-    phoneVerified: boolean;
-    isAdmin: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-  }
->;
-
 export const authenticateHook = async (req: FastifyRequest) => {
-  // cookies may be undefined in types; guard safely
+  // Safe extraction of cookies
   const cookies = (req as FastifyRequest & { cookies?: Record<string, string> }).cookies;
 
   const authHeader = String(req.headers.authorization || '');
   const bearerToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : undefined;
   const accessToken = cookies?.['accessToken'] || bearerToken;
 
-  // runtime check and throw with appAssert for consistent error handling
   if (!accessToken) {
     appAssert(false, UNAUTHORIZED, 'Not authorized', AppErrorCode.InvalidAccessToken);
   }
 
-  // narrow to string for the verifier
   const token = accessToken as string;
 
   const { payload, error } = verifyToken<AccessTokenPayload>(token);
   if (!payload) {
-    appAssert(false, UNAUTHORIZED, error === 'jwt expired' ? 'Token expired' : 'Invalid token', AppErrorCode.InvalidAccessToken);
+    appAssert(
+      false,
+      UNAUTHORIZED,
+      error === 'jwt expired' ? 'Token expired' : 'Invalid token',
+      AppErrorCode.InvalidAccessToken
+    );
   }
 
-  // payload is now defined
   const pl = payload as AccessTokenPayload;
   if (typeof pl.userId !== 'string' || typeof pl.sessionId !== 'string') {
     appAssert(false, UNAUTHORIZED, 'Invalid token payload', AppErrorCode.InvalidAccessToken);
   }
 
-  // load user
+  // Load user from database
   const user = await req.db
     .collection<UserEntity>('users')
     .findOne({ _id: new ObjectId(pl.userId) });
@@ -68,7 +45,7 @@ export const authenticateHook = async (req: FastifyRequest) => {
     appAssert(false, UNAUTHORIZED, 'User not found', AppErrorCode.InvalidAccessToken);
   }
 
-  // normalize roles
+  // Normalize user roles
   const roles: RoleType[] = Array.isArray(user.role)
     ? user.role
     : user.role
@@ -79,7 +56,7 @@ export const authenticateHook = async (req: FastifyRequest) => {
     appAssert(false, UNAUTHORIZED, 'User has no roles', AppErrorCode.InvalidAccessToken);
   }
 
-  // aggregate permissions
+  // Aggregate permissions across all roles
   const permissionSet = new Set<string>();
   for (const role of roles) {
     const perms = rolePermissions[role];
@@ -91,11 +68,11 @@ export const authenticateHook = async (req: FastifyRequest) => {
   }
   const effectivePermissions = Array.from(permissionSet);
 
-  // attach authUser (use partial shape to avoid strict assignment errors)
-  (req as FastifyRequest & { authUser?: RequestAuthUser }).authUser = {
+  // Construct object satisfying types/fastify.d.ts
+  const authUserData = {
     userId: pl.userId,
     sessionId: pl.sessionId,
-    email: user.email ?? undefined,
+    email: user.email ?? '',
     firstName: user.firstName ?? '',
     lastName: user.lastName ?? '',
     fullName: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
@@ -117,16 +94,24 @@ export const authenticateHook = async (req: FastifyRequest) => {
     updatedAt: user.updatedAt ?? undefined,
   };
 
- req.userId = payload.userId;
-  req.sessionId = payload.sessionId;
+  // Safe property assignment avoiding ESLint explicit-any warnings
+  const reqWithUser = req as unknown as {
+    user: typeof authUserData;
+    authUser: typeof authUserData;
+  };
+  reqWithUser.user = authUserData;
+  reqWithUser.authUser = authUserData;
+
+  req.userId = pl.userId;
+  req.sessionId = pl.sessionId;
 };
 
 const authenticatePlugin: FastifyPluginAsync = async (fastify) => {
-  fastify.decorateRequest('user', null as any);
+  fastify.decorateRequest('user', null as never);
+  fastify.decorateRequest('authUser', null as never);
   fastify.decorateRequest('userId', undefined);
   fastify.decorateRequest('sessionId', undefined);
 
-  // Decorate fastify instance to allow `onRequest: [fastify.authenticate]` on protected routes
   fastify.decorate('authenticate', authenticateHook);
 };
 

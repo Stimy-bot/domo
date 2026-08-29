@@ -4,4 +4,4 @@ export * from './lib/userModel';
 export * from './lib/companyModel';
 export * from './lib/verificationCodeModel'
 export * from './lib/auditLogModel'
-
+export * from './lib/companyModel'

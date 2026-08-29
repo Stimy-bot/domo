@@ -1,4 +1,4 @@
-// server/src/schemas/companySchema.ts
+// libs/shared/schemas/src/lib/companySchema.ts
 import { z } from 'zod';
 
 export const usZipCode = z.string().regex(/^\d{5}(-\d{4})?$/, { message: 'Invalid ZIP code format' });

@@ -1,42 +1,40 @@
-// libs/shared/middleware/src/lib/authorize.ts
-import { FastifyRequest, FastifyReply } from 'fastify';
+import { FastifyRequest } from 'fastify';
 import { FORBIDDEN, UNAUTHORIZED } from '@domo/constants';
-import {appAssert} from '@domo/utils';
+import { appAssert } from '@domo/utils';
 import { Permission } from '@domo/config';
-import { type UserEntity } from '@domo/models';
 
 export const authorize = (requiredPermissions: Permission | Permission[]) => {
-  return async (req: FastifyRequest, _reply: FastifyReply) => {
-    const user = req.user as UserEntity | undefined;
+  return async (req: FastifyRequest) => {
+    // Check req.user first, then fallback to req.authUser
+    const user = req.user || req.authUser;
 
-    // 1) Ensure authenticated
+    // 1) Ensure request is authenticated
     appAssert(user, UNAUTHORIZED, 'Authentication required');
 
-    // 2) Normalize role(s) to an array of lowercase strings
+    // 2) Normalize role(s) to array of lowercase strings
     const rawRole = user.role;
     const userRoles: string[] = Array.isArray(rawRole)
       ? rawRole.map((r: unknown) => String(r).toLowerCase())
-      : rawRole 
-      ? [String(rawRole).toLowerCase()]
-      : [];
+      : rawRole
+        ? [String(rawRole).toLowerCase()]
+        : [];
 
-    // 3) SuperAdmin bypass (case-insensitive)
-    if (userRoles.some((r) => r === 'superadmin')) {
+    // 3) SuperAdmin bypass (checks lowercased strings)
+    if (userRoles.includes('superadmin') || userRoles.includes('super_admin')) {
       return;
     }
 
-    // 4) Normalize required permissions
+    // 4) Normalize required permissions input into an array
     const permissionsArray: Permission[] = Array.isArray(requiredPermissions)
       ? requiredPermissions
       : [requiredPermissions];
 
-    // 5) Normalize user permissions
-    const permissions = (user as UserEntity & { permissions?: unknown }).permissions;
-    const userPerms: string[] = Array.isArray(permissions)
-      ? permissions.map((p: unknown) => String(p))
+    // 5) Normalize user's active permissions into standard string array
+    const userPerms: string[] = Array.isArray(user.permissions)
+      ? user.permissions.map((p: unknown) => String(p))
       : [];
 
-    // 6) Verify OR logic permission match
+    // 6) Check if user possesses ANY of the required permissions (OR logic)
     const hasPermission = permissionsArray.some((permission) =>
       userPerms.includes(permission)
     );

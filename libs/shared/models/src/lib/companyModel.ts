@@ -70,7 +70,7 @@ export function createCompanyPayload(
     company_phone: payload.company_phone?.trim() ?? '',
     company_website: payload.company_website?.trim() ?? '',
     logo_url: payload.logo_url?.trim() || DEFAULT_LOGO_URL,
-    date_founded: payload.date_founded,
+    date_founded: payload.date_founded ? new Date(payload.date_founded) : undefined,
     address: {
       street: payload.address?.street?.trim() ?? '',
       city: payload.address?.city?.trim() ?? '',
@@ -82,3 +82,94 @@ export function createCompanyPayload(
     updatedAt: now,
   };
 }
+
+// 6) Model Class / DAO Layer
+export class CompanyModel {
+  /**
+   * Find a company by ID
+   */
+  static async findById(db: Db, id: string | ObjectId): Promise<CompanyDocument | null> {
+    const _id = typeof id === 'string' ? new ObjectId(id) : id;
+    return getCompanyCollection(db).findOne({ _id });
+  }
+
+  /**
+   * Find a company by email (case-insensitive lookups should pass lowercased email)
+   */
+  static async findByEmail(db: Db, email: string): Promise<CompanyDocument | null> {
+    return getCompanyCollection(db).findOne({
+      company_email: email.trim().toLowerCase(),
+    });
+  }
+
+  /**
+   * List all companies
+   */
+  static async findAll(db: Db): Promise<CompanyDocument[]> {
+    return getCompanyCollection(db).find().sort({ createdAt: -1 }).toArray();
+  }
+
+  /**
+   * Insert a new company using formatted payload
+   */
+  static async create(
+    db: Db,
+    payload: Partial<CompanyDocument> & {
+      userId: ObjectId;
+      company_name: string;
+      company_email: string;
+      company_category: typeof companyCategoryEnum.options[number];
+    }
+  ): Promise<CompanyDocument> {
+    const documentToInsert = createCompanyPayload(payload);
+    const result = await getCompanyCollection(db).insertOne(documentToInsert);
+
+    return {
+      _id: result.insertedId,
+      ...documentToInsert,
+    };
+  }
+
+  /**
+   * Update an existing company by ID
+   */
+  static async updateById(
+    db: Db,
+    id: string | ObjectId,
+    updateData: Partial<CompanyDocument>
+  ): Promise<CompanyDocument | null> {
+    const _id = typeof id === 'string' ? new ObjectId(id) : id;
+
+    // Prevent direct modification of immutable structural fields
+    delete updateData._id;
+    delete updateData.createdAt;
+
+    const setPayload: Record<string, unknown> = {
+      ...updateData,
+      updatedAt: new Date(),
+    };
+
+    if (updateData.company_email) {
+      setPayload['company_email'] = updateData.company_email.trim().toLowerCase();
+    }
+
+    const result = await getCompanyCollection(db).findOneAndUpdate(
+      { _id },
+      { $set: setPayload },
+      { returnDocument: 'after' }
+    );
+
+    return result;
+  }
+
+  /**
+   * Delete a company by ID
+   */
+  static async deleteById(db: Db, id: string | ObjectId): Promise<boolean> {
+    const _id = typeof id === 'string' ? new ObjectId(id) : id;
+    const result = await getCompanyCollection(db).deleteOne({ _id });
+    return result.deletedCount === 1;
+  }
+}
+
+export default CompanyModel;

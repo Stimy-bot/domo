@@ -24,11 +24,11 @@ const Burger = () => {
 //   }, [authUser, currentUser]);
 
   const visibleLinks = useMemo(() => {
-    const roles: Role[] = effectiveUser?.role ?? [];
-    return navlinks.filter((nav) => {
-      if (!nav.roles || nav.roles.length === 0) return true;
-      return effectiveUser && nav.roles.some((r) => roles.includes(r as Role));
-    });
+    // const roles: Role[] = effectiveUser?.role ?? [];
+    // return navlinks.filter((nav) => {
+    //   if (!nav.roles || nav.roles.length === 0) return true;
+    //   return effectiveUser && nav.roles.some((r) => roles.includes(r as Role));
+    // });
   }, [effectiveUser]);
 
 //   const { mutate: signOut } = useMutation({

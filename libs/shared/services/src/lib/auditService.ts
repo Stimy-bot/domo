@@ -124,11 +124,19 @@ export async function logAuthEvent<M extends Record<string, unknown>>(
     ? `${geo.city || 'Unknown City'}, ${geo.region || ''} ${geo.country}`.trim()
     : 'Local/Internal';
 
+  // Ensure email is always present in metadata for schema validation
+  const resolvedEmail = metadata['email'] || user.email || '';
+
   const payload = {
     type,
-    actor: { _id: actorId, email: user.email, fullName: user.fullName },
+    actor: {
+      _id: actorId,
+      email: user.email || resolvedEmail,
+      fullName: user.fullName || '',
+    },
     ip: cleanIp,
     metadata: {
+      email: resolvedEmail, // <--- Add resolved email here
       ...metadata,
       userAgent: (req.headers['user-agent'] as string) || 'unknown',
       location,

@@ -6,7 +6,7 @@ import path from 'node:path';
 import { AppError } from '@domo/constants';
 
 const errorHandlerPlugin: FastifyPluginAsync = async (fastify) => {
-  const viewsDir = path.resolve(process.cwd(), 'apps/fastify/src/views');
+  const viewsDir = path.resolve(process.cwd(), 'apps/api/src/views');
 
   fastify.setErrorHandler((error: FastifyError | AppError | Error, request, reply) => {
     // Determine HTTP status code

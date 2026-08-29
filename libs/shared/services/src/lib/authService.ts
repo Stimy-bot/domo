@@ -399,7 +399,8 @@ export const refreshUserAccessToken = async (
   return { accessToken: newAccessToken, newRefreshToken };
 };
 
-export const verifyEmail = async (ctx: ServiceContext, codeId: string) => {
+export const verifyEmail = async (
+  ctx: ServiceContext, codeId: string) => {
   const codesCollection = ctx.db.collection('verificationCodes');
   const usersCollection = ctx.db.collection<UserDocument>('users');
 
@@ -662,7 +663,8 @@ export const updateProfilePicture = async (
   return sanitizeUser(updatedUser);
 };
 
-export const deleteAccount = async (ctx: ServiceContext, userId: string) => {
+export const deleteAccount = async (
+  ctx: ServiceContext, userId: string) => {
   const usersCollection = ctx.db.collection('users');
   const sessionsCollection = ctx.db.collection('sessions');
 
@@ -675,7 +677,8 @@ export const deleteAccount = async (ctx: ServiceContext, userId: string) => {
   return { message: 'Account deleted successfully' };
 };
 
-export const deleteAllUsers = async (ctx: ServiceContext) => {
+export const deleteAllUsers = async (
+  ctx: ServiceContext) => {
   const usersCollection = ctx.db.collection('users');
   const sessionsCollection = ctx.db.collection('sessions');
   const codesCollection = ctx.db.collection('verificationCodes');

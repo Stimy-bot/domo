@@ -16,7 +16,7 @@ export const passwordSchema = z
   .min(8, { message: 'Password must be at least 8 characters' })
   .max(32)
   .regex(
-    /^(?=.*\d)(?=.*[@#\-\_$%^&+=§!?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-\_$%^&+=§!?]+$/,
+    /^(?=.*\d)(?=.*[@#\-_$%^&+=§!?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!?]+$/,
     { message: 'Password must contain uppercase, lowercase, number, and special char' }
   );
 
@@ -45,12 +45,7 @@ export const otpSchema = z
   .length(6, { message: 'OTP must be 6 digits' })
   .regex(/^\d{6}$/, { message: 'OTP must be numeric' });
 
-export const bioSchema = z
-  .string()
-  .trim()
-  .max(255, 'Bio cannot exceed 255 characters')
-  .transform((val) => (val === '' ? undefined : val))
-  .optional();
+export const bioSchema = z.string().trim().max(255).optional();
 
 export const genderSchema = z.enum(['male', 'female', 'other', 'prefer_not_to_say']).optional();
 
@@ -91,10 +86,10 @@ export const familyNameSchema = z.string().trim().min(3).max(64).optional().or(z
  */
 export const verifyOtpSchema = z.preprocess((input) => {
   if (typeof input === 'object' && input !== null) {
-    const obj = input as any;
+    const obj = input as Record<string, unknown>;
     // Accept either `code` or `otp` from clients
-    if (obj.code && !obj.otp) obj.otp = obj.code;
-    if (obj.otp != null) obj.otp = String(obj.otp);
+    if (obj['code'] && !obj['otp']) obj['otp'] = obj['code'];
+    if (obj['otp'] != null) obj['otp'] = String(obj['otp']);
     return obj;
   }
   return input;
