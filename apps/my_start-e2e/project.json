@@ -1,5 +1,5 @@
 {
-  "name": "my_start-e2e",
+  "name": "@domo/my_start-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/my_start-e2e/src",

@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
+    "outDir": "../../dist/apps/my_start",
     "types": ["node", "@tanstack/react-start"],
     "rootDir": "../../",
     "module": "ESNext",
