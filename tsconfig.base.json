@@ -8,6 +8,9 @@
     "ignoreDeprecations": "6.0",
     "paths": {
       "@domo/*": ["apps/*/src", "libs/*/src"],
+      "@domo/api": ["./apps/api/src/*"],
+      "@domo/my_vite": ["./apps/my_vite/src/*"],
+      "@domo/my_start": ["./apps/my_start/src/*"],
       "@domo/ui-buttons": ["./libs/shared/ui-buttons/src/index.ts"],
       "@domo/ui-footer": ["./libs/shared/ui-footer/src/index.ts"],
       "@domo/ui-header": ["./libs/shared/ui-header/src/index.ts"],

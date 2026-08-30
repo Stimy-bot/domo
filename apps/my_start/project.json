@@ -1,0 +1,9 @@
+{
+  "name": "@domo/my_start",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/my_start/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project my_start --web",
+  "targets": {}
+}

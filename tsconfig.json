@@ -3,5 +3,9 @@
   "compileOnSave": false,
   "files": [],
   "references": [],
-  "compilerOptions": {}
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "customConditions": ["browser"]
+  }
 }
