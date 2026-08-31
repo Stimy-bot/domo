@@ -4,6 +4,14 @@
   "sourceRoot": "libs/shared/services/src",
   "projectType": "library",
   "tags": [],
-  "// targets": "to see all targets run: nx show project services --web",
-  "targets": {}
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "main": "libs/shared/services/src/index.ts",
+        "tsConfig": "libs/shared/services/tsconfig.json",
+        "outputPath": "dist/libs/shared/services"
+      }
+    }
+  }
 }

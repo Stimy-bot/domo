@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../dist/libs/shared/ui-footer",
-    "rootDir": "./src",
+    "rootDir": "../../..",
     "composite": true,
     "declaration": true,
     "types": ["node"]

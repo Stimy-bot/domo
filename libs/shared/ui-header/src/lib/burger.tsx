@@ -1,8 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useState
+  // , useMemo 
+} from 'react';
 import { Divide as Hamburger } from 'hamburger-react';
 // import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate, Link } from 'react-router-dom';
-import { navlinks } from '../../src/lib/navLinks.js';
+import { 
+  // useNavigate, 
+  Link } from 'react-router-dom';
+// import { navbarLinks } from '../../src/lib/navbarLinks.js';
 import { Dropdown } from './dropdown.js';
 // import { logout } from '../../api/auth';
 // import { useCurrentUser } from '../../hooks/useCurrentUser';
@@ -15,20 +19,20 @@ const Burger = () => {
   const [isOpen, setIsOpen] = useState(false);
 //   const { user: authUser } = useAuth();
 //   const { data: currentUser } = useCurrentUser();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 //   const queryClient = useQueryClient();
 //   const { addToast } = useToast() ?? { addToast: () => {} };
 
-//   const effectiveUser = useMemo(() => {
-//     return (authUser || currentUser) as User | null;
-//   }, [authUser, currentUser]);
+  const effectiveUser = useMemo(() => {
+    return (authUser || currentUser) as User | null;
+  }, [authUser, currentUser]);
 
   const visibleLinks = useMemo(() => {
-    // const roles: Role[] = effectiveUser?.role ?? [];
-    // return navlinks.filter((nav) => {
-    //   if (!nav.roles || nav.roles.length === 0) return true;
-    //   return effectiveUser && nav.roles.some((r) => roles.includes(r as Role));
-    // });
+    const roles: Role[] = effectiveUser?.role ?? [];
+    return navlinks.filter((nav) => {
+      if (!nav.roles || nav.roles.length === 0) return true;
+      return effectiveUser && nav.roles.some((r) => roles.includes(r as Role));
+    });
   }, [effectiveUser]);
 
 //   const { mutate: signOut } = useMutation({

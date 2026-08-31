@@ -11,9 +11,6 @@
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
-      "path": "../../libs/shared/ui-sidebar/tsconfig.lib.json"
-    },
-    {
       "path": "../../libs/shared/ui-footer/tsconfig.lib.json"
     },
     {

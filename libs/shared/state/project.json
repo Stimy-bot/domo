@@ -1,0 +1,17 @@
+{
+  "name": "@domo/state",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/state/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "main": "libs/shared/state/src/index.ts",
+        "tsConfig": "libs/shared/state/tsconfig.json",
+        "outputPath": "dist/libs/shared/state"
+      }
+    }
+  }
+}

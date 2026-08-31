@@ -1,8 +1,8 @@
 import React from 'react';
 
- const AboutPage: React.FC = () => {
+ const About: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 space-y-12">
+    <div className="max-w-4xl mx-auto px-4 py-20 space-y-12">
       <header className="space-y-4 border-b border-slate-200 dark:border-slate-800 pb-8">
         <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white">
           About The Project
@@ -52,4 +52,4 @@ import React from 'react';
   );
 };
 
-export {AboutPage};
+export {About};

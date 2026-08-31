@@ -9,6 +9,7 @@
     "paths": {
       "@domo/*": ["apps/*/src", "libs/*/src"],
       "@domo/api": ["./apps/api/src/*"],
+      "@domo/state": ["./libs/shared/state/src/index.ts"],
       "@domo/my_vite": ["./apps/my_vite/src/*"],
       "@domo/my_start": ["./apps/my_start/src/*"],
       "@domo/ui-buttons": ["./libs/shared/ui-buttons/src/index.ts"],

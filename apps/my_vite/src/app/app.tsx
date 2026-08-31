@@ -1,17 +1,31 @@
-import { Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MainLayout } from '../components/MainLayout';
-import { HomePage } from '../pages/HomePage';
-import { AboutPage } from '../pages/AboutPage';
+import { About } from '../pages/About';
+import { Home } from '../pages/Home';
+import { NotFound } from '../pages/NotFound';
 
-export function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="about" element={<AboutPage />} />
-      </Route>
-    </Routes>
-  );
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: 'about',
+        element: <About />,
+      },
+    ],
+  },
+  {
+    path: '*',
+    element: <NotFound />,
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={router} future={{ v7_startTransition: true }} />;
 }
-
-export default App;

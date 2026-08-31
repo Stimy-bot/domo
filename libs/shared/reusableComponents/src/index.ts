@@ -1,3 +1,3 @@
-export * from './lib/reusable-components';
-export * from './lib/handleClickOutsideDropdown.js';
-export * from './lib/socialMediaButtons.js';
+export * from './lib/reusableComponents';
+export * from './lib/handleClickOutsideDropdown';
+export * from './lib/socialMediaButtons';

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
- const HomePage: React.FC = () => {
+ const Home: React.FC = () => {
   return (
-    <div className="min-h-[calc(100vh-8rem)] flex flex-col justify-center items-center text-center px-4 py-12">
+    <div className="min-h-[calc(100vh-8rem)] flex flex-col justify-center items-center text-center px-4 py-20">
       <div className="max-w-3xl space-y-6">
         <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 dark:text-indigo-400 rounded-full">
           Vite + React + Tailwind
@@ -59,4 +59,4 @@ import { Link } from 'react-router-dom';
   );
 };
 
-export {HomePage};
+export {Home};
