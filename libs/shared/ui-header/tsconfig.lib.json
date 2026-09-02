@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "../../../dist/libs/shared/ui-header",
     "rootDir": "../../..",
     "composite": true,
@@ -15,9 +17,6 @@
     },
     {
       "path": "../constants/tsconfig.lib.json"
-    },
-    {
-      "path": "../reusableComponents/tsconfig.lib.json"
     }
   ]
 }

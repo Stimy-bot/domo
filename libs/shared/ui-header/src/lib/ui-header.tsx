@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
-import { useLayoutStore } from '@domo/state';
-import { useUIStore } from '@domo/state';
+import { useLayoutStore, type LayoutStoreState, useUIStore, type UIStoreState } from '@domo/state';
 
 export function UiHeader() {
   // Layout store
-  const headerVisible = useLayoutStore((s) => s.headerVisible);
-  const toggleMobileMenu = useLayoutStore((s) => s.toggleMobileMenu);
-
+const headerVisible = useLayoutStore((s: LayoutStoreState) => s.headerVisible);
+const mobileMenuOpen = useLayoutStore((s: LayoutStoreState) => s.mobileMenuOpen);
+const toggleMobileMenu = useLayoutStore((s: LayoutStoreState) => s.toggleMobileMenu);
   // Theme store
-  const themeMode = useUIStore((s) => s.themeMode);
-  const setThemeMode = useUIStore((s) => s.setThemeMode);
+const themeMode = useUIStore((s: UIStoreState) => s.themeMode);
+const setThemeMode = useUIStore((s: UIStoreState) => s.setThemeMode);
 
   function toggleTheme() {
     const next =
@@ -69,6 +68,34 @@ export function UiHeader() {
           ☰
         </button>
       </main>
+
+      {/* Mobile Dropdown Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute right-4 top-16 z-50 bg-dark-hard p-4 rounded-md shadow-lg">
+          <nav className="flex flex-col space-y-4 text-dark-light">
+
+            <Link to="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
+
+            <Link to="/about" className="hover:text-white transition-colors">
+              About
+            </Link>
+
+            <button
+              onClick={toggleTheme}
+              className="rounded border border-(--chip-line) bg-(--chip-bg) px-3 py-1.5 text-sm font-semibold text-(--sea-ink) shadow-[0_8px_22px_rgba(30,90,72,0.08)] transition hover:-translate-y-0.5"
+            >
+              {themeMode === 'auto'
+                ? 'Auto'
+                : themeMode === 'dark'
+                ? 'Dark'
+                : 'Light'}
+            </button>
+
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

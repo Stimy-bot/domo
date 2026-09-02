@@ -17,3 +17,6 @@ export const useAuthStore = create<AuthState>((set) => ({
   setUser: (user) => set({ user }),
   clearUser: () => set({ user: null }),
 }));
+
+// ⭐ Export the state type for selectors
+export type AuthStoreState = ReturnType<typeof useAuthStore.getState>;

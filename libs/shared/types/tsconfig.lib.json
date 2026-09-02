@@ -1,14 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
     "outDir": "../../../dist/libs/shared/types",
-    "rootDir": "../../..",
-    "composite": true,
     "declaration": true,
-    "types": ["node"]
+    "composite": true,
+    "rootDir": "src"
   },
-  "exclude": ["**/*.spec.*", "**/*.test.*", "vite.config.*", "vitest.config.*"],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"],
+  "include": ["src/**/*.ts"]
 }

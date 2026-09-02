@@ -1,4 +1,4 @@
-import { reusableComponents } from './reusable-components';
+import { reusableComponents } from './reusableComponents';
 import { describe, expect, it } from 'vitest';
 
 describe('reusableComponents', () => {

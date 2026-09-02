@@ -10,8 +10,5 @@
   "exclude": ["**/*.spec.*", "**/*.test.*", "vite.config.*", "vitest.config.*"],
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
   "references": [
-    {
-      "path": "../reusableComponents/tsconfig.lib.json"
-    }
   ]
 }

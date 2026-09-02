@@ -2,8 +2,6 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "module": "NodeNext",
-      "jsx": "react-jsx",
-    "allowJs": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "importHelpers": true,
@@ -21,5 +19,5 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ],
+  ]
 }

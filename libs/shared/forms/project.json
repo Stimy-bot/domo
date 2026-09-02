@@ -1,0 +1,17 @@
+{
+  "name": "@domo/forms",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/forms/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "main": "libs/shared/forms/src/index.ts",
+        "tsConfig": "libs/shared/forms/tsconfig.json",
+        "outputPath": "dist/libs/shared/forms"
+      }
+    }
+  }
+}

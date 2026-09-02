@@ -11,6 +11,18 @@
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
+      "path": "../../libs/shared/reusableComponents"
+    },
+    {
+      "path": "../../libs/shared/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/state/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/constants/tsconfig.lib.json"
+    },
+    {
       "path": "../../libs/shared/ui-footer/tsconfig.lib.json"
     },
     {

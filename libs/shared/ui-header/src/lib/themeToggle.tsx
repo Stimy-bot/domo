@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
-import { useUIStore, type ThemeMode } from '@domo/state';
+import { useUIStore, type ThemeMode, type UIStoreState } from '@domo/state';
 
 function getInitialMode(): ThemeMode {
   if (typeof window === 'undefined') return 'auto';
 
   const stored = window.localStorage.getItem('theme');
   if (stored === 'light' || stored === 'dark' || stored === 'auto') {
-    return stored;
+    return stored as ThemeMode;
   }
   return 'auto';
 }
 
 export default function ThemeToggle() {
-  const mode = useUIStore((s) => s.themeMode);
-  const setThemeMode = useUIStore((s) => s.setThemeMode);
+  const mode = useUIStore((s: UIStoreState) => s.themeMode);
+  const setThemeMode = useUIStore((s: UIStoreState) => s.setThemeMode);
 
   // Initialize theme from localStorage
   useEffect(() => {
@@ -28,6 +28,7 @@ export default function ThemeToggle() {
     const media = window.matchMedia('(prefers-color-scheme: dark)');
     const onChange = () => setThemeMode('auto');
 
+    // Use addEventListener/removeEventListener for modern browsers
     media.addEventListener('change', onChange);
     return () => media.removeEventListener('change', onChange);
   }, [mode, setThemeMode]);

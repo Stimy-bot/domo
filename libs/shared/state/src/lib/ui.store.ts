@@ -39,3 +39,5 @@ export const useUIStore = create<UIState>((set) => ({
     window.localStorage.setItem('theme', mode);
   },
 }));
+
+export type UIStoreState = ReturnType<typeof useUIStore.getState>;

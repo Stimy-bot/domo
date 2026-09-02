@@ -12,7 +12,6 @@
       "@domo/state": ["./libs/shared/state/src/index.ts"],
       "@domo/my_vite": ["./apps/my_vite/src/*"],
       "@domo/my_start": ["./apps/my_start/src/*"],
-      "@domo/ui-buttons": ["./libs/shared/ui-buttons/src/index.ts"],
       "@domo/ui-footer": ["./libs/shared/ui-footer/src/index.ts"],
       "@domo/ui-header": ["./libs/shared/ui-header/src/index.ts"],
       "@domo/ui-sidebar": ["./libs/shared/ui-sidebar/src/index.ts"],
@@ -28,7 +27,8 @@
       "@domo/services": ["./libs/shared/services/src/index.ts"],
       "@domo/config": ["./libs/shared/config/src/index.ts"],
       "@domo/middleware": ["./libs/shared/middleware/src/index.ts"],
-      "@domo/validate": ["./libs/shared/validates/src/index.ts"]
+      "@domo/validate": ["./libs/shared/validates/src/index.ts"],
+      "@domo/domo": ["./domo/src/index.ts"]
     },
     "typeRoots": ["./types", "./node_modules/@types", "./node_modules"],
     "esModuleInterop": true,

@@ -1,17 +1,14 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "NodeNext",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "importHelpers": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noPropertyAccessFromIndexSignature": true
+    "outDir": "../../../dist/libs/shared/state",
+    "rootDir": "./src",
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "types": ["node"]
   },
-  "files": [],
-  "include": [],
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"],
   "references": [
     {
       "path": "./tsconfig.lib.json"

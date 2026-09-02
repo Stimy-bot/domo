@@ -37,3 +37,6 @@ export const useLayoutStore = create<LayoutState>((set) => ({
   openMobileMenu: () => set({ mobileMenuOpen: true }),
   closeMobileMenu: () => set({ mobileMenuOpen: false }),
 }));
+
+
+export type LayoutStoreState = ReturnType<typeof useLayoutStore.getState>;

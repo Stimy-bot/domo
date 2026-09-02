@@ -5,7 +5,7 @@ import { UiFooter } from '@domo/ui-footer';
 const MainLayout = () => {
   return (
     <div className="app-container">
-      <UiHeader title="My Vite" />
+      <UiHeader />
       <main className="content">
         <Outlet />
       </main>
