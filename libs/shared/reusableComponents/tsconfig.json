@@ -6,8 +6,28 @@
     "jsx": "react-jsx",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "target": "ES2022",
+    "target": "ES2022"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["**/*.spec.*", "**/*.test.*"]
+  "exclude": ["**/*.spec.*", "**/*.test.*"],
+  "references": [
+    {
+      "path": "../ui-footer"
+    },
+    {
+      "path": "../ui-header"
+    },
+    {
+      "path": "../utils"
+    },
+    {
+      "path": "../state"
+    },
+    {
+      "path": "../hooks"
+    },
+    {
+      "path": "../context"
+    }
+  ]
 }

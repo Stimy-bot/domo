@@ -3,7 +3,6 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/firebase",
-    "tsBuildInfoFile": "../../../dist/libs/shared/firebase/tsconfig.lib.tsbuildinfo",
     "module": "NodeNext",
     "moduleResolution": "NodeNext"
   },

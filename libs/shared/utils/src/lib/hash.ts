@@ -1,4 +1,4 @@
-// libs/shared-utils/src/lib/hash.ts
+// libs/shared/utils/src/lib/hash.ts
 import { randomBytes, scrypt as _scrypt, timingSafeEqual } from 'crypto';
 import { promisify } from 'util';
 

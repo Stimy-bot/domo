@@ -6,9 +6,7 @@
     "declarationMap": true,
     "outDir": "../../../dist/libs/shared/client",
     "tsBuildInfoFile": "../../../dist/libs/shared/client/tsconfig.lib.tsbuildinfo",
-    "typeRoots": ["../../../types", "../../../node_modules/@types"],
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "typeRoots": ["../../../types", "../../../node_modules/@types"]
   },
   "include": ["src", "../../../types/global.d.ts"],
   "references": [

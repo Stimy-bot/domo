@@ -4,7 +4,8 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../../dist/libs/shared/forms"
+    "outDir": "../../../dist/libs/shared/forms",
+        "tsBuildInfoFile": "../../../dist/libs/shared/forms/tsconfig.lib.tsbuildinfo",
   },
   "include": ["src"],
   "references": [

@@ -4,7 +4,8 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../../dist/libs/shared/state"
+    "outDir": "../../../dist/libs/shared/state",
+        "tsBuildInfoFile": "../../../dist/libs/shared/state/tsconfig.lib.tsbuildinfo",
   },
   "include": ["src"]
 }

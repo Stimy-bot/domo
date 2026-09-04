@@ -4,12 +4,19 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../../dist/libs/shared/config"
+    "outDir": "../../../dist/libs/shared/config",
+        "tsBuildInfoFile": "../../../dist/libs/shared/config/tsconfig.lib.tsbuildinfo"
   },
   "include": ["src"],
   "references": [
     {
       "path": "../models/tsconfig.lib.json"
+    },
+    {
+      "path": "../utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../constants/tsconfig.lib.json"
     }
   ]
 }

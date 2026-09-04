@@ -3,10 +3,32 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/middleware",
-   "tsBuildInfoFile": "../../../dist/libs/shared/middleware/tsconfig.lib.tsbuildinfo",
     "module": "NodeNext",
     "moduleResolution": "NodeNext"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.*", "**/*.test.*"]
+  "exclude": ["**/*.spec.*", "**/*.test.*"],
+  "references": [
+    {
+      "path": "../schemas"
+    },
+    {
+      "path": "../services"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../models"
+    },
+    {
+      "path": "../types"
+    },
+    {
+      "path": "../utils"
+    },
+    {
+      "path": "../constants"
+    }
+  ]
 }

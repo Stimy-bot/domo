@@ -1,4 +1,4 @@
-// @beginning/libs/shared-utils/src/lib/cookies.ts
+// libs/shared/utils/src/lib/cookies.ts
 import type { CookieSerializeOptions } from "@fastify/cookie";
 import type { FastifyReply } from "fastify";
 import { fifteenMinutesFromNow, thirtyDaysFromNow } from "./date.js";

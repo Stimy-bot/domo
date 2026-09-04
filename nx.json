@@ -121,7 +121,8 @@
   },
   "sync": {
     "disabledTaskSyncGenerators": [
-      "@domo/tailwind-sync-plugin:update-tailwind-globs"
+      "@domo/tailwind-sync-plugin:update-tailwind-globs",
+      "@nx/js:typescript-sync"
     ]
   }
 }

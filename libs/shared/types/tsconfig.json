@@ -3,7 +3,6 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/types",
-      "tsBuildInfoFile": "../../../dist/libs/shared/types/tsconfig.lib.tsbuildinfo",
     "module": "NodeNext",
     "moduleResolution": "NodeNext"  },
   "include": ["src/**/*.ts"],

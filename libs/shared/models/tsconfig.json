@@ -3,10 +3,20 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/models",
-       "tsBuildInfoFile": "../../../dist/libs/shared/models/tsconfig.lib.tsbuildinfo",
     "module": "NodeNext",
     "moduleResolution": "NodeNext"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.*", "**/*.test.*"]
+  "exclude": ["**/*.spec.*", "**/*.test.*"],
+  "references": [
+    {
+      "path": "../constants"
+    },
+    {
+      "path": "../utils"
+    },
+    {
+      "path": "../schemas"
+    }
+  ]
 }

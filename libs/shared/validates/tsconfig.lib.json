@@ -4,9 +4,11 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../../dist/libs/shared/validates"
+    "rootDir": "src",
+    "outDir": "../../../dist/libs/shared/validates",
+    "tsBuildInfoFile": "../../../dist/libs/shared/validates/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts"],
   "references": [
     {
       "path": "../constants/tsconfig.lib.json"

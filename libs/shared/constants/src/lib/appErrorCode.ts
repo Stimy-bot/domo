@@ -1,8 +1,8 @@
-const enum AppErrorCode {
-  InvalidAccessToken = "InvalidAccessToken",
-  ForbiddenAccess = "ForbiddenAccess",
-  AccountInactive = "AccountInactive", 
-  BadRequest = "BadRequest",
-}
+export const AppErrorCode = {
+  InvalidAccessToken: 'InvalidAccessToken',
+  ForbiddenAccess: 'ForbiddenAccess',
+  AccountInactive: 'AccountInactive',
+  BadRequest: 'BadRequest',
+} as const;
 
-export { AppErrorCode };
+export type AppErrorCode = (typeof AppErrorCode)[keyof typeof AppErrorCode];

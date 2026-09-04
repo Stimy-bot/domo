@@ -3,10 +3,23 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/forms",
-       "tsBuildInfoFile": "../../../dist/libs/shared/forms/tsconfig.lib.tsbuildinfo",
     "module": "NodeNext",
     "moduleResolution": "NodeNext"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["**/*.spec.*", "**/*.test.*"]
+  "exclude": ["**/*.spec.*", "**/*.test.*"],
+  "references": [
+    {
+      "path": "../hooks"
+    },
+    {
+      "path": "../firebase"
+    },
+    {
+      "path": "../constants"
+    },
+    {
+      "path": "../reusableComponents"
+    }
+  ]
 }

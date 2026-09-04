@@ -4,11 +4,11 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../../dist/libs/shared/utils",
-    "tsBuildInfoFile": "../../../dist/libs/shared/utils/tsconfig.lib.tsbuildinfo",
-        "typeRoots": ["../../../types", "../../../node_modules/@types"]
+    "rootDir": "src",
+    "outDir": "../../../dist/libs/shared/validates",
+    "tsBuildInfoFile": "../../../dist/libs/shared/validates/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src", "../../../types/global.d.ts"],
+  "include": ["src/**/*.ts"],
   "references": [
     {
       "path": "../types/tsconfig.lib.json"

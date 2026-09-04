@@ -11,5 +11,19 @@
     "types": ["vite/client"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["**/*.spec.*", "**/*.test.*"]
+  "exclude": ["**/*.spec.*", "**/*.test.*"],
+  "references": [
+    {
+      "path": "../types"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../schemas"
+    },
+    {
+      "path": "../utils"
+    }
+  ]
 }

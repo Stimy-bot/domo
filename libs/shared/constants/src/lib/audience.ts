@@ -1,7 +1,7 @@
+export const Audience = {
+  User: "User",
+  Admin: "Admin",
+  SuperAdmin: "SuperAdmin",
+} as const
 
-export enum Audience {
-  User = "User",
-  Admin = "Admin",
-  SuperAdmin = "SuperAdmin",
-}
-
+export type Audience = (typeof Audience)[keyof typeof Audience];
