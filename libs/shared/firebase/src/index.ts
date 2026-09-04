@@ -1,1 +1,6 @@
-export * from './lib/firebase.js';
+export {  app, 
+  auth, 
+  storage, 
+  ref, 
+  uploadBytes, 
+  getDownloadURL  } from './lib/firebase';

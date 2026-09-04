@@ -1,11 +1,14 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/libs/shared/context",
-    "declaration": true,
     "composite": true,
-    "rootDir": "src"
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "../../../dist/libs/shared/context",
+    "tsBuildInfoFile": "../../../dist/libs/shared/context/tsconfig.lib.tsbuildinfo",
+    "typeRoots": ["../../../types", "../../../node_modules/@types"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
-  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"],
-  "include": ["src/**/*.ts"]
+  "include": ["src", "../../../types/global.d.ts"]
 }

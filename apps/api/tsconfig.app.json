@@ -1,9 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "../../",
-    "outDir": "../../dist/out-tsc",
-    "module": "NodeNext",
+    "rootDir": "src",
+    "outDir": "../../dist/apps/api",    "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "target": "es2022",
     "ignoreDeprecations": "6.0"
@@ -23,9 +22,6 @@
       "path": "../../libs/shared/validates/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/shared/middleware/tsconfig.lib.json"
-    },
-    {
       "path": "../../libs/shared/schemas/tsconfig.lib.json"
     },
     {
@@ -33,6 +29,10 @@
     },
     {
       "path": "../../libs/shared/constants/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/middleware/tsconfig.lib.json"
     }
   ]
 }
+

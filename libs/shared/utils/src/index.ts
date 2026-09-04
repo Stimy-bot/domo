@@ -1,6 +1,6 @@
 export * from './lib/utils';
 export * from './lib/lifecycle'
-export { formatNameToTitle, cn } from './lib/helper';
+export {formatNameToTitle, cn} from './lib/helper';
 export * from './lib/hash';
 export * from './lib/lifecycle';
 export * from './lib/jwt';
@@ -12,4 +12,6 @@ export * from './lib/sendMail';
 export * from './lib/emailTemplates'
 export * from './lib/catchErrors';
 export * from './lib/twilio';
-export * from './lib/cn'
+export * from './lib/cn';
+export * from './lib/ip';
+export * from './lib/navigation'

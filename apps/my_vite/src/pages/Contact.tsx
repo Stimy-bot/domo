@@ -1,262 +1,186 @@
-// import {MainLayout} from "../components/MainLayout";
-import "react-phone-input-2/lib/style.css";
-// import { images } from "@/constants";
-// import MapView from "@/components/Layouts/MapView";
-import FormFactory, { type SubmissionResult, type FieldConfig } from "@/components/Layouts/Forms/shared/FormFactory";
-import TextInput from "@/components/Layouts/Forms/shared/TextInput";
-import {PhoneNumberInput} from "@domo/reusableComponents";
-import { emailRegex, phoneRegex } from "@domo/constants";
-import EmailInput from "@/components/Layouts/Forms/shared/EmailInput";
-import {SelectInput} from "@domo/reusableComponents";
-import API from "../config/apiClient";
+import { useState } from "react";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 
-interface ApiResponse {
-  status: string;
-  message: string;
-}
+const ContactSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Enter a valid email"),
+  subject: z.string().min(1, "Subject is required"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+  subscribe: z.boolean().optional(),
+});
 
-type ContactFormValues = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  website: string;
-  attention: string;
-  message: string;
-};
-
+type ContactValues = z.infer<typeof ContactSchema>;
 
 function Contact() {
-  const contactFormOptions = {
+  const [status, setStatus] = useState<null | "idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const form = useForm({
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
-      phone: "",
-      website: "",
-      attention: "",
+      subject: "",
       message: "",
+      subscribe: false,
     },
-  };
+    onSubmit: async (values) => {
+      setStatus("submitting");
+      setErrorMessage(null);
 
-
-  const handleContactSubmit = async ({ value }: { value: ContactFormValues }): Promise<SubmissionResult> => {
-    try {
-      const response = await API.post<any, ApiResponse>("/sendMail", value);
-
-      // API client already returns response.data
-      return {
-        success: true,
-        message: response.message || "Message sent successfully!",
-        redirect: "/thank-you",
-      };
-    } catch (err: any) {
-      console.error("Submission error:", err);
-      return {
-        success: false,
-        // If backend sends a specific error (like "Unverified domain"), show it!
-        message: err.message || "Something went wrong. Please try again."
-      };
-    }
-  };
-
-  const ATTENTION_OPTIONS = [
-    { value: "sales", label: "Sales" },
-    { value: "technician", label: "Technician" },
-    { value: "webmaster", label: "Webmaster" },
-    { value: "other", label: "Other" }
-  ];
-
-  const contactFieldsConfig: FieldConfig<ContactFormValues>[] = [
-
-    {
-      name: "firstName",
-      label: "First Name",
-      placeholder: "Enter First Name",
-      component: TextInput,
-      validators: {
-        onChangeAsyncDebounceMs: 500,
-        onChangeAsync: ({ value }: { value: string }) => {
-          if (!value) return "First and last name required";
-          if (value.length < 3)
-            return "First name must be at least 3 characters long";
-          return undefined;
-        },
-      },
-    },
-    {
-      name: "lastName",
-      label: "Last Name",
-      placeholder: "Enter Last Name",
-      component: TextInput,
-      validators: {
-        onChangeAsyncDebounceMs: 500,
-        onChangeAsync: ({ value }: { value: string }) => {
-          if (!value) return "First and last name required";
-          if (value.length < 3)
-            return "Last name must be at least 3 characters long";
-          return undefined;
-        },
-      },
-    },
-    {
-      name: "email",
-      label: "Email address",
-      placeholder: "Enter email",
-      component: EmailInput, // Use the shared email component
-      validators: {
-        onChangeAsyncDebounceMs: 500,
-        onChangeAsync: ({ value }: { value: string }) => {
-          if (!value) {
-            return "Email is required";
+      // Server-side validation with Zod before sending
+      const parsed = ContactSchema.safeParse(values);
+      if (!parsed.success) {
+        // Map Zod errors to field errors
+        const fieldErrors = parsed.error.flatten().fieldErrors;
+        Object.entries(fieldErrors).forEach(([key, msgs]) => {
+          if (msgs && msgs.length) {
+            form.setFieldMeta(key as keyof ContactValues, (meta) => ({
+              ...meta,
+              errorMap: { ...meta.errorMap, onSubmit: msgs[0] },
+            }));
           }
-          if (!emailRegex.test(value)) {
-            return "Invalid email";
-          }
-          return undefined;
-        },
-      },
-    },
-    {
-      name: "phone",
-      label: "Phone Number",
-      component: PhoneNumberInput,
-      validators: {
-        onChangeAsyncDebounceMs: 500,
-        onChangeAsync: ({ value }: { value: string }) => {
-          if (!value) {
-            return "Phone number is required";
-          }
-          if (!phoneRegex.test(value)) {
-            return "Invalid phone number";
-          }
-          return undefined;
-        },
+        });
+        setStatus("error");
+        setErrorMessage("Please fix the highlighted fields.");
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        });
+
+        if (!res.ok) {
+          const payload = await res.json().catch(() => ({}));
+          throw new Error(payload?.message || `Request failed with status ${res.status}`);
+        }
+
+        setStatus("success");
+        form.reset();
+      } catch (err: unknown) {
+        setStatus("error");
+        setErrorMessage(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      } finally {
+        setTimeout(() => setStatus("idle"), 2000);
       }
     },
-    {
-      name: "website",
-      label: "Website",
-      placeholder: "Enter website",
-      component: TextInput,
-      validators: {
-        onChangeAsyncDebounceMs: 500,
-        onChangeAsync: ({ value }: { value: string }) => {
-          if (!value) return "Website is required";
-          if (value.length < 3)
-            return "Website must be at least 3 characters long";
-          return undefined;
-        },
-      }
-    },
-    {
-      name: "attention",
-      label: "Attention",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      component: SelectInput as React.ComponentType<any>,
-      props: {
-        options: ATTENTION_OPTIONS,
-        placeholder: "Enter Department",
-      },
-      validators: {
-        onChangeAsyncDebounceMs: 500,
-        onChangeAsync: ({ value }: { value: string }) =>
-          (!value ? "Please your attention" : undefined)
-      }
-    },
-    {
-      name: "message",
-      label: "Message",
-      placeholder: "Enter message",
-      component: TextInput,
-      validators: {
-        onChangeAsyncDebounceMs: 500,
-        onChangeAsync: ({ value }: { value: string }) => {
-          if (!value) return "Message is required";
-          if (value.length < 10)
-            return "Message must be at least 10 characters long";
-          return undefined;
-        },
-      },
-    },
+  });
 
-  ]
+  const getError = (field: keyof ContactValues) => form.getFieldMeta(field)?.errorMap?.onSubmit;
 
-return (
-  // <MainLayout>
-    <main className="w-full min-h-fit max-w-7xl mx-auto py-20 flex flex-col lg:grid lg:grid-cols-3 gap-12 lg:gap-0">
-      
-      {/* SECTION 1: INFO - Added responsive padding and text alignment */}
-      <section className="px-6 lg:mx-10 order-1">
-        <div className="text-center lg:text-left">
-          <span className=" font-roboto text-3xl lg:text-4xl font-bold text-dark-hard mb-4 dark:text-[rgb(90,113,132)]">
-            Contact Us
-          </span>
-          <h2 className="mb-6 text-sm dark:text-dark-light font-bold uppercase text-dark tracking-widest">
-            GET IN TOUCH WITH US
-          </h2>
-          <p className="dark:text-dark-light text-sm leading-relaxed mb-9 text-body-color">
-            We want to hear from you. Please submit any questions,
-            suggestions, or general feedback. We'll get back to you as soon as we
-            can. Thanks!
-          </p>
+  return (
+    <form
+      onSubmit={form.handleSubmit}
+      className="max-w-xl mx-auto bg-white shadow-md pt-30 rounded-md p-6 space-y-5"
+      noValidate
+      aria-live="polite"
+    >
+      <h2 className="text-2xl font-semibold">Contact Us</h2>
 
-          {/* CONTACT ITEMS - Optimized for small screens */}
-          <div className="space-y-8">
-            <div className="flex items-start">
-              <div className="mr-4 flex h-12 w-12 shrink-0 items-center justify-center rounded bg-primary/20">
-                {/* <img src={images.location} alt="Location" className="w-6 h-6" /> */}
-              </div>
-              <div className="text-left">
-                <h4 className="dark:text-dark-light text-lg font-bold text-dark">Our Location</h4>
-                <p className="dark:text-dark-light text-sm text-body-color">
-                  3392 Blaine St. NE 1D Washington DC 20019
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start">
-              <div className="mr-4 flex h-12 w-12 shrink-0 items-center justify-center rounded bg-primary/20">
-                {/* <img src={images.phone} alt="Phone" className="w-6 h-6" /> */}
-              </div>
-              <div className="text-left">
-                <h4 className="dark:text-dark-light text-lg font-bold text-dark">Phone Number</h4>
-                <p className="dark:text-dark-light text-sm text-body-color">(+1) 202 317 2660</p>
-              </div>
-            </div>
-
-            <div className="flex items-start">
-              <div className="mr-4 flex h-12 w-12 shrink-0 items-center justify-center rounded bg-primary/20">
-                {/* <img src={images.mail_icon} alt="Email" className="w-6 h-6" /> */}
-              </div>
-              <div className="text-left">
-                <h4 className="dark:text-dark-light text-lg font-bold text-dark">Email Address</h4>
-                <p className="dark:text-dark-light text-sm text-body-color">totaldata80@gmail.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 2: FORM - Added padding for mobile */}
-      <section className="px-6 order-2">
-        <FormFactory
-          formOptions={contactFormOptions}
-          fieldsConfig={contactFieldsConfig}
-          onValidSubmit={handleContactSubmit}
-          submitButtonText="Contact Us"
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Name</label>
+        <input
+          value={form.state.values.name}
+          onChange={(e) => form.setFieldValue("name", e.target.value)}
+          className={`mt-1 block w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+            getError("name") ? "border-red-500" : "border-gray-300"
+          }`}
+          aria-invalid={!!getError("name")}
+          aria-describedby={getError("name") ? "name-error" : undefined}
         />
-      </section>
+        {getError("name") && (
+          <p id="name-error" className="mt-1 text-sm text-red-600">
+            {getError("name")}
+          </p>
+        )}
+      </div>
 
-      {/* SECTION 3: MAP - Ensure it fills space correctly on mobile */}
-      <section className="w-full h-75px lg:h-full min-h-100px order-3 px-6 lg:px-0 mt-10 lg:mt-0">
-        {/* <MapView /> */}
-      </section>
-      
-    </main>
-  // </MainLayout>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          type="email"
+          value={form.state.values.email}
+          onChange={(e) => form.setFieldValue("email", e.target.value)}
+          className={`mt-1 block w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+            getError("email") ? "border-red-500" : "border-gray-300"
+          }`}
+          aria-invalid={!!getError("email")}
+          aria-describedby={getError("email") ? "email-error" : undefined}
+        />
+        {getError("email") && (
+          <p id="email-error" className="mt-1 text-sm text-red-600">
+            {getError("email")}
+          </p>
+        )}
+      </div>
 
-);
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Subject</label>
+        <input
+          value={form.state.values.subject}
+          onChange={(e) => form.setFieldValue("subject", e.target.value)}
+          className={`mt-1 block w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+            getError("subject") ? "border-red-500" : "border-gray-300"
+          }`}
+          aria-invalid={!!getError("subject")}
+          aria-describedby={getError("subject") ? "subject-error" : undefined}
+        />
+        {getError("subject") && (
+          <p id="subject-error" className="mt-1 text-sm text-red-600">
+            {getError("subject")}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Message</label>
+        <textarea
+          rows={6}
+          value={form.state.values.message}
+          onChange={(e) => form.setFieldValue("message", e.target.value)}
+          className={`mt-1 block w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+            getError("message") ? "border-red-500" : "border-gray-300"
+          }`}
+          aria-invalid={!!getError("message")}
+          aria-describedby={getError("message") ? "message-error" : undefined}
+        />
+        {getError("message") && (
+          <p id="message-error" className="mt-1 text-sm text-red-600">
+            {getError("message")}
+          </p>
+        )}
+      </div>
+
+      <div className="flex items-center gap-2">
+        <input
+          id="subscribe"
+          type="checkbox"
+          checked={form.state.values.subscribe}
+          onChange={(e) => form.setFieldValue("subscribe", e.target.checked)}
+          className="h-4 w-4 text-indigo-600"
+        />
+        <label htmlFor="subscribe" className="text-sm text-gray-700">
+          Subscribe to updates
+        </label>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
+        >
+          {status === "submitting" ? "Sending..." : "Send message"}
+        </button>
+
+        {status === "success" && <p className="text-sm text-green-600">Thanks — your message was sent.</p>}
+        {status === "error" && <p className="text-sm text-red-600">Error: {errorMessage}</p>}
+      </div>
+    </form>
+  );
 }
 
 export { Contact };

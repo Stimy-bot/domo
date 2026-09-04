@@ -4,7 +4,7 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "NodeNext",
     "types": ["vite/client", "vitest"]
   },
   "files": [],

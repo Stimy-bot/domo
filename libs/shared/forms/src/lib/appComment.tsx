@@ -16,7 +16,7 @@ type CommentFormValues = {
   email: string;
   comment: string;
 };
-export default function AppComment() {
+function AppComment() {
   const commentFormOptions = {
     defaultValues: {
       fullName: "",
@@ -112,3 +112,5 @@ const handleCommentSubmit = async ({ value }: { value: CommentFormValues }): Pro
     </MainLayout>
   );
 }
+ 
+export { AppComment };

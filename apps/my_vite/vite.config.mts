@@ -69,6 +69,18 @@ export default defineConfig({
         import.meta.dirname,
         '../../libs/shared/reusableComponents/src/index.ts',
       ),
+        '@domo/types': resolve(
+        import.meta.dirname,
+        '../../libs/shared/types/src/index.ts',
+      ),
+        '@domo/hooks': resolve(
+        import.meta.dirname,
+        '../../libs/shared/hooks/src/index.ts',
+      ),
+        '@domo/firebase': resolve(
+        import.meta.dirname,
+        '../../libs/shared/firebase/src/index.ts',
+      ),
     },
   },
 
@@ -104,6 +116,9 @@ export default defineConfig({
       '@domo/utils',
       '@domo/constants',
       '@domo/reusableComponents',
+      '@domo/types',
+      '@domo/hooks',
+      '@domo/firebase',
     ],
   },
 });

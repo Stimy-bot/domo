@@ -1,21 +1,13 @@
 {
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "allowJs": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "rootDir": ".",
-    "types": ["vite/client", "vitest"]
+    "rootDir": "src",
+    "outDir": "../../../dist/libs/shared/ui-buttons",
+    "tsBuildInfoFile": "../../../dist/libs/shared/ui-buttons/tsconfig.lib.tsbuildinfo",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "jsx": "react-jsx"
   },
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ],
-  "extends": "../../../tsconfig.base.json"
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["**/*.spec.*", "**/*.test.*"]
 }

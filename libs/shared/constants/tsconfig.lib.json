@@ -1,16 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "outDir": "../../../dist/libs/shared/constants",
-    "rootDir": "../../..",
     "composite": true,
     "declaration": true,
-    "types": ["node"]
+    "declarationMap": true,
+    "outDir": "../../../dist/libs/shared/constants"
   },
-  "exclude": ["**/*.spec.*", "**/*.test.*", "vite.config.*", "vitest.config.*"],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src"],
   "references": [
     {
       "path": "../types/tsconfig.lib.json"

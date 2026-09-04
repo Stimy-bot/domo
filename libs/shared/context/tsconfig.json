@@ -1,11 +1,13 @@
 {
   "extends": "../../../tsconfig.base.json",
-  "compilerOptions": {},
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.lib.json"
-    }
-  ]
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "../../../dist/libs/shared/context",
+    "jsx": "react-jsx",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["**/*.spec.*", "**/*.test.*"]
 }

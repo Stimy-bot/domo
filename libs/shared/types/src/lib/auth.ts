@@ -13,7 +13,7 @@ export type AuthEventUser = z.infer<typeof AuthEventUserSchema>;
 export const ROLES = ['user', 'admin', 'superAdmin'] as const;
 export type RoleType = typeof ROLES[number];
 
-export type Role = 'user' | 'admin' | 'superAdmin';
+type Role = 'user' | 'admin' | 'superAdmin';
 
 // JWT Access Token Payload
 export interface AccessTokenPayload {

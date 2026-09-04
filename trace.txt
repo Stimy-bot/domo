@@ -1,0 +1,458 @@
+File '/home/dominic/github/domo/libs/shared/context/src/package.json' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/package.json' does not exist.
+File '/home/dominic/github/domo/libs/shared/package.json' does not exist.
+File '/home/dominic/github/domo/libs/package.json' does not exist.
+Found 'package.json' at '/home/dominic/github/domo/package.json'.
+======== Resolving module 'react/jsx-runtime' from '/home/dominic/github/domo/libs/shared/context/src/index.ts'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+'baseUrl' option is set to '/home/dominic/github/domo', using this value to resolve non-relative module name 'react/jsx-runtime'.
+'paths' option is specified, looking for a pattern to match module name 'react/jsx-runtime'.
+'baseUrl' option is set to '/home/dominic/github/domo', using this value to resolve non-relative module name 'react/jsx-runtime'.
+Resolving module name 'react/jsx-runtime' relative to base url '/home/dominic/github/domo' - '/home/dominic/github/domo/react/jsx-runtime'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/react/jsx-runtime', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/libs/shared/context/src/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/package.json' exists according to earlier cached lookups.
+Loading module 'react/jsx-runtime' from 'node_modules' folder, target file types: TypeScript, JavaScript, Declaration, JSON.
+Searching all ancestor node_modules directories for preferred extensions: TypeScript, Declaration.
+Directory '/home/dominic/github/domo/libs/shared/context/src/node_modules' does not exist, skipping all lookups in it.
+Directory '/home/dominic/github/domo/libs/shared/context/node_modules' does not exist, skipping all lookups in it.
+Directory '/home/dominic/github/domo/libs/shared/node_modules' does not exist, skipping all lookups in it.
+Directory '/home/dominic/github/domo/libs/node_modules' does not exist, skipping all lookups in it.
+Found 'package.json' at '/home/dominic/github/domo/node_modules/react/package.json'.
+Entering conditional exports.
+Saw non-matching condition 'react-server'.
+Matched 'exports' condition 'default'.
+Using 'exports' subpath './jsx-runtime' with target './jsx-runtime.js'.
+File name '/home/dominic/github/domo/node_modules/react/jsx-runtime.js' has a '.js' extension - stripping it.
+File '/home/dominic/github/domo/node_modules/react/jsx-runtime.ts' does not exist.
+File '/home/dominic/github/domo/node_modules/react/jsx-runtime.tsx' does not exist.
+File '/home/dominic/github/domo/node_modules/react/jsx-runtime.d.ts' does not exist.
+Failed to resolve under condition 'default'.
+Exiting conditional exports.
+Export specifier './jsx-runtime' does not exist in package.json scope at path '/home/dominic/github/domo/node_modules/react'.
+Found 'package.json' at '/home/dominic/github/domo/node_modules/@types/react/package.json'.
+Entering conditional exports.
+Saw non-matching condition 'types@<=5.0'.
+Matched 'exports' condition 'types'.
+Entering conditional exports.
+Matched 'exports' condition 'default'.
+Using 'exports' subpath './jsx-runtime' with target './jsx-runtime.d.ts'.
+File '/home/dominic/github/domo/node_modules/@types/react/jsx-runtime.d.ts' exists - use it as a name resolution result.
+'package.json' has a 'peerDependencies' field.
+Resolving real path for '/home/dominic/github/domo/node_modules/@types/react', result '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react'.
+Resolved under condition 'default'.
+Exiting conditional exports.
+Resolved under condition 'types'.
+Exiting conditional exports.
+Resolving real path for '/home/dominic/github/domo/node_modules/@types/react/jsx-runtime.d.ts', result '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/jsx-runtime.d.ts'.
+======== Module name 'react/jsx-runtime' was successfully resolved to '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/jsx-runtime.d.ts' with Package ID '@types/react/jsx-runtime.d.ts@19.2.18'. ========
+======== Resolving module './lib/context' from '/home/dominic/github/domo/libs/shared/context/src/index.ts'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/context', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/context.ts' exists - use it as a name resolution result.
+======== Module name './lib/context' was successfully resolved to '/home/dominic/github/domo/libs/shared/context/src/lib/context.ts'. ========
+======== Resolving module './lib/toastContext' from '/home/dominic/github/domo/libs/shared/context/src/index.ts'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/toastContext', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/toastContext.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/toastContext.tsx' exists - use it as a name resolution result.
+======== Module name './lib/toastContext' was successfully resolved to '/home/dominic/github/domo/libs/shared/context/src/lib/toastContext.tsx'. ========
+======== Resolving module './lib/useToast' from '/home/dominic/github/domo/libs/shared/context/src/index.ts'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/useToast', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/useToast.ts' exists - use it as a name resolution result.
+======== Module name './lib/useToast' was successfully resolved to '/home/dominic/github/domo/libs/shared/context/src/lib/useToast.ts'. ========
+======== Resolving module './lib/Toast' from '/home/dominic/github/domo/libs/shared/context/src/index.ts'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/Toast', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.tsx' exists - use it as a name resolution result.
+======== Module name './lib/Toast' was successfully resolved to '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.tsx'. ========
+Found 'package.json' at '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/package.json'.
+======== Resolving module './' from '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/jsx-runtime.d.ts'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/package.json' exists according to earlier cached lookups.
+'package.json' has a 'typesVersions' field with version-specific path mappings.
+'package.json' does not have a 'typesVersions' entry that matches version '6.0'.
+'package.json' does not have a 'typings' field.
+'package.json' has 'types' field 'index.d.ts' that references '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/index.d.ts'.
+File '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/index.d.ts' exists - use it as a name resolution result.
+'package.json' has a 'peerDependencies' field.
+Resolving real path for '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/', result '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react'.
+======== Module name './' was successfully resolved to '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/index.d.ts' with Package ID '@types/react/ndex.d.ts@19.2.18'. ========
+File '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/package.json' exists according to earlier cached lookups.
+======== Resolving module 'csstype' from '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/index.d.ts'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+'baseUrl' option is set to '/home/dominic/github/domo', using this value to resolve non-relative module name 'csstype'.
+'paths' option is specified, looking for a pattern to match module name 'csstype'.
+'baseUrl' option is set to '/home/dominic/github/domo', using this value to resolve non-relative module name 'csstype'.
+Resolving module name 'csstype' relative to base url '/home/dominic/github/domo' - '/home/dominic/github/domo/csstype'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/csstype', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/csstype.ts' does not exist.
+File '/home/dominic/github/domo/csstype.tsx' does not exist.
+File '/home/dominic/github/domo/csstype.d.ts' does not exist.
+File '/home/dominic/github/domo/csstype.js' does not exist.
+File '/home/dominic/github/domo/csstype.jsx' does not exist.
+Directory '/home/dominic/github/domo/csstype' does not exist, skipping all lookups in it.
+File '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/package.json' exists according to earlier cached lookups.
+Loading module 'csstype' from 'node_modules' folder, target file types: TypeScript, JavaScript, Declaration, JSON.
+Searching all ancestor node_modules directories for preferred extensions: TypeScript, Declaration.
+Directory '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/node_modules' does not exist, skipping all lookups in it.
+Directory '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/node_modules' does not exist, skipping all lookups in it.
+Found 'package.json' at '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/csstype/package.json'.
+File '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/csstype.ts' does not exist.
+File '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/csstype.tsx' does not exist.
+File '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/csstype.d.ts' does not exist.
+'package.json' does not have a 'typesVersions' field.
+'package.json' does not have a 'typings' field.
+'package.json' has 'types' field 'index.d.ts' that references '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/csstype/index.d.ts'.
+File '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/csstype/index.d.ts' exists - use it as a name resolution result.
+'package.json' does not have a 'peerDependencies' field.
+Resolving real path for '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/csstype/index.d.ts', result '/home/dominic/github/domo/node_modules/.pnpm/csstype@3.2.3/node_modules/csstype/index.d.ts'.
+======== Module name 'csstype' was successfully resolved to '/home/dominic/github/domo/node_modules/.pnpm/csstype@3.2.3/node_modules/csstype/index.d.ts' with Package ID 'csstype/index.d.ts@3.2.3'. ========
+Found 'package.json' at '/home/dominic/github/domo/node_modules/.pnpm/csstype@3.2.3/node_modules/csstype/package.json'.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/package.json' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/package.json' exists according to earlier cached lookups.
+======== Resolving module 'react/jsx-runtime' from '/home/dominic/github/domo/libs/shared/context/src/lib/context.ts'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+'baseUrl' option is set to '/home/dominic/github/domo', using this value to resolve non-relative module name 'react/jsx-runtime'.
+'paths' option is specified, looking for a pattern to match module name 'react/jsx-runtime'.
+'baseUrl' option is set to '/home/dominic/github/domo', using this value to resolve non-relative module name 'react/jsx-runtime'.
+Resolving module name 'react/jsx-runtime' relative to base url '/home/dominic/github/domo' - '/home/dominic/github/domo/react/jsx-runtime'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/react/jsx-runtime', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/src/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/package.json' exists according to earlier cached lookups.
+Loading module 'react/jsx-runtime' from 'node_modules' folder, target file types: TypeScript, JavaScript, Declaration, JSON.
+Searching all ancestor node_modules directories for preferred extensions: TypeScript, Declaration.
+Directory '/home/dominic/github/domo/libs/shared/context/src/lib/node_modules' does not exist, skipping all lookups in it.
+Resolution for module 'react/jsx-runtime' was found in cache from location '/home/dominic/github/domo/libs/shared/context/src'.
+======== Module name 'react/jsx-runtime' was successfully resolved to '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/jsx-runtime.d.ts' with Package ID '@types/react/jsx-runtime.d.ts@19.2.18'. ========
+File '/home/dominic/github/domo/libs/shared/context/src/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/src/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/package.json' exists according to earlier cached lookups.
+======== Resolving module 'react/jsx-runtime' from '/home/dominic/github/domo/libs/shared/context/src/lib/toastContext.tsx'. ========
+Resolution for module 'react/jsx-runtime' was found in cache from location '/home/dominic/github/domo/libs/shared/context/src/lib'.
+======== Module name 'react/jsx-runtime' was successfully resolved to '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/jsx-runtime.d.ts' with Package ID '@types/react/jsx-runtime.d.ts@19.2.18'. ========
+======== Resolving module 'react' from '/home/dominic/github/domo/libs/shared/context/src/lib/toastContext.tsx'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+'baseUrl' option is set to '/home/dominic/github/domo', using this value to resolve non-relative module name 'react'.
+'paths' option is specified, looking for a pattern to match module name 'react'.
+'baseUrl' option is set to '/home/dominic/github/domo', using this value to resolve non-relative module name 'react'.
+Resolving module name 'react' relative to base url '/home/dominic/github/domo' - '/home/dominic/github/domo/react'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/react', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/react.ts' does not exist.
+File '/home/dominic/github/domo/react.tsx' does not exist.
+File '/home/dominic/github/domo/react.d.ts' does not exist.
+File '/home/dominic/github/domo/react.js' does not exist.
+File '/home/dominic/github/domo/react.jsx' does not exist.
+Directory '/home/dominic/github/domo/react' does not exist, skipping all lookups in it.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/src/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/package.json' exists according to earlier cached lookups.
+Loading module 'react' from 'node_modules' folder, target file types: TypeScript, JavaScript, Declaration, JSON.
+Searching all ancestor node_modules directories for preferred extensions: TypeScript, Declaration.
+Directory '/home/dominic/github/domo/libs/shared/context/src/lib/node_modules' does not exist, skipping all lookups in it.
+Directory '/home/dominic/github/domo/libs/shared/context/src/node_modules' does not exist, skipping all lookups in it.
+Directory '/home/dominic/github/domo/libs/shared/context/node_modules' does not exist, skipping all lookups in it.
+Directory '/home/dominic/github/domo/libs/shared/node_modules' does not exist, skipping all lookups in it.
+Directory '/home/dominic/github/domo/libs/node_modules' does not exist, skipping all lookups in it.
+File '/home/dominic/github/domo/node_modules/react/package.json' exists according to earlier cached lookups.
+Entering conditional exports.
+Saw non-matching condition 'react-server'.
+Matched 'exports' condition 'default'.
+Using 'exports' subpath '.' with target './index.js'.
+File name '/home/dominic/github/domo/node_modules/react/index.js' has a '.js' extension - stripping it.
+File '/home/dominic/github/domo/node_modules/react/index.ts' does not exist.
+File '/home/dominic/github/domo/node_modules/react/index.tsx' does not exist.
+File '/home/dominic/github/domo/node_modules/react/index.d.ts' does not exist.
+Failed to resolve under condition 'default'.
+Exiting conditional exports.
+File '/home/dominic/github/domo/node_modules/@types/react/package.json' exists according to earlier cached lookups.
+Entering conditional exports.
+Saw non-matching condition 'types@<=5.0'.
+Matched 'exports' condition 'types'.
+Entering conditional exports.
+Matched 'exports' condition 'default'.
+Using 'exports' subpath '.' with target './index.d.ts'.
+File '/home/dominic/github/domo/node_modules/@types/react/index.d.ts' exists - use it as a name resolution result.
+Resolved under condition 'default'.
+Exiting conditional exports.
+Resolved under condition 'types'.
+Exiting conditional exports.
+Resolving real path for '/home/dominic/github/domo/node_modules/@types/react/index.d.ts', result '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/index.d.ts'.
+======== Module name 'react' was successfully resolved to '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/index.d.ts' with Package ID '@types/react/index.d.ts@19.2.18'. ========
+File '/home/dominic/github/domo/libs/shared/context/src/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/src/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/package.json' exists according to earlier cached lookups.
+======== Resolving module 'react/jsx-runtime' from '/home/dominic/github/domo/libs/shared/context/src/lib/useToast.ts'. ========
+Resolution for module 'react/jsx-runtime' was found in cache from location '/home/dominic/github/domo/libs/shared/context/src/lib'.
+======== Module name 'react/jsx-runtime' was successfully resolved to '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/jsx-runtime.d.ts' with Package ID '@types/react/jsx-runtime.d.ts@19.2.18'. ========
+======== Resolving module 'react' from '/home/dominic/github/domo/libs/shared/context/src/lib/useToast.ts'. ========
+Resolution for module 'react' was found in cache from location '/home/dominic/github/domo/libs/shared/context/src/lib'.
+======== Module name 'react' was successfully resolved to '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/index.d.ts' with Package ID '@types/react/index.d.ts@19.2.18'. ========
+======== Resolving module './toastContext' from '/home/dominic/github/domo/libs/shared/context/src/lib/useToast.ts'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/toastContext', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/toastContext.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/toastContext.tsx' exists - use it as a name resolution result.
+======== Module name './toastContext' was successfully resolved to '/home/dominic/github/domo/libs/shared/context/src/lib/toastContext.tsx'. ========
+File '/home/dominic/github/domo/libs/shared/context/src/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/src/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/context/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/shared/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/libs/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/package.json' exists according to earlier cached lookups.
+======== Resolving module 'react/jsx-runtime' from '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.tsx'. ========
+Resolution for module 'react/jsx-runtime' was found in cache from location '/home/dominic/github/domo/libs/shared/context/src/lib'.
+======== Module name 'react/jsx-runtime' was successfully resolved to '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/jsx-runtime.d.ts' with Package ID '@types/react/jsx-runtime.d.ts@19.2.18'. ========
+======== Resolving module './Toast.module.css' from '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.tsx'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.module.css', target file types: TypeScript, JavaScript, Declaration, JSON.
+File name '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.module.css' has a '.css' extension - stripping it.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.module.d.css.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.module.css.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.module.css.tsx' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.module.css.d.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.module.css.js' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.module.css.jsx' does not exist.
+Directory '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.module.css' does not exist, skipping all lookups in it.
+======== Module name './Toast.module.css' was not resolved. ========
+======== Resolving module './success.png' from '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.tsx'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/success.png', target file types: TypeScript, JavaScript, Declaration, JSON.
+File name '/home/dominic/github/domo/libs/shared/context/src/lib/success.png' has a '.png' extension - stripping it.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/success.d.png.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/success.png.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/success.png.tsx' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/success.png.d.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/success.png.js' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/success.png.jsx' does not exist.
+Directory '/home/dominic/github/domo/libs/shared/context/src/lib/success.png' does not exist, skipping all lookups in it.
+======== Module name './success.png' was not resolved. ========
+======== Resolving module './error.png' from '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.tsx'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/error.png', target file types: TypeScript, JavaScript, Declaration, JSON.
+File name '/home/dominic/github/domo/libs/shared/context/src/lib/error.png' has a '.png' extension - stripping it.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/error.d.png.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/error.png.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/error.png.tsx' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/error.png.d.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/error.png.js' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/error.png.jsx' does not exist.
+Directory '/home/dominic/github/domo/libs/shared/context/src/lib/error.png' does not exist, skipping all lookups in it.
+======== Module name './error.png' was not resolved. ========
+======== Resolving module './warning.png' from '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.tsx'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/warning.png', target file types: TypeScript, JavaScript, Declaration, JSON.
+File name '/home/dominic/github/domo/libs/shared/context/src/lib/warning.png' has a '.png' extension - stripping it.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/warning.d.png.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/warning.png.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/warning.png.tsx' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/warning.png.d.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/warning.png.js' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/warning.png.jsx' does not exist.
+Directory '/home/dominic/github/domo/libs/shared/context/src/lib/warning.png' does not exist, skipping all lookups in it.
+======== Module name './warning.png' was not resolved. ========
+======== Resolving module './info.png' from '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.tsx'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/info.png', target file types: TypeScript, JavaScript, Declaration, JSON.
+File name '/home/dominic/github/domo/libs/shared/context/src/lib/info.png' has a '.png' extension - stripping it.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/info.d.png.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/info.png.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/info.png.tsx' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/info.png.d.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/info.png.js' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/info.png.jsx' does not exist.
+Directory '/home/dominic/github/domo/libs/shared/context/src/lib/info.png' does not exist, skipping all lookups in it.
+======== Module name './info.png' was not resolved. ========
+======== Resolving module './x-icon.png' from '/home/dominic/github/domo/libs/shared/context/src/lib/Toast.tsx'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/libs/shared/context/src/lib/x-icon.png', target file types: TypeScript, JavaScript, Declaration, JSON.
+File name '/home/dominic/github/domo/libs/shared/context/src/lib/x-icon.png' has a '.png' extension - stripping it.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/x-icon.d.png.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/x-icon.png.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/x-icon.png.tsx' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/x-icon.png.d.ts' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/x-icon.png.js' does not exist.
+File '/home/dominic/github/domo/libs/shared/context/src/lib/x-icon.png.jsx' does not exist.
+Directory '/home/dominic/github/domo/libs/shared/context/src/lib/x-icon.png' does not exist, skipping all lookups in it.
+======== Module name './x-icon.png' was not resolved. ========
+File '/home/dominic/github/domo/types/package.json' does not exist.
+File '/home/dominic/github/domo/package.json' exists according to earlier cached lookups.
+======== Resolving module 'react' from '/home/dominic/github/domo/types/global.d.ts'. ========
+Explicitly specified module resolution kind: 'NodeNext'.
+Resolving in CJS mode with conditions 'require', 'types', 'node'.
+'baseUrl' option is set to '/home/dominic/github/domo', using this value to resolve non-relative module name 'react'.
+'paths' option is specified, looking for a pattern to match module name 'react'.
+'baseUrl' option is set to '/home/dominic/github/domo', using this value to resolve non-relative module name 'react'.
+Resolving module name 'react' relative to base url '/home/dominic/github/domo' - '/home/dominic/github/domo/react'.
+Loading module as file / folder, candidate module location '/home/dominic/github/domo/react', target file types: TypeScript, JavaScript, Declaration, JSON.
+File '/home/dominic/github/domo/react.ts' does not exist.
+File '/home/dominic/github/domo/react.tsx' does not exist.
+File '/home/dominic/github/domo/react.d.ts' does not exist.
+File '/home/dominic/github/domo/react.js' does not exist.
+File '/home/dominic/github/domo/react.jsx' does not exist.
+Directory '/home/dominic/github/domo/react' does not exist, skipping all lookups in it.
+File '/home/dominic/github/domo/types/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/package.json' exists according to earlier cached lookups.
+Loading module 'react' from 'node_modules' folder, target file types: TypeScript, JavaScript, Declaration, JSON.
+Searching all ancestor node_modules directories for preferred extensions: TypeScript, Declaration.
+Directory '/home/dominic/github/domo/types/node_modules' does not exist, skipping all lookups in it.
+Resolution for module 'react' was found in cache from location '/home/dominic/github/domo'.
+======== Module name 'react' was successfully resolved to '/home/dominic/github/domo/node_modules/.pnpm/@types+react@19.2.18/node_modules/@types/react/index.d.ts' with Package ID '@types/react/index.d.ts@19.2.18'. ========
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist.
+Found 'package.json' at '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json'.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/lib/package.json' does not exist according to earlier cached lookups.
+File '/home/dominic/github/domo/node_modules/.pnpm/typescript@6.0.3/node_modules/typescript/package.json' exists according to earlier cached lookups.

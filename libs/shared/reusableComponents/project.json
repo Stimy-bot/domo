@@ -4,6 +4,16 @@
   "sourceRoot": "libs/shared/reusableComponents/src",
   "projectType": "library",
   "tags": [],
-  "// targets": "to see all targets run: nx show project reusableComponents --web",
-  "targets": {}
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/reusableComponents",
+        "main": "libs/shared/reusableComponents/src/index.ts",
+        "tsConfig": "libs/shared/reusableComponents/tsconfig.lib.json",
+        "assets": ["libs/shared/reusableComponents/*.md"]
+      }
+    }
+  }
 }

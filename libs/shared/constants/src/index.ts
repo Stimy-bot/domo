@@ -1,6 +1,6 @@
 export * from './lib/constants';
 export * from './lib/routes';
-export * from './lib/https';
+export * from './lib/http';
 export * from './lib/appErrorCode';
 export * from './lib/lifecycle';
 export * from './lib/env';

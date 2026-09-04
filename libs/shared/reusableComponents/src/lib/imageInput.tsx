@@ -1,16 +1,16 @@
 // client/src/components/Layouts/Forms/shared/ImageInput.tsx
-// import useUpdateProfilePicture from "@/hooks/useUdateProfilePicture";
+import {useUpdateProfilePicture} from "@domo/hooks";
 import { useRef, useState, useEffect } from "react";
-// import useAuth from "@/hooks/useAuth";
+import { useAuthStore } from "@domo/state";
 import type { FieldApi } from "@tanstack/react-form";
 import Input from "./input";
 import { Button } from "./button";
 
-// interface ProfileUser {
-//   userId: string;
-//   profilePicture: string;
-//   isLoading: boolean;
-// }
+interface ProfileUser {
+  userId: string;
+  profilePicture: string;
+  isLoading: boolean;
+}
 
 interface ImageInputProps {
   // Use unknown for the generics to avoid the 'any' error

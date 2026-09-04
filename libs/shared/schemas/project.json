@@ -4,6 +4,16 @@
   "sourceRoot": "libs/shared/schemas/src",
   "projectType": "library",
   "tags": [],
-  "// targets": "to see all targets run: nx show project schemas --web",
-  "targets": {}
+ "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/schemas",
+        "main": "libs/shared/schemas/src/index.ts",
+        "tsConfig": "libs/shared/schemas/tsconfig.lib.json",
+        "assets": ["libs/shared/schemas/*.md"]
+      }
+    }
+  }
 }

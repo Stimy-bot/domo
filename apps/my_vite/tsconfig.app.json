@@ -1,18 +1,15 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "outDir": "../../dist/out-tsc/apps/my_vite",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "../../dist/apps/my_vite",
     "rootDir": "../../",
     "types": ["node", "vite/client", "vitest/globals", "vitest/importMeta"],
     "noEmit": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
-    {
-      "path": "../../libs/shared/reusableComponents"
-    },
     {
       "path": "../../libs/shared/utils/tsconfig.lib.json"
     },

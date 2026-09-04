@@ -3,16 +3,24 @@ import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 
-const getEnvVar = (key: string) => {
-  const globalScope = typeof globalThis !== 'undefined' ? globalThis : undefined;
-  const processEnv = globalScope && (globalScope as any).process ? (globalScope as any).process.env : undefined;
+type Environment = Record<string, string | undefined>;
+type GlobalScope = typeof globalThis & {
+  process?: { env?: Environment };
+  window?: { __ENV__?: Environment };
+};
 
-  if (processEnv && processEnv[key] !== undefined) {
+const getEnvVar = (key: string) => {
+  const globalScope = typeof globalThis !== 'undefined'
+    ? (globalThis as GlobalScope)
+    : undefined;
+  const processEnv = globalScope?.process?.env;
+
+  if (processEnv?.[key] !== undefined) {
     return processEnv[key];
   }
 
-  const windowEnv = globalScope && (globalScope as any).window ? (globalScope as any).window.__ENV__ : undefined;
-  if (windowEnv && windowEnv[key] !== undefined) {
+  const windowEnv = globalScope?.window?.__ENV__;
+  if (windowEnv?.[key] !== undefined) {
     return windowEnv[key];
   }
 
@@ -40,10 +48,10 @@ if (!isConfigValid) {
 // Initialize Firebase (Singleton pattern)
 const app = isConfigValid 
   ? (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp())
-  : ({} as any); // Fallback to empty object to prevent "app undefined" errors
+  : null; // Fallback to null to prevent "app undefined" errors
 
-const storage = isConfigValid ? getStorage(app) : (null as any);
-const auth = isConfigValid ? getAuth(app) : (null as any);
+const storage = isConfigValid && app ? getStorage(app) : null;
+const auth = isConfigValid && app ? getAuth(app) : null;
 
 export { 
   app, 

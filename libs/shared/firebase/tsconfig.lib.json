@@ -1,9 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "types": ["vite/client", "node"]
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "../../../dist/libs/shared/firebase"
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src"]
 }

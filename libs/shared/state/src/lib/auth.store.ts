@@ -4,6 +4,15 @@ export interface User {
   id: string;
   fullName: string;
   role: string[];
+
+  profilePicture?: string;
+  _id?: string;
+  firstName?: string;
+
+  data?: {
+    profilePicture?: string;
+    _id?: string;
+  };
 }
 
 interface AuthState {

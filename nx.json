@@ -1,5 +1,9 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "install": {
+    "npmInstall": false,
+    "usePnpm": true
+  },
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
@@ -8,9 +12,15 @@
       "!{projectRoot}/eslint.config.mjs",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/src/test-setup.[jt]s"
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/**/*.md",
+      "!{projectRoot}/.env.local",
+      "!{projectRoot}/.env.*.local"
     ],
-    "sharedGlobals": []
+    "sharedGlobals": [
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/pnpm-lock.yaml"
+    ]
   },
   "plugins": [
     {
@@ -74,40 +84,44 @@
   ],
   "analytics": false,
   "targetDefaults": {
-    "@nx/esbuild:esbuild": {
+    "build": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": [
-        "production",
-        "^production",
-        {
-          "json": "{workspaceRoot}/tsconfig.json",
-          "fields": ["extends", "files", "include"]
-        }
+      "inputs": ["production", "^production"],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{workspaceRoot}/dist/{projectRoot}",
+        "{options.outputPath}"
       ]
     },
     "@nx/js:tsc": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "outputs": ["{options.outputPath}", "{projectRoot}/dist"]
     }
   },
   "generators": {
     "@nx/react": {
       "application": {
         "babel": true,
-        "style": "none",
+        "style": "css",
         "linter": "eslint",
         "bundler": "vite"
       },
       "component": {
-        "style": "none"
+        "style": "css"
       },
       "library": {
-        "style": "none",
+        "style": "css",
         "linter": "eslint",
         "unitTestRunner": "vitest"
       }
     }
+  },
+  "sync": {
+    "disabledTaskSyncGenerators": [
+      "@domo/tailwind-sync-plugin:update-tailwind-globs"
+    ]
   }
 }

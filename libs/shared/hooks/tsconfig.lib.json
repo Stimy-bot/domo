@@ -1,10 +1,17 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/libs/shared/hooks",
-    "rootDir": "src",
+    "composite": true,
     "declaration": true,
-    "composite": true
+    "declarationMap": true,
+    "outDir": "../../../dist/libs/shared/hooks",
+    "tsBuildInfoFile": "../../../dist/libs/shared/hooks/tsconfig.lib.tsbuildinfo",
+    "typeRoots": ["../../../types", "../../../node_modules/@types"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src", "../../../types/global.d.ts"],
+  "references": [
+    { "path": "../firebase/tsconfig.lib.json" },
+    { "path": "../state/tsconfig.lib.json" },
+    { "path": "../services/tsconfig.lib.json" }
+  ]
 }

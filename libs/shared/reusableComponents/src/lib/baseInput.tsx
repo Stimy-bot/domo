@@ -1,8 +1,15 @@
 
-import { formatNameToTitle } from "@domo/utils";
+// import {formatNameToTitle} from "@domo/utils";
 import { useState } from "react";
 
 // --- Icon Definitions ---
+
+export const formatNameToTitle = (snakeCaseStr: string): string => {
+  return snakeCaseStr
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
 
 // SVG for 'Hide password' (Eye with slash)
 const EyeOffIcon = () => (

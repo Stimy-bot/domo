@@ -4,6 +4,16 @@
   "sourceRoot": "libs/shared/middleware/src",
   "projectType": "library",
   "tags": [],
-  "// targets": "to see all targets run: nx show project middleware --web",
-  "targets": {}
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/middleware",
+        "main": "libs/shared/middleware/src/index.ts",
+        "tsConfig": "libs/shared/middleware/tsconfig.lib.json",
+        "assets": ["libs/shared/middleware/*.md"]
+      }
+    }
+  }
 }

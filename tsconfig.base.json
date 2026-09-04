@@ -1,47 +1,52 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "lib": ["es2022", "dom", "dom.iterable"],
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "composite": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
     "paths": {
-      "@domo/*": ["apps/*/src", "libs/*/src"],
+      "@domo/*": ["apps/*/src", "libs/shared/*/src/index.ts"],
       "@domo/api": ["./apps/api/src/*"],
-      "@domo/state": ["./libs/shared/state/src/index.ts"],
       "@domo/my_vite": ["./apps/my_vite/src/*"],
       "@domo/my_start": ["./apps/my_start/src/*"],
+      "@domo/config": ["./libs/shared/config/src/index.ts"],
+      "@domo/constants": ["./libs/shared/constants/src/index.ts"],
+      "@domo/context": ["./libs/shared/context/src/index.ts"],
+      "@domo/controllers": ["./libs/shared/controllers/src/index.ts"],
+      "@domo/firebase": ["./libs/shared/firebase/src/index.ts"],
+      "@domo/forms": ["./libs/shared/forms/src/index.ts"],
+      "@domo/hooks": ["./libs/shared/hooks/src/index.ts"],
+      "@domo/middleware": ["./libs/shared/middleware/src/index.ts"],
+      "@domo/models": ["./libs/shared/models/src/index.ts"],
+      "@domo/reusableComponents": [
+        "./libs/shared/reusableComponents/src/index.ts"
+      ],
+      "@domo/schemas": ["./libs/shared/schemas/src/index.ts"],
+      "@domo/services": ["./libs/shared/services/src/index.ts"],
+      "@domo/state": ["./libs/shared/state/src/index.ts"],
+      "@domo/types": ["./libs/shared/types/src/index.ts"],
+      "@domo/ui-buttons": ["./libs/shared/ui-buttons/src/index.ts"],
       "@domo/ui-footer": ["./libs/shared/ui-footer/src/index.ts"],
       "@domo/ui-header": ["./libs/shared/ui-header/src/index.ts"],
       "@domo/ui-sidebar": ["./libs/shared/ui-sidebar/src/index.ts"],
       "@domo/utils": ["./libs/shared/utils/src/index.ts"],
-      "@domo/reusableComponents": [
-        "./libs/shared/reusableComponents/src/index.ts"
-      ],
-      "@domo/constants": ["./libs/shared/constants/src/index.ts"],
-      "@domo/models": ["./libs/shared/models/src/index.ts"],
-      "@domo/schemas": ["./libs/shared/schemas/src/index.ts"],
-      "@domo/types": ["./libs/shared/types/src/index.ts"],
-      "@domo/controllers": ["./libs/shared/controllers/src/index.ts"],
-      "@domo/services": ["./libs/shared/services/src/index.ts"],
-      "@domo/config": ["./libs/shared/config/src/index.ts"],
-      "@domo/middleware": ["./libs/shared/middleware/src/index.ts"],
       "@domo/validate": ["./libs/shared/validates/src/index.ts"],
-      "@domo/domo": ["./domo/src/index.ts"]
+      "@domo/client": ["./libs/shared/client/src/index.ts"]
     },
-    "typeRoots": ["./types", "./node_modules/@types", "./node_modules"],
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
-    "importHelpers": true,
     "isolatedModules": true,
-    "customConditions": ["@domo/source"],
-    "noUncheckedSideEffectImports": false
+    "typeRoots": ["./types", "./node_modules/@types", "./node_modules"]
   },
-  "include": ["src/**/*.ts", "types/**/*.d.ts"]
+  "include": ["types/**/*.d.ts"]
 }
