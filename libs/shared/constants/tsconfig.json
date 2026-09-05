@@ -3,7 +3,8 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/constants",
-    "moduleResolution": "NodeNext"
+    "moduleResolution": "NodeNext",
+        "types": ["node"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["**/*.spec.*", "**/*.test.*"],

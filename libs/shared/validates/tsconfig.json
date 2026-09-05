@@ -9,8 +9,6 @@
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.spec.*", "**/*.test.*"],
   "references": [
-    {
-      "path": "../constants"
-    }
+  
   ]
 }
