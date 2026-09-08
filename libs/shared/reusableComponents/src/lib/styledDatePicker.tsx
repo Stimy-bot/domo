@@ -1,4 +1,4 @@
-
+// libs/shared/reusableComponents/src/lib/styledDatePicker.tsx
 import { CustomDatePicker } from './customDatePicker'
 
 interface Field {
@@ -42,4 +42,4 @@ const StyledDatePicker = ({
   )
 }
 
-export default StyledDatePicker
+export { StyledDatePicker };

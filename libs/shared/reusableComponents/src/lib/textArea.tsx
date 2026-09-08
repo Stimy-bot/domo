@@ -1,4 +1,4 @@
-// client/src/components/Layouts/Forms/shared/TextArea.tsx
+// libs/shared/reusableComponents/src/lib/textArea.tsx
 
 interface FieldMeta {
   errors: string[];

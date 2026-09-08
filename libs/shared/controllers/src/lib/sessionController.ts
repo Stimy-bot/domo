@@ -2,8 +2,9 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { ObjectId } from '@fastify/mongodb';
 import { z } from 'zod';
-import { NOT_FOUND, UNAUTHORIZED, OK, AppErrorCode } from '@domo/constants';
+import { NOT_FOUND, UNAUTHORIZED, OK} from '@domo/types';
 import { SessionEntity } from '@domo/models';
+import { AppErrorCode } from '@domo/constants';
 import { catchErrors, appAssert } from '@domo/utils';
 
 type ReqWithAuth = FastifyRequest & {

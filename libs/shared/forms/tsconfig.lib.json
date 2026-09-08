@@ -10,13 +10,25 @@
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
-      "path": "../hooks/tsconfig.lib.json"
-    },
-    {
       "path": "../firebase/tsconfig.lib.json"
     },
     {
+      "path": "../client/tsconfig.lib.json"
+    },
+    {
+      "path": "../schemas/tsconfig.lib.json"
+    },
+    {
+      "path": "../utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../hooks/tsconfig.lib.json"
+    },
+    {
       "path": "../constants/tsconfig.lib.json"
+    },
+    {
+      "path": "../config/tsconfig.lib.json"
     },
     {
       "path": "../reusableComponents/tsconfig.lib.json"

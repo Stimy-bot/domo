@@ -1,0 +1,19 @@
+{
+  "name": "@domo/error",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/error/src",
+  "projectType": "library",
+  "tags": [],
+   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/error",
+        "main": "libs/shared/error/src/index.ts",
+        "tsConfig": "libs/shared/error/tsconfig.lib.json",
+        "assets": ["libs/shared/error/*.md"]
+      }
+    }
+  }
+}

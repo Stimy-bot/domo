@@ -1,4 +1,4 @@
-// src/components/ReusableComponents/Spinner.tsx
+// libs/shared/reusableComponents/src/lib/spinner.tsx
 import clsx from 'clsx';
 import React, { memo } from 'react';
 

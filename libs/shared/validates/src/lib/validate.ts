@@ -1,7 +1,7 @@
 // src/validateZod/validate.ts
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { ZodType, ZodError } from 'zod';
-import { BAD_REQUEST } from '@domo/constants';
+import { BAD_REQUEST } from '@domo/types';
 
  function validateBody(schema: ZodType<unknown>) {
   return async (req: FastifyRequest, reply: FastifyReply) => {

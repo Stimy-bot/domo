@@ -1,4 +1,4 @@
-// client/src/components/Layouts/Forms/OtpVerificationForm.tsx
+// libs/shared/forms/src/lib/otpVerificationForm.tsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useOtpVerification } from "@domo/hooks";
@@ -132,4 +132,4 @@ const OtpVerificationForm: React.FC<OtpVerificationFormProps> = ({
   );
 };
 
-export default OtpVerificationForm;
+export { OtpVerificationForm };

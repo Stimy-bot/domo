@@ -1,19 +1,11 @@
-// client/src/components/Layouts/Forms/AppUser.tsx
-import EmailInput from "./shared/EmailInput"
-import FormFactory, { type FieldConfig, type SubmissionResult } from "./shared/FormFactory"
-import NumberInput from "./shared/NumberInput"
-import PasswordInput from "./shared/PasswordInput"
-import RadioGroup from "./shared/RadioGroup"
-import SelectInput from "./shared/SelectInput"
-import TextArea from "./shared/TextArea"
-import TextInput from "./shared/TextInput"
+// libs/shared/forms/src/lib/appUser.tsx
+import { EmailInput, FormFactory, type FieldConfig, type SubmissionResult
+, NumberInput, PasswordInput, RadioGroup, SelectInput, TextArea, TextInput, PhoneNumberInput, StyledDatePicker } from "@domo/reusableComponents"
 import { useMutation } from "@tanstack/react-query"
-import { register } from "@/api/auth"
-import type { AnyFieldApi } from "@tanstack/react-form"
+import { register } from "@domo/client"
+// import type { AnyFieldApi } from "@tanstack/react-form"
 import type React from "react"
-import PhoneNumberInput from "./shared/PhoneNumberInput"
-import { phoneRegex, pwRegex } from "@/constants/regex"
-import StyledDatePicker from "./shared/StyledDatePicker"
+import { phoneRegex, pwRegex } from "@domo/constants"
 
 type UserFormValues = {
   fullName: string
@@ -31,7 +23,7 @@ type UserFormValues = {
 }
 
 
-export default function AppUser() {
+function AppUser() {
   const userFormOptions = {
     defaultValues: {
       fullName: "",
@@ -244,3 +236,5 @@ const handleUserSubmit = async ({ value }: { value: UserFormValues }): Promise<S
     />
   )
 }
+
+export { AppUser }

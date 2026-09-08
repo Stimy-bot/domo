@@ -1,3 +1,4 @@
+// libs/shared/utils/src/lib/jwt.ts
 import { createSigner, createVerifier, SignerOptions, VerifierOptions } from 'fast-jwt';
 import { Audience, loadEnv } from '@domo/constants';
 

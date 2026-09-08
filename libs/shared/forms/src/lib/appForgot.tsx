@@ -1,14 +1,13 @@
-import MainLayout from "../MainLayout";
-import EmailInput from "./shared/EmailInput";
-import FormFactory, { type FieldConfig, type SubmissionResult } from "./shared/FormFactory";
-import { sendPasswordResetEmail } from "@/api/auth";
+// libs/shared/forms/src/lib/appForgot.tsx
+import { MainLayout, EmailInput, FormFactory, type FieldConfig, type SubmissionResult } from "@domo/reusableComponents";
+import { sendPasswordResetEmail } from "@domo/client";
 import { useMutation } from "@tanstack/react-query";
 
 type ForgotFormValues = {
   email: string;
 }
 
-export default function AppForgot() {
+ function AppForgot() {
   const forgotFormOptions = {
     defaultValues: {
       email: ""
@@ -80,3 +79,5 @@ export default function AppForgot() {
     </MainLayout>
   );
 }
+
+export { AppForgot }

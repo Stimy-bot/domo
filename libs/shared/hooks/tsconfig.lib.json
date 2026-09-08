@@ -13,6 +13,12 @@
       "path": "../firebase/tsconfig.lib.json"
     },
     {
+      "path": "../validates/tsconfig.lib.json"
+    },
+    {
+      "path": "../schemas/tsconfig.lib.json"
+    },
+    {
       "path": "../client/tsconfig.lib.json"
     },
     {

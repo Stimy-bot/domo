@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import {AppError} from "./AppError";
-import { type HttpStatusCode } from "@domo/constants";
+import { type HttpStatusCode } from '@domo/types'
 import {AppErrorCode} from "@domo/constants";
 
 type AppAssert = (

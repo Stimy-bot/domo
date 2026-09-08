@@ -10,10 +10,10 @@
       "path": "../ui-footer"
     },
     {
-      "path": "../utils"
+      "path": "../ui-header"
     },
     {
-      "path": "../state"
+      "path": "../utils"
     },
     {
       "path": "../hooks"

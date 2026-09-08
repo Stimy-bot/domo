@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useLayoutStore, type LayoutStoreState, useUIStore, type UIStoreState } from '@domo/state';
 
-export default function UiHeader() {
+function UiHeader() {
   // Layout store
 const headerVisible = useLayoutStore((s: LayoutStoreState) => s.headerVisible);
 const mobileMenuOpen = useLayoutStore((s: LayoutStoreState) => s.mobileMenuOpen);
@@ -100,3 +100,4 @@ const setThemeMode = useUIStore((s: UIStoreState) => s.setThemeMode);
   );
 }
 
+export { UiHeader };

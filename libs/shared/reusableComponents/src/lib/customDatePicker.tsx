@@ -1,7 +1,8 @@
+// libs/shared/reusableComponents/src/lib/customDatePicker.tsx
 import * as React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Input from "./input";
+import {Input} from "./input";
 
 // Utility for dynamic class names
 const cn = (...classes: string[]) => classes.filter(Boolean).join(" ");

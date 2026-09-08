@@ -1,17 +1,8 @@
-// client/src/components/Layouts/Forms/AppProfile.tsx
+// libs/shared/forms/src/lib/appProfile.tsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { update as updateUser } from "@/api/user";
-import useAuth from "@/hooks/useAuth";
-import MainLayout from "@/components/Layouts/MainLayout";
-import FormFactory, { type FieldConfig, type SubmissionResult } from "./shared/FormFactory";
-import TextInput from "./shared/TextInput";
-import EmailInput from "./shared/EmailInput";
-import PasswordInput from "./shared/PasswordInput";
-import ImageInput from "./shared/ImageInput";
-import PhoneNumberInput from "./shared/PhoneNumberInput";
-import TextArea from "./shared/TextArea";
-import RadioGroup from "./shared/RadioGroup";
-import StyledDatePicker from "./shared/StyledDatePicker";
+import { update as updateUser } from "@domo/client";
+import { useAuth } from "@domo/hooks";
+import { MainLayout, FormFactory, type FieldConfig, type SubmissionResult,TextInput, EmailInput, PasswordInput, ImageInput, PhoneNumberInput, TextArea, RadioGroup, StyledDatePicker } from "@domo/reusableComponents";
 import { emailRegex, phoneRegex, pwRegex } from "@domo/constants";
 import { storage } from "@domo/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -32,7 +23,7 @@ type ProfileFormValues = {
   phone: string;
 };
 
-export default function AppProfile() {
+function AppProfile() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -304,3 +295,5 @@ export default function AppProfile() {
     </MainLayout>
   );
 }
+
+export { AppProfile }

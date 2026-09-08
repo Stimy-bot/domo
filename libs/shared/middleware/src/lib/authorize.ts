@@ -1,5 +1,5 @@
 import { FastifyRequest } from 'fastify';
-import { FORBIDDEN, UNAUTHORIZED } from '@domo/constants';
+import { FORBIDDEN, UNAUTHORIZED } from '@domo/types';
 import { appAssert } from '@domo/utils';
 import { Permission } from '@domo/config';
 

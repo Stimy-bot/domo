@@ -14,4 +14,6 @@ export * from './lib/catchErrors';
 export * from './lib/twilio';
 export * from './lib/cn';
 export * from './lib/ip';
-export * from './lib/navigation'
+export * from './lib/navigation';
+export * from './lib/getGoogleURL';
+export * from './lib/exportCsv'

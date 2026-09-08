@@ -1,17 +1,11 @@
-// client/src/components/Layouts/Forms/AppQuote.tsx 
-import EmailInput from "./shared/EmailInput"
-import FormFactory, { type FieldConfig, type SubmissionResult } from "./shared/FormFactory"
-import SelectInput from "./shared/SelectInput"
-import TextArea from "./shared/TextArea"
-import TextInput from "./shared/TextInput"
+// libs/shared/forms/src/lib/appQuote.tsx
 import type React from "react"
-import { emailRegex, phoneRegex, urlRegex } from "@/constants/regex"
-import MainLayout from "../MainLayout"
-import PhoneNumberInput from "./shared/PhoneNumberInput"
-import { exportQuoteToCSV } from "@/utils/exportCsv";
+import { emailRegex, phoneRegex, urlRegex } from "@domo/constants"
+import { exportQuoteToCSV } from "@domo/utils";
 import { useState } from "react"
-import { Button } from "@/components/ReusableComponents/Button"
-import API from "@/config/apiClient"
+import { Button, PhoneNumberInput, MainLayout, TextInput, FormFactory, EmailInput, SelectInput, TextArea, type FieldConfig, type SubmissionResult
+ } from "@domo/reusableComponents"
+import { API } from "@domo/config"
 
 interface ApiResponse {
   status: string;
@@ -31,7 +25,7 @@ type QuoteFormValues = {
   website?: string // Optional
 }
 
-export default function AppQuote() {
+function AppQuote() {
   const [data, setData] = useState<QuoteFormValues[]>([]);
 
   const handleExport = () => {
@@ -234,3 +228,5 @@ export default function AppQuote() {
     </MainLayout>
   );
 }
+
+export { AppQuote }

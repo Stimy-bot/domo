@@ -1,4 +1,4 @@
-// client/src/components/Layouts/Forms/shared/FormFactory.tsx
+// libs/shared/reusableComponents/src/lib/formFactory.tsx
 import {
   useForm,
   FieldApi as TanstackFieldApi,
@@ -97,7 +97,7 @@ export interface FieldConfig<
   section?: string;
 }
 
-export default function FormFactory<
+function FormFactory<
   TFormValues extends Record<string, unknown>,
 >({
   formOptions,
@@ -237,3 +237,5 @@ export default function FormFactory<
     </div>
   );
 }
+
+export { FormFactory }

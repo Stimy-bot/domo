@@ -1,9 +1,10 @@
+// libs/shared/reusableComponents/src/lib/emailInput.tsx
 import { AnyFieldApi } from "@tanstack/react-form";
 import { BaseInput } from "./baseInput";
 
 const EmailInput = ({ 
   field, 
-  label, 
+  label,  
   ...rest 
 }: { 
   field: AnyFieldApi; 

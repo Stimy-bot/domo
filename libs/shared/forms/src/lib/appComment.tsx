@@ -1,10 +1,6 @@
-// src/components/Pages/AppComment.tsx
-import { EmailInput } from "@domo/reusableComponents";
-import FormFactory, { type SubmissionResult, type FieldConfig } from "./shared/FormFactory";
-import TextArea from "./shared/TextArea";
-import TextInput from "./shared/TextInput";
-import MainLayout from "../MainLayout";
-import API from "@/config/apiClient";
+// libs/shared/forms/src/lib/appComment.tsx
+import { FormFactory, type SubmissionResult, type FieldConfig, EmailInput, TextArea, TextInput, MainLayout } from "@domo/reusableComponents";
+import {API} from "@domo/config";
 
 interface ApiResponse {
   status: string;

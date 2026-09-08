@@ -1,18 +1,13 @@
-// client/src/components/Layouts/Forms/AppRegister.tsx
-import MainLayout from "@/components/Layouts/MainLayout";
+// libs/shared/forms/src/lib/appRegister.tsx
+import { MainLayout, FormFactory, type FieldConfig, type SubmissionResult
+, TextInput, EmailInput, PasswordInput, PhoneNumberInput, StyledDatePicker } from "@domo/reusableComponents";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { register } from "@/api/auth";
-import FormFactory, { type FieldConfig, type SubmissionResult } from "@/components/Layouts/Forms/shared/FormFactory";
-import TextInput from "@/components/Layouts/Forms/shared/TextInput";
-import EmailInput from "@/components/Layouts/Forms/shared/EmailInput";
-import PasswordInput from "@/components/Layouts/Forms/shared/PasswordInput";
-import { phoneRegex, pwRegex } from "@/constants/regex";
-import OtpVerificationForm from "@/components/Layouts/Forms/OtpVerificationForm";
-import { navigate } from "@/lib/navigation";
-import PhoneNumberInput from "./shared/PhoneNumberInput";
+import { register } from "@domo/client";
+import { phoneRegex, pwRegex } from "@domo/constants";
+import { OtpVerificationForm } from "./otpVerificationForm";
+import { navigate } from "@domo/utils";
 import React, { useState } from "react";
-import StyledDatePicker from "./shared/StyledDatePicker";
 
 
 type RegisterFormValues = {
@@ -25,7 +20,7 @@ type RegisterFormValues = {
   birthDate: string;
 }
 
-export default function AppRegister() {
+ function AppRegister() {
   const [step, setStep] = useState<"register" | "otp">("register");
   const [phone, setPhone] = useState<string>("");
 
@@ -252,3 +247,5 @@ export default function AppRegister() {
     </MainLayout>
   );
 }
+
+export { AppRegister };

@@ -1,4 +1,4 @@
-// RadioGroup Component
+// libs/shared/reusableComponents/src/lib/radioGroup.tsx
 interface Field {
   name: string;
   state: {
@@ -41,4 +41,4 @@ const RadioGroup = ({ field, label, options }: { field: Field; label: string; op
   </div>
 );
 
-export default RadioGroup;
+export { RadioGroup };

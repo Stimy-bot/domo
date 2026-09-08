@@ -3,13 +3,13 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import { ObjectId } from 'mongodb';
 import { z } from 'zod';
 import {
-  AppErrorCode,
   BAD_REQUEST,
   CONFLICT,
   CREATED,
   OK,
   UNAUTHORIZED,
-} from '@domo/constants';
+} from '@domo/types';
+import { AppErrorCode } from '@domo/constants'
 import { buildUserDocument, sanitizeUser, type UserEntity } from '@domo/models';
 import {
   emailSchema,

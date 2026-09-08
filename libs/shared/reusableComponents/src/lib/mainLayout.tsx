@@ -1,3 +1,4 @@
+// libs/shared/reusableComponents/src/lib/mainLayout.tsx
 import type { ReactNode } from 'react';
 import { UiHeader } from '@domo/ui-header';
 import { UiFooter } from '@domo/ui-footer';

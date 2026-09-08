@@ -1,7 +1,8 @@
+// libs/shared/forms/src/lib/resetPasswordForm.tsx
 import { createElement, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { resetPassword } from "@/api/auth";
+import { resetPassword } from "@domo/client";
 
 const ResetPasswordForm = ({ code }: { code: string }) => {
   const [password, setPassword] = useState("");

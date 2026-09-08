@@ -8,5 +8,9 @@
     "tsBuildInfoFile": "../../../dist/libs/shared/types/tsconfig.lib.tsbuildinfo"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "references": [
+    {
+      "path": "../schemas/tsconfig.lib.json"
+    }
+  ]
 }

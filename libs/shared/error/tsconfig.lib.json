@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "rootDir": "src",
+    "outDir": "../../../dist/libs/shared/error",
+    "tsBuildInfoFile": "../../../dist/libs/shared/error/tsconfig.lib.tsbuildinfo"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "references": [
+  ]
+}

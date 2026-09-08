@@ -4,6 +4,7 @@ export * from './lib/userSchema';
 export * from './lib/companySchema';
 export * from './lib/auditMongoSchema';
 export * from './lib/auditLogSchema';
+// export * from './lib/auditSchema'
 export * from './lib/primitives'
 export type RoleType = 'USER' | 'ADMIN' | 'SUPER_ADMIN' | 'admin' | 'superAdmin';
 export const RoleType = {

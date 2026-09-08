@@ -2,7 +2,7 @@
 import type { FastifyRequest, FastifyReply } from 'fastify';
 import type { Db } from 'mongodb';
 import { ObjectId } from 'mongodb';
-import { BAD_REQUEST, CREATED, NOT_FOUND, OK, UNAUTHORIZED } from '@domo/constants';
+import { BAD_REQUEST, CREATED, NOT_FOUND, OK, UNAUTHORIZED } from '@domo/types';
 import { catchErrors, appAssert } from '@domo/utils';
 import { CompanyService } from '@domo/services';
 import { CompanyModel } from '@domo/models';

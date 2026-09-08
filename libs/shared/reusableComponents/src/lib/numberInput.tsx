@@ -1,3 +1,4 @@
+// libs/shared/reusableComponents/src/lib/numberInput.tsx
 import { BaseInput } from "./baseInput"
 
 interface Field {
@@ -17,4 +18,4 @@ const NumberInput = ({ field, label }: { field: Field; label: string }) => (
   <BaseInput field={field} label={label} type="number" />
 );
 
-export default NumberInput;
+export { NumberInput };

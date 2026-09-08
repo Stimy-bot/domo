@@ -1,4 +1,4 @@
-// client/src/components/Layouts/Forms/shared/SubmitButton.tsx
+// libs/shared/reusableComponents/src/lib/submitButton.tsx
 import { Button } from "./button";
 import {Spinner} from "./spinner";
 import { useStore, type FormApi } from "@tanstack/react-form";

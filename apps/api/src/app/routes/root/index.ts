@@ -3,7 +3,7 @@ import type { FastifyPluginAsync, FastifyInstance, FastifyRequest, FastifyReply 
 import fastifyStatic from '@fastify/static';
 import fs from 'node:fs';
 import path from 'node:path';
-import { INTERNAL_SERVER_ERROR, NOT_FOUND } from '@domo/constants';
+import { INTERNAL_SERVER_ERROR, NOT_FOUND } from '@domo/types';
 
 const root: FastifyPluginAsync = async (
   fastify: FastifyInstance,

@@ -1,4 +1,4 @@
-// client/src/components/Layouts/Forms/shared/PasswordInput.tsx
+// libs/shared/reusableComponents/src/lib/passwordInput.tsx
 import { AnyFieldApi } from "@tanstack/react-form";
 import { BaseInput } from "./baseInput";
 
@@ -20,4 +20,4 @@ const PasswordInput = ({
   />
 );
 
-export default PasswordInput;
+export { PasswordInput };

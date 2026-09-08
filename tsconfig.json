@@ -86,6 +86,9 @@
     },
     {
       "path": "./apps/api-e2e"
+    },
+    {
+      "path": "./libs/shared"
     }
   ],
   "compilerOptions": {}

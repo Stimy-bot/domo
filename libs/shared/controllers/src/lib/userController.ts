@@ -8,7 +8,7 @@ import {
   NOT_FOUND,
   OK,
   UNAUTHORIZED,
-} from '@domo/constants';
+} from '@domo/types';
 import {
   sanitizeUser,
   type UserEntity,

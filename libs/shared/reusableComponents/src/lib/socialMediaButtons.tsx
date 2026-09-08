@@ -1,3 +1,4 @@
+// libs/shared/reusableComponents/src/lib/socialMediaButtons.tsx
 import { JSX } from "react";
 
 // 1. Define a type for the data structure

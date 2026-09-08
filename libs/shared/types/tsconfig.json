@@ -5,4 +5,9 @@
     "types": ["node"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "references": [
+    {
+      "path": "../schemas"
+    }
+  ]
 }

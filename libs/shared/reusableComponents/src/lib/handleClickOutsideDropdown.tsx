@@ -1,3 +1,4 @@
+// libs/shared/reusableComponents/src/lib/handleClickOutsideDropdown.tsx
 import { useEffect, type RefObject } from 'react';
 
 function HandleClickOutsideDropdown(

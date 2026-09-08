@@ -1,20 +1,13 @@
-// client/src/components/Layouts/Forms/AppCompany.tsx
-import EmailInput from "./shared/EmailInput"
-import FormFactory, { type FieldConfig, type SubmissionResult } from "./shared/FormFactory"
-import SelectInput from "./shared/SelectInput"
-import TextArea from "./shared/TextArea"
-import TextInput from "./shared/TextInput"
+// libs/shared/forms/src/lib/appCompany.tsx
+import { FormFactory, type SubmissionResult, type FieldConfig, EmailInput, TextArea, TextInput, MainLayout, PhoneNumberInput, SelectInput, StyledDatePicker  } from "@domo/reusableComponents";
 import type React from "react"
-import { emailRegex, phoneRegex, urlRegex } from "@/constants/regex"
-import MainLayout from "../MainLayout"
-import { useCreateCompany } from "@/hooks/useCreateCompany"
-import useAuth from "@/hooks/useAuth"
-import PhoneNumberInput from "./shared/PhoneNumberInput"
-import { formatNameToTitle } from "@/utils/helper"
+import { emailRegex, phoneRegex, urlRegex } from "@domo/constants"
+import { useCreateCompany } from "@domo/hooks"
+import { useAuth } from "@domo/hooks"
+import { formatNameToTitle } from "@domo/utils"
 import { format } from "date-fns";
-import { addressSchema, companyCategoryEnum, type CreateCompany } from '@/schemas/companySchema';
+import { addressSchema, companyCategoryEnum, type CreateCompany } from '@domo/schemas';
 import type z from "zod"
-import StyledDatePicker from "./shared/StyledDatePicker"
 
 // Define the structure for the company form values (matching your schema)
 type CompanyFormValues = {
@@ -41,7 +34,7 @@ const categoryOptions = companyCategoryEnum.options.map((value) => ({
 }));
 
 
-export default function AppCompany() {
+function AppCompany() {
   const { user } = useAuth();
   const createCompanyMutation = useCreateCompany();
 
@@ -332,3 +325,5 @@ export default function AppCompany() {
     </MainLayout>
   );
 }
+
+export { AppCompany }

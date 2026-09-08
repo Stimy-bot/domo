@@ -1,13 +1,10 @@
-// client/src/components/Layouts/Forms/AppLogin.tsx
-import MainLayout from "@/components/Layouts/MainLayout";
-import EmailInput from "@/components/Layouts/Forms/shared/EmailInput";
-import FormFactory, { type FieldConfig, type SubmissionResult } from "@/components/Layouts/Forms/shared/FormFactory";
-import { login } from "@/api/auth";
+// libs/shared/forms/src/lib/appLogin.tsx
+import { MainLayout, EmailInput, FormFactory, type FieldConfig, type SubmissionResult, PasswordInput } from "@domo/reusableComponents";
+import { login } from "@domo/client";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import PasswordInput from "./shared/PasswordInput";
-import { emailRegex, pwRegex } from "@/constants/regex";
-import getGoogleOAuthURL from "@/utils/getGoogleURL";
+import { emailRegex, pwRegex } from "@domo/constants";
+import { getGoogleOAuthURL } from "@domo/utils";
 
 
 export interface LoginResponse {
@@ -21,7 +18,7 @@ type LoginFormValues = {
   password: string;
 };
 
-export default function AppLogin() {
+ function AppLogin() {
   const loginFormOptions = {
     defaultValues: {
       email: "",
@@ -156,3 +153,5 @@ export default function AppLogin() {
     </MainLayout>
   );
 }
+
+export { AppLogin }

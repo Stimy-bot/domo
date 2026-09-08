@@ -13,10 +13,10 @@
       "path": "../ui-footer/tsconfig.lib.json"
     },
     {
-      "path": "../utils/tsconfig.lib.json"
+      "path": "../ui-header/tsconfig.lib.json"
     },
     {
-      "path": "../state/tsconfig.lib.json"
+      "path": "../utils/tsconfig.lib.json"
     },
     {
       "path": "../hooks/tsconfig.lib.json"

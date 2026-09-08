@@ -1,4 +1,4 @@
-// client/src/components/Layouts/Forms/shared/ImageInput.tsx
+// libs/shared/reusableComponents/src/lib/imageInput.tsx
 import { useUpdateProfilePicture, useAuth } from "@domo/hooks";
 import { useRef, useState, useEffect } from "react";
 import type { FieldApi } from "@tanstack/react-form";

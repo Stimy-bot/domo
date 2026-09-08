@@ -1,5 +1,5 @@
 import { AppErrorCode } from "@domo/constants";
-import { type HttpStatusCode } from "@domo/constants";
+import { type HttpStatusCode } from "@domo/types";
 
 class AppError extends Error {
   constructor(

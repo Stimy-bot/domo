@@ -1,7 +1,8 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 import { ObjectId } from '@fastify/mongodb';
-import { UNAUTHORIZED, AppErrorCode } from '@domo/constants';
+import { UNAUTHORIZED } from '@domo/types';
+import { AppErrorCode } from '@domo/constants'
 import { verifyToken, appAssert } from '@domo/utils';
 import type { AccessTokenPayload } from '@domo/types';
 import { UserEntity, RoleType } from '@domo/models';

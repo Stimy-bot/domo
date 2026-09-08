@@ -1,5 +1,6 @@
 // src/utils/typeGuards.ts
-import { UNAUTHORIZED, AppErrorCode } from "@domo/constants";
+import { AppErrorCode } from "@domo/constants";
+import { UNAUTHORIZED } from '@domo/types'
 import { AccessTokenPayload } from "@domo/types";
 import {AppError} from "./AppError";
 

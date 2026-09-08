@@ -4,13 +4,14 @@ import type { Db } from 'mongodb';
 import { ObjectId } from '@fastify/mongodb';
 import {
   VerificationCodeType,
-  CONFLICT,
+  loadEnv,
+} from '@domo/constants';
+import {   CONFLICT,
   INTERNAL_SERVER_ERROR,
   NOT_FOUND,
   TOO_MANY_REQUESTS,
-  UNAUTHORIZED,
-  loadEnv,
-} from '@domo/constants';
+  UNAUTHORIZED
+ } from '@domo/types'
 import { ONE_DAY_MS } from '@domo/utils'
 import { Role } from '@domo/types';
 

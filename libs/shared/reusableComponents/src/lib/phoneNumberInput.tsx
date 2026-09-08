@@ -1,4 +1,4 @@
-// src/components/Layouts/Forms/shared/PhoneNumberInput.tsx
+// libs/shared/reusableComponents/src/lib/phoneNumberInput.tsx
 import  ReactPhoneInput  from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -20,7 +20,7 @@ interface PhoneNumberInputProps {
   placeholder?: string;
 }
 
-export default function PhoneNumberInput({
+function PhoneNumberInput({
   field,
   label,
   placeholder = "",
@@ -53,3 +53,5 @@ export default function PhoneNumberInput({
     </div>
   );
 }
+
+export { PhoneNumberInput }

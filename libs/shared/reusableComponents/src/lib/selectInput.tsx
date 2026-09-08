@@ -1,4 +1,4 @@
-// client/src/components/Layouts/Forms/shared/SelectInput.tsx
+// libs/shared/reusableComponents/src/lib/selectInput.tsx
 import React from 'react'; // Added explicit React import for completeness
 
 // 1. Refined Field Interface (Assuming value should be string for select)
