@@ -4,6 +4,16 @@
   "sourceRoot": "libs/shared/validates/src",
   "projectType": "library",
   "tags": [],
-  "// targets": "to see all targets run: nx show project validate --web",
-  "targets": {}
+   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/validates",
+        "main": "libs/shared/validates/src/index.ts",
+        "tsConfig": "libs/shared/validates/tsconfig.lib.json",
+        "assets": ["libs/shared/validates/*.md"]
+      }
+    }
+  }
 }

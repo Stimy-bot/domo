@@ -106,4 +106,4 @@ const inputVariants = cva('rounded-lg', {
 });
 
 Input.displayName = 'Input';
-export default Input;
+export { Input };

@@ -2,11 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "../../../dist/libs/shared/ui-header"
+    "incremental": true,
+    "rootDir": "src",
+    "outDir": "../../../dist/libs/shared/ui-header",
+    "tsBuildInfoFile": "../../../dist/libs/shared/ui-header/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "../state/tsconfig.lib.json"

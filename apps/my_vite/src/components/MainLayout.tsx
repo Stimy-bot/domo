@@ -1,15 +1,15 @@
 import { Outlet } from 'react-router-dom';
-import { UiHeader } from '@domo/ui-header';
-import { UiFooter } from '@domo/ui-footer';
+// import { UiHeader } from '@domo/ui-header';
+// import { UiFooter } from '@domo/ui-footer';
 
 const MainLayout = () => {
   return (
     <div className="app-container">
-      <UiHeader />
+      {/* <UiHeader /> */}
       <main className="content">
         <Outlet />
       </main>
-      <UiFooter />
+      {/* <UiFooter /> */}
     </div>
   );
 };

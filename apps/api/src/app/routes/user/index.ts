@@ -13,7 +13,7 @@ import {
   authorize, 
   requireValidTargetId, 
 } from '@domo/middleware';
-import { validateBody } from '@domo/validate'
+import { validateBody } from '@domo/validates'
 
 const userRoutes: FastifyPluginAsync = async (fastify) => {
   // --- 1. Current User Routes (Self) ---

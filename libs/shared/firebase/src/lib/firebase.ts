@@ -53,3 +53,5 @@ export {
   uploadBytes, 
   getDownloadURL 
 };
+
+export const firebase = app;

@@ -4,7 +4,7 @@
   "sourceRoot": "libs/shared/types/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
+   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],

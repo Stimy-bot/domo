@@ -1,123 +1,137 @@
+// libs/shared/hooks/src/lib/useUpdateProfilePicture.ts
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  getDownloadURL,
-  ref,
-  uploadBytes,
-  deleteObject,
-} from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes, deleteObject } from 'firebase/storage';
 import { storage } from '@domo/firebase';
+import { update } from '@domo/client';
+import { useAuth } from './useAuth';
 import { useRef, useState } from 'react';
 import imageCompression from 'browser-image-compression';
-import { useAuthStore } from '@domo/state';
-import { updateAccount as update } from '@domo/services';
 
-export default function useUpdateProfilePicture(userId?: string) {
+type MinimalUser = {
+  id?: string;
+  _id?: string;
+  firstName?: string;
+  profilePicture?: string;
+  data?: { _id?: string; profilePicture?: string };
+};
+
+function useUpdateProfilePicture(userId: string) {
   const imageRef = useRef<HTMLImageElement>(null);
   const queryClient = useQueryClient();
-  const user = useAuthStore((s) => s.user);
+  const auth = useAuth() as { user?: MinimalUser } | undefined;
+  const user = auth?.user;
 
   const [currentPicture, setCurrentPicture] = useState<string | null>(
-    user?.profilePicture || user?.data?.profilePicture || null,
+    user?.profilePicture || user?.data?.profilePicture || null
   );
 
+  // Standardize the ID lookup
   const targetId = userId || user?.id || user?._id || user?.data?._id;
 
   const uploadAndSync = async (file: File) => {
-    if (!storage) throw new Error('Firebase Storage not initialized.');
     if (!targetId) throw new Error('No User ID available for update.');
+    if (!storage) throw new Error('Firebase Storage not initialized.');
 
-    if (file.size > 10 * 1024 * 1024)
-      throw new Error('File too large. Max 10MB.');
+    if (file.size > 10 * 1024 * 1024) throw new Error('File too large. Max 10MB.');
 
     try {
       const options = {
         maxSizeMB: 0.1,
         maxWidthOrHeight: 800,
         useWebWorker: true,
-        fileType: 'image/webp',
+        fileType: 'image/webp'
       };
       const compressedFile = await imageCompression(file, options);
 
       const storagePath = `profilePictures/${targetId}.webp`;
-      const storageRef = ref(storage, storagePath);
+
+      // narrow storage to a local const so TS understands it's non-null
+      const s = storage;
+      if (!s) throw new Error('Firebase Storage not initialized.');
+      const storageRef = ref(s, storagePath);
 
       await uploadBytes(storageRef, compressedFile);
       const downloadURL = await getDownloadURL(storageRef);
 
+      // update expects a string id (keep original signature)
       const res = await update(targetId, { profilePicture: downloadURL });
 
+      // update local state immediately so UI reflects change
       setCurrentPicture(downloadURL);
-
-      useAuthStore.getState().setUser({
-        ...(useAuthStore.getState().user ?? {}),
-        profilePicture: downloadURL,
-      });
-
-      queryClient.invalidateQueries({ queryKey: ['auth'] });
-      queryClient.invalidateQueries({ queryKey: ['users'] });
 
       return res;
     } catch (error: unknown) {
-      if (
-        error &&
-        typeof error === 'object' &&
-        'code' in error &&
-        (error as any).code === 'storage/quota-exceeded'
-      ) {
+      const err = error as { code?: string; message?: string };
+      if (err.code === 'storage/quota-exceeded') {
         throw new Error('Storage quota reached. Please try again later.');
       }
-      if (error instanceof Error) throw error;
-      throw new Error(String(error));
+      throw error;
     }
   };
 
   const removeImage = async () => {
     if (!targetId) return;
 
-    const storageRef = ref(storage, `profilePictures/${targetId}.webp`);
-    await deleteObject(storageRef).catch(() =>
-      console.log('Storage already empty.'),
-    );
+    const s = storage;
+    if (s) {
+      const storageRef = ref(s, `profilePictures/${targetId}.webp`);
+      await deleteObject(storageRef).catch(() => console.log('Storage already empty.'));
+    } else {
+      console.log('Firebase storage not initialized; skipping delete.');
+    }
 
-    const defaultAvatar = `https://ui-avatars.com/api/?name=${user?.fullName || 'User'}&background=random`;
+    const defaultAvatar = `https://ui-avatars.com/api/?name=${user?.firstName || 'User'}&background=random`;
     const res = await update(targetId, { profilePicture: defaultAvatar });
 
+    // update local state
     setCurrentPicture(defaultAvatar);
-
-    useAuthStore.getState().setUser({
-      ...(useAuthStore.getState().user ?? {}),
-      profilePicture: defaultAvatar,
-    });
-
-    queryClient.invalidateQueries({ queryKey: ['auth'] });
-    queryClient.invalidateQueries({ queryKey: ['users'] });
 
     return res;
   };
 
   const uploadMutation = useMutation({
     mutationFn: uploadAndSync,
-    onError: (err: Error) => alert(err.message),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['auth'] });
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (err: Error) => alert(err.message)
   });
 
   const deleteMutation = useMutation({
     mutationFn: removeImage,
-    onError: () => alert('Failed to remove image.'),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['auth'] });
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: () => alert('Failed to remove image.')
   });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && !uploadMutation.isPending) {
+      // optimistically set preview URL in hook state so consumers can read it
       const objectUrl = URL.createObjectURL(file);
       setCurrentPicture(objectUrl);
       uploadMutation.mutate(file, {
-        onSettled: () => URL.revokeObjectURL(objectUrl),
+        onSettled: () => {
+          // revoke object URL after upload settles to avoid memory leak
+          URL.revokeObjectURL(objectUrl);
+        }
       });
     }
-    event.currentTarget.value = '';
+    // clear the input value so the same file can be selected again
+    try {
+      event.target.value = '';
+    } catch {
+      // ignore if browser prevents setting value
+    }
   };
 
-  const clearPicture = () => setCurrentPicture(null);
+  const clearPicture = () => {
+    // clear local state only; if you want to delete from server call deleteMutation.mutate()
+    setCurrentPicture(null);
+  };
 
   return {
     handleFileChange,
@@ -126,6 +140,8 @@ export default function useUpdateProfilePicture(userId?: string) {
     imageRef,
     currentPicture,
     setCurrentPicture,
-    clearPicture,
+    clearPicture
   };
 }
+
+export { useUpdateProfilePicture };

@@ -2,12 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
-    "declarationMap": true,
+    "incremental": true,
+    "rootDir": "src",
     "outDir": "../../../dist/libs/shared/middleware",
-        "tsBuildInfoFile": "../../../dist/libs/shared/middleware/tsconfig.lib.tsbuildinfo",
+    "tsBuildInfoFile": "../../../dist/libs/shared/middleware/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "../schemas/tsconfig.lib.json"

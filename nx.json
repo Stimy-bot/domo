@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "analytics": false,
   "install": {
     "npmInstall": false,
     "usePnpm": true
@@ -8,7 +9,6 @@
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
-      "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/eslint.config.mjs",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
@@ -23,20 +23,6 @@
     ]
   },
   "plugins": [
-    {
-      "plugin": "@nx/js/typescript",
-      "options": {
-        "typecheck": {
-          "targetName": "typecheck"
-        },
-        "build": {
-          "targetName": "build",
-          "configName": "tsconfig.lib.json",
-          "buildDepsName": "build-deps",
-          "watchDepsName": "watch-deps"
-        }
-      }
-    },
     {
       "plugin": "@nx/eslint/plugin",
       "options": {
@@ -57,17 +43,6 @@
       }
     },
     {
-      "plugin": "@nx/docker",
-      "options": {
-        "buildTarget": {
-          "name": "docker:build"
-        },
-        "runTarget": {
-          "name": "docker:run"
-        }
-      }
-    },
-    {
       "plugin": "@nx/vitest",
       "options": {
         "testTargetName": "test",
@@ -82,25 +57,6 @@
       }
     }
   ],
-  "analytics": false,
-  "targetDefaults": {
-    "build": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"],
-      "outputs": [
-        "{projectRoot}/dist",
-        "{workspaceRoot}/dist/{projectRoot}",
-        "{options.outputPath}"
-      ]
-    },
-    "@nx/js:tsc": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"],
-      "outputs": ["{options.outputPath}", "{projectRoot}/dist"]
-    }
-  },
   "generators": {
     "@nx/react": {
       "application": {
@@ -119,10 +75,69 @@
       }
     }
   },
-  "sync": {
-    "disabledTaskSyncGenerators": [
-      "@domo/tailwind-sync-plugin:update-tailwind-globs",
-      "@nx/js:typescript-sync"
-    ]
+  "targetDefaults": {
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{workspaceRoot}/dist/{projectRoot}",
+        "{options.outputPath}"
+      ]
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"],
+      "outputs": ["{options.outputPath}", "{projectRoot}/dist"]
+    },
+    "typecheck": {
+      "cache": true,
+      "inputs": ["default", "^production"]
+    },
+    "lint": {
+      "cache": true,
+      "inputs": ["default"]
+    },
+    "test": {
+      "cache": true,
+      "inputs": ["default", "^production"]
+    },
+    "serve": {
+      "dependsOn": [
+        {
+          "target": "build",
+          "dependencies": true
+        }
+      ]
+    }
+  },
+  "projects": {
+    "@domo/types": "libs/shared/types",
+    "@domo/constants": "libs/shared/constants",
+    "@domo/utils": "libs/shared/utils",
+    "@domo/schemas": "libs/shared/schemas",
+    "@domo/context": "libs/shared/context",
+    "@domo/services": "libs/shared/services",
+    "@domo/models": "libs/shared/models",
+    "@domo/firebase": "libs/shared/firebase",
+    "@domo/state": "libs/shared/state",
+    "@domo/client": "libs/shared/client",
+    "@domo/config": "libs/shared/config",
+    "@domo/controllers": "libs/shared/controllers",
+    "@domo/forms": "libs/shared/forms",
+    "@domo/hooks": "libs/shared/hooks",
+    "@domo/middleware": "libs/shared/middleware",
+    "@domo/reusableComponents": "libs/shared/reusableComponents",
+    "@domo/ui-buttons": "libs/shared/ui-buttons",
+    "@domo/ui-footer": "libs/shared/ui-footer",
+    "@domo/ui-header": "libs/shared/ui-header",
+    "@domo/ui-sidebar": "libs/shared/ui-sidebar",
+    "@domo/validates": "libs/shared/validates",
+    "@domo/tailwind-sync-plugin": "libs/shared/tailwind-sync-plugin",
+    "@domo/my-start": "apps/my-start",
+    "@domo/my-vite": "apps/my-vite",
+    "@domo/api": "apps/api"
   }
 }

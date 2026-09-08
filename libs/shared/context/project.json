@@ -4,17 +4,15 @@
   "sourceRoot": "libs/shared/context/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
+   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
-      "dependsOn": ["^build"],
       "options": {
         "outputPath": "dist/libs/shared/context",
         "main": "libs/shared/context/src/index.ts",
-        "tsConfig": "libs/shared/context/tsconfig.json",
-        "assets": ["libs/shared/context/*.md"],
-        "rootDir": "."
+        "tsConfig": "libs/shared/context/tsconfig.lib.json",
+        "assets": ["libs/shared/context/*.md"]
       }
     }
   }

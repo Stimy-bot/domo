@@ -2,9 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "../../../dist/libs/shared/ui-footer"
+    "incremental": true,
+    "rootDir": "src",
+    "outDir": "../../../dist/libs/shared/ui-footer",
+    "tsBuildInfoFile": "../../../dist/libs/shared/ui-footer/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "references": []
 }

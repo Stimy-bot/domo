@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "../../../dist/out-tsc",
@@ -7,8 +7,13 @@
     "emitDeclarationOnly": false,
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "types": ["node"]
+    "types": [
+      "node"
+    ],
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
   "references": []
 }

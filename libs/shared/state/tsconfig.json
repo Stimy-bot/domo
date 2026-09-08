@@ -1,11 +1,9 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "../../../dist/libs/shared/state",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext"
+    "composite": true,
+    "types": ["node"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["**/*.spec.*", "**/*.test.*"]
+  "references": []
 }

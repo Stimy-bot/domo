@@ -4,14 +4,15 @@
   "sourceRoot": "libs/shared/services/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
+   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "outputPath": "dist/libs/shared/services",
         "main": "libs/shared/services/src/index.ts",
-        "tsConfig": "libs/shared/services/tsconfig.json",
-        "outputPath": "dist/libs/shared/services"
+        "tsConfig": "libs/shared/services/tsconfig.lib.json",
+        "assets": ["libs/shared/services/*.md"]
       }
     }
   }

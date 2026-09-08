@@ -2,12 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
-    "declarationMap": true,
+    "incremental": true,
+    "rootDir": "src",
     "outDir": "../../../dist/libs/shared/services",
-        "tsBuildInfoFile": "../../../dist/libs/shared/services/tsconfig.lib.tsbuildinfo",
+    "tsBuildInfoFile": "../../../dist/libs/shared/services/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "../types/tsconfig.lib.json"

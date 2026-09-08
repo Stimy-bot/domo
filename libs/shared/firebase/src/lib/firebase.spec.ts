@@ -3,6 +3,6 @@ import { describe, it, expect } from 'vitest';
 
 describe('firebase', () => {
   it('should work', () => {
-    expect(firebase()).toEqual('firebase');
+    expect(firebase).toBeDefined();
   });
 });

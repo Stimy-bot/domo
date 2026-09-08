@@ -2,16 +2,21 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
-    "declarationMap": true,
+    "incremental": true,
+    "rootDir": "src",
     "outDir": "../../../dist/libs/shared/hooks",
-    "tsBuildInfoFile": "../../../dist/libs/shared/hooks/tsconfig.lib.tsbuildinfo",
-    "typeRoots": ["../../../types", "../../../node_modules/@types"]
+    "tsBuildInfoFile": "../../../dist/libs/shared/hooks/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src", "../../../types/global.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
-    { "path": "../firebase/tsconfig.lib.json" },
-    { "path": "../state/tsconfig.lib.json" },
-    { "path": "../services/tsconfig.lib.json" }
+    {
+      "path": "../firebase/tsconfig.lib.json"
+    },
+    {
+      "path": "../client/tsconfig.lib.json"
+    },
+    {
+      "path": "../constants/tsconfig.lib.json"
+    }
   ]
 }

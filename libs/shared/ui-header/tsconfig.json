@@ -1,15 +1,10 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "../../../dist/libs/shared/ui-header",
-    "tsBuildInfoFile": "../../../dist/libs/shared/ui-header/tsconfig.lib.tsbuildinfo",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "jsx": "react-jsx"
+    "types": ["node"],
+    "composite": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["**/*.spec.*", "**/*.test.*"],
   "references": [
     {
       "path": "../state"

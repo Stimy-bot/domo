@@ -1,9 +1,8 @@
 // client/src/components/Layouts/Forms/shared/ImageInput.tsx
-import {useUpdateProfilePicture} from "@domo/hooks";
+import { useUpdateProfilePicture, useAuth } from "@domo/hooks";
 import { useRef, useState, useEffect } from "react";
-import { useAuthStore } from "@domo/state";
 import type { FieldApi } from "@tanstack/react-form";
-import Input from "./input";
+import { Input } from "./input";
 import { Button } from "./button";
 
 interface ProfileUser {
@@ -19,7 +18,7 @@ interface ImageInputProps {
 }
 
 function ImageInput({ field, label }: ImageInputProps) {
-  // const { user } = useAuth() as unknown as { user: ProfileUser };
+  const { user } = useAuth() as unknown as { user: ProfileUser };
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -122,4 +121,4 @@ function ImageInput({ field, label }: ImageInputProps) {
   );
 };
 
-export default ImageInput;
+export { ImageInput };

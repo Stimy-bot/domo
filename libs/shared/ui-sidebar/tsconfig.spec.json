@@ -1,17 +1,29 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "noEmit": true,
-    "types": ["vitest"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "jsx": "react-jsx"
+    "composite": false,
+    "incremental": false,
+
+    "moduleResolution": "Nodenext",
+    "jsx": "react-jsx",
+
+    "types": [
+      "vitest/globals",
+      "vitest/importMeta",
+      "vite/client",
+      "node"
+    ],
+
+    "rootDir": ".",
+    "outDir": "../../../dist/out-tsc"
   },
+
   "include": [
     "vite.config.ts",
     "vite.config.mts",
     "vitest.config.ts",
     "vitest.config.mts",
+
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
     "src/**/*.test.tsx",
@@ -20,9 +32,6 @@
     "src/**/*.spec.js",
     "src/**/*.test.jsx",
     "src/**/*.spec.jsx",
-    "src/**/*.d.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/types/**/*.d.ts"
+    "src/**/*.d.ts"
   ]
 }

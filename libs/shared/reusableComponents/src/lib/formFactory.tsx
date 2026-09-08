@@ -5,28 +5,32 @@ import {
   type FormOptions,
   type DeepKeys,
   type FormApi,
-} from '@tanstack/react-form'
-import { SubmitButton } from './submitButton'
-import React, { useMemo, useState } from 'react'
-import { useToast } from '@domo/context'
-import Captcha from './captcha'
-import { useNavigate } from '@tanstack/react-router'
+} from '@tanstack/react-form';
+import { SubmitButton } from './submitButton';
+import React, { useMemo, useState } from 'react';
+import { useToast } from '@domo/context';
+import Captcha from './captcha';
+import { useNavigate } from '@tanstack/react-router';
 
-export type ConsistentFormApi<TFormValues extends Record<string, unknown>> = FormApi<
-  TFormValues,
-  undefined,
-  undefined,
-  undefined,
-  undefined,
-  undefined,
-  undefined,
-  undefined,
-  undefined,
-  undefined,
-  undefined
->;
+export type ConsistentFormApi<TFormValues extends Record<string, unknown>> =
+  FormApi<
+    TFormValues,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined
+  >;
 
-type ConsistentFieldApi<TFormValues extends Record<string, unknown>, TName extends DeepKeys<TFormValues> = DeepKeys<TFormValues>> = TanstackFieldApi<
+type ConsistentFieldApi<
+  TFormValues extends Record<string, unknown>,
+  TName extends DeepKeys<TFormValues> = DeepKeys<TFormValues>,
+> = TanstackFieldApi<
   TFormValues,
   TName,
   any,
@@ -59,7 +63,10 @@ export interface SubmissionResult {
 }
 
 export interface FormFactoryProps<TFormValues extends Record<string, unknown>> {
-  formOptions: Omit<FormOptions<TFormValues, any, any, any, any, any, any, any, any, any, any>, 'onSubmit'>;
+  formOptions: Omit<
+    FormOptions<TFormValues, any, any, any, any, any, any, any, any, any, any>,
+    'onSubmit'
+  >;
   fieldsConfig: FieldConfig<TFormValues>[];
   onValidSubmit: (props: {
     value: TFormValues;
@@ -69,23 +76,30 @@ export interface FormFactoryProps<TFormValues extends Record<string, unknown>> {
   isSubmittingExternally?: boolean;
 }
 
-export interface FieldConfig<TFormValues extends Record<string, unknown>, TProps = Record<string, unknown>> {
-  name: DeepKeys<TFormValues>
-  label: string
-  placeholder?: string
+export interface FieldConfig<
+  TFormValues extends Record<string, unknown>,
+  TProps = Record<string, unknown>,
+> {
+  name: DeepKeys<TFormValues>;
+  label: string;
+  placeholder?: string;
   gridSpan?: string;
-  component: React.ComponentType<{
-    field: ConsistentFieldApi<TFormValues>
-    label: string
-    placeholder?: string
-  } & TProps>
-  validators?: unknown
-  props?: TProps
-  visible?: (form: ConsistentFormApi<TFormValues>) => boolean
+  component: React.ComponentType<
+    {
+      field: ConsistentFieldApi<TFormValues>;
+      label: string;
+      placeholder?: string;
+    } & TProps
+  >;
+  validators?: unknown;
+  props?: TProps;
+  visible?: (form: ConsistentFormApi<TFormValues>) => boolean;
   section?: string;
 }
 
-export default function FormFactory<TFormValues extends Record<string, unknown>>({
+export default function FormFactory<
+  TFormValues extends Record<string, unknown>,
+>({
   formOptions,
   fieldsConfig,
   onValidSubmit,
@@ -95,32 +109,35 @@ export default function FormFactory<TFormValues extends Record<string, unknown>>
   const navigate = useNavigate();
 
   const [captchaVerified, setCaptchaVerified] = useState(false);
-  const [captchaError, setCaptchaError] = useState("");
+  const [captchaError, setCaptchaError] = useState('');
 
   const handleCentralizedSubmit = async (props: {
     value: TFormValues;
     formApi: ConsistentFormApi<TFormValues>;
   }) => {
     if (!captchaVerified) {
-      setCaptchaError("Please complete the CAPTCHA before submitting.");
+      setCaptchaError('Please complete the CAPTCHA before submitting.');
       return;
     }
-    setCaptchaError("");
+    setCaptchaError('');
 
     try {
       const result = await onValidSubmit(props);
 
       if (result.success) {
-        addToast(result.message, "success");
+        addToast({ message: result.message, type: 'success' });
         if (result.redirect) {
           navigate({ to: result.redirect, replace: true });
         }
       } else {
-        addToast(result.message || "Submission failed.", "error");
+        addToast({
+          message: result.message || 'Submission failed.',
+          type: 'error',
+        });
       }
     } catch (error) {
-      console.error("Form Factory Submit Error:", error);
-      addToast("A critical error occurred.", "error");
+      console.error('Form Factory Submit Error:', error);
+      addToast({ message: 'A critical error occurred.', type: 'error' });
     }
   };
 
@@ -133,15 +150,18 @@ export default function FormFactory<TFormValues extends Record<string, unknown>>
     e.preventDefault();
     e.stopPropagation();
     void form.handleSubmit();
-  }
+  };
 
   const groupedFields = useMemo(() => {
-    return fieldsConfig.reduce((acc, field) => {
-      const key = field.section ?? 'default'
-      acc[key] = acc[key] ?? []
-      acc[key].push(field)
-      return acc
-    }, {} as Record<string, FieldConfig<TFormValues, any>[]>)
+    return fieldsConfig.reduce(
+      (acc, field) => {
+        const key = field.section ?? 'default';
+        acc[key] = acc[key] ?? [];
+        acc[key].push(field);
+        return acc;
+      },
+      {} as Record<string, FieldConfig<TFormValues, any>[]>,
+    );
   }, [fieldsConfig]);
 
   return (
@@ -159,32 +179,46 @@ export default function FormFactory<TFormValues extends Record<string, unknown>>
                 </div>
               </div>
             )}
-            {fields.map(({ name, label, placeholder, component: Component, validators, props, visible }) => {
-              if (visible && !visible(form)) return null
-              return (
-                <form.Field
-                  key={name}
-                  name={name}
-                  validators={validators as any}
-                >
-                  {(field) => (
-                    <Component
-                      field={field as unknown as ConsistentFieldApi<TFormValues>}
-                      label={label}
-                      placeholder={placeholder}
-                      {...(props ?? {})}
-                    />
-                  )}
-                </form.Field>
-              )
-            })}
+            {fields.map(
+              ({
+                name,
+                label,
+                placeholder,
+                component: Component,
+                validators,
+                props,
+                visible,
+              }) => {
+                if (visible && !visible(form)) return null;
+                return (
+                  <form.Field
+                    key={name}
+                    name={name}
+                    validators={validators as any}
+                  >
+                    {(field) => (
+                      <Component
+                        field={
+                          field as unknown as ConsistentFieldApi<TFormValues>
+                        }
+                        label={label}
+                        placeholder={placeholder}
+                        {...(props ?? {})}
+                      />
+                    )}
+                  </form.Field>
+                );
+              },
+            )}
           </div>
-        ))}  
+        ))}
 
-        <Captcha onVerify={(isVerified) => {
-          setCaptchaVerified(isVerified);
-          if (isVerified) setCaptchaError("");
-        }} />
+        <Captcha
+          onVerify={(isVerified) => {
+            setCaptchaVerified(isVerified);
+            if (isVerified) setCaptchaError('');
+          }}
+        />
 
         {captchaError && (
           <p className="p-4 text-center text-red-500 text-sm mt-2 font-semibold">
@@ -192,10 +226,14 @@ export default function FormFactory<TFormValues extends Record<string, unknown>>
           </p>
         )}
 
-        <SubmitButton form={form} disabled={form.state.isSubmitting} submitButtonText={submitButtonText}>
+        <SubmitButton
+          form={form}
+          disabled={form.state.isSubmitting}
+          submitButtonText={submitButtonText}
+        >
           {form.state.isSubmitting ? 'Sending...' : submitButtonText}
         </SubmitButton>
       </form>
     </div>
-  )
+  );
 }

@@ -1,13 +1,14 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
+    "composite": true,
     "rootDir": "src",
-    "outDir": "../../dist/apps/api",    "module": "NodeNext",
+    "outDir": "../../dist/apps/api",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "target": "es2022",
-    "ignoreDeprecations": "6.0"
+    "target": "es2022"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
     "**/*.spec.ts",
     "../../dist",
@@ -35,4 +36,3 @@
     }
   ]
 }
-

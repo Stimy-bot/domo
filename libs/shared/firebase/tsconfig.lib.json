@@ -2,10 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
-    "declarationMap": true,
+    "incremental": true,
+    "rootDir": "src",
     "outDir": "../../../dist/libs/shared/firebase",
-        "tsBuildInfoFile": "../../../dist/libs/shared/firebase/tsconfig.lib.tsbuildinfo",
+    "tsBuildInfoFile": "../../../dist/libs/shared/firebase/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "references": []
 }

@@ -1,13 +1,10 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "../../../dist/libs/shared/forms",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext"
+    "composite": true,
+    "types": ["node"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["**/*.spec.*", "**/*.test.*"],
   "references": [
     {
       "path": "../hooks"

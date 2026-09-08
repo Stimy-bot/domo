@@ -2,13 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
-    "declarationMap": true,
+    "incremental": true,
+    "rootDir": "src",
     "outDir": "../../../dist/libs/shared/client",
-    "tsBuildInfoFile": "../../../dist/libs/shared/client/tsconfig.lib.tsbuildinfo",
-    "typeRoots": ["../../../types", "../../../node_modules/@types"]
+    "tsBuildInfoFile": "../../../dist/libs/shared/client/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src", "../../../types/global.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "../types/tsconfig.lib.json"

@@ -2,13 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
-    "declarationMap": true,
+    "incremental": true,
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/validates",
     "tsBuildInfoFile": "../../../dist/libs/shared/validates/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "../types/tsconfig.lib.json"

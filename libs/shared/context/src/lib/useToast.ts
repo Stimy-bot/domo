@@ -9,4 +9,4 @@ import { ToastContext, type ToastContextType } from './toastContext';
   return context;
 }
 
-export default useToast;
+export { useToast };

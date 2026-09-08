@@ -14,6 +14,7 @@ function MainLayout({ children }: MainLayoutProps) {
       <UiFooter />
       </div>
   );
+  
 }
 
 export { MainLayout };

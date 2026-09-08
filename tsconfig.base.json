@@ -34,8 +34,9 @@
       "@domo/ui-header": ["./libs/shared/ui-header/src/index.ts"],
       "@domo/ui-sidebar": ["./libs/shared/ui-sidebar/src/index.ts"],
       "@domo/utils": ["./libs/shared/utils/src/index.ts"],
-      "@domo/validate": ["./libs/shared/validates/src/index.ts"],
-      "@domo/client": ["./libs/shared/client/src/index.ts"]
+      "@domo/validates": ["./libs/shared/validates/src/index.ts"],
+      "@domo/client": ["./libs/shared/client/src/index.ts"],
+      "@domo/tailwind-sync-plugin": ["tools/tailwind-sync-plugin/src/*"]
     },
     "strict": true,
     "allowSyntheticDefaultImports": true,
@@ -47,7 +48,7 @@
     "noImplicitOverride": true,
     "isolatedModules": true,
     "typeRoots": ["./types", "./node_modules/@types", "./node_modules"],
-      "types": ["node", "vite/client", "vitest/globals", "vitest/importMeta"]
+    "types": ["node", "vite/client", "vitest/globals", "vitest/importMeta"]
   },
   "include": ["types/**/*.d.ts"]
 }

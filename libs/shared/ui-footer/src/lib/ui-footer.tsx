@@ -4,8 +4,9 @@ const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com" },
 ];
 
-export function UiFooter() {
-  return (
+
+function UiFooter() {
+ return (
     <footer className="fixed inset-x-0 bottom-0 p-4 text-sm text-center text-dark-light bg-dark-hard">
       <p className="pb-4 text-center">
         Copyright &copy; {new Date().getFullYear()}&nbsp;Totaldata All Rights Reserved
@@ -27,4 +28,4 @@ export function UiFooter() {
   );
 }
 
-export default UiFooter;
+export { UiFooter };
