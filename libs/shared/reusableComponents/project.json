@@ -1,6 +1,5 @@
 {
   "name": "@domo/reusableComponents",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/reusableComponents/src",
   "projectType": "library",
   "tags": [],

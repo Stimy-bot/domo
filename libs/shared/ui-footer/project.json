@@ -1,10 +1,9 @@
 {
   "name": "@domo/ui-footer",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/ui-footer/src",
   "projectType": "library",
   "tags": [],
-   "targets": {
+  "targets": {
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],

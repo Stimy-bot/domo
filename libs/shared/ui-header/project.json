@@ -1,22 +1,17 @@
 {
   "name": "@domo/ui-header",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/ui-header/src",
   "projectType": "library",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/shared/ui-header",
         "main": "libs/shared/ui-header/src/index.ts",
         "tsConfig": "libs/shared/ui-header/tsconfig.lib.json",
-        "assets": [
-          "libs/shared/ui-header/*.md"
-        ]
+        "assets": ["libs/shared/ui-header/*.md"]
       }
     }
   }

@@ -1,21 +1,20 @@
 {
   "name": "@domo/my_start",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/my_start/src",
   "targets": {
     "build": {
-      "outputs": ["{projectRoot}/{options.outDir}", "{projectRoot}/dist"],
-      "defaultConfiguration": "production",
+      "executor": "@nx/vite:build",
       "options": {
-        "config": "./vite.config.ts",
-        "outDir": "../../dist/apps/my_start"
-      },
-      "configurations": {
-        "development": {
-          "mode": "development"
-        },
-        "production": {
-          "mode": "production"
-        }
+        "outputPath": "dist/apps/my_start",
+        "config": "apps/my_start/vite.config.ts"
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev",
+      "options": {
+        "buildTarget": "@domo/my_start:build",
+        "config": "apps/my_start/vite.config.ts"
       }
     }
   }

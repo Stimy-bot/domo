@@ -1,9 +1,21 @@
 {
   "name": "@domo/my_vite",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/my_vite/src",
   "projectType": "application",
-  "tags": [],
-  "// targets": "to see all targets run: nx show project my_vite --web",
-  "targets": {}
+  "sourceRoot": "apps/my_vite/src",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "options": {
+        "outputPath": "dist/apps/my_vite",
+        "config": "apps/my_vite/vite.config.mts"
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev",
+      "options": {
+        "buildTarget": "@domo/my_vite:build",
+        "config": "apps/my_vite/vite.config.mts"
+      }
+    }
+  }
 }

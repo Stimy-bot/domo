@@ -1,12 +1,13 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
+  "extends": "../../../tsconfig.base.json",  "compilerOptions": {
     "composite": true,
+        "declaration": true,
     "incremental": true,
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/ui-sidebar",
     "tsBuildInfoFile": "../../../dist/libs/shared/ui-sidebar/tsconfig.lib.tsbuildinfo"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts", "src/**/*.test.tsx", "src/**/*.spec.tsx"],
   "references": []
 }
