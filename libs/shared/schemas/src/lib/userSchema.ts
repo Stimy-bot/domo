@@ -1,6 +1,6 @@
 import Fastify from 'fastify';
 import { Type, type Static } from '@sinclair/typebox';
-import { CREATED } from '@domo/constants';
+import { CREATED } from '@domo/types';
 
 const fastify = Fastify({ logger: true });
 

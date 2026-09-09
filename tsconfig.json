@@ -88,7 +88,7 @@
       "path": "./apps/api-e2e"
     },
     {
-      "path": "./libs/shared"
+      "path": "./libs/shared/error"
     }
   ],
   "compilerOptions": {}

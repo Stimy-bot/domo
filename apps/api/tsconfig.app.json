@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
+        "declaration": true,
     "rootDir": "src",
     "outDir": "../../dist/apps/api",
     "module": "NodeNext",
@@ -21,6 +22,9 @@
     },
     {
       "path": "../../libs/shared/validates/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/types/tsconfig.lib.json"
     },
     {
       "path": "../../libs/shared/schemas/tsconfig.lib.json"

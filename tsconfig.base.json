@@ -9,7 +9,7 @@
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
     "paths": {
-      "@domo/*": ["apps/*/src", "libs/shared/*/src/index.ts"],
+      "@domo/*": ["libs/shared/*/src/index.ts", "apps/*/src"],
       "@domo/api": ["./apps/api/src/*"],
       "@domo/my_vite": ["./apps/my_vite/src/*"],
       "@domo/my_start": ["./apps/my_start/src/*"],

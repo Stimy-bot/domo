@@ -1,7 +1,7 @@
 // client/src/config/apiClient.ts
 import axios from "axios";
 import queryClient from "./queryClient";
-import { UNAUTHORIZED } from "@domo/constants";
+// import { UNAUTHORIZED } from "@domo/constants";
 import { navigate } from "@domo/utils";
 
 // Use a fallback that matches your actual backend service name
@@ -53,7 +53,7 @@ API.interceptors.response.use(
     const data = getErrorData(error); // Safely get the error object
 
     // Handle 401 Unauthorized
-    if (status === UNAUTHORIZED && !config._retry) {
+    if (status === (401) && !config._retry) {
       config._retry = true;
 
       // Handle Access Token Expiration

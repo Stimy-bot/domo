@@ -34,7 +34,7 @@ export type CompanyCategory = z.infer<typeof companyCategoryEnum>;
 
 // 🧱 Address Schema: reusable block
 // 2) Address subschema
-const addressSchema = z.object({
+export const addressSchema = z.object({
     street: z.string(),
     city: z.string(),
     state: z.string(),

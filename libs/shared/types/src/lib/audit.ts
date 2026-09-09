@@ -1,12 +1,16 @@
 // libs/shared/types/src/lib/audit.ts
 
-import { z } from 'zod';
-import { auditLogSchema, userRefSchema } from '@domo/schemas';
-
-// Derive types from your Zod schemas
-export type AuditLog = z.infer<typeof auditLogSchema>;
-export type Actor = z.infer<typeof userRefSchema>;
+// Keep shared types independent from the schemas package to avoid a circular
+// dependency through the constants package.
+export type Actor = {
+	id: string;
+	[key: string]: unknown;
+};
 export type Target = Actor;
 
-// You can keep the union for convenience if needed elsewhere
+export type AuditLog = {
+	type: string;
+	[key: string]: unknown;
+};
+
 export type AuditEventType = AuditLog['type'];

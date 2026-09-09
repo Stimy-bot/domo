@@ -13,7 +13,7 @@ export const useCreateCompany = () => {
 
       const enrichedData: CreateCompany = {
         ...formData,
-        userId: user._id,
+        userId: user.data._id,
       };
 
       const validation = await validateZod(createCompanySchema, enrichedData);
