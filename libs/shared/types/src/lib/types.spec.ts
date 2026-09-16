@@ -1,4 +1,4 @@
-import { types } from './types';
+import { types } from './types.js';
 import { describe, expect, it } from 'vitest';
 
 describe('types', () => {

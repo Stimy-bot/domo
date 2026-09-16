@@ -1,7 +1,7 @@
 // src/utils/typeGuards.ts
 import { AppErrorCode } from "@domo/constants";
 import { UNAUTHORIZED } from '@domo/types'
-import { AccessTokenPayload } from "@domo/types";
+import type { AccessTokenPayload } from "@domo/types";
 import {AppError} from "./AppError";
 
 /** Narrow `payload` from `unknown` to `AccessTokenPayload` in the if-block. */

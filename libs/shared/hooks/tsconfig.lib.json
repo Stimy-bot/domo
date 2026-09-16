@@ -1,16 +1,26 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "composite": true,
     "incremental": true,
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/hooks",
     "tsBuildInfoFile": "../../../dist/libs/shared/hooks/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "apps/**/*.ts",
+    "libs/**/*.ts",
+    "types/**/*.d.ts"
+  ],
   "references": [
     {
       "path": "../firebase/tsconfig.lib.json"
+    },
+    {
+      "path": "../types/tsconfig.lib.json"
     },
     {
       "path": "../validates/tsconfig.lib.json"

@@ -2,94 +2,37 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
+  "include": [],
   "references": [
-    {
-      "path": "./apps/api"
-    },
-    {
-      "path": "./apps/my_vite"
-    },
-    {
-      "path": "./apps/my_start"
-    },
-    {
-      "path": "./libs/shared/client"
-    },
-    {
-      "path": "./libs/shared/config"
-    },
-    {
-      "path": "./libs/shared/constants"
-    },
-    {
-      "path": "./libs/shared/context"
-    },
-    {
-      "path": "./libs/shared/controllers"
-    },
-    {
-      "path": "./libs/shared/firebase"
-    },
-    {
-      "path": "./libs/shared/forms"
-    },
-    {
-      "path": "./libs/shared/hooks"
-    },
-    {
-      "path": "./libs/shared/middleware"
-    },
-    {
-      "path": "./libs/shared/models"
-    },
-    {
-      "path": "./libs/shared/reusableComponents"
-    },
-    {
-      "path": "./libs/shared/schemas"
-    },
-    {
-      "path": "./libs/shared/services"
-    },
-    {
-      "path": "./libs/shared/state"
-    },
-    {
-      "path": "./libs/shared/types"
-    },
-    {
-      "path": "./libs/shared/ui-buttons"
-    },
-    {
-      "path": "./libs/shared/ui-footer"
-    },
-    {
-      "path": "./libs/shared/ui-header"
-    },
-    {
-      "path": "./libs/shared/ui-sidebar"
-    },
-    {
-      "path": "./libs/shared/utils"
-    },
-    {
-      "path": "./libs/shared/validates"
-    },
-    {
-      "path": "./tools/tailwind-sync-plugin"
-    },
-    {
-      "path": "./apps/my_start-e2e"
-    },
-    {
-      "path": "./apps/my_vite-e2e"
-    },
-    {
-      "path": "./apps/api-e2e"
-    },
-    {
-      "path": "./libs/shared/error"
-    }
-  ],
-  "compilerOptions": {}
+    { "path": "./apps/api" },
+    { "path": "./apps/my_api" },
+    { "path": "./apps/my_vite" },
+    { "path": "./apps/my_start" },
+    { "path": "./apps/my_start-e2e" },
+    { "path": "./apps/my_vite-e2e" },
+    { "path": "./apps/api-e2e" },
+    { "path": "./libs/shared/client" },
+    { "path": "./libs/shared/config" },
+    { "path": "./libs/shared/constants" },
+    { "path": "./libs/shared/context" },
+    { "path": "./libs/shared/controllers" },
+    { "path": "./libs/shared/error" },
+    { "path": "./libs/shared/firebase" },
+    { "path": "./libs/shared/forms" },
+    { "path": "./libs/shared/hooks" },
+    { "path": "./libs/shared/middleware" },
+    { "path": "./libs/shared/models" },
+    { "path": "./libs/shared/reusableComponents" },
+    { "path": "./libs/shared/schemas" },
+    { "path": "./libs/shared/services" },
+    { "path": "./libs/shared/state" },
+    { "path": "./libs/shared/types" },
+    { "path": "./libs/shared/ui-buttons" },
+    { "path": "./libs/shared/ui-footer" },
+    { "path": "./libs/shared/ui-header" },
+    { "path": "./libs/shared/ui-sidebar" },
+    { "path": "./libs/shared/utils" },
+    { "path": "./libs/shared/validates" },
+    { "path": "./tools/tailwind-sync-plugin" }
+  ]
 }

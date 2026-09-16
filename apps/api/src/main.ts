@@ -8,7 +8,7 @@ import {
 } from 'fastify-type-provider-zod'
 import { lifecycle } from '@domo/utils'
 import { loadEnv } from '@domo/constants'
-import app, { options } from './app/app.js'
+import app, { options } from './app/app'
 
 const server: FastifyInstance = Fastify({
   logger: {

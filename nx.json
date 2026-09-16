@@ -6,7 +6,10 @@
     "usePnpm": true
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/eslint.config.mjs",
@@ -78,8 +81,13 @@
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"],
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ],
       "outputs": [
         "{projectRoot}/dist",
         "{workspaceRoot}/dist/{projectRoot}",
@@ -88,22 +96,40 @@
     },
     "@nx/js:tsc": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"],
-      "outputs": ["{options.outputPath}", "{projectRoot}/dist"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ],
+      "outputs": [
+        "{options.outputPath}",
+        "{projectRoot}/dist"
+      ]
     },
     "typecheck": {
       "cache": true,
-      "inputs": ["default", "^production"]
+      "inputs": [
+        "default",
+        "^production"
+      ]
     },
     "lint": {
       "cache": true,
-      "inputs": ["default"]
+      "inputs": [
+        "default"
+      ]
     },
     "test": {
       "cache": true,
-      "inputs": ["default", "^production"],
-      "dependsOn": ["^build"]
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
     },
     "serve": {
       "dependsOn": [
@@ -112,33 +138,29 @@
           "dependencies": true
         }
       ]
+    },
+    "@nx/esbuild:esbuild": {
+      "cache": true,
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "json": "{workspaceRoot}/tsconfig.json",
+          "fields": [
+            "extends",
+            "files",
+            "include"
+          ]
+        }
+      ]
     }
   },
-  "projects": {
-    "@domo/types": "libs/shared/types",
-    "@domo/constants": "libs/shared/constants",
-    "@domo/utils": "libs/shared/utils",
-    "@domo/schemas": "libs/shared/schemas",
-    "@domo/context": "libs/shared/context",
-    "@domo/services": "libs/shared/services",
-    "@domo/models": "libs/shared/models",
-    "@domo/firebase": "libs/shared/firebase",
-    "@domo/state": "libs/shared/state",
-    "@domo/client": "libs/shared/client",
-    "@domo/config": "libs/shared/config",
-    "@domo/controllers": "libs/shared/controllers",
-    "@domo/forms": "libs/shared/forms",
-    "@domo/hooks": "libs/shared/hooks",
-    "@domo/middleware": "libs/shared/middleware",
-    "@domo/reusableComponents": "libs/shared/reusableComponents",
-    "@domo/ui-buttons": "libs/shared/ui-buttons",
-    "@domo/ui-footer": "libs/shared/ui-footer",
-    "@domo/ui-header": "libs/shared/ui-header",
-    "@domo/ui-sidebar": "libs/shared/ui-sidebar",
-    "@domo/validates": "libs/shared/validates",
-    "@domo/tailwind-sync-plugin": "libs/shared/tailwind-sync-plugin",
-    "@domo/my-start": "apps/my-start",
-    "@domo/my-vite": "apps/my-vite",
-    "@domo/api": "apps/api"
+  "sync": {
+    "disabledTaskSyncGenerators": [
+      "@aishop/tailwind-sync-plugin:update-tailwind-globs"
+    ]
   }
 }

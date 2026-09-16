@@ -1,7 +1,7 @@
 // client/src/schemas/auditSchema.ts
 import { z } from 'zod';
-import { ipAddressSchema, objectIdSchema } from './primitives';
-import { userRefSchema } from './auditLogSchema'
+import { ipAddressSchema, objectIdSchema } from './primitives.js';
+import { userRefSchema } from './auditLogSchema.js'
 
 // --- 1. Primitive Schemas ---
 // Use .nullish() because historical data often lacks IPs or has malformed strings

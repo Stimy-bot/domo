@@ -1,4 +1,4 @@
-import { schemas } from './schemas';
+import { schemas } from './schemas.js';
 import { describe, it, expect } from 'vitest';
 
 describe('schemas', () => {

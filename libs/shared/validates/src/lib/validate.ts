@@ -1,5 +1,5 @@
 // src/validateZod/validate.ts
-import { FastifyRequest, FastifyReply } from 'fastify';
+import type { FastifyRequest, FastifyReply } from 'fastify';
 import { ZodType, ZodError } from 'zod';
 import { BAD_REQUEST } from '@domo/types';
 

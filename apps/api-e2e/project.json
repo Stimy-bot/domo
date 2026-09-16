@@ -5,8 +5,7 @@
   "implicitDependencies": ["@domo/api"],
   "targets": {
     "test": {
-      "executor": "@nx/playwright:test",
-      "options": {
+      "executor": "@nx/js:test",      "options": {
         "config": "apps/api-e2e/playwright.config.ts"
       }
     }

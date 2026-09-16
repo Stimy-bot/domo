@@ -1,6 +1,6 @@
 import Fastify from 'fastify';
 import { Type, type Static } from '@sinclair/typebox';
-import { CREATED } from '@domo/types';
+// import { CREATED } from '@domo/types';
 
 const fastify = Fastify({ logger: true });
 
@@ -31,7 +31,7 @@ fastify.post<{ Body: UserType }>(
     // Safe at runtime AND strictly typed at compile time
     const { name, email, age } = request.body;
     request.log.info({ name, email, age }, 'Creating user');
-    reply.code(CREATED);
+    reply.code(201);
     return { id: 'usr_999', success: true };
   },
 );

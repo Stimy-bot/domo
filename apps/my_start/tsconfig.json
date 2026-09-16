@@ -1,23 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "module": "ESNext",
-    "rootDir": ".",
-    "baseUrl": ".",
-    "paths": {
-      "#/*": ["./src/*"],
-      "~/*": ["./src/*"],
-      "@/*": ["./src/*"]
-    },
-    "jsx": "react-jsx",
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "noEmit": false,
-    "types": ["vite/client", "node"]
-  },
   "files": [],
   "include": [],
-  "exclude": ["node_modules"],
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.spec.json" }

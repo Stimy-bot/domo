@@ -1,17 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
+  },
   "files": [],
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "apps/**/*.ts",
-    "libs/**/*.ts",
-    "types/**/*.d.ts"
-  ],
+  "include": [],
   "references": [
-    {
-      "path": "../../libs/shared/types"
-    },
     {
       "path": "./tsconfig.app.json"
     }

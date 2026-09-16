@@ -5,8 +5,8 @@
     "types": ["node"]
   },
   "files": [],
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": [
+  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
+    "references": [
     {
       "path": "../../libs/shared/utils"
     },

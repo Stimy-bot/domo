@@ -6,7 +6,7 @@ import { isIP } from 'validator';
 export const ipAddressSchema = z.preprocess(
   (val) => {
     if (typeof val === 'string' && val.includes(',')) {
-      return val.split(',')[0].trim();
+      return val.split(',')[0]?.trim() ?? '';
     }
     // Handle the "::ffff:" prefix Docker sometimes adds
     if (typeof val === 'string' && val.startsWith('::ffff:')) {

@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/apps/my_api",
+  },
+  "include": ["src/**/*.ts"],
+
+  "references": [
+    {
+      "path": "../../libs/shared/types/tsconfig.lib.json"
+    }
+  ]
+}

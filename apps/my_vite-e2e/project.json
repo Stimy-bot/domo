@@ -5,8 +5,7 @@
   "implicitDependencies": ["@domo/my_vite"],
   "targets": {
     "test": {
-      "executor": "@nx/playwright:test",
-      "options": {
+      "executor": "@nx/js:test",      "options": {
         "config": "apps/my_vite-e2e/playwright.config.ts"
       }
     }

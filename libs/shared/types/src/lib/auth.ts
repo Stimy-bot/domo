@@ -1,4 +1,4 @@
-import { FastifyRequest } from 'fastify';
+import type { FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
 export const AuthEventUserSchema = z.object({

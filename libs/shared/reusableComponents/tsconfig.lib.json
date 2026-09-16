@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "composite": true,
         "declaration": true,
     "incremental": true,
@@ -8,8 +9,8 @@
     "outDir": "../../../dist/libs/shared/reusableComponents",
     "tsBuildInfoFile": "../../../dist/libs/shared/reusableComponents/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": [
+  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
+    "references": [
     {
       "path": "../ui-footer/tsconfig.lib.json"
     },

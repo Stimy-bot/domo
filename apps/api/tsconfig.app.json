@@ -9,7 +9,7 @@
     "moduleResolution": "NodeNext",
     "target": "es2022"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+   "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
   "exclude": [
     "**/*.spec.ts",
     "../../dist",

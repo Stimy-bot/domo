@@ -1,5 +1,6 @@
 {
   "name": "@domo/my_start",
+  "private":"true",
   "type": "module",
-  "private": true
+  "dependencies": { }
 }

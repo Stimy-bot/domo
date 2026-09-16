@@ -5,6 +5,7 @@
     "outDir": "../../../dist/out-tsc",
     "tsBuildInfoFile": "../../../dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": false,
+    "declaration": true,
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "types": [

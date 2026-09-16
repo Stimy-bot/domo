@@ -5,7 +5,7 @@ import {
   isoDateStringSchema,
   ipAddressSchema,
   optionalTrimmedString
-} from './primitives';
+} from './primitives.js';
 
 //
 // 1. Shared Sub-Schemas

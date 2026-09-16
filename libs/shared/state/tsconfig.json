@@ -1,9 +1,12 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "composite": true,
-    "types": ["node"]
+    "types": ["node"],
+    "moduleResolution": "nodenext"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
+    "references": []
 }
+  

@@ -3,12 +3,13 @@
   "compilerOptions": {
     "composite": true,
     "incremental": true,
+        "jsx": "react-jsx",
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/client",
     "tsBuildInfoFile": "../../../dist/libs/shared/client/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": [
+  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
+    "references": [
     {
       "path": "../types/tsconfig.lib.json"
     },

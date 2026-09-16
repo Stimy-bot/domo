@@ -1,12 +1,13 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "composite": true,
     "incremental": true,
     "rootDir": "src",
     "outDir": "../../../dist/libs/shared/context",
     "tsBuildInfoFile": "../../../dist/libs/shared/context/tsconfig.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
+    "references": []
 }
