@@ -4,7 +4,7 @@
     "composite": true,
     "declaration": true,
     "rootDir": "src",
-    "outDir": "../../dist/apps/api",
+    "outDir": "../../dist/out-tsc",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "target": "es2022"

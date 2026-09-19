@@ -1,5 +1,5 @@
 // server/src/models/companyModel.ts
-import { Db, ObjectId, Collection, IndexDescription } from 'mongodb';
+import { Db, ObjectId, Collection, type IndexDescription } from 'mongodb';
 import { companyCategoryEnum } from '@domo/schemas';
 
 // 1) Address Interface

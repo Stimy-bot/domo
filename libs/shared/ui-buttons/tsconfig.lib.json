@@ -5,7 +5,7 @@
     "composite": true,
     "incremental": true,
     "rootDir": "src",
-    "outDir": "../../../dist/libs/shared/ui-buttons",
+    "outDir": "../../../dist/out-tsc",
     "tsBuildInfoFile": "../../../dist/libs/shared/ui-buttons/tsconfig.lib.tsbuildinfo"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],

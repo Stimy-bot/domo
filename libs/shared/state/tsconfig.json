@@ -4,6 +4,7 @@
     "jsx": "react-jsx",
     "composite": true,
     "types": ["node"],
+    "module": "NodeNext",
     "moduleResolution": "nodenext"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],

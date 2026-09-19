@@ -7,10 +7,12 @@
     "moduleResolution": "nodenext",
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
-    "references": [
-    {
-      "path": "../types"
-    }
-  ]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "apps/**/*.ts",
+    "libs/**/*.ts",
+    "types/**/*.d.ts"
+  ],
+  "references": []
 }

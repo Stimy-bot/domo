@@ -1,5 +1,5 @@
 // libs/shared/reusableComponents/src/lib/emailInput.tsx
-import { AnyFieldApi } from "@tanstack/react-form";
+import type { AnyFieldApi } from "@tanstack/react-form";
 import { BaseInput } from "./baseInput";
 
 const EmailInput = ({ 

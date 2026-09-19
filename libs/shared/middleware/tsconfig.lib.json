@@ -5,7 +5,7 @@
     "composite": true,
     "incremental": true,
     "rootDir": "src",
-    "outDir": "../../../dist/libs/shared/middleware",
+    "outDir": "../../../dist/out-tsc",
     "tsBuildInfoFile": "../../../dist/libs/shared/middleware/tsconfig.lib.tsbuildinfo"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],

@@ -5,7 +5,7 @@
     "composite": true,
     "incremental": true,
     "rootDir": "src",
-    "outDir": "../../../dist/libs/shared/hooks",
+    "outDir": "../../../dist/out-tsc",
     "tsBuildInfoFile": "../../../dist/libs/shared/hooks/tsconfig.lib.tsbuildinfo"
   },
   "include": [
@@ -18,9 +18,6 @@
   "references": [
     {
       "path": "../firebase/tsconfig.lib.json"
-    },
-    {
-      "path": "../types/tsconfig.lib.json"
     },
     {
       "path": "../validates/tsconfig.lib.json"

@@ -6,7 +6,7 @@
         "declaration": true,
     "incremental": true,
     "rootDir": "src",
-    "outDir": "../../../dist/libs/shared/forms",
+    "outDir": "../../../dist/out-tsc",
     "tsBuildInfoFile": "../../../dist/libs/shared/forms/tsconfig.lib.tsbuildinfo"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { useAuthStore } from './auth.store';
+import { useAuthStore } from './auth.store.js';
 
 describe('Auth Store', () => {
   it('sets user', () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { useLayoutStore } from './layout.store';
+import { useLayoutStore } from './layout.store.js';
 
 describe('Layout Store', () => {
   it('toggles sidebar', () => {

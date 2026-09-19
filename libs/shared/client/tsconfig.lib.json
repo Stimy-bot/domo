@@ -5,7 +5,7 @@
     "incremental": true,
         "jsx": "react-jsx",
     "rootDir": "src",
-    "outDir": "../../../dist/libs/shared/client",
+    "outDir": "../../../dist/out-tsc",
     "tsBuildInfoFile": "../../../dist/libs/shared/client/tsconfig.lib.tsbuildinfo"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],

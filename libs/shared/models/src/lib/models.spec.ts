@@ -1,4 +1,4 @@
-import { models } from './models';
+import { models } from './models.js';
 import { describe, expect, it } from 'vitest';
 
 describe('models', () => {

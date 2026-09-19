@@ -1,4 +1,4 @@
-import { client } from './client';
+import { client } from './client.js';
 import { describe, it, expect } from 'vitest'
 
 describe('client', () => {

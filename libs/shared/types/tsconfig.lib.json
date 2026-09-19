@@ -6,7 +6,7 @@
     "incremental": true,
     "declaration": true,
     "rootDir": "src",
-    "outDir": "../../../dist/libs/shared/types",
+    "outDir": "../../../dist/out-tsc",
     "tsBuildInfoFile": "../../../dist/libs/shared/types/tsconfig.lib.tsbuildinfo",
     "types": ["node"]
   },

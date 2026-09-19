@@ -1,4 +1,4 @@
-import { RoleType } from '@domo/models';
+import type { RoleType } from '@domo/models';
 
 /**
  * Define base permission sets to enable inheritance.
