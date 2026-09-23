@@ -1,50 +1,67 @@
 {
   "name": "@domo/my_api",
-  "projectType": "application",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/my_api/src",
+  "projectType": "application",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/esbuild:esbuild",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
       "options": {
-        "platform": "node",
         "outputPath": "dist/apps/my_api",
-        "format": ["cjs"],
-        "bundle": true,
-        "thirdParty": true,
         "main": "apps/my_api/src/main.ts",
         "tsConfig": "apps/my_api/tsconfig.app.json",
-        "assets": ["apps/my_api/src/assets"],
-        "esbuildOptions": {
-          "sourcemap": true,
-          "outExtension": { ".js": ".js" }
-        }
-      },
-      "configurations": {
-        "development": {},
-        "production": {
-          "esbuildOptions": {
-            "sourcemap": false,
-            "outExtension": { ".js": ".js" }
+        "platform": "node",
+        "format": ["esm"],
+        "bundle": true,
+        "thirdParty": false,
+        "assets": [
+            {
+            "glob": "**/*",
+            "input": "apps/my_api/src/public",
+            "output": "public"
+          },
+           {
+            "glob": "**/*",
+            "input": "apps/my_api/src/views",
+            "output": "views"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/my_api/src/app/plugins",
+            "output": "plugins"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/my_api/src/app/routes",
+            "output": "routes"
           }
-        }
+        ]
       }
     },
     "serve": {
       "executor": "@nx/js:node",
-      "dependsOn": ["build"],
       "options": {
         "buildTarget": "@domo/my_api:build",
-        "runBuildTargetDependencies": false
+        "inspect": true
       },
       "configurations": {
         "development": {
           "buildTarget": "@domo/my_api:build:development"
-        },
-        "production": {
-          "buildTarget": "@domo/my_api:build:production"
         }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["apps/my_api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "options": {
+        "passWithNoTests": true
       }
     }
   }
