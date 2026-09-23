@@ -1,5 +1,6 @@
 {
   "name": "@domo/reusableComponents",
+  "root": "libs/shared/reusableComponents",
   "sourceRoot": "libs/shared/reusableComponents/src",
   "projectType": "library",
   "tags": [],

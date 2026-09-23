@@ -1,5 +1,6 @@
 {
   "name": "@domo/ui-sidebar",
+  "root": "libs/shared/ui-sidebar",
   "sourceRoot": "libs/shared/ui-sidebar/src",
   "projectType": "library",
   "tags": [],

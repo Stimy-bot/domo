@@ -1,6 +1,7 @@
 export * from './lib/utils.js';
 export * from './lib/lifecycle.js';
 export {formatNameToTitle, cn} from './lib/helper.js';
+export { signToken, refreshTokenSignOptions, type RefreshTokenPayload } from './lib/jwt.js';
 export * from './lib/hash.js';
 export * from './lib/lifecycle.js';
 export * from './lib/jwt.js';

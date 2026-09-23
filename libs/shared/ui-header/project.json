@@ -1,5 +1,6 @@
 {
   "name": "@domo/ui-header",
+  "root": "libs/shared/ui-header",
   "sourceRoot": "libs/shared/ui-header/src",
   "projectType": "library",
   "tags": [],

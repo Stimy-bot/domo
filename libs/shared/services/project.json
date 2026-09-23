@@ -1,5 +1,6 @@
 {
   "name": "@domo/services",
+  "root": "libs/shared/services",
   "sourceRoot": "libs/shared/services/src",
   "projectType": "library",
   "tags": [],

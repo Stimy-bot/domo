@@ -1,5 +1,5 @@
 // src/middleware/requireValidTargetId.ts
-import { FastifyRequest, FastifyReply } from 'fastify';
+import type { FastifyRequest, FastifyReply } from 'fastify';
 import { ObjectId } from '@fastify/mongodb';
 import { BAD_REQUEST } from '@domo/types';
 

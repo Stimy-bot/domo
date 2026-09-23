@@ -1,4 +1,4 @@
-import { reusableComponents } from './reusableComponents';
+import { reusableComponents } from './reusableComponents.js';
 import { describe, expect, it } from 'vitest';
 
 describe('reusableComponents', () => {

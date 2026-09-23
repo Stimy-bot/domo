@@ -1,7 +1,7 @@
 // libs/shared/services/src/lib/companyService.ts
 import { ObjectId, Collection, Db } from 'mongodb';
 import { BAD_REQUEST, NOT_FOUND } from '@domo/types';
-import {appAssert} from '@domo/utils';
+import { appAssert } from '@domo/utils';
 
 // Define the shape of your MongoDB document interface
 export interface CompanyEntity {
@@ -11,11 +11,11 @@ export interface CompanyEntity {
   created_by: ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export class CompanyService {
-  private static getCollection({ db }: { db: Db; }): Collection<CompanyEntity> {
+  private static getCollection({ db }: { db: Db }): Collection<CompanyEntity> {
     return db.collection<CompanyEntity>('companies');
   }
 
@@ -31,9 +31,12 @@ export class CompanyService {
   static async getCompanyById(
     db: Db,
     id: string | ObjectId,
-  ): Promise<CompanyEntity | null> {
+  ): Promise<CompanyEntity> {
     const objectId = typeof id === 'string' ? new ObjectId(id) : id;
-    return await this.getCollection({ db }).findOne({ _id: objectId });
+    const company = await this.getCollection({ db }).findOne({ _id: objectId });
+    
+    appAssert(company, NOT_FOUND, 'Company not found');
+    return company;
   }
 
   // --- Create Company ---
@@ -64,7 +67,7 @@ export class CompanyService {
 
     // 3. Insert and return created document
     const result = await collection.insertOne(docToInsert);
-    
+
     return {
       _id: result.insertedId,
       ...docToInsert,
@@ -80,6 +83,7 @@ export class CompanyService {
     const objectId = typeof id === 'string' ? new ObjectId(id) : id;
 
     // Filter out _id or immutable fields from update set
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { _id, createdAt, ...fieldsToUpdate } = updateData;
 
     const result = await this.getCollection({ db }).findOneAndUpdate(
@@ -90,7 +94,7 @@ export class CompanyService {
           updatedAt: new Date(),
         },
       },
-      { returnDocument: 'after' }, // Returns the updated document
+      { returnDocument: 'after' },
     );
 
     appAssert(result, NOT_FOUND, 'Company not found');

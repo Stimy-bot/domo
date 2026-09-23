@@ -1,5 +1,6 @@
 {
   "name": "@domo/firebase",
+    "root": "libs/shared/firebase",
   "sourceRoot": "libs/shared/firebase/src",
   "projectType": "library",
   "tags": [],

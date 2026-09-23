@@ -1,5 +1,6 @@
 {
   "name": "@domo/types",
+  "root": "libs/shared/types",
   "sourceRoot": "libs/shared/types/src",
   "projectType": "library",
   "tags": [],

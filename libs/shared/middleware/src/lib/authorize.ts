@@ -1,12 +1,16 @@
-import { FastifyRequest } from 'fastify';
+import type { FastifyRequest } from 'fastify';
 import { FORBIDDEN, UNAUTHORIZED } from '@domo/types';
 import { appAssert } from '@domo/utils';
-import { Permission } from '@domo/config';
+import type { Permission } from '@domo/config';
 
 export const authorize = (requiredPermissions: Permission | Permission[]) => {
   return async (req: FastifyRequest) => {
     // Check req.user first, then fallback to req.authUser
-    const user = req.user || req.authUser;
+    const request = req as FastifyRequest & {
+      user?: { role?: unknown; permissions?: unknown };
+      authUser?: { role?: unknown; permissions?: unknown };
+    };
+    const user = request.user || request.authUser;
 
     // 1) Ensure request is authenticated
     appAssert(user, UNAUTHORIZED, 'Authentication required');

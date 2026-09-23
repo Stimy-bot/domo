@@ -1,14 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
     "composite": true,
-    "incremental": true,
     "declaration": true,
-    "rootDir": "src",
     "outDir": "../../../dist/out-tsc",
     "tsBuildInfoFile": "../../../dist/libs/shared/types/tsconfig.lib.tsbuildinfo",
-    "types": ["node"]
   },
   "include": [
     "src/**/*.ts",

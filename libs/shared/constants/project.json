@@ -1,5 +1,6 @@
 {
   "name": "@domo/constants",
+  "root": "libs/shared/constants",
   "sourceRoot": "libs/shared/constants/src",
   "projectType": "library",
   "tags": [],

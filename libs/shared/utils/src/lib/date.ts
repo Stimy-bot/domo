@@ -8,8 +8,9 @@ export const oneHourFromNow = () => new Date(Date.now() + 60 * 60 * 1000);
 export const oneYearFromNow = () =>
   new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
 
-export const thirtyDaysFromNow = () =>
-  new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+export const thirtyDaysFromNow = (): number => {
+return Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60;
+};
 
  export const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 

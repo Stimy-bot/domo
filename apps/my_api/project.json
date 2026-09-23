@@ -1,0 +1,51 @@
+{
+  "name": "@domo/my_api",
+  "projectType": "application",
+  "sourceRoot": "apps/my_api/src",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/my_api",
+        "format": ["cjs"],
+        "bundle": true,
+        "thirdParty": true,
+        "main": "apps/my_api/src/main.ts",
+        "tsConfig": "apps/my_api/tsconfig.app.json",
+        "assets": ["apps/my_api/src/assets"],
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": { ".js": ".js" }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": { ".js": ".js" }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "@domo/my_api:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "@domo/my_api:build:development"
+        },
+        "production": {
+          "buildTarget": "@domo/my_api:build:production"
+        }
+      }
+    }
+  }
+}

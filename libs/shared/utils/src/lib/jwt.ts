@@ -128,3 +128,13 @@ export const createSessionAndTokens = (
 
   return { accessToken, refreshToken };
 };
+
+export const accessTokenSignOptions: SignOptionsAndSecret = {
+  expiresIn: '15m',
+  secret: JWT_SECRET,
+};
+
+export const refreshTokenSignOptions: SignOptionsAndSecret = {
+  expiresIn: '30d',
+  secret: JWT_REFRESH_SECRET,
+};

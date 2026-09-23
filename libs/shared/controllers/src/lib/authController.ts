@@ -58,7 +58,7 @@ export const registerHandler = catchErrors(
     const xForwardedFor = req.headers['x-forwarded-for'];
     const clientIp =
       (typeof xForwardedFor === 'string'
-        ? xForwardedFor.split(',')[0].trim()
+        ? xForwardedFor.split(',')[0]?.trim()
         : Array.isArray(xForwardedFor)
           ? xForwardedFor[0]
           : undefined) ||
@@ -86,8 +86,7 @@ export const registerHandler = catchErrors(
 
     const requestData = result.data;
     const email = (requestData.email || '').trim().toLowerCase();
-    const phone = requestData.phone
-      ? requestData.phone.replace(/\D/g, '')
+const phone = typeof requestData.phone === 'string'      ? requestData.phone.replace(/\D/g, '')
       : undefined;
 
     const usersCollection = req.db.collection<UserEntity>('users');
@@ -159,7 +158,7 @@ export const loginHandler = catchErrors(
     const xForwardedFor = req.headers['x-forwarded-for'];
     const rawIp =
       (typeof xForwardedFor === 'string'
-        ? xForwardedFor.split(',')[0].trim()
+        ? xForwardedFor.split(',')[0]?.trim()
         : Array.isArray(xForwardedFor)
           ? xForwardedFor[0]
           : undefined) ||
@@ -190,7 +189,7 @@ export const loginHandler = catchErrors(
       req,
       {
         _id: user['_id'] as string | ObjectId,
-        email: user['email'] as string | undefined,
+        email: typeof user?.email === 'string' ? user.email : undefined,
         fullName: getFullName(user),
       },
       'user_login',
@@ -419,7 +418,7 @@ export const verifyOtpHandler = catchErrors(
       req,
       {
         _id: user['_id'] as string | ObjectId,
-        email: user['email'] as string | undefined,
+        email: typeof user?.email === 'string' ? user.email : undefined,
         fullName: getFullName(user),
       },
       'otp_verification',

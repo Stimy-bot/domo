@@ -76,6 +76,9 @@ export default defineConfig({
   },
 
   build: {
+    rollupOptions: {
+      external: ['mongodb'],
+    },
     outDir: resolve(__dirname, '../../dist/apps/my_vite'),
     emptyOutDir: true,
     reportCompressedSize: true,
@@ -100,6 +103,7 @@ export default defineConfig({
 
   optimizeDeps: {
     exclude: [
+      'mongodb',
       '@domo/state',
       '@domo/ui-header',
       '@domo/ui-footer',

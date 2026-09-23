@@ -109,7 +109,7 @@ export async function logAuthEvent<M extends Record<string, unknown>>(
   const xForwardedFor = req.headers['x-forwarded-for'];
   const rawIp =
     (typeof xForwardedFor === 'string'
-      ? xForwardedFor.split(',')[0].trim()
+      ? xForwardedFor.split(',')[0]?.trim()
       : Array.isArray(xForwardedFor)
         ? xForwardedFor[0]
         : undefined) ||

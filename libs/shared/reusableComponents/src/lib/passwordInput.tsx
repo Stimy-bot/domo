@@ -1,5 +1,5 @@
 // libs/shared/reusableComponents/src/lib/passwordInput.tsx
-import { AnyFieldApi } from "@tanstack/react-form";
+import type { AnyFieldApi } from "@tanstack/react-form";
 import { BaseInput } from "./baseInput";
 
 // Use AnyFieldApi and a rest spread for the extra props

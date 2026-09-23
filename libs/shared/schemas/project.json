@@ -1,5 +1,6 @@
 {
   "name": "@domo/schemas",
+  "root": "libs/shared/schemas",
   "sourceRoot": "libs/shared/schemas/src",
   "projectType": "library",
   "tags": [],

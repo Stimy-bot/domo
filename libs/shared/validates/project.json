@@ -1,5 +1,6 @@
 {
   "name": "@domo/validates",
+    "root": "libs/shared/validates",
   "sourceRoot": "libs/shared/validates/src",
   "projectType": "library",
   "tags": [],

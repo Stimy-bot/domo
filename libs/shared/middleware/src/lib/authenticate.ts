@@ -1,11 +1,11 @@
-import { FastifyPluginAsync, FastifyRequest } from 'fastify';
+import type { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 import { ObjectId } from '@fastify/mongodb';
 import { UNAUTHORIZED } from '@domo/types';
 import { AppErrorCode } from '@domo/constants'
 import { verifyToken, appAssert } from '@domo/utils';
 import type { AccessTokenPayload } from '@domo/types';
-import { UserEntity, RoleType } from '@domo/models';
+import type { UserEntity, RoleType } from '@domo/models';
 import { rolePermissions } from '@domo/config';
 
 export const authenticateHook = async (req: FastifyRequest) => {
@@ -99,12 +99,14 @@ export const authenticateHook = async (req: FastifyRequest) => {
   const reqWithUser = req as unknown as {
     user: typeof authUserData;
     authUser: typeof authUserData;
+    userId: string;
+    sessionId: string;
   };
   reqWithUser.user = authUserData;
   reqWithUser.authUser = authUserData;
 
-  req.userId = pl.userId;
-  req.sessionId = pl.sessionId;
+  reqWithUser.userId = pl.userId;
+  reqWithUser.sessionId = pl.sessionId;
 };
 
 const authenticatePlugin: FastifyPluginAsync = async (fastify) => {

@@ -3,8 +3,6 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "composite": true,
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
     "types": ["node"]
   },
   "include": [

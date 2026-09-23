@@ -1,14 +1,29 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext"
+    "composite": true
   },
   "files": [],
-  "include": [],
-  "references": [
+  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
+    "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "../../libs/shared/utils"
+    },
+    {
+      "path": "../../libs/shared/validates"
+      
+    },
+    {
+      "path": "../../libs/shared/schemas"
+    },
+    {
+      "path": "../../libs/shared/controllers"
+    },
+    {
+      "path": "../../libs/shared/constants"
+    },
+    {
+      "path": "../../libs/shared/middleware"
     }
   ]
 }

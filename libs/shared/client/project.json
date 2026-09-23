@@ -1,5 +1,6 @@
 {
   "name": "@domo/client",
+    "root": "libs/shared/client",
   "sourceRoot": "libs/shared/client/src",
   "projectType": "library",
   "tags": [],

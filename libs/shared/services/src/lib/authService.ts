@@ -6,14 +6,15 @@ import {
   VerificationCodeType,
   loadEnv,
 } from '@domo/constants';
-import {   CONFLICT,
+import {
+  CONFLICT,
   INTERNAL_SERVER_ERROR,
   NOT_FOUND,
   TOO_MANY_REQUESTS,
-  UNAUTHORIZED
- } from '@domo/types'
-import { ONE_DAY_MS } from '@domo/utils'
-import { Role } from '@domo/types';
+  UNAUTHORIZED,
+} from '@domo/types';
+import { ONE_DAY_MS } from '@domo/utils';
+import type { Role } from '@domo/types';
 
 import {
   hashValue,
@@ -29,8 +30,8 @@ import {
   signToken,
   verifyToken,
 } from '@domo/utils';
-import { insertLogIntoDb } from './auditService';
-import { twilioService } from './twilioService';
+import { insertLogIntoDb } from './auditService.js';
+import { twilioService } from './twilioService.js';
 
 const env = loadEnv();
 
@@ -244,12 +245,11 @@ export const createAccount = async (
   };
 
   const options = { upsert: true, returnDocument: 'after' as const };
-  const result = await usersCollection.findOneAndUpdate(
+  const user = await usersCollection.findOneAndUpdate(
     filter,
     update,
     options,
   );
-  const user = result;
 
   appAssert(user, INTERNAL_SERVER_ERROR, 'Failed to create account');
 
@@ -257,7 +257,7 @@ export const createAccount = async (
   if (phone) {
     try {
       await twilioService.sendVerificationCode(phone, ctx.logger);
-    } catch (err) {
+    } catch (err: unknown) {
       if (ctx.logger) {
         ctx.logger.error(
           { err, phone },
@@ -285,7 +285,7 @@ export const createAccount = async (
   sendMail({
     to: email,
     ...getVerifyEmailTemplate(url),
-  }).catch((err) => {
+  }).catch((err: unknown) => {
     if (ctx.logger) {
       ctx.logger.error({ err, email }, 'Verification email sending failed');
     } else {
@@ -362,12 +362,13 @@ export const refreshUserAccessToken = async (
   });
   const now = Date.now();
   appAssert(
-    session && new Date(session['expiresAt']).getTime() > now,
+    session && new Date(session['expiresAt'] as string | number | Date).getTime() > now,
     UNAUTHORIZED,
     'Session expired',
   );
 
-  if (new Date(session['expiresAt']).getTime() - now <= ONE_DAY_MS) {
+  const expiresAtMs = new Date(session['expiresAt'] as string | number | Date).getTime();
+  if (expiresAtMs - now <= ONE_DAY_MS) {
     await sessionsCollection.updateOne(
       { _id: session._id },
       { $set: { expiresAt: thirtyDaysFromNow() } },
@@ -375,12 +376,10 @@ export const refreshUserAccessToken = async (
   }
 
   const user = await usersCollection.findOne({
-    _id: new ObjectId(session['userId']),
+    _id: new ObjectId(session['userId'] as string | ObjectId),
   });
   appAssert(user, INTERNAL_SERVER_ERROR, 'User not found during token refresh');
 
-  // Create new tokens by reusing createSessionAndTokens logic but without inserting a new session.
-  // We will sign new tokens directly here to preserve the existing session id.
   const newAccessToken = signToken(
     {
       userId: user._id.toString(),
@@ -389,7 +388,7 @@ export const refreshUserAccessToken = async (
       role: user.role,
       sessionId: session._id.toString(),
     },
-    { expiresIn: 15 * 60 * 1000 }, // 15 minutes in ms
+    { expiresIn: 15 * 60 * 1000 },
   );
 
   const newRefreshToken = signToken(
@@ -400,8 +399,7 @@ export const refreshUserAccessToken = async (
   return { accessToken: newAccessToken, newRefreshToken };
 };
 
-export const verifyEmail = async (
-  ctx: ServiceContext, codeId: string) => {
+export const verifyEmail = async (ctx: ServiceContext, codeId: string) => {
   const codesCollection = ctx.db.collection('verificationCodes');
   const usersCollection = ctx.db.collection<UserDocument>('users');
 
@@ -413,7 +411,7 @@ export const verifyEmail = async (
   appAssert(validCode, NOT_FOUND, 'Invalid or expired verification code');
 
   const updatedUser = await usersCollection.findOneAndUpdate(
-    { _id: new ObjectId(validCode['userId']) },
+    { _id: new ObjectId(validCode['userId'] as string | ObjectId) },
     { $set: { verified: true } },
     { returnDocument: 'after' },
   );
@@ -487,18 +485,18 @@ export const resetPassword = async (
   });
   appAssert(code, NOT_FOUND, 'Invalid or expired code');
 
+  const userId = new ObjectId(code['userId'] as string | ObjectId);
   const newHashedPassword = await hashValue(password);
+
   await usersCollection.updateOne(
-    { _id: new ObjectId(code['userId']) },
+    { _id: userId },
     { $set: { password: newHashedPassword } },
   );
 
   await codesCollection.deleteOne({ _id: code._id });
-  await sessionsCollection.deleteMany({ userId: new ObjectId(code['userId']) });
+  await sessionsCollection.deleteMany({ userId });
 
-  const user = await usersCollection.findOne({
-    _id: new ObjectId(code['userId']),
-  });
+  const user = await usersCollection.findOne({ _id: userId });
   appAssert(user, INTERNAL_SERVER_ERROR, 'User retrieval failed');
 
   return { user: sanitizeUser(user) };
@@ -561,8 +559,8 @@ export const updateAccount = async (
   }
 
   if (updateFields['firstName'] || updateFields['lastName']) {
-    const fn = updateFields['firstName'] || user['firstName'];
-    const ln = updateFields['lastName'] || user['lastName'];
+    const fn = (updateFields['firstName'] as string) || user.firstName;
+    const ln = (updateFields['lastName'] as string) || user.lastName;
     updateFields['fullName'] = `${fn} ${ln}`.trim();
   }
 
@@ -576,7 +574,7 @@ export const updateAccount = async (
 
   const logBase = {
     actor: {
-      _id: userId.toString(),
+      _id: userId,
       email: updatedUser.email,
       fullName: updatedUser.fullName || 'Unknown',
     },
@@ -601,7 +599,7 @@ export const updateAccount = async (
         previous: oldRole.join(', '),
         current: updatedUser.role.join(', '),
       },
-    }).catch((err) => ctx.logger?.error({ err }, 'Audit Log Failed'));
+    }).catch((err: unknown) => ctx.logger?.error({ err }, 'Audit Log Failed'));
   }
 
   if (typeof active === 'boolean' && active !== oldStatus) {
@@ -613,7 +611,7 @@ export const updateAccount = async (
         newStatus: String(active),
         method: method || 'manual',
       },
-    }).catch((err) => ctx.logger?.error({ err }, 'Audit Log Failed'));
+    }).catch((err: unknown) => ctx.logger?.error({ err }, 'Audit Log Failed'));
   }
 
   if (profileChanged) {
@@ -627,7 +625,7 @@ export const updateAccount = async (
           allowedFields.includes(k),
         ),
       },
-    }).catch((err) => ctx.logger?.error({ err }, 'Audit Log Failed'));
+    }).catch((err: unknown) => ctx.logger?.error({ err }, 'Audit Log Failed'));
   }
 
   const { accessToken, refreshToken } = await createSessionAndTokens(
@@ -664,8 +662,7 @@ export const updateProfilePicture = async (
   return sanitizeUser(updatedUser);
 };
 
-export const deleteAccount = async (
-  ctx: ServiceContext, userId: string) => {
+export const deleteAccount = async (ctx: ServiceContext, userId: string) => {
   const usersCollection = ctx.db.collection('users');
   const sessionsCollection = ctx.db.collection('sessions');
 
@@ -678,8 +675,7 @@ export const deleteAccount = async (
   return { message: 'Account deleted successfully' };
 };
 
-export const deleteAllUsers = async (
-  ctx: ServiceContext) => {
+export const deleteAllUsers = async (ctx: ServiceContext) => {
   const usersCollection = ctx.db.collection('users');
   const sessionsCollection = ctx.db.collection('sessions');
   const codesCollection = ctx.db.collection('verificationCodes');

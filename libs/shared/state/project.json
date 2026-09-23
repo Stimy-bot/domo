@@ -1,5 +1,6 @@
 {
   "name": "@domo/state",
+  "root": "libs/shared/state",
   "sourceRoot": "libs/shared/state/src",
   "projectType": "library",
   "tags": [],

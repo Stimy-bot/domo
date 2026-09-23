@@ -1,5 +1,6 @@
 {
   "name": "@domo/hooks",
+  "root": "libs/shared/hooks",
   "sourceRoot": "libs/shared/hooks/src",
   "projectType": "library",
   "tags": [],

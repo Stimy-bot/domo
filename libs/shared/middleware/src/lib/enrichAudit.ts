@@ -1,8 +1,8 @@
 // libs/middleware/src/lib/enrichAudit.ts
-import { FastifyRequest, FastifyReply } from 'fastify';
+import type { FastifyRequest, FastifyReply } from 'fastify';
 import { ObjectId } from '@fastify/mongodb';
 import { insertLogIntoDb } from '@domo/services';
-import { AuditEventType } from '@domo/schemas';
+import type { AuditEventType } from '@domo/schemas';
 
 export interface CustomAuditLog {
   type?: AuditEventType;

@@ -1,5 +1,6 @@
 {
   "name": "@domo/ui-buttons",
+    "root": "libs/shared/ui-buttons",
   "sourceRoot": "libs/shared/ui-buttons/src",
   "projectType": "library",
   "tags": [],

@@ -20,7 +20,7 @@ export const getAccessTokenCookieOptions = (): CookieSerializeOptions => ({
 
 export const getRefreshTokenCookieOptions = (): CookieSerializeOptions => ({
   ...defaults,
-  expires: thirtyDaysFromNow(),
+  expires: new Date(thirtyDaysFromNow()),
   path: REFRESH_PATH,
 });
 

@@ -1,5 +1,6 @@
 {
   "name": "@domo/ui-footer",
+  "root": "libs/shared/ui-footer",
   "sourceRoot": "libs/shared/ui-footer/src",
   "projectType": "library",
   "tags": [],
