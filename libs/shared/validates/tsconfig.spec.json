@@ -1,16 +1,14 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": false,
-    "incremental": false,
+    "composite": true,
+    "declaration": true,
 
+    "module": "NodeNext",
     "moduleResolution": "Nodenext",
     "jsx": "react-jsx",
 
     "types": [
-      "vitest/globals",
-      "vitest/importMeta",
-      "vite/client",
       "node"
     ],
 

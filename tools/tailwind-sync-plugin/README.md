@@ -48,7 +48,7 @@ Register the sync generator on tasks that need it (e.g., `build`, `dev`):
   "nx": {
     "targets": {
       "build": {
-        "syncGenerators": ["@beginning/tailwind-sync-plugin:update-tailwind-globs"]
+        "syncGenerators": ["@domo/tailwind-sync-plugin:update-tailwind-globs"]
       }
     }
   }

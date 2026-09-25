@@ -1,12 +1,14 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     /* Language & Environment */
+    "jsx": "react-jsx",
     "target": "ES2022",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "jsx": "react-jsx",
+    "typeRoots": ["./node_modules/@types", "./types"],
 
     /* Modules & Resolution */
-    "module": "ESNext",
+    "module": "preserve",
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
@@ -47,7 +49,7 @@
       "@domo/services/*": ["libs/shared/services/src/*"],
       "@domo/state": ["libs/shared/state/src/index.ts"],
       "@domo/state/*": ["libs/shared/state/src/*"],
-      "@domo/types": ["libs/shared/types/src/index.ts", "dist/libs/shared/types/src/index.d.ts"],
+      "@domo/types": ["libs/shared/types/src/index.ts"],
       "@domo/types/*": ["libs/shared/types/src/*"],
       "@domo/ui-buttons": ["libs/shared/ui-buttons/src/index.ts"],
       "@domo/ui-buttons/*": ["libs/shared/ui-buttons/src/*"],
@@ -62,6 +64,10 @@
       "@domo/validates": ["libs/shared/validates/src/index.ts"],
       "@domo/validates/*": ["libs/shared/validates/src/*"],
       "@domo/tailwind-sync-plugin": ["tools/tailwind-sync-plugin/src/index.ts"],
+      "@domo/config/client": ["libs/shared/config/src/env.client.ts"],
+      "@domo/config/server": ["libs/shared/config/src/env.server.ts"],
+      "@domo/utils/client": ["libs/shared/utils/src/jwt.client.ts"],
+      "@domo/utils/server": ["libs/shared/utils/src/jwt.server.ts"],
       "@domo/tailwind-sync-plugin/*": ["tools/tailwind-sync-plugin/src/*"]
     },
 

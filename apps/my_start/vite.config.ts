@@ -1,68 +1,52 @@
-import { defineConfig } from 'vite';
-import { devtools } from '@tanstack/devtools-vite';
-import viteReact from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { defineConfig } from 'vitest/config'
+import { devtools } from '@tanstack/devtools-vite'
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import viteReact from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import path from 'node:path'
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
+export default defineConfig({
+  root: import.meta.dirname,
 
-export default defineConfig(async () => {
-  // Dynamic ESM import prevents Vite/Rolldown from trying to `require()` this package
-  const { tanstackStart } = await import('@tanstack/react-start/plugin/vite');
-
-  return {
-    root: __dirname,
-
-    resolve: {
-      // Use Vite's native tsconfig path resolution
-      tsconfigPaths: true,
-      alias: {
-        '@': path.resolve(__dirname, './src'),
+  build: {
+    rolldownOptions: {
+      external: [
+        '@tanstack/ai-client',
+        '@tanstack/ai-react',
+      ],
+      output: {
+        codeSplitting: true,
       },
     },
+    chunkSizeWarningLimit: 1000,
+    outDir: path.resolve(import.meta.dirname, '../../dist/apps/my_start'),
+    emptyOutDir: true,
+  },
 
-    server: {
-      watch: {
-        ignored: ['**/tmp/**'],
-      },
+  resolve: {
+    // Vite 8 native tsconfig path resolution target
+    tsconfigPaths: true,
+    alias: {
+      '@': path.resolve(import.meta.dirname, './src'),
     },
+  },
 
-    build: {
-      outDir: path.resolve(__dirname, '../../dist/apps/my_start'),
-      emptyOutDir: true,
-      reportCompressedSize: true,
-      commonjsOptions: {
-        transformMixedEsModules: true,
-      },
-      rollupOptions: {
-        input: path.resolve(__dirname, 'index.html'),
-        output: {
-          entryFileNames: 'assets/[name].[hash].js',
-          chunkFileNames: 'assets/[name].[hash].js',
-          assetFileNames: 'assets/[name].[hash].[ext]',
-        },
-      },
+  server: {
+    watch: {
+      ignored: ['**/tmp/**'],
     },
+  },
 
-    plugins: [
-      devtools(),
-      tailwindcss(),
-
-      // initialize the ESM-only plugin
+  plugins: [
+    devtools(),
+    tailwindcss(),
+    !process.env.NX_GRAPH_CREATION &&
       tanstackStart({
         router: {
-          routesDirectory: path.resolve(__dirname, './src/routes'),
-          generatedRouteTree: path.resolve(__dirname, './src/routeTree.gen.ts'),
+          routesDirectory: path.resolve(import.meta.dirname, './src/routes'),
+          generatedRouteTree: path.resolve(import.meta.dirname, './src/routeTree.gen.ts'),
         },
       }),
-
-      viteReact(),
-    ],
-
-    optimizeDeps: {
-      // Prevent Vite from trying to pre-bundle this ESM-only plugin with CJS tooling
-      exclude: ['@tanstack/react-start/plugin/vite'],
-    },
-  };
-});
+    viteReact(),
+  ].filter(Boolean),
+})

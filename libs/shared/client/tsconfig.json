@@ -5,7 +5,17 @@
     "types": ["node"],
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+ "node_modules",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
   "references": [
     {
       "path": "../types"

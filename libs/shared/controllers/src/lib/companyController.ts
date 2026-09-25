@@ -1,7 +1,7 @@
 // libs/shared/controllers/src/lib/companyController.ts
 import type { FastifyRequest, FastifyReply } from 'fastify';
 import type { Db } from 'mongodb';
-import { ObjectId } from 'mongodb';
+import { ObjectId } from 'bson';
 import { BAD_REQUEST, CREATED, NOT_FOUND, OK, UNAUTHORIZED } from '@domo/types';
 import { catchErrors, appAssert } from '@domo/utils';
 import { CompanyService } from '@domo/services';
@@ -32,7 +32,7 @@ type AuthenticatedRequest<T extends Record<string, unknown> = Record<string, nev
 };
 
 // Accept any AuthenticatedRequest parameter variant
-const getDbInstance = (req: AuthenticatedRequest<any>): Db => {
+const getDbInstance = (req: AuthenticatedRequest<Record<string, unknown>>): Db => {
   const db = req.mongo?.db || (req.server as unknown as { mongo?: { db?: Db } }).mongo?.db;
   appAssert(db, BAD_REQUEST, 'Database connection unavailable');
   return db;

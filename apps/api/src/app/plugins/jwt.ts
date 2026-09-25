@@ -3,8 +3,8 @@ import fp from 'fastify-plugin';
 import {
   createSigner,
   createVerifier,
-  SignerOptions,
-  VerifierOptions,
+  type SignerOptions,
+  type VerifierOptions,
 } from 'fast-jwt';
 import type { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { Audience, loadEnv } from '@domo/constants';

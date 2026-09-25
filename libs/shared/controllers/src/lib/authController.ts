@@ -1,6 +1,6 @@
 // libs/shared/controllers/src/lib/authController.ts
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { ObjectId } from 'mongodb';
+import { ObjectId } from 'bson';
 import { z } from 'zod';
 import {
   BAD_REQUEST,
@@ -22,6 +22,7 @@ import {
 } from '@domo/schemas';
 import {
   createAccount,
+  createSessionAndTokens,
   exchangeCodeForToken,
   getGoogleUser,
   logAuthEvent,
@@ -38,13 +39,11 @@ import {
   AppError,
   catchErrors,
   clearAuthCookies,
-  createSessionAndTokens,
   getAccessTokenCookieOptions,
   getRefreshTokenCookieOptions,
   setAuthCookies,
   verifyToken,
 } from '@domo/utils';
-import { type AccessTokenPayload } from '@domo/types';
 
 // Helper to reliably retrieve or derive full name
 const getFullName = (user: {
@@ -210,9 +209,9 @@ export const logoutHandler = catchErrors(
       return reply.status(OK).send({ message: 'Logout successful' });
     }
 
-    const { payload } = verifyToken<AccessTokenPayload>(accessToken);
+    const { payload } = verifyToken(accessToken);
 
-    if (payload) {
+    if (payload?.userId) {
       // 1. Log event
       const usersCollection = req.db.collection<UserEntity>('users');
       const user = await usersCollection.findOne({
@@ -234,7 +233,11 @@ export const logoutHandler = catchErrors(
       }
 
       // 2. Delete session
-      if (payload.sessionId) {
+      if (
+        'sessionId' in payload &&
+        typeof payload.sessionId === 'string' &&
+        ObjectId.isValid(payload.sessionId)
+      ) {
         await req.db
           .collection('sessions')
           .deleteOne({ _id: new ObjectId(payload.sessionId) });
@@ -507,8 +510,9 @@ export const googleCallbackHandler = catchErrors(
 
     const fullName = getFullName(safeUser);
 
-    const { accessToken, refreshToken } = createSessionAndTokens(
-      safeUser._id,
+    const { accessToken, refreshToken } = await createSessionAndTokens(
+      { db: req.db, logger: req.log },
+      new ObjectId(safeUser._id),
       safeUser.role || 'user',
       safeUser.email,
       fullName,

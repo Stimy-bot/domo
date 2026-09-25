@@ -1,4 +1,4 @@
-// @beginning/libs/shared-constants/src/lib/env.ts
+// @domo/libs/shared/constants/src/lib/env.ts
 import { Type, type Static } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 

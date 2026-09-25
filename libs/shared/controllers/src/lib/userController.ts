@@ -1,6 +1,6 @@
 // libs/shared/controllers/src/lib/userController.ts
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { ObjectId } from 'mongodb';
+import { ObjectId } from 'bson';
 import z from 'zod';
 import {
   BAD_REQUEST,
@@ -9,10 +9,7 @@ import {
   OK,
   UNAUTHORIZED,
 } from '@domo/types';
-import {
-  sanitizeUser,
-  type UserEntity,
-} from '@domo/models';
+import { sanitizeUser, type UserEntity } from '@domo/models';
 import { updateSchema } from '@domo/schemas';
 import {
   deleteAllUsers,
@@ -41,11 +38,7 @@ export const getUserHandler = catchErrors(
 
     appAssert(r.userId, UNAUTHORIZED, 'Not authenticated');
 
-    appAssert(
-      ObjectId.isValid(r.userId),
-      UNAUTHORIZED,
-      'Invalid user id',
-    );
+    appAssert(ObjectId.isValid(r.userId), UNAUTHORIZED, 'Invalid user id');
 
     const usersCollection = req.db.collection<UserEntity>('users');
     const user = await usersCollection.findOne({
@@ -91,8 +84,8 @@ export const getCurrentUserHandler = catchErrors(
     appAssert(accessToken, UNAUTHORIZED, 'Missing access token');
 
     try {
-      const { payload } = verifyToken<AccessTokenPayload>(accessToken);
-      appAssert(payload?.userId, UNAUTHORIZED, 'Invalid access token');
+ const { payload, error } = verifyToken(accessToken);
+appAssert(payload?.userId, UNAUTHORIZED, error || 'Invalid access token');
 
       const usersCollection = req.db.collection<UserEntity>('users');
       const user = await usersCollection.findOne({
@@ -177,8 +170,12 @@ export const updateHandler = catchErrors(
     try {
       const actor: ActorParam = {
         _id: requestingUserId,
-        email: String((r.authUser as { email?: unknown } | undefined)?.email || ''),
-        fullName: String((r.authUser as { fullName?: unknown } | undefined)?.fullName || ''),
+        email: String(
+          (r.authUser as { email?: unknown } | undefined)?.email || '',
+        ),
+        fullName: String(
+          (r.authUser as { fullName?: unknown } | undefined)?.fullName || '',
+        ),
       };
 
       await logAuthEvent(req, actor, 'user_update', {
@@ -265,7 +262,8 @@ export const toggleUserActiveStatusHandler = catchErrors(
       return reply.status(NOT_FOUND).send({ message: 'User not found' });
     }
 
-    const actorPayload = (req as ReqWithAuth).authUser as AccessTokenPayload | undefined;
+    const actorPayload = (req as ReqWithAuth).authUser as
+      AccessTokenPayload | undefined;
     const actorId = String(actorPayload?.userId ?? '');
     const actorEmail = actorPayload?.email ?? 'unknown';
     const actorName = actorPayload?.fullName ?? 'unknown';

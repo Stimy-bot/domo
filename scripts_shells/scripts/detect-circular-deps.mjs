@@ -55,9 +55,9 @@ function buildDependencyGraph(libraries) {
         const importSpecifiers = getFileImports(fullPath);
 
         for (const specifier of importSpecifiers) {
-          // Check for package alias imports e.g., "@beginning/shared-services"
-          if (specifier.startsWith('@beginning/')) {
-            const targetLib = specifier.replace('@beginning/', '').split('/')[0];
+          // Check for package alias imports e.g., "@domo/shared-services"
+          if (specifier.startsWith('@domo/')) {
+            const targetLib = specifier.replace('@domo/', '').split('/')[0];
             if (libraries.includes(targetLib) && targetLib !== currentLib) {
               graph[currentLib].add(targetLib);
             }

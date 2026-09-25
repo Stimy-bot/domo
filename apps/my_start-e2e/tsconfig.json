@@ -5,7 +5,8 @@
     "outDir": "../../dist/out-tsc",
     "sourceMap": false,
     "module": "NodeNext",
-    "types": ["node", "@playwright/test"]
+    "moduleResolution": "NodeNext",
+    "types": ["node"]
   },
   "include": [
     "**/*.ts",

@@ -6,15 +6,14 @@ import corsPlugin from './plugins/cors';
 import jwtPlugin from './plugins/jwt';
 import swagger from './plugins/swagger';
 import errorHandlerPlugin from './plugins/error-handler';
-import root from './routes/root/index.js';
+import root from './routes/root/index';
 import healthCheck from './routes/healthcheck/index';
 import { userRoutes } from './routes/user/index';
 import { authRoutes } from './routes/auth/index';
 import { sessionRoutes } from './routes/session/index';
 import { companyRoutes } from './routes/company/index'
 import mongodb from './plugins/mongodb';
-import { authenticateHook } from '@domo/middleware'; // Import hook
-
+import { authenticateHook } from '@domo/middleware';
 
 export interface AppOptions
   extends FastifyServerOptions, Partial<AutoloadPluginOptions> {
@@ -24,8 +23,8 @@ export interface AppOptions
 const options: AppOptions = {};
 
 const app: FastifyPluginAsync<AppOptions> = async (
-  fastify: any,
-  opts: any,
+  fastify,
+  opts,
 ): Promise<void> => {
   await fastify.register(mongodb, opts);
   await fastify.register(cookiePlugin, opts);
@@ -38,7 +37,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
   await fastify.register(healthCheck, { ...opts, prefix: '/healthcheck' });
   await fastify.register(authRoutes, { ...opts, prefix: '/auth' });
   await fastify.register(root, { ...opts, prefix: '/' });
-  await fastify.register(async (protectedScope: any) => {
+  await fastify.register(async (protectedScope) => {
     protectedScope.addHook('onRequest', authenticateHook);
     await protectedScope.register(userRoutes, { ...opts, prefix: '/user' });
     await protectedScope.register(sessionRoutes, { ...opts, prefix: '/session' });

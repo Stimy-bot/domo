@@ -1,20 +1,42 @@
 {
   "name": "@domo/my_start",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "src",
   "projectType": "application",
-  "sourceRoot": "apps/my_start/src",
+  "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nx/vite:build",
+    "dev": {
       "options": {
-        "outputPath": "dist/apps/my_start",
-        "config": "apps/my_start/vite.config.ts"
+        "config": "vite.config.ts",
+        "port": 5173
       }
     },
     "serve": {
-      "executor": "@nx/vite:dev",
       "options": {
-        "buildTarget": "@domo/my_start:build",
-        "config": "apps/my_start/vite.config.ts"
+        "config": "vite.config.ts"
+      }
+    },
+    "build": {
+      "options": {
+        "config": "vite.config.ts",
+        "outDir": "../../dist/apps/my_start"
+      }
+    },
+    "preview": {
+      "options": {
+        "config": "vite.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["src/**/*.ts", "src/**/*.tsx"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "options": {
+        "passWithNoTests": true
       }
     }
   }

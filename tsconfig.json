@@ -1,8 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
-  "compileOnSave": false,
   "files": [],
-  "include": [],
   "references": [
     { "path": "./apps/api" },
     { "path": "./apps/my_api" },

@@ -11,7 +11,8 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "types/**/*.d.ts"
+    "types/**/*.d.ts",
+    "../../libs/**/*.ts"
   ],
   "exclude": [
     "src/**/*.spec.ts",

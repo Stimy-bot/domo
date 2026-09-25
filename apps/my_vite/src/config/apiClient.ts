@@ -1,14 +1,34 @@
-// client/src/config/apiClient.ts
-import axios from "axios";
-import queryClient from "../config/queryClient";
-import { UNAUTHORIZED } from "@domo/constants";
-import { navigate } from "../lib/navigation";
+import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from "axios";
+import queryClient from "../config/queryClient.js";
+import { UNAUTHORIZED } from "@domo/types";
+import { navigate } from "../lib/navigation.js";
 import { useAuthStore } from "@domo/state";
 import { authStorage } from "@domo/utils";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "https://the-one-server.onrender.com/api";
+// Define the shape of your token refresh response
+interface RefreshTokenResponse {
+  accessToken: string;
+}
 
-const options = {
+// Define the shape of validation error objects from your API
+interface ValidationErrorItem {
+  path: string[];
+  message: string;
+}
+
+interface ApiErrorData {
+  message?: string;
+  errorCode?: string;
+  errors?: ValidationErrorItem[];
+  displayMessage?: string;
+}
+
+const BASE_URL =
+  ((import.meta as ImportMeta & { env?: { VITE_API_URL?: string } }).env
+    ?.VITE_API_URL) ||
+  "https://the-one-server.onrender.com/api";
+
+const options: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
@@ -23,54 +43,63 @@ const { logout, login } = useAuthStore.getState();
 /**
  * Extracts error data from the given error object.
  */
-const getErrorData = (error: any) => {
+const getErrorData = (error: AxiosError<ApiErrorData | string>): ApiErrorData => {
   const responseData = error.response?.data;
 
-  if (responseData?.errors && Array.isArray(responseData.errors)) {
-    return {
-      message: responseData.message || "Validation failed",
-      validationErrors: responseData.errors,
-      displayMessage: responseData.errors
-        .map((e: any) => `${e.path.join('.')}: ${e.message}`)
-        .join(', ')
-    };
+  if (typeof responseData === "object" && responseData !== null) {
+    if (Array.isArray(responseData.errors)) {
+      return {
+        message: responseData.message || "Validation failed",
+        errors: responseData.errors,
+        displayMessage: responseData.errors
+          .map((e) => `${e.path.join(".")}: ${e.message}`)
+          .join(", "),
+      };
+    }
+    return responseData;
   }
 
   if (typeof responseData === "string" && responseData.includes("<!doctype html>")) {
-    return { message: "API URL mismatch (Received HTML)", errorCode: "HTML_RESPONSE_ERROR" };
+    return {
+      message: "API URL mismatch (Received HTML)",
+      errorCode: "HTML_RESPONSE_ERROR",
+    };
   }
 
-  return responseData || {};
+  return {};
 };
 
 API.interceptors.response.use(
-  (response) => response.data,
-  async (error) => {
-    const { config, response } = error;
-    const status = response?.status || 500;
+  (response: AxiosResponse) => response.data,
+  async (error: AxiosError<ApiErrorData>) => {
+    const config = error.config as AxiosRequestConfig & { _retry?: boolean };
+    const status = error.response?.status || 500;
     const data = getErrorData(error);
 
     // Handle 401 Unauthorized
-    if (status === UNAUTHORIZED && !config._retry) {
+    if (status === UNAUTHORIZED && config && !config._retry) {
       config._retry = true;
 
       // Access Token expired
       if (data.errorCode === "InvalidAccessToken") {
         try {
-          const refreshed = await TokenRefreshClient.get("/auth/refresh");
+          // Type the response data so `.data.accessToken` works cleanly
+          const response = await TokenRefreshClient.get<RefreshTokenResponse>("/auth/refresh");
+          const refreshed = response.data;
 
-          // Update Zustand + localStorage
-          login({
-            user: useAuthStore.getState().user!,
-            accessToken: refreshed.accessToken,
-            refreshToken: useAuthStore.getState().refreshToken!,
-          });
+          const currentUser = useAuthStore.getState().user;
+          const currentRefreshToken = useAuthStore.getState().refreshToken;
 
-          authStorage.save(
-            useAuthStore.getState().user!,
-            refreshed.accessToken,
-            useAuthStore.getState().refreshToken!
-          );
+          // Safe guards replacing non-null assertions (!)
+          if (currentUser && currentRefreshToken) {
+            login({
+              user: currentUser,
+              accessToken: refreshed.accessToken,
+              refreshToken: currentRefreshToken,
+            });
+
+            authStorage.save(currentUser, refreshed.accessToken, currentRefreshToken);
+          }
 
           return API(config); // Retry original request
         } catch (refreshError) {

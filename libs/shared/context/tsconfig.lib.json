@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "composite": true,
     "declaration": true,
     "outDir": "../../../dist/out-tsc",
@@ -9,14 +10,13 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "apps/**/*.ts",
-    "libs/**/*.ts",
-    "types/**/*.d.ts"
   ],
   "exclude": [
-    "jest.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
+"node_modules",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ],
       "references": []
 }

@@ -51,7 +51,7 @@ declare module 'fastify' {
       email: string;
       fullName: string;
       permissions?: string[];
-      [key: string]: any;
+      [key: string]: unknown;
     };
 
     /**

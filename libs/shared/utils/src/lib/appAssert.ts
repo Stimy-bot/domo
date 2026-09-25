@@ -4,7 +4,7 @@ import { type HttpStatusCode } from '@domo/types'
 import { AppErrorCode } from "@domo/constants";
 
 type AppAssert = (
-  condition: any,
+  condition: unknown,
   httpStatusCode: HttpStatusCode,
   message: string,
   appErrorCode?: AppErrorCode

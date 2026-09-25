@@ -3,5 +3,5 @@ export {  app,
   storage, 
   ref, 
   uploadBytes, 
-  getDownloadURL  } from './lib/firebase.js';
-  export * from './lib/firebase.js'
+  getDownloadURL  } from './lib/firebase';
+  export * from './lib/firebase'

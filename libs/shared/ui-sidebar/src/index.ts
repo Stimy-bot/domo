@@ -1,1 +1,1 @@
-export * from './lib/ui-sidebar.js';
+export * from './lib/ui-sidebar';

@@ -344,21 +344,22 @@ export const refreshUserAccessToken = async (
   ctx: ServiceContext,
   refreshToken: string,
 ) => {
-  const { payload, error } = verifyToken<{ sessionId: string }>(refreshToken, {
-    secret: env.JWT_REFRESH_SECRET,
-  });
+  const payload = verifyToken(refreshToken);
+  const sessionId = (
+    payload as typeof payload & { sessionId?: string }
+  )?.sessionId;
 
   appAssert(
-    payload && payload.sessionId,
+    sessionId,
     UNAUTHORIZED,
-    error ?? 'Invalid refresh token',
+    'Invalid refresh token',
   );
 
   const sessionsCollection = ctx.db.collection('sessions');
   const usersCollection = ctx.db.collection<UserDocument>('users');
 
   const session = await sessionsCollection.findOne({
-    _id: new ObjectId(payload.sessionId),
+    _id: new ObjectId(sessionId),
   });
   const now = Date.now();
   appAssert(

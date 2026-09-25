@@ -8,7 +8,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "apps/**/*.ts",
-    "libs/**/*.ts",
+"../../libs/**/*.ts",
     "types/**/*.d.ts"
   ],
   "references": [

@@ -22,17 +22,17 @@ export const authenticateHook = async (req: FastifyRequest) => {
 
   const token = accessToken as string;
 
-  const { payload, error } = verifyToken<AccessTokenPayload>(token);
+  const payload = verifyToken(token);
   if (!payload) {
     appAssert(
       false,
       UNAUTHORIZED,
-      error === 'jwt expired' ? 'Token expired' : 'Invalid token',
+      'Invalid token',
       AppErrorCode.InvalidAccessToken
     );
   }
 
-  const pl = payload as AccessTokenPayload;
+  const pl = payload as unknown as AccessTokenPayload;
   if (typeof pl.userId !== 'string' || typeof pl.sessionId !== 'string') {
     appAssert(false, UNAUTHORIZED, 'Invalid token payload', AppErrorCode.InvalidAccessToken);
   }

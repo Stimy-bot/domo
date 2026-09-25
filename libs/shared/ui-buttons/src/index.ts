@@ -1,1 +1,1 @@
-export * from './lib/ui-button.js';
+export * from './lib/ui-button';

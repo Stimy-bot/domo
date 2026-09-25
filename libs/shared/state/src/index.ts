@@ -1,5 +1,5 @@
-export * from './lib/ui.store.js';
-export * from './lib/layout.store.js';
-export * from './lib/auth.store.js';
+export * from './lib/ui.store';
+export * from './lib/layout.store';
+export * from './lib/auth.store';
 
 

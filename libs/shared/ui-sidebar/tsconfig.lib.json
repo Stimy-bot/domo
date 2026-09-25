@@ -1,24 +1,21 @@
 {
-  "extends": "../../../tsconfig.base.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
     "declaration": true,
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "../../../dist/libs/shared/ui-sidebar",
     "tsBuildInfoFile": "../../../dist/libs/shared/ui-sidebar/tsconfig.lib.tsbuildinfo"
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx",
-    "apps/**/*.ts",
-    "libs/**/*.ts",
-    "types/**/*.d.ts"
+    "src/**/*.tsx"
   ],
   "exclude": [
-    "jest.config.ts",
-    "src/**/*.test.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.tsx",
-    "src/**/*.spec.tsx"
+ "node_modules",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ],
   "references": []
 }

@@ -6,7 +6,7 @@ import {
 } from '@nx/devkit';
 import { SyncGeneratorResult } from 'nx/src/utils/sync-generators';
 import { join, relative, dirname } from 'path';
-import { UpdateTailwindGlobsGeneratorSchema } from './schema';
+import type { UpdateTailwindGlobsGeneratorSchema } from './schema';
 
 const START_MARKER = '/* nx-tailwind-sources:start */';
 const END_MARKER = '/* nx-tailwind-sources:end */';

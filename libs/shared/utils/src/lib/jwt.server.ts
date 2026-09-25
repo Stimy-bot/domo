@@ -1,0 +1,29 @@
+import jwt, { type SignOptions } from 'jsonwebtoken';
+import { serverEnv } from '@domo/constants'; 
+
+if (typeof window !== 'undefined') {
+  throw new Error('[SECURITY ERROR] jwt.server.ts was imported in a browser environment!');
+}
+
+export interface UserPayload {
+  userId: string;
+  email: string;
+  role: string;
+}
+
+/**
+ * Sign a JWT token (Server-only)
+ */
+export function signToken(
+  payload: UserPayload,
+  expiresIn: SignOptions['expiresIn'] = '1d',
+): string {
+  return jwt.sign(payload, serverEnv.JWT_SECRET, { expiresIn });
+}
+
+/**
+ * Verify a JWT token (Server-only)
+ */
+export function verifyToken(token: string): UserPayload {
+  return jwt.verify(token, serverEnv.JWT_SECRET) as UserPayload;
+}

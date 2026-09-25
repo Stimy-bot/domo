@@ -3,12 +3,12 @@
 
 // Define a more flexible type that matches React Router's NavigateOptions
 type NavigateOptions = {
-  state?: any;
+  state?: unknown;
   replace?: boolean;
 };
 
-export let navigate: (path: string, options?: NavigateOptions) => void = () => {};
+export let navigate: (path: string, options?: NavigateOptions) => void = () => undefined;
 
-export const setNavigate = (fn: any) => {
+export const setNavigate = (fn: typeof navigate) => {
   navigate = fn;
 };

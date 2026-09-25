@@ -1,6 +1,6 @@
 // libs/shared/schemas/src/lib/auditMongoSchema.ts
 import { z } from 'zod';
-import { ObjectId } from 'mongodb';
+import { ObjectId } from 'bson';
 
 // Schema for documents fetched from MongoDB
 export const auditLogDocumentSchema = z.object({
