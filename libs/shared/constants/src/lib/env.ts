@@ -35,7 +35,7 @@ export function loadEnv() {
   if (!ok) {
     const errors = [...Value.Errors(EnvSchema, process.env)]
     console.error('ENV VALIDATION FAILED:', errors)
-    process.exit(1)
+    throw new Error('Environment validation failed')
   }
 
   const raw = Value.Cast(EnvSchema, process.env) as unknown as RawEnv

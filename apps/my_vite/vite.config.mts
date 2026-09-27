@@ -57,7 +57,10 @@ export default defineConfig({
         __dirname,
         '../../libs/shared/ui-button/src/index.ts',
       ),
-      '@domo/utils': resolve(__dirname, '../../libs/shared/utils/src/index.ts'),
+      '@domo/utils': resolve(
+        __dirname,
+        '../../libs/shared/utils/src/index.client.ts',
+      ),
       '@domo/constants': resolve(
         __dirname,
         '../../libs/shared/constants/src/index.ts',
