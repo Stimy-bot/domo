@@ -12,7 +12,6 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    // Modern Vite Node polyfills plugin handles aliases, globals, and Rollup bundling automatically
     nodePolyfills({
       protocolImports: true,
       globals: {
@@ -40,7 +39,10 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
     alias: {
-      '@domo/state': resolve(__dirname, '../../libs/shared/state/src/index.ts'),
+      '@domo/state': resolve(
+        __dirname, 
+        '../../libs/shared/state/src/index.ts'
+      ),
       '@domo/ui-header': resolve(
         __dirname,
         '../../libs/shared/ui-header/src/index.ts',
@@ -73,8 +75,14 @@ export default defineConfig({
         __dirname,
         '../../libs/shared/reusableComponents/src/index.ts',
       ),
-      '@domo/types': resolve(__dirname, '../../libs/shared/types/src/index.ts'),
-      '@domo/hooks': resolve(__dirname, '../../libs/shared/hooks/src/index.ts'),
+      '@domo/types': resolve(
+        __dirname, 
+        '../../libs/shared/types/src/index.ts'
+      ),
+      '@domo/hooks': resolve(
+        __dirname, 
+        '../../libs/shared/hooks/src/index.ts'
+      ),
       '@domo/firebase': resolve(
         __dirname,
         '../../libs/shared/firebase/src/index.ts',
@@ -140,7 +148,6 @@ export default defineConfig({
       '@domo/types',
       '@domo/hooks',
       '@domo/firebase',
-      // Prevent Vite from trying to optimize server-only dependencies
       'mongodb',
       'bson',
       'fetch-blob',

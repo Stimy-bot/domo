@@ -1,15 +1,18 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { MainLayout } from '@domo/reusableComponents';
 import { About } from '../pages/About';
 import { Home } from '../pages/Home';
 import { NotFound } from '../pages/NotFound';
 import { Contact } from '../pages/Contact';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: (
+      <MainLayout>
+        <Outlet />
+      </MainLayout>
+    ),
     children: [
       {
         index: true,
@@ -19,7 +22,7 @@ const router = createBrowserRouter([
         path: 'about',
         element: <About />,
       },
-            {
+      {
         path: 'contact',
         element: <Contact />,
       },
