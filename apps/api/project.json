@@ -1,50 +1,67 @@
 {
   "name": "@domo/api",
-  "projectType": "application",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/api/src",
+  "projectType": "application",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/esbuild:esbuild",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
       "options": {
-        "platform": "node",
         "outputPath": "dist/apps/api",
-        "format": ["cjs"],
-        "bundle": true,
-        "thirdParty": true,
         "main": "apps/api/src/main.ts",
         "tsConfig": "apps/api/tsconfig.app.json",
-        "assets": ["apps/api/src/assets"],
-        "esbuildOptions": {
-          "sourcemap": true,
-          "outExtension": { ".js": ".js" }
-        }
-      },
-      "configurations": {
-        "development": {},
-        "production": {
-          "esbuildOptions": {
-            "sourcemap": false,
-            "outExtension": { ".js": ".js" }
+        "platform": "node",
+        "format": ["esm"],
+        "bundle": true,
+        "thirdParty": false,
+        "assets": [
+            {
+            "glob": "**/*",
+            "input": "apps/api/src/public",
+            "output": "public"
+          },
+           {
+            "glob": "**/*",
+            "input": "apps/api/src/views",
+            "output": "views"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/api/src/app/plugins",
+            "output": "plugins"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/api/src/app/routes",
+            "output": "routes"
           }
-        }
+        ]
       }
     },
     "serve": {
       "executor": "@nx/js:node",
-      "dependsOn": ["build"],
       "options": {
         "buildTarget": "@domo/api:build",
-        "runBuildTargetDependencies": false
+        "inspect": true
       },
       "configurations": {
         "development": {
           "buildTarget": "@domo/api:build:development"
-        },
-        "production": {
-          "buildTarget": "@domo/api:build:production"
         }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["apps/api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "options": {
+        "passWithNoTests": true
       }
     }
   }

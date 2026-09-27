@@ -3,14 +3,28 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "composite": true,
-    "moduleResolution": "NodeNext",
-    "types": ["vite/client"]
+    "moduleResolution": "bundler",
+    "types": ["vite/client"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "../../node_modules/@types",
+      "../../node_modules"
+    ]
   },
   "files": [],
-"include": ["src/**/*.ts", "src/**/*.tsx"],
-"references": [
-    { "path": "../../libs/shared/types" },
-    { "path": "../../libs/shared/state" },
-    { "path": "../../libs/shared/utils" }
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "references": [
+    {
+      "path": "../../libs/shared/utils"
+    },
+    {
+      "path": "../../libs/shared/state"
+    },
+    {
+      "path": "../../libs/shared/types"
+    },
+    {
+      "path": "../../libs/shared/reusableComponents"
+    }
   ]
 }

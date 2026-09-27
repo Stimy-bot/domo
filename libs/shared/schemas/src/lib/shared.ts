@@ -1,6 +1,6 @@
 // src/schemas/shared.ts
 import { z } from 'zod';
-import { isIP } from 'validator';
+import validator from 'validator';
 
 
 export const ipAddressSchema = z.preprocess(
@@ -17,7 +17,7 @@ export const ipAddressSchema = z.preprocess(
   z.string().refine(
     (ip) => {
       // Relaxed check: as long as it's a valid IP, "unknown", or looks like a local Docker IP
-      return isIP(ip) || ip === 'unknown' || ip === '127.0.0.1' || ip.startsWith('172.');
+      return validator.isIP(ip) || ip === 'unknown' || ip === '127.0.0.1' || ip.startsWith('172.');
     },
     { message: 'Invalid IP address' }
   ).optional().or(z.literal('unknown')) // Fallback so it never crashes the app

@@ -1,6 +1,8 @@
 import { API } from '@domo/config';
 
-export const getSessions = () => API.get('/sessions');
+ const getSessions = () => API.get('/sessions');
 
-export const deleteSession = (id: string) =>
+ const deleteSession = (id: string) =>
   API.delete(`/sessions/${id}`);
+
+ export default { getSessions, deleteSession } 

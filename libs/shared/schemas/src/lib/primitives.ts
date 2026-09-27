@@ -1,6 +1,6 @@
 // src/schemas/primitives.ts
 import { z } from 'zod'
-import { isIP } from 'validator'
+import validator from "validator";
 
 export const objectIdSchema = z.preprocess((v) => {
   if (v == null) return undefined
@@ -26,7 +26,7 @@ export const ipAddressSchema = z.preprocess(
   (v) => (v === '' || v == null ? undefined : String(v)), // Treat empty string as undefined
   z.string()
     .optional()
-    .refine((ip) => ip == null || isIP(ip), { 
+    .refine((ip) => ip == null || validator.isIP(ip), { 
       message: 'Invalid IP address' 
     })
 )

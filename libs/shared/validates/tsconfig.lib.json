@@ -1,17 +1,19 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": true,
+    "outDir": "../../../dist/out-tsc",
     "declaration": true,
-  "outDir": "../../../dist/out-tsc",
-    "tsBuildInfoFile": "../../../dist/libs/shared/validates/tsconfig.lib.tsbuildinfo"
-},
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "verbatimModuleSyntax": false
+  },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx"
+   "src/**/*.tsx"
   ],
   "exclude": [
- "node_modules",
+    "jest.config.ts",
+    "node_modules",
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "**/*.test.ts",

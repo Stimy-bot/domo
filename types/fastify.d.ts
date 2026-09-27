@@ -2,7 +2,7 @@
 import 'fastify';
 import type { Db, ObjectId as MongoObjectId } from 'mongodb';
 import type { Types } from 'mongoose';
-import type { AccessTokenPayload, RefreshTokenPayload } from '@domo/types';
+import { AccessTokenPayload, RefreshTokenPayload } from '@domo/types';
 
 export interface AuditLogActor {
   _id: Types.ObjectId | MongoObjectId | string;

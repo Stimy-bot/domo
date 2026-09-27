@@ -2,13 +2,11 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "composite": true,
-    "types": ["node"]
+        "declaration": true,
+    "declarationMap": true,
+    "composite": true
   },
-"include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.tsx"],
   "exclude": [
     "node_modules",
     "**/*.spec.ts",
@@ -16,7 +14,7 @@
     "**/*.test.ts",
     "**/*.test.tsx"
   ],
-    "references": [
+  "references": [
     {
       "path": "../firebase"
     },

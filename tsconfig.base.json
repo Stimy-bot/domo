@@ -17,6 +17,7 @@
       "@domo/api/*": ["apps/api/src/*"],
       "@domo/my_api": ["apps/my_api/src/index.ts"],
       "@domo/my_api/*": ["apps/my_api/src/*"],
+      "@domo/my_encore": ["app/my_encore"],
       "@domo/my_vite": ["apps/my_vite/src/index.ts"],
       "@domo/my_vite/*": ["apps/my_vite/src/*"],
       "@domo/my_start": ["apps/my_start/src/index.ts"],
@@ -66,6 +67,7 @@
       "@domo/tailwind-sync-plugin": ["tools/tailwind-sync-plugin/src/index.ts"],
       "@domo/config/client": ["libs/shared/config/src/env.client.ts"],
       "@domo/config/server": ["libs/shared/config/src/env.server.ts"],
+      "@domo/constants/client": ["libs/shared/constants/src/lib/env.client.ts"],
       "@domo/utils/client": ["libs/shared/utils/src/jwt.client.ts"],
       "@domo/utils/server": ["libs/shared/utils/src/jwt.server.ts"],
       "@domo/tailwind-sync-plugin/*": ["tools/tailwind-sync-plugin/src/*"]
@@ -89,7 +91,7 @@
 
     /* Bundler Interop & Standards */
     "isolatedModules": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,

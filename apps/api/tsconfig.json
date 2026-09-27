@@ -4,6 +4,12 @@
     "composite": true
   },
   "files": [],
+  "exclude": [
+    "../../libs/shared/config/src/env.client.ts",
+    "../../libs/shared/config/src/env.server.ts",
+    "../../libs/shared/utils/src/jwt.client.ts",
+    "../../libs/shared/utils/src/jwt.server.ts"
+  ],
   "include": ["src/**/*.ts"],
   "references": [
     {

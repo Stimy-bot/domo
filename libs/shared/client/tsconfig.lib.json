@@ -1,10 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
     "outDir": "../../../dist/out-tsc",
-    "tsBuildInfoFile": "../../../dist/libs/shared/client/tsconfig.lib.tsbuildinfo"
   },
   "include": [
     "src/**/*.ts",

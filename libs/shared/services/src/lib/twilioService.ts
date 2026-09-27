@@ -1,6 +1,6 @@
 // libs/services/src/lib/twilioService.ts
 import type { FastifyBaseLogger } from 'fastify';
-import { Twilio } from 'twilio';
+import  Twilio from 'twilio';
 
 const IS_MOCK = process.env['SMS_MOCK'] === 'true';
 const MOCK_OTP = process.env['MOCK_OTP'] || '123456';
@@ -25,7 +25,7 @@ const getTwilioConfig = () => {
   }
 
   return {
-    client: !IS_MOCK && sid && token ? new Twilio(sid, token) : null,
+    client: !IS_MOCK && sid && token ? Twilio(sid, token) : null,
     serviceSid: serviceSid || '',
   };
 };

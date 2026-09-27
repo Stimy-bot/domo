@@ -79,6 +79,24 @@ export default defineConfig({
     rollupOptions: {
       external: ['mongodb'],
     },
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: 'react-router',
+              test: /node_modules[\\/](?:@remix-run[\\/]router|react-router|react-router-dom)[\\/]/,
+              priority: 2,
+            },
+            {
+              name: 'react-vendor',
+              test: /node_modules[\\/](?:react|react-dom|scheduler)[\\/]/,
+              priority: 1,
+            },
+          ],
+        },
+      },
+    },
     outDir: resolve(__dirname, '../../dist/apps/my_vite'),
     emptyOutDir: true,
     reportCompressedSize: true,

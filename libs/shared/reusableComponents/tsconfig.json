@@ -6,11 +6,12 @@
     "types": ["node"]
   },
   "include": [
-    "src/**/*.ts",
+    "src/**/*.ts", "src/**/*.tsx",
     "src/**/*.tsx"
   ],
   "exclude": [
  "node_modules",
+ "dist",
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "**/*.test.ts",

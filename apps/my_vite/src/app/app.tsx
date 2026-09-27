@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { MainLayout } from '../components/MainLayout';
+import { MainLayout } from '@domo/reusableComponents';
 import { About } from '../pages/About';
 import { Home } from '../pages/Home';
 import { NotFound } from '../pages/NotFound';

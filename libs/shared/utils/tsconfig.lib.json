@@ -1,16 +1,14 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
     "outDir": "../../../dist/out-tsc",
-    "tsBuildInfoFile": "../../../dist/libs/shared/utils/tsconfig.lib.tsbuildinfo"
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx"
   ],
   "exclude": [
+    "jest.config.ts",
  "node_modules",
     "**/*.spec.ts",
     "**/*.spec.tsx",

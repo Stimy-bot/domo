@@ -26,6 +26,9 @@
     },
     {
       "path": "../../libs/shared/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/reusableComponents/tsconfig.lib.json"
     }
   ]
 }

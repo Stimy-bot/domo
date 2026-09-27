@@ -47,12 +47,9 @@ export const getUserHandler = catchErrors(
     appAssert(user, NOT_FOUND, 'User not found');
 
     // Optionally populate company if present
-    let companyDoc = null;
-    if (user.company) {
-      companyDoc = await req.db
-        .collection('companies')
-        .findOne({ _id: user.company });
-    }
+    const companyDoc = user.company
+      ? await req.db.collection('companies').findOne({ _id: user.company })
+      : null;
 
     const safeUser = sanitizeUser(user);
 

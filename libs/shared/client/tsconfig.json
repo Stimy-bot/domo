@@ -6,9 +6,10 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src/**/*.ts",
+    "src/**/*.ts", "src/**/*.tsx",
     "src/**/*.tsx"
   ],
+  "files": [],
   "exclude": [
  "node_modules",
     "**/*.spec.ts",

@@ -4,7 +4,6 @@
     "composite": true,
     "declaration": true,
     "outDir": "../../../dist/out-tsc",
-    "tsBuildInfoFile": "../../../dist/libs/shared/models/tsconfig.lib.tsbuildinfo"
   },
   "include": [
     "src/**/*.ts",
