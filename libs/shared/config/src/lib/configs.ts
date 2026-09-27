@@ -2,7 +2,9 @@
 import dotenv from 'dotenv';
 import type { MongoClientOptions } from 'mongodb';
 
-dotenv.config();
+if (typeof window === 'undefined') {
+  dotenv.config();
+}
 
 export const DEVELOPMENT = process.env['NODE_ENV'] === 'development';
 export const TEST = process.env['NODE_ENV'] === 'test';

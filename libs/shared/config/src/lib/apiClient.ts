@@ -5,7 +5,10 @@ import queryClient from "./queryClient";
 import { navigate } from "@domo/utils";
 
 // Use a fallback that matches your actual backend service name
-const BASE_URL = process.env.VITE_API_URL || "https://the-one-server.onrender.com/api";
+const viteEnv = (import.meta as ImportMeta & {
+  env?: Record<string, string | undefined>;
+}).env;
+const BASE_URL = viteEnv?.VITE_API_URL || "https://the-one-server.onrender.com/api";
 
 const options = {
   baseURL: BASE_URL,

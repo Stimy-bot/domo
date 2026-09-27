@@ -65,6 +65,10 @@ export default defineConfig({
         __dirname,
         '../../libs/shared/constants/src/index.ts',
       ),
+      '@domo/config': resolve(
+        __dirname,
+        '../../libs/shared/config/src/index.client.ts',
+      ),
       '@domo/reusableComponents': resolve(
         __dirname,
         '../../libs/shared/reusableComponents/src/index.ts',
