@@ -1,7 +1,7 @@
 // apps/api/src/plugins/auth.ts
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import fastifyJwt from '@fastify/jwt';
-import { serverEnv } from '@domo/constants';
+import { serverEnv } from '@domo/constants/server';
 
 export async function registerAuth(fastify: FastifyInstance) {
   // 1. Register Fastify JWT plugin

@@ -1,5 +1,5 @@
 import jwt, { type SignOptions } from 'jsonwebtoken';
-import { serverEnv } from '@domo/constants'; 
+import { serverEnv } from '@domo/constants/server';
 
 if (typeof window !== 'undefined') {
   throw new Error('[SECURITY ERROR] jwt.server.ts was imported in a browser environment!');
