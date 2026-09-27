@@ -27,10 +27,22 @@ export default defineConfig({
   cacheDir: resolve(__dirname, '../../node_modules/.vite/my_vite'),
 
   server: {
+    host: '0.0.0.0', // Ensure it's reachable outside the container
     port: 5173,
-    host: 'localhost',
+    watch: {
+      usePolling: true, // Necessary for file changes to register in Docker
+    },
+    hmr: {
+      clientPort: 5173, // The port your browser uses
+    },
+    proxy: {
+      '/api': {
+        // 🔥 CRITICAL: Point to 'backend' service for Docker-to-Docker talk
+        target: 'http://backend:5000',
+        changeOrigin: true,
+      },
+    },
   },
-
   preview: {
     port: 5173,
     host: 'localhost',
@@ -39,10 +51,7 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
     alias: {
-      '@domo/state': resolve(
-        __dirname, 
-        '../../libs/shared/state/src/index.ts'
-      ),
+      '@domo/state': resolve(__dirname, '../../libs/shared/state/src/index.ts'),
       '@domo/ui-header': resolve(
         __dirname,
         '../../libs/shared/ui-header/src/index.ts',
@@ -75,18 +84,13 @@ export default defineConfig({
         __dirname,
         '../../libs/shared/reusableComponents/src/index.ts',
       ),
-      '@domo/types': resolve(
-        __dirname, 
-        '../../libs/shared/types/src/index.ts'
-      ),
-      '@domo/hooks': resolve(
-        __dirname, 
-        '../../libs/shared/hooks/src/index.ts'
-      ),
+      '@domo/types': resolve(__dirname, '../../libs/shared/types/src/index.ts'),
+      '@domo/hooks': resolve(__dirname, '../../libs/shared/hooks/src/index.ts'),
       '@domo/firebase': resolve(
         __dirname,
         '../../libs/shared/firebase/src/index.ts',
       ),
+      '@domo/forms': resolve(__dirname, '../../libs/shared/forms/src/index.ts'),
     },
   },
 
@@ -148,6 +152,7 @@ export default defineConfig({
       '@domo/types',
       '@domo/hooks',
       '@domo/firebase',
+      '@domo/forms',
       'mongodb',
       'bson',
       'fetch-blob',

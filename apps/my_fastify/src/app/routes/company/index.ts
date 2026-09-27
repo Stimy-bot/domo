@@ -1,4 +1,4 @@
-// apps/api/src/app/routes/company/index.ts
+// apps/my_fastify/src/app/routes/company/index.ts
 import type { FastifyPluginAsync } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { companySchema, auditEventTypeSchema } from '@domo/schemas';

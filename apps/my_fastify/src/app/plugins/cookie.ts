@@ -1,4 +1,4 @@
-// apps/fastify/src/app/plugins/cookie.ts
+// apps/my_fastify/src/app/plugins/cookie.ts
 import fp from 'fastify-plugin';
 import fastifyCookie from '@fastify/cookie';
 import type { FastifyInstance, FastifyReply } from 'fastify';

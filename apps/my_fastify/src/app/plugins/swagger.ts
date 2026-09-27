@@ -1,4 +1,4 @@
-// apps/fastify/src/app/plugins/swagger.ts
+// apps/my_fastify/src/app/plugins/swagger.ts
 import type { FastifyInstance } from 'fastify'
 import fp from 'fastify-plugin'
 import fastifySwagger from '@fastify/swagger'

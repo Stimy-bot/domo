@@ -61,10 +61,39 @@
       "plugin": "@nx/docker",
       "options": {
         "buildTarget": {
-          "name": "docker:build"
+          "name": "build",
+          "args": [
+            "--platform",
+            "linux/amd64,linux/arm64",
+            "--label",
+            "org.opencontainers.image.title={projectName}",
+            "--label",
+            "org.opencontainers.image.source={projectRoot}",
+            "--label",
+            "org.opencontainers.image.revision={commitSha}",
+            "--label",
+            "org.opencontainers.image.created={currentDate}",
+            "--build-arg",
+            "BUILD_DATE={currentDate|YYYY-MM-DD}",
+            "--build-arg",
+            "VERSION={env.VERSION}",
+            "--tag",
+            "{imageRef}:{currentDate|YYMMDD}.{shortCommitSha}"
+          ],
+          "env": {
+            "DOCKER_BUILDKIT": "1",
+            "IMAGE_NAME": "{imageRef}"
+          }
         },
         "runTarget": {
-          "name": "docker:run"
+          "name": "run",
+          "args": [
+            "--rm",
+            "--publish",
+            "5000:5000",
+            "--env",
+            "NODE_ENV=production"
+          ]
         }
       }
     }

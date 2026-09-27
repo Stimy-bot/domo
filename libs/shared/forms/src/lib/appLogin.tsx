@@ -2,7 +2,7 @@
 import { MainLayout, EmailInput, FormFactory, type FieldConfig, type SubmissionResult, PasswordInput } from "@domo/reusableComponents";
 import { login } from "@domo/client";
 import { useMutation } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { emailRegex, pwRegex } from "@domo/constants";
 import { getGoogleOAuthURL } from "@domo/utils";
 
@@ -154,4 +154,4 @@ type LoginFormValues = {
   );
 }
 
-export { AppLogin }
+export { AppLogin };

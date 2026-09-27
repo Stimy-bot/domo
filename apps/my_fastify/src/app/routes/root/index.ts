@@ -1,4 +1,4 @@
-// apps/api/src/routes/root/index.ts
+// apps/my_fastify/src/routes/root/index.ts
 import type { FastifyPluginAsync, FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import fastifyStatic from '@fastify/static';
 import fs from 'node:fs';

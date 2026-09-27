@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
+    "tsBuildInfoFile": "../../../dist/out-tsc/libs/shared/utils/tsconfig.lib.tsbuildinfo"
   },
   "include": [
     "src/**/*.ts",

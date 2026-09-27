@@ -1,4 +1,4 @@
-// apps/fastify/src/app/routes/auth/index.ts
+// apps/my_fastify/src/app/routes/auth/index.ts
 import type { FastifyPluginAsync } from "fastify";
 import {
   sendPasswordResetHandler,

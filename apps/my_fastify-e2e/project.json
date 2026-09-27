@@ -1,0 +1,13 @@
+{
+  "name": "@domo/my_fastify-e2e",
+  "projectType": "application",
+  "sourceRoot": "apps/my_fastify-e2e/src",
+  "implicitDependencies": ["@domo/my_fastify"],
+  "targets": {
+    "test": {
+      "executor": "@nx/js:test",      "options": {
+        "config": "apps/my_fastify-e2e/playwright.config.ts"
+      }
+    }
+  }
+}

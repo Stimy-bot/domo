@@ -1,6 +1,6 @@
 // libs/shared/forms/src/lib/otpVerificationForm.tsx
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate } from 'react-router-dom';
 import { useOtpVerification } from '@domo/hooks';
 
 interface OtpVerificationFormProps {
@@ -41,7 +41,7 @@ const OtpVerificationForm: React.FC<OtpVerificationFormProps> = ({
 
     if (isSuccess) {
       onSuccess?.();
-      timeout = setTimeout(() => navigate({ to: '/' }), 2000);
+      timeout = setTimeout(() => navigate('/'), 2000);
     }
 
     return () => {

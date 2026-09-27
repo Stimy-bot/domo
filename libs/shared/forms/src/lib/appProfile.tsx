@@ -21,7 +21,7 @@ import { storage } from '@domo/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import type { AnyFieldApi } from '@tanstack/react-form';
 import React, { useMemo } from 'react';
-import { Link } from '@tanstack/react-router';
+import { Link } from 'react-router-dom';
 
 type ProfileFormValues = {
   firstName: string;
@@ -319,8 +319,7 @@ function AppProfile() {
             <div className="p-4 mb-6 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl flex items-center gap-3">
               <span className="text-xl">⚠️</span>
               <Link
-                to="/email/verify"
-                params={{ code: 'manual' }}
+                to="/email/verify?code=manual"
                 className="text-sm font-medium hover:underline hover:text-amber-900 transition-colors"
               >
                 Click here to resend verification link or enter code.

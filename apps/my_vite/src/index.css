@@ -5,6 +5,8 @@
 @source '../../../libs/shared/ui-footer';
 @source '../../../libs/shared/ui-button';
 @source '../../../libs/shared/ui-sidebar';
+@source '../../../libs/shared/forms/';
+@source '../../../libs/shared/reusableComponents/';
 
 
 @custom-variant dark (&:where(.dark, .dark *));

@@ -1,4 +1,4 @@
-// apps/api/src/app/app.ts
+// apps/my_fastify/src/app/app.ts
 import { type FastifyPluginAsync, type FastifyServerOptions } from 'fastify';
 import { type AutoloadPluginOptions } from '@fastify/autoload';
 import cookiePlugin from './plugins/cookie';

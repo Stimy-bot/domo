@@ -2,7 +2,7 @@
 import { MainLayout, FormFactory, type FieldConfig, type SubmissionResult
 , TextInput, EmailInput, PasswordInput, PhoneNumberInput, StyledDatePicker } from "@domo/reusableComponents";
 import { useMutation } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { register } from "@domo/client";
 import { phoneRegex, pwRegex } from "@domo/constants";
 import { OtpVerificationForm } from "./otpVerificationForm";

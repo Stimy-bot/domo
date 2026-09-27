@@ -3,7 +3,7 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/api"
+      "path": "./apps/my_fastify"
     },
     {
       "path": "./apps/my_api"
@@ -21,7 +21,7 @@
       "path": "./apps/my_vite-e2e"
     },
     {
-      "path": "./apps/api-e2e"
+      "path": "./apps/my_fastify-e2e"
     },
     {
       "path": "./libs/shared/client"

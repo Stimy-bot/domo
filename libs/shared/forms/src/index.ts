@@ -10,4 +10,5 @@ export * from './lib/appRegister';
 export * from './lib/appUser';
 export * from './lib/otpVerificationForm';
 export * from './lib/resetPasswordForm';
+export * from './lib/appContact'
 

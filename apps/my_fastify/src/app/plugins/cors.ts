@@ -1,4 +1,4 @@
-// apps/fastify/src/app/plugins/cors.ts
+// apps/my_fastify/src/app/plugins/cors.ts
 import fp from 'fastify-plugin';
 import cors from '@fastify/cors';
 import type { FastifyInstance } from 'fastify';

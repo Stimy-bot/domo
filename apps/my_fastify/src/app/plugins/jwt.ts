@@ -1,4 +1,4 @@
-// apps/fastify/src/app/plugins/jwt.ts
+// apps/my_fastify/src/app/plugins/jwt.ts
 import fp from 'fastify-plugin';
 import {
   createSigner,

@@ -1,4 +1,4 @@
-// apps/my_vite-e2e/playwright.config.mts
+// apps/my_fastify-e2e/playwright.config.mts
 import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
 import { workspaceRoot } from '@nx/devkit';

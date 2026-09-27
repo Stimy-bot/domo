@@ -12,8 +12,14 @@
     ]
   },
   "files": [],
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.tsx", "src/**/*"],
   "references": [
+    {
+      "path": "../../libs/shared/forms"
+    },
+    {
+      "path": "../../libs/shared/context"
+    },
     {
       "path": "../../libs/shared/utils"
     },

@@ -1,7 +1,7 @@
 // libs/shared/forms/src/lib/resetPasswordForm.tsx
 import { createElement, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { resetPassword } from "@domo/client";
 
 const ResetPasswordForm = ({ code }: { code: string }) => {

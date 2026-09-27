@@ -1,19 +1,25 @@
-/// <reference types="vite/client" />
-
-import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
+// apps/my_vite/src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ToastProvider } from '@domo/context';
 import App from './app/app.js';
 import './index.css';
 
+const queryClient = new QueryClient();
 
 const rootElement = document.getElementById('root');
 
 if (!rootElement) {
-  throw new Error('Failed to find the root element. Ensure index.html has <div id="root"></div>');
+  throw new Error('Root element not found');
 }
 
 ReactDOM.createRoot(rootElement).render(
-  <StrictMode>
-      <App />
-  </StrictMode>,
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <ToastProvider>
+        <App />
+      </ToastProvider>{' '}
+    </QueryClientProvider>
+  </React.StrictMode>,
 );
