@@ -13,10 +13,9 @@
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
     "paths": {
+      "@domo/my_fastapi": ["apps/my_fastapi/*"],
       "@domo/my_fastify": ["apps/my_fastify/src/index.ts"],
       "@domo/my_fastify/*": ["apps/my_fastify/src/*"],
-      "@domo/my_api": ["apps/my_api/src/index.ts"],
-      "@domo/my_api/*": ["apps/my_api/src/*"],
       "@domo/my_encore": ["app/my_encore"],
       "@domo/my_vite": ["apps/my_vite/src/index.ts"],
       "@domo/my_vite/*": ["apps/my_vite/src/*"],

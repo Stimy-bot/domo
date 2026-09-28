@@ -1,0 +1,58 @@
+{
+  "name": "@domo/my_fastapi",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/my_fastapi/app",
+  "tags": ["type:app", "language:python"],
+  "targets": {
+    "add": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv add {args}",
+        "cwd": "apps/my_fastapi"
+      }
+    },
+    "remove": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv remove {args}",
+        "cwd": "apps/my_fastapi"
+      }
+    },
+    "sync": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv sync",
+        "cwd": "apps/my_fastapi"
+      }
+    },
+    "lock": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv lock",
+        "cwd": "apps/my_fastapi"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv run uvicorn app.main:app --reload",
+        "cwd": "apps/my_fastapi"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv run pytest",
+        "cwd": "apps/my_fastapi"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv run ruff check .",
+        "cwd": "apps/my_fastapi"
+      }
+    }
+  }
+}

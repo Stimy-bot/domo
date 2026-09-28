@@ -58,6 +58,10 @@
       }
     },
     {
+      "plugin": "@nxlv/python",
+      "options": { }
+    },
+    {
       "plugin": "@nx/docker",
       "options": {
         "buildTarget": {
