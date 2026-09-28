@@ -33,12 +33,19 @@
         "cwd": "apps/my_fastapi"
       }
     },
+    "mongo": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker start domo-mongo || docker run -d --name domo-mongo -p 27017:27017 mongo:latest"
+      }
+    },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
         "command": "uv run uvicorn app.main:app --reload",
         "cwd": "apps/my_fastapi"
-      }
+      },
+      "dependsOn": ["mongo"]
     },
     "test": {
       "executor": "nx:run-commands",

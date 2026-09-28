@@ -1,18 +1,18 @@
 // libs/shared/reusableComponents/src/lib/selectInput.tsx
-import React from 'react'; // Added explicit React import for completeness
+import React from 'react';
 
 // 1. Refined Field Interface (Assuming value should be string for select)
 interface Field {
   name: string;
   state: {
-    value: string; // Changed from 'any' to 'string'
+    value: string;
     meta: {
       errors?: string[]; // Assuming meta.errors is an optional string array
       // ... other meta properties
     };
   };
   handleBlur: () => void;
-  handleChange: (value: string) => void; // Changed from 'any' to 'string'
+  handleChange: (value: string) => void;
 }
 
 interface Option {
@@ -47,9 +47,9 @@ const SelectInput: React.FC<SelectInputProps> = ({
       <select
         id={name}
         name={name}
-        value={displayValue} // SAFE: This is a string
+        value={displayValue}
         onBlur={handleBlur}
-        onChange={(e) => handleChange(e.target.value)} // Correctly passes the string value
+        onChange={(e) => handleChange(e.target.value)}
         className=" font-semibold border rounded w-full py-4.5 px-3 text-dark-light bg-white leading-tight focus:outline-none focus:shadow-outline"
       >
         <option value="" disabled>{placeholder}</option>

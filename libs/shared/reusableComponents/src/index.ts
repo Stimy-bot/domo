@@ -23,4 +23,8 @@ export * from './lib/button';
 export * from './lib/input';
 export * from './lib/customDatePicker';
 export * from './lib/spinner';
-export * from './lib/mainLayout'
+export * from './lib/mainLayout';
+export * from './lib/mapView';
+export * from './lib/mapComponent'
+
+
