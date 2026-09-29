@@ -5,7 +5,7 @@ import type { AccessTokenPayload } from "@domo/types";
 import {AppError} from "./AppError";
 
 /** Narrow `payload` from `unknown` to `AccessTokenPayload` in the if-block. */
-export function assertIsAccessTokenPayload(
+ function assertIsAccessTokenPayload(
   payload: unknown
 ): asserts payload is AccessTokenPayload {
   if (
@@ -21,3 +21,5 @@ export function assertIsAccessTokenPayload(
     );
   }
 }
+
+export { assertIsAccessTokenPayload }

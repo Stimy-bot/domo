@@ -1,4 +1,6 @@
 // types/global.d.ts
+/// <reference types="google.maps" />
+
 declare module '*.module.css' {
   const classes: { [key: string]: string };
   export default classes;

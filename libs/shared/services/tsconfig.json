@@ -3,21 +3,30 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "composite": true,
-    "types": ["node"],
+    "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
-    "references": [
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "types/**/*.d.ts",
+    "../../../config/src/env.client.ts",
+    "../../../utils/src/jwt.client.ts",
+  ],
+  "references": [
     {
       "path": "../types"
-    },
-    {
-      "path": "../utils"
     },
     {
       "path": "../constants"
     },
     {
       "path": "../schemas"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../utils"
     }
   ]
 }

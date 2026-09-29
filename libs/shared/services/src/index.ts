@@ -4,3 +4,5 @@ export * from './lib/auditService';
 export * from './lib/companyService';
 export * from './lib/googleAuthService';
 export * from './lib/twilioService';
+export * from './lib/notificationService';
+

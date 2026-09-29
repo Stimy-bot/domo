@@ -1,11 +1,11 @@
 // libs/shared/reusableComponents/src/lib/mapView.tsx
 import { useMarkers } from "@domo/hooks";
-import { MapComponent } from "@domo/reusableComponents";
+import { MapComponent } from "./mapComponent";
 
 const MapView = () => {
-  const rawBase = import.meta.env.VITE_API_URL || "";
+  const rawBase = process.env.VITE_API_URL || "";
   const cleanBase = rawBase.replace(/\/api\/?$/, "").replace(/\/$/, "");
-  const fetchUrl = `${cleanBase}/api/markers`;
+  const fetchUrl = `${cleanBase}api/markers`;
   const { markers, loading, error } = useMarkers(fetchUrl);
 
   if (loading) return <p>Fetching markers...</p>;

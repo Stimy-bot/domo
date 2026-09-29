@@ -2,14 +2,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { ObjectId } from 'bson';
 import { z } from 'zod';
-import {
-  BAD_REQUEST,
-  CONFLICT,
-  CREATED,
-  OK,
-  UNAUTHORIZED,
-} from '@domo/types';
-import { AppErrorCode } from '@domo/constants'
+import { BAD_REQUEST, CONFLICT, CREATED, OK, UNAUTHORIZED } from '@domo/types';
+import { AppErrorCode } from '@domo/constants';
 import { buildUserDocument, sanitizeUser, type UserEntity } from '@domo/models';
 import {
   emailSchema,
@@ -85,8 +79,10 @@ export const registerHandler = catchErrors(
 
     const requestData = result.data;
     const email = (requestData.email || '').trim().toLowerCase();
-const phone = typeof requestData.phone === 'string'      ? requestData.phone.replace(/\D/g, '')
-      : undefined;
+    const phone =
+      typeof requestData.phone === 'string'
+        ? requestData.phone.replace(/\D/g, '')
+        : undefined;
 
     const usersCollection = req.db.collection<UserEntity>('users');
     const existingUser = await usersCollection.findOne({
@@ -135,13 +131,11 @@ const phone = typeof requestData.phone === 'string'      ? requestData.phone.rep
       req,
       {
         _id: user['_id'] as string | ObjectId,
-        email: user['email'] as string || email,
+        email: (user['email'] as string) || email,
         fullName: getFullName(user),
       },
       'user_register',
-      { method: 'manual',
-        email: user['email'] as string || email,
-       },
+      { method: 'manual', email: (user['email'] as string) || email },
     );
 
     setAuthCookies({ reply, accessToken, refreshToken });

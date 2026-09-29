@@ -1,4 +1,4 @@
-// apps/api/src/main.ts
+// apps/my_fastify/src/main.ts
 import Fastify from 'fastify'
 import type { FastifyInstance } from 'fastify'
 import {

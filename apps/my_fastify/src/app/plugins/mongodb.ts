@@ -41,7 +41,10 @@ export default fp(
       req.db = db;
     });
 
-    fastify.log.info('Successfully connected to MongoDB and attached req.db');
+    // Read databaseName off the connected Db instance
+    const dbName = fastify.mongo.db?.databaseName;
+
+    fastify.log.info(`Successfully connected to MongoDB database "${dbName}" and attached req.db`);
   },
   {
     name: 'mongodb',

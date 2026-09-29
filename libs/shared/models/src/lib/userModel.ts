@@ -1,4 +1,4 @@
-// libs/shared-models/src/lib/userModel.ts
+// libs/shared/models/src/lib/userModel.ts
 import { ObjectId, type Db } from 'mongodb';
 import { rolePermissions } from '@domo/constants';
 import { randomBytes, scrypt as _scrypt, timingSafeEqual } from 'crypto';

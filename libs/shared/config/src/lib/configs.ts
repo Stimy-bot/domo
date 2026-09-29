@@ -1,4 +1,4 @@
-// server/src/config/config.ts
+// libs/shared/configs/src/lib/configs.ts
 import dotenv from 'dotenv';
 import type { MongoClientOptions } from 'mongodb';
 
@@ -63,7 +63,7 @@ export const server = {
 };
 
 // Application Config
-export const configs = {
+ const configs = {
   RESEND_API_KEY: process.env['RESEND_API_KEY'],
   GMAIL: process.env['GMAIL'],
   USER: process.env['USER'],
@@ -103,3 +103,5 @@ export const carrierGateway: Record<string, string> = {
   verizon: 'vtext.com',
   tmobile: 'tmomail.net',
 };
+
+export {configs}

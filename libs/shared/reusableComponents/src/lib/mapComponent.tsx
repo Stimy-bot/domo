@@ -1,4 +1,3 @@
-// libs/shared/reusableComponents/src/lib/mapComponent.tsx
 import { GoogleMap, MarkerF, InfoWindowF, useLoadScript } from "@react-google-maps/api";
 import { useState, useMemo, useRef, useEffect } from "react";
 import type { Marker } from "@domo/hooks";
@@ -11,16 +10,16 @@ interface MapComponentProps {
 
 const MapComponent: React.FC<MapComponentProps> = ({ markers, height = "600px", width = "100%" }) => {
   const { isLoaded, loadError } = useLoadScript({
-    // Ensure this matches your .env exactly!
-    googleMapsApiKey: import.meta.env.VITE_MAP_API_KEY,
+    // Type-safe fallback for import.meta.env inside monorepo libraries
+    googleMapsApiKey: (import.meta as unknown as { env: Record<string, string | undefined> }).env.VITE_MAP_API_KEY ?? "",
   });
 
   const [activeMarker, setActiveMarker] = useState<number | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
 
   const center = useMemo(() => {
-    if (markers.length > 0) {
-      const firstMarker = markers[0];
+    const firstMarker = markers[0];
+    if (firstMarker) {
       return {
         lat: Number(firstMarker.position.lat),
         lng: Number(firstMarker.position.lng)
@@ -33,7 +32,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ markers, height = "600px", 
     if (mapRef.current && markers.length > 0) {
       mapRef.current.panTo(center);
     }
-  }, [center]);
+  }, [center, markers.length]);
 
   const onMapLoad = (map: google.maps.Map) => {
     mapRef.current = map;
@@ -82,4 +81,4 @@ const MapComponent: React.FC<MapComponentProps> = ({ markers, height = "600px", 
   );
 };
 
-export { MapComponent }
+export { MapComponent };

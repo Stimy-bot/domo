@@ -12,25 +12,35 @@ POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-  "email": "leslie@gmail.com",
+  "email": "totaldata80@gmail.com",
   "password": "$Vivian1963"
 }
 
 ### ==========================================
-### 2. REFRESH ACCESS TOKEN
+### 2. LOGOUT
+### ==========================================
+# @name logout
+POST {{baseUrl}}/logout
+Content-Type: application/json
+
+{}
+
+
+### ==========================================
+### 3. REFRESH ACCESS TOKEN
 ### ==========================================
 # Note: Cookie path is set to /api/refresh in route definition
 POST {{baseUrl}}/refresh
 Cookie: refresh=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSWQiOiI2YThhMjkzMDFiNjM2MGY2NGYyMzc3YTkiLCJ1c2VySWQiOiI2YTdhOTNlN2RjN2JiYzNkODliYTA1NzMiLCJpYXQiOjE3ODc0Mzk0MDksImV4cCI6MTc4NzQ0MDMwOSwiYXVkIjpbIlVzZXIiLCJBZG1pbiIsIlN1cGVyQWRtaW4iXX0.dLHTFM9ipV9zovtY9Ak7vbAJ-LvVpNdcIupokIRTkmY
 
 ### ==========================================
-### 3. GET PROFILE
+### 4. GET PROFILE
 ### ==========================================
 GET {{baseUrl}}/profile
 Authorization: Bearer {{accessToken}}
 
 ### ==========================================
-### 4. UPDATE PROFILE
+### 5. UPDATE PROFILE
 ### ==========================================
 PUT {{baseUrl}}/profile
 Authorization: Bearer {{accessToken}}

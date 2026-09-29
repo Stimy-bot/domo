@@ -4,13 +4,8 @@
     "composite": true
   },
   "files": [],
-  "exclude": [
-    "../../libs/shared/config/src/env.client.ts",
-    "../../libs/shared/config/src/env.server.ts",
-    "../../libs/shared/utils/src/jwt.client.ts",
-    "../../libs/shared/utils/src/jwt.server.ts"
-  ],
   "include": ["src/**/*.ts"],
+  "exclude": [],
   "references": [
     {
       "path": "../../libs/shared/utils"
@@ -19,13 +14,22 @@
       "path": "../../libs/shared/validates"
     },
     {
-      "path": "../../libs/shared/types"
+      "path": "../../libs/shared/models"
     },
     {
-      "path": "../../libs/shared/schemas"
+      "path": "../../libs/shared/config"
     },
     {
       "path": "../../libs/shared/controllers"
+    },
+    {
+      "path": "../../libs/shared/types"
+    },
+    {
+      "path": "../../libs/shared/services"
+    },
+    {
+      "path": "../../libs/shared/schemas"
     },
     {
       "path": "../../libs/shared/constants"

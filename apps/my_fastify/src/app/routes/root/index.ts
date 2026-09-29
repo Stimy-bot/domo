@@ -8,8 +8,8 @@ import { INTERNAL_SERVER_ERROR, NOT_FOUND } from '@domo/types';
 const root: FastifyPluginAsync = async (
   fastify: FastifyInstance,
 ): Promise<void> => {
-  const publicDir = path.resolve(process.cwd(), 'apps/api/src/public');
-  const viewsDir = path.resolve(process.cwd(), 'apps/api/src/views');
+  const publicDir = path.resolve(process.cwd(), 'apps/my_fastify/src/public');
+  const viewsDir = path.resolve(process.cwd(), 'apps/my_fastify/src/views');
 
   // 1. Serve static assets (CSS, Images, JS)
   await fastify.register(fastifyStatic, {

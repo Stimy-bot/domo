@@ -11,10 +11,12 @@ import healthCheck from './routes/healthcheck/index';
 import { userRoutes } from './routes/user/index';
 import { authRoutes } from './routes/auth/index';
 import { sessionRoutes } from './routes/session/index';
-import { companyRoutes } from './routes/company/index'
+import { companyRoutes } from './routes/company/index';
+import { markerRoutes } from './routes/markers/index';
+import { auditRoutes } from './routes/audit/index';
+import { roleRoutes } from './routes/role/index';
 import mongodb from './plugins/mongodb';
-import { authenticateHook } from '@domo/middleware'; // Import hook
-
+import { authenticateHook } from '@domo/middleware';
 
 export interface AppOptions
   extends FastifyServerOptions, Partial<AutoloadPluginOptions> {
@@ -35,14 +37,32 @@ const app: FastifyPluginAsync<AppOptions> = async (
   await fastify.register(errorHandlerPlugin, opts);
 
   // Register routes
+  await fastify.register(markerRoutes, { ...opts, prefix: '/marker' });
   await fastify.register(healthCheck, { ...opts, prefix: '/healthcheck' });
   await fastify.register(authRoutes, { ...opts, prefix: '/auth' });
   await fastify.register(root, { ...opts, prefix: '/' });
   await fastify.register(async (protectedScope: any) => {
     protectedScope.addHook('onRequest', authenticateHook);
-    await protectedScope.register(userRoutes, { ...opts, prefix: '/user' });
-    await protectedScope.register(sessionRoutes, { ...opts, prefix: '/session' });
-    await protectedScope.register(companyRoutes, { ...opts, prefix: '/company'});
+    await protectedScope.register(userRoutes, {
+      ...opts,
+      prefix: '/user',
+    });
+    await protectedScope.register(sessionRoutes, {
+      ...opts,
+      prefix: '/session',
+    });
+    await protectedScope.register(companyRoutes, {
+      ...opts,
+      prefix: '/company',
+    });
+    await protectedScope.register(auditRoutes, {
+      ...opts,
+      prefix: '/audit',
+    });
+    await protectedScope.register(roleRoutes, {
+      ...opts,
+      prefix: '/role',
+    });
   });
 };
 

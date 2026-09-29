@@ -8,11 +8,7 @@
     "moduleResolution": "bundler",
     "target": "es2022"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "types/**/*.d.ts"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
@@ -28,13 +24,22 @@
       "path": "../../libs/shared/validates/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/shared/types/tsconfig.lib.json"
+      "path": "../../libs/shared/models/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/shared/schemas/tsconfig.lib.json"
+      "path": "../../libs/shared/config/tsconfig.lib.json"
     },
     {
       "path": "../../libs/shared/controllers/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/services/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/schemas/tsconfig.lib.json"
     },
     {
       "path": "../../libs/shared/constants/tsconfig.lib.json"
