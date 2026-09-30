@@ -6,7 +6,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "types": ["node"],
-      "outDir": "../../dist/out-tsc",
+      "outDir": "../../dist/apps/my_encore",
     "paths": {
       "~encore/*": ["./encore.gen/*"]
     },
