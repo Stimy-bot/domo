@@ -1,4 +1,4 @@
-// 
+// libs/shared/ui-header/src/lib/navbarLinks.tsx
 
 export const ROUTES = {
   ABOUT: '/about',

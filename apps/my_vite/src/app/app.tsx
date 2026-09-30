@@ -4,8 +4,8 @@ import { About } from '../pages/About';
 import { Home } from '../pages/Home';
 import { NotFound } from '../pages/NotFound';
 import { Contact } from '../pages/Contact';
+import { Comment } from '../pages/Comment';
 import { Login } from '../pages/Login';
-
 
 const router = createBrowserRouter([
   {
@@ -27,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact />,
+      },
+          {
+        path: 'comment',
+        element: <Comment />,
       },
       {
         path: 'login',

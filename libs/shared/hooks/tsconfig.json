@@ -6,7 +6,8 @@
     "types": ["node", "google.maps"]
   },
   "include": [
-    "src/**/*.ts", "src/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     "src/**/*.tsx",
     "apps/**/*.ts",
     "libs/**/*.ts",
@@ -15,6 +16,9 @@
   "references": [
     {
       "path": "../firebase"
+    },
+    {
+      "path": "../types"
     },
     {
       "path": "../validates"

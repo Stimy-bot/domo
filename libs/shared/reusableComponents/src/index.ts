@@ -1,6 +1,5 @@
 export * from './lib/reusableComponents';
 export * from './lib/handleClickOutsideDropdown';
-export * from './lib/socialMediaButtons';
 export * from './lib/baseInput';
 export * from './lib/checkboxInput';
 export * from './lib/emailInput';

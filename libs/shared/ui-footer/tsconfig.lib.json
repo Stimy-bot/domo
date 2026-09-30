@@ -1,14 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "../../../dist/out-tsc"
   },
-"include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.jsx"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",
@@ -16,5 +11,9 @@
     "src/**/*.test.ts",
     "src/**/*.test.tsx"
   ],
-  "references": []
+  "references": [
+    {
+      "path": "../ui-buttons/tsconfig.lib.json"
+    }
+  ]
 }

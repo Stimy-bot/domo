@@ -1,14 +1,28 @@
+// libs/shared/ui-header/src/lib/ui-header.tsx
 import { Link } from 'react-router-dom';
-import { useLayoutStore, type LayoutStoreState, useUIStore, type UIStoreState } from '@domo/state';
+import { navbarLinks } from './navbarLinks';
 
-function UiHeader() {
+import {
+  useLayoutStore,
+  type LayoutStoreState,
+  useUIStore,
+  type UIStoreState,
+  useAuthStore,
+  type AuthStoreState,
+} from '@domo/state';
+
+ function UiHeader() {
   // Layout store
-const headerVisible = useLayoutStore((s: LayoutStoreState) => s.headerVisible);
-const mobileMenuOpen = useLayoutStore((s: LayoutStoreState) => s.mobileMenuOpen);
-const toggleMobileMenu = useLayoutStore((s: LayoutStoreState) => s.toggleMobileMenu);
+  const headerVisible = useLayoutStore((s: LayoutStoreState) => s.headerVisible);
+  const mobileMenuOpen = useLayoutStore((s: LayoutStoreState) => s.mobileMenuOpen);
+  const toggleMobileMenu = useLayoutStore((s: LayoutStoreState) => s.toggleMobileMenu);
+
   // Theme store
-const themeMode = useUIStore((s: UIStoreState) => s.themeMode);
-const setThemeMode = useUIStore((s: UIStoreState) => s.setThemeMode);
+  const themeMode = useUIStore((s: UIStoreState) => s.themeMode);
+  const setThemeMode = useUIStore((s: UIStoreState) => s.setThemeMode);
+
+  // Auth store (shared across apps)
+  const user = useAuthStore((s: AuthStoreState) => s.user);
 
   function toggleTheme() {
     const next =
@@ -22,6 +36,19 @@ const setThemeMode = useUIStore((s: UIStoreState) => s.setThemeMode);
   }
 
   if (!headerVisible) return null;
+
+  // -----------------------------
+  // 🔥 Role‑based navbar filtering
+  // -----------------------------
+  const roles = user?.role ?? [];
+
+  const filteredLinks = navbarLinks.filter((nav) => {
+    // Guest-only links (role: [])
+    if (nav.role.length === 0) return !user;
+
+    // Authenticated links
+    return user && nav.role.some((r) => roles.includes(r));
+  });
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-dark-hard shadow-md">
@@ -51,13 +78,16 @@ const setThemeMode = useUIStore((s: UIStoreState) => s.setThemeMode);
               : 'Light'}
           </button>
 
-          <Link to="/" className="hover:text-white transition-colors">
-            Home
-          </Link>
-
-          <Link to="/about" className="hover:text-white transition-colors">
-            About
-          </Link>
+          {/* Dynamic navbar links */}
+          {filteredLinks.map((link) => (
+            <Link
+              key={link.title}
+              to={link.link}
+              className="hover:text-white transition-colors"
+            >
+              {link.title}
+            </Link>
+          ))}
         </nav>
 
         {/* Mobile Menu Button */}
@@ -74,14 +104,18 @@ const setThemeMode = useUIStore((s: UIStoreState) => s.setThemeMode);
         <div className="md:hidden absolute right-4 top-16 z-50 bg-dark-hard p-4 rounded-md shadow-lg">
           <nav className="flex flex-col space-y-4 text-dark-light">
 
-            <Link to="/" className="hover:text-white transition-colors">
-              Home
-            </Link>
+            {/* Dynamic mobile links */}
+            {filteredLinks.map((link) => (
+              <Link
+                key={link.title}
+                to={link.link}
+                className="hover:text-white transition-colors"
+              >
+                {link.title}
+              </Link>
+            ))}
 
-            <Link to="/about" className="hover:text-white transition-colors">
-              About
-            </Link>
-
+            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
               className="rounded border border-(--chip-line) bg-(--chip-bg) px-3 py-1.5 text-sm font-semibold text-(--sea-ink) shadow-[0_8px_22px_rgba(30,90,72,0.08)] transition hover:-translate-y-0.5"
@@ -92,7 +126,6 @@ const setThemeMode = useUIStore((s: UIStoreState) => s.setThemeMode);
                 ? 'Dark'
                 : 'Light'}
             </button>
-
           </nav>
         </div>
       )}

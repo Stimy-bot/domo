@@ -5,16 +5,17 @@
     "composite": true,
     "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
- "node_modules",
+    "node_modules",
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "**/*.test.ts",
     "**/*.test.tsx"
   ],
-    "references": []
+  "references": [
+    {
+      "path": "../ui-buttons"
+    }
+  ]
 }
