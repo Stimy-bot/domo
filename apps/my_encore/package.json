@@ -1,18 +1,11 @@
 {
   "name": "@domo/my_encore",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "targets": {
-    "build": {
-      "executor": "@nx/webpack:webpack",
-      "options": {
-        "outputPath": "dist/apps/my_encore",
-        "main": "apps/my_encore/src/main.ts",
-        "tsConfig": "apps/my_encore/tsconfig.app.json"
-      }
-    }
-  },
-  "dependencies": {
-    "encore.dev": "^1.58.6"
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "encore build",
+    "start": "encore run",
+    "check": "encore check",
+    "test": "encore test"
   }
 }
