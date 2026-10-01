@@ -3,9 +3,15 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "composite": true,
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "*": ["../../../*"]
+    }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
+  "include": [
+    "src/**/*.ts", 
+    "src/**/*.tsx"
+  ],
     "references": []
 }
   

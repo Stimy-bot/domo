@@ -24,6 +24,13 @@ out-tsc
 # ==========================================
 node_modules/
 /node_modules
+.encore
+encore.gen.go
+encore.gen.cue
+/.encore
+node_modules
+/encore.gen
+
 
 # ==========================================
 # IDE & System Files

@@ -4,19 +4,19 @@
     "outDir": "../../../dist/libs/shared/utils",
     "tsBuildInfoFile": "../../../dist/libs/shared/utils/tsconfig.lib.tsbuildinfo"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
     "jest.config.ts",
- "node_modules",
+    "node_modules",
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "**/*.test.ts",
     "**/*.test.tsx"
   ],
   "references": [
+    {
+      "path": "../state/tsconfig.lib.json"
+    },
     {
       "path": "../types/tsconfig.lib.json"
     },

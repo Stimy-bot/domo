@@ -1,32 +1,19 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    /* Basic Options */
-    "lib": ["ES2022"],
-    "target": "ES2022",
-    "module": "ES2022",
-    "types": ["node"],
-      "outDir": "../../dist/apps/my_encore",
-    "paths": {
-      "~encore/*": ["./encore.gen/*"]
-    },
-
-    /* Workspace Settings */
+    "outDir": "../../dist/out-tsc",
+    "rootDir": "./src",
     "composite": true,
-
-    /* Strict Type-Checking Options */
-    "strict": true,
-
-    /* Module Resolution Options */
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
-    "sourceMap": true,
-
     "declaration": true,
-
-    /* Advanced Options */
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
-  }
+    "sourceMap": true,
+    "module": "ES2022",
+    "target": "ES2022",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "paths": {
+      "~encore/*": ["./encore.gen/*"],
+      "@domo/*": ["../../libs/*/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

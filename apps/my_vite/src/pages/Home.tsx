@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
  const Home: React.FC = () => {
   return (
-    <div className="min-h-[calc(100vh-8rem)] flex flex-col justify-center items-center text-center px-4 py-20">
+    <div className="min-h-[calc(100vh-8rem)] flex flex-col justify-center items-center text-center px-4 py-30">
       <div className="max-w-3xl space-y-6">
         <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 dark:text-indigo-400 rounded-full">
           Vite + React + Tailwind
@@ -22,16 +22,14 @@ import { Link } from 'react-router-dom';
             to="/about"
             className="w-full sm:w-auto px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors shadow-sm"
           >
-            Learn More About Us
+            About Us
           </Link>
-          <a
-            href="https://vitejs.dev"
-            target="_blank"
-            rel="noreferrer"
-            className="w-full sm:w-auto px-6 py-3 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-medium transition-colors"
+          <Link
+            to="/contact"
+           className="w-full sm:w-auto px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors shadow-sm"
           >
-            Vite Documentation
-          </a>
+            Contact Us
+          </Link>
         </div>
       </div>
 

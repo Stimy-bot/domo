@@ -4,22 +4,43 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "command": "encore check",
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
       "options": {
-        "cwd": "apps/my_encore"
-      }
+        "cwd": "apps/my_encore",
+        "command": "pnpm --filter @domo/my_encore run build"
+      },
+      "outputs": ["{workspaceRoot}/dist/apps/my_encore/**"]
     },
     "serve": {
-      "command": "encore run",
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
       "options": {
-        "cwd": "apps/my_encore"
-      }
+        "cwd": "apps/my_encore",
+        "command": "pnpm --filter @domo/my_encore run start"
+      },
+      "configurations": {
+        "production": {
+          "command": "pnpm --filter @domo/my_encore run start -- --env production"
+        }
+      },
+      "outputs": []
+    },
+    "check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/my_encore",
+        "command": "pnpm --filter @domo/my_encore run check"
+      },
+      "outputs": []
     },
     "test": {
-      "command": "encore test",
+      "executor": "nx:run-commands",
       "options": {
-        "cwd": "apps/my_encore"
-      }
+        "cwd": "apps/my_encore",
+        "command": "pnpm --filter @domo/my_encore run test"
+      },
+      "outputs": []
     }
   }
 }

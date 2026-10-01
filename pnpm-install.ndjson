@@ -1,0 +1,5 @@
+{"time":1790875793239,"hostname":"penguin","pid":218676,"level":"debug","name":"pnpm:scope","selected":5,"total":5,"workspacePrefix":"/home/dominic/github/domo"}
+{"time":1790875793240,"hostname":"penguin","pid":218676,"level":"debug","name":"pnpm","msg":"loading workspace state"}
+{"time":1790875793241,"hostname":"penguin","pid":218676,"level":"debug","name":"pnpm","msg":"No manifest files were modified since the last validation. Exiting check."}
+{"time":1790875793241,"hostname":"penguin","pid":218676,"level":"info","name":"pnpm:global","message":"Already up to date"}
+{"time":1790875793242,"hostname":"penguin","pid":218676,"level":"debug","name":"pnpm:execution-time","startedAt":1790875793024,"endedAt":1790875793242}

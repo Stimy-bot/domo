@@ -1,7 +1,6 @@
 // libs/shared/ui-header/src/lib/ui-header.tsx
 import { Link } from 'react-router-dom';
 import { navbarLinks } from './navbarLinks';
-
 import {
   useLayoutStore,
   type LayoutStoreState,
@@ -11,11 +10,17 @@ import {
   type AuthStoreState,
 } from '@domo/state';
 
- function UiHeader() {
+function UiHeader() {
   // Layout store
-  const headerVisible = useLayoutStore((s: LayoutStoreState) => s.headerVisible);
-  const mobileMenuOpen = useLayoutStore((s: LayoutStoreState) => s.mobileMenuOpen);
-  const toggleMobileMenu = useLayoutStore((s: LayoutStoreState) => s.toggleMobileMenu);
+  const headerVisible = useLayoutStore(
+    (s: LayoutStoreState) => s.headerVisible,
+  );
+  const mobileMenuOpen = useLayoutStore(
+    (s: LayoutStoreState) => s.mobileMenuOpen,
+  );
+  const toggleMobileMenu = useLayoutStore(
+    (s: LayoutStoreState) => s.toggleMobileMenu,
+  );
 
   // Theme store
   const themeMode = useUIStore((s: UIStoreState) => s.themeMode);
@@ -26,11 +31,7 @@ import {
 
   function toggleTheme() {
     const next =
-      themeMode === 'light'
-        ? 'dark'
-        : themeMode === 'dark'
-        ? 'auto'
-        : 'light';
+      themeMode === 'light' ? 'dark' : themeMode === 'dark' ? 'auto' : 'light';
 
     setThemeMode(next);
   }
@@ -47,13 +48,12 @@ import {
     if (nav.role.length === 0) return !user;
 
     // Authenticated links
-    return user && nav.role.some((r) => roles.includes(r));
+    return user && nav.role.some((r) => roles.some((role) => role === r));
   });
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-dark-hard shadow-md">
       <main className="navbar flex items-center justify-between p-4">
-
         {/* Brand */}
         <section className="flex items-center text-dark-light">
           <Link
@@ -63,9 +63,9 @@ import {
             Domo
           </Link>
         </section>
-
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6 text-dark-light ml-auto pr-5">
+        
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
@@ -74,10 +74,9 @@ import {
             {themeMode === 'auto'
               ? 'Auto'
               : themeMode === 'dark'
-              ? 'Dark'
-              : 'Light'}
+                ? 'Dark'
+                : 'Light'}
           </button>
-
           {/* Dynamic navbar links */}
           {filteredLinks.map((link) => (
             <Link
@@ -103,7 +102,6 @@ import {
       {mobileMenuOpen && (
         <div className="md:hidden absolute right-4 top-16 z-50 bg-dark-hard p-4 rounded-md shadow-lg">
           <nav className="flex flex-col space-y-4 text-dark-light">
-
             {/* Dynamic mobile links */}
             {filteredLinks.map((link) => (
               <Link
@@ -114,7 +112,6 @@ import {
                 {link.title}
               </Link>
             ))}
-
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}
@@ -123,8 +120,8 @@ import {
               {themeMode === 'auto'
                 ? 'Auto'
                 : themeMode === 'dark'
-                ? 'Dark'
-                : 'Light'}
+                  ? 'Dark'
+                  : 'Light'}
             </button>
           </nav>
         </div>

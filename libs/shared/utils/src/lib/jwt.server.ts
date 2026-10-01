@@ -1,3 +1,4 @@
+// libs/shared/utils/src/lib/jwt.server.ts
 import jwt, { type SignOptions } from 'jsonwebtoken';
 import { serverEnv } from '@domo/constants/server';
 
@@ -24,6 +25,6 @@ export function signToken(
 /**
  * Verify a JWT token (Server-only)
  */
-export function verifyToken(token: string): UserPayload {
+export function verifyServerToken(token: string): UserPayload {
   return jwt.verify(token, serverEnv.JWT_SECRET) as UserPayload;
 }

@@ -10,7 +10,7 @@ import { SubmitButton } from './submitButton';
 import React, { useMemo, useState } from 'react';
 import { useToast } from '@domo/context';
 import Captcha from './captcha';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate } from 'react-router-dom';
 
 export type ConsistentFormApi<TFormValues extends Record<string, unknown>> =
   FormApi<
@@ -127,7 +127,7 @@ function FormFactory<
       if (result.success) {
         addToast({ message: result.message, type: 'success' });
         if (result.redirect) {
-          navigate({ to: result.redirect, replace: true });
+          navigate(result.redirect, { replace: true });
         }
       } else {
         addToast({

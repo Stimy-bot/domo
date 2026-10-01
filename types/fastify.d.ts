@@ -93,7 +93,7 @@ declare module 'fastify' {
 
     authenticateCookie: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
 
-    jwt?: {
+    jwt: {
       signToken?: (
         payload: Partial<AccessTokenPayload> | RefreshTokenPayload,
         opts?: { secret?: string; expiresIn?: number | string },
