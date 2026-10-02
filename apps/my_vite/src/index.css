@@ -7,6 +7,7 @@
 @source '../../../libs/shared/ui-sidebar';
 @source '../../../libs/shared/forms/';
 @source '../../../libs/shared/reusableComponents/';
+@source '../../my_encore/';
 
 
 @custom-variant dark (&:where(.dark, .dark *));

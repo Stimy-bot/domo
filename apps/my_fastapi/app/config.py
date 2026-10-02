@@ -1,3 +1,4 @@
+# apps/my_fastapi/app/config.py
 from functools import lru_cache
 from typing import Literal
 
@@ -17,7 +18,7 @@ class Settings(BaseSettings):
     jwt_secret_key: SecretStr | None = None
     jwt_algorithm: Literal["HS256"] = "HS256"
     access_token_expire_minutes: int = 30
-    cors_origins: list[str] = ["http://localhost:3000"]
+    cors_origins: list[str] = ["http://localhost:5173"]
 
 
 @lru_cache
