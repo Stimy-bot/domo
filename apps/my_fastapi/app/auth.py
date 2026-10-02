@@ -114,6 +114,22 @@ async def get_current_user(
         raise unauthorized
     return _public_user(user)
 
+@router.post("/login", response_model=TokenResponse)
+async def login(
+    payload: UserLogin,
+    request: Request,
+    database: Annotated[AsyncDatabase[dict[str, Any]], Depends(get_database)],
+) -> TokenResponse:
+    user = await database["users"].find_one({"email": str(payload.email).lower()})
+    if user is None or not password_hash.verify(payload.password, user["hashed_password"]):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    settings: Settings = request.app.state.settings
+    return TokenResponse(access_token=_create_access_token(str(user["_id"]), settings))
 
 @router.get("/me", response_model=UserPublic)
 async def read_current_user(

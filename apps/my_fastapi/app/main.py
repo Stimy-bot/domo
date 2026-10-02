@@ -1,10 +1,13 @@
 # apps/my_fastapi/app/main.py
 import time
+import pathlib
 from collections.abc import Callable
 from contextlib import asynccontextmanager
 from typing import Annotated, Any
 from uuid import uuid4
-
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi import Cookie, Depends, FastAPI, Header, HTTPException, Path, Query, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import AsyncMongoClient
@@ -19,7 +22,9 @@ from app.config import Settings, get_settings
 from app.schemas import UserPublic
 
 MongoClientFactory = Callable[..., AsyncMongoClient]
-
+BASE_DIR = pathlib.Path(__file__).resolve().parent
+templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+ 
 
 def create_app(
     settings: Settings | None = None,
@@ -76,6 +81,10 @@ def create_app(
         return response
 
     application.include_router(auth_router)
+
+    @application.get("/", response_class=HTMLResponse)
+    async def index(request: Request):
+        return templates.TemplateResponse(request=request, name="index.html")
 
     @application.get("/health", tags=["health"])
     async def health() -> dict[str, str]:
