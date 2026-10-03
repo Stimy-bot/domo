@@ -1,3 +1,5 @@
+# apps/my_fastapi/app/schemas.py
+from datetime import datetime
 from pydantic import BaseModel, EmailStr, Field
 
 
@@ -16,6 +18,8 @@ class UserPublic(BaseModel):
     email: EmailStr
 
 
-class TokenResponse(BaseModel):
-    access_token: str
-    token_type: str = "bearer"
+class SessionData(BaseModel):
+    session_id: str
+    user_id: str
+    created_at: datetime
+    expires_at: datetime

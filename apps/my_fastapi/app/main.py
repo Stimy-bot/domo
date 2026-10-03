@@ -24,7 +24,7 @@ from app.schemas import UserPublic
 MongoClientFactory = Callable[..., AsyncMongoClient]
 BASE_DIR = pathlib.Path(__file__).resolve().parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
- 
+
 
 def create_app(
     settings: Settings | None = None,
@@ -34,11 +34,6 @@ def create_app(
     @asynccontextmanager
     async def lifespan(application: FastAPI):
         app_settings = settings or get_settings()
-        secret = app_settings.jwt_secret_key
-        if secret is None or len(secret.get_secret_value()) < 32:
-            raise RuntimeError("JWT_SECRET_KEY must contain at least 32 characters")
-        if app_settings.access_token_expire_minutes < 1:
-            raise RuntimeError("ACCESS_TOKEN_EXPIRE_MINUTES must be greater than zero")
 
         client = mongo_client_factory(
             app_settings.mongodb_uri,
@@ -47,7 +42,13 @@ def create_app(
         try:
             database: AsyncDatabase[dict[str, Any]] = client[app_settings.mongodb_database]
             await database.command("ping")
+
+            # Unique index on user email
             await database["users"].create_index("email", unique=True)
+
+            # TTL index on sessions.expires_at to auto-delete expired documents
+            await database["sessions"].create_index("expires_at", expireAfterSeconds=0)
+
             application.state.settings = app_settings
             application.state.database = database
             yield
@@ -56,7 +57,7 @@ def create_app(
 
     application = FastAPI(
         title="FastAPI MongoDB Starter",
-        description="Typed request parameters, middleware, MongoDB, and JWT authentication.",
+        description="Typed request parameters, middleware, MongoDB, and Session authentication.",
         version="0.1.0",
         lifespan=lifespan,
     )

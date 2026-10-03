@@ -3,10 +3,10 @@ import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
+// In Node 20.11+, import.meta.dirname gives you the directory path directly
+const __dirname = import.meta.dirname;
 
 export default defineConfig({
   plugins: [
@@ -37,7 +37,7 @@ export default defineConfig({
     },
     proxy: {
       '/api': {
-        // 🔥 CRITICAL: Point to 'backend' service for Docker-to-Docker talk
+        // CRITICAL: Point to 'backend' service for Docker-to-Docker talk
         target: 'http://backend:5000',
         changeOrigin: true,
       },
@@ -49,47 +49,19 @@ export default defineConfig({
   },
 
   resolve: {
-    tsconfigPaths: true,
     alias: {
       '@domo/state': resolve(__dirname, '../../libs/shared/state/src/index.ts'),
-      '@domo/ui-header': resolve(
-        __dirname,
-        '../../libs/shared/ui-header/src/index.ts',
-      ),
-      '@domo/ui-footer': resolve(
-        __dirname,
-        '../../libs/shared/ui-footer/src/index.ts',
-      ),
-      '@domo/ui-sidebar': resolve(
-        __dirname,
-        '../../libs/shared/ui-sidebar/src/index.ts',
-      ),
-      '@domo/ui-button': resolve(
-        __dirname,
-        '../../libs/shared/ui-button/src/index.ts',
-      ),
-      '@domo/utils': resolve(
-        __dirname,
-        '../../libs/shared/utils/src/index.client.ts',
-      ),
-      '@domo/constants': resolve(
-        __dirname,
-        '../../libs/shared/constants/src/index.ts',
-      ),
-      '@domo/config': resolve(
-        __dirname,
-        '../../libs/shared/config/src/index.client.ts',
-      ),
-      '@domo/reusableComponents': resolve(
-        __dirname,
-        '../../libs/shared/reusableComponents/src/index.ts',
-      ),
+      '@domo/ui-header': resolve(__dirname, '../../libs/shared/ui-header/src/index.ts'),
+      '@domo/ui-footer': resolve(__dirname, '../../libs/shared/ui-footer/src/index.ts'),
+      '@domo/ui-sidebar': resolve(__dirname, '../../libs/shared/ui-sidebar/src/index.ts'),
+      '@domo/ui-button': resolve(__dirname, '../../libs/shared/ui-button/src/index.ts'),
+      '@domo/utils': resolve(__dirname, '../../libs/shared/utils/src/index.client.ts'),
+      '@domo/constants': resolve(__dirname, '../../libs/shared/constants/src/index.ts'),
+      '@domo/config': resolve(__dirname, '../../libs/shared/config/src/index.client.ts'),
+      '@domo/reusableComponents': resolve(__dirname, '../../libs/shared/reusableComponents/src/index.ts'),
       '@domo/types': resolve(__dirname, '../../libs/shared/types/src/index.ts'),
       '@domo/hooks': resolve(__dirname, '../../libs/shared/hooks/src/index.ts'),
-      '@domo/firebase': resolve(
-        __dirname,
-        '../../libs/shared/firebase/src/index.ts',
-      ),
+      '@domo/firebase': resolve(__dirname, '../../libs/shared/firebase/src/index.ts'),
       '@domo/forms': resolve(__dirname, '../../libs/shared/forms/src/index.ts'),
     },
   },
@@ -153,7 +125,6 @@ export default defineConfig({
       '@domo/hooks',
       '@domo/firebase',
       '@domo/forms',
-      'mongodb',
       'bson',
       'fetch-blob',
     ],

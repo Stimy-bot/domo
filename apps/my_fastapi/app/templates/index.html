@@ -15,12 +15,9 @@
     <style type="text/tailwindcss">
       @theme {
         --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-        --color-dark-hard: #17251f;
-        --color-moss: #47745d;
-        --color-paper: #f7f8f5;
-          --color-dark-light: #5A7184;
-  --color-dark-hard: #0D2436;
-  --color-dark-soft: #183B56;
+        --color-dark-light: #5a7184;
+        --color-dark-hard: #0d2436;
+        --color-dark-soft: #183b56;
       }
       html {
         scroll-behavior: smooth;
@@ -34,9 +31,7 @@
     />
   </head>
   <body className="bg-paper font-sans text-dark-hard antialiased">
-    <header
-      class="sticky top-0 z-10 border-b border-dark-hard/10 bg-dark-hard"
-    >
+    <header class="sticky top-0 z-10 border-b border-dark-hard/10 bg-dark-hard">
       <nav
         class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10"
         aria-label="Main navigation"
@@ -48,8 +43,8 @@
             class="grid size-8 place-items-center rounded-xl bg-dark-soft text-dark-light"
             aria-hidden="true"
             >✳</span
-          >Domo Services </a
-        >
+          >Domo Services
+        </a>
         <div class="hidden gap-8 text-sm font-medium sm:flex text-dark-light">
           <a class="hover:text-dark-soft" href="#home">Home</a
           ><a class="hover:text-dark-soft" href="#about">About</a
@@ -72,8 +67,8 @@
           <p
             class="mb-6 inline-flex items-center gap-2 rounded-full border border-dark-soft/20 bg-dark-light px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-dark-soft"
           >
-            <span class="size-2 rounded-full bg-dark-soft"></span>Independent digital
-            studio
+            <span class="size-2 rounded-full bg-dark-soft"></span>Independent
+            digital studio
           </p>
           <h1
             class="max-w-2xl text-5xl leading-[1.06] font-semibold tracking-[-0.055em] sm:text-6xl lg:text-7xl"
@@ -82,8 +77,8 @@
           </h1>
           <p class="mt-7 max-w-lg text-lg leading-8 text-dark-hard/65">
             We turn ambitious ideas into useful, memorable digital experiences.
-            Clear the dark-harding, thoughtful design, and technology that gets out of
-            your way.
+            Clear the dark-harding, thoughtful design, and technology that gets
+            out of your way.
           </p>
           <div class="mt-9 flex flex-wrap items-center gap-4">
             <a
@@ -98,8 +93,8 @@
           </div>
           <div class="mt-14 border-t border-dark-hard/10 pt-6">
             <p class="text-sm text-dark-hard/65">
-              <strong class="text-dark-hard">Good people, good work.</strong><br />A
-              small team with a big-picture mindset.
+              <strong class="text-dark-hard">Good people, good work.</strong
+              ><br />A small team with a big-picture mindset.
             </p>
           </div>
         </div>
@@ -120,7 +115,9 @@
                 <span
                   class="rounded-full bg-dark-light/70 px-3 py-1.5 text-xs font-semibold text-dark-soft"
                   >Ideas into impact</span
-                ><span class="text-3xl text-dark-soft" aria-hidden="true">✳</span>
+                ><span class="text-3xl text-dark-soft" aria-hidden="true"
+                  >✳</span
+                >
               </div>
               <div class="my-10">
                 <p class="text-sm font-medium text-dark-soft">
@@ -160,10 +157,10 @@
               </h2>
             </div>
             <p class="max-w-2xl text-lg leading-8 text-dark-hard/65">
-              Domo Services is a small, independent team partnering with people who want
-              to make a difference. We bring strategy, design, and engineering
-              together from day one—so the result feels cohesive, works
-              beautifully, and has room to grow.
+              Domo Services is a small, independent team partnering with people
+              who want to make a difference. We bring strategy, design, and
+              engineering together from day one—so the result feels cohesive,
+              works beautifully, and has room to grow.
             </p>
           </div>
           <div class="mt-14 grid gap-5 sm:grid-cols-3">
@@ -276,17 +273,21 @@
       </section>
     </main>
 
-    <footer class="sticky bottom-0 z-10 py-6 lg:px10 border-b border-dark-hard/10 bg-dark-hard">
+    <footer
+      class="sticky bottom-0 z-10 py-6 lg:px10 border-b border-dark-hard/10 bg-dark-hard"
+    >
       <div
         class="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-dark-light sm:flex-row sm:items-center sm:justify-between"
       >
-        <a href="#home" class="font-bold tracking-tight text-dark-light">✳ Domo Services</a>
+        <a href="#home" class="font-bold tracking-tight text-dark-light"
+          >✳ Domo Services</a
+        >
         <p>Thoughtful by design. Built for what’s next.</p>
         <p>© <span id="year"></span> Domo Studio</p>
       </div>
-          <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+      <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+      </script>
     </footer>
   </body>
 </html>

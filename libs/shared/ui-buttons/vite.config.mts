@@ -2,19 +2,21 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
-import * as path from 'path';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import * as path from 'node:path';
+
+// Modern ES module replacement for Node's __dirname
+const __dirname = import.meta.dirname;
 
 export default defineConfig(() => ({
-  root: import.meta.dirname,
+  root: __dirname,
   cacheDir: '../../../node_modules/.vite/libs/shared/ui-buttons',
-  resolve: {
-    tsconfigPaths: true,
-  },
   plugins: [
     react(),
+    tsconfigPaths(),
     dts({
       entryRoot: 'src',
-      tsconfigPath: path.join(import.meta.dirname, 'tsconfig.lib.json'),
+      tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
       pathsToAliases: false,
       exclude: ['src/**/*.spec.ts', 'src/**/*.spec.tsx', 'src/**/*.test.ts', 'src/**/*.test.tsx'],
     }),
