@@ -1,8 +1,0 @@
-{
-    "cSpell.words": [
-        "domo",
-        "tmobile"
-    ],
-    "python.defaultInterpreterPath": "${workspaceFolder}/apps/my_fastapi/.venv/bin/python",
-    "python.terminal.activateEnvironment": true
-}

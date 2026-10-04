@@ -1,19 +1,31 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Thoughtful digital products, built with care."
-    />
-    <title>Domo — Make your next move</title>
-    <!-- Tailwind CSS v4 browser build: convenient for a static public page. -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
-    <ldark-hard href="/src/index.css" rel="stylesheet" />
-    <style type="text/tailwindcss">
-      @theme {
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Thoughtful digital products, built with care." />
+  <title>Domo — Make your next move</title>
+  <!-- Tailwind CSS v4 browser build: convenient for a static public page. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.11/dist/htmx.min.js"
+    integrity="sha384-2OatzQy1H+Zd/IIrjr1TcuDGqLXeHhbooAyJY1KdQMKnr4LZ22k31GBLdYKHmVjg"
+    crossorigin="anonymous"></script>
+
+  <!-- Favicon for all browsers -->
+  <link rel="icon" href="{{ url_for('static', path='images/favicon.ico') }}" sizes="any">
+  <link rel="icon" href="{{ url_for('static', path='images/favicon.svg') }}" type="image/svg+xml">
+
+  <!-- Apple touch icon for iOS devices -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', path='images/apple-touch-icon.png') }}">
+  <!-- Web app manifest for Progressive Web Apps -->
+  <link rel="manifest" href="{{ url_for('static', path='site.webmanifest') }}">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='css/index.css' ) }}">
+
+  <style type="text/tailwindcss">
+    @theme {
         --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
         --color-dark-light: #5a7184;
         --color-dark-hard: #0d2436;
@@ -23,271 +35,303 @@
         scroll-behavior: smooth;
       }
     </style>
-    <ldark-hard rel="preconnect" href="https://fonts.googleapis.com" />
-    <ldark-hard rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <ldark-hard
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body className="bg-paper font-sans text-dark-hard antialiased">
-    <header class="sticky top-0 z-10 border-b border-dark-hard/10 bg-dark-hard">
-      <nav
-        class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10"
-        aria-label="Main navigation"
-      >
-        <a
-          href="#home"
-          class="flex items-center gap-2 text-lg font-bold tracking-tight text-dark-light"
-          ><span
-            class="grid size-8 place-items-center rounded-xl bg-dark-soft text-dark-light"
-            aria-hidden="true"
-            >✳</span
-          >Domo Services
-        </a>
-        <div class="hidden gap-8 text-sm font-medium sm:flex text-dark-light">
-          <a class="hover:text-dark-soft" href="#home">Home</a
-          ><a class="hover:text-dark-soft" href="#about">About</a
-          ><a class="hover:text-dark-soft" href="#contact">Contact</a>
-        </div>
-        <a
-          href="#contact"
-          class="rounded-full bg-dark-hard px-5 py-2.5 text-sm font-semibold text-dark-light transition hover:bg-dark-soft"
-          >Let’s talk <span aria-hidden="true">↗</span></a
-        >
-      </nav>
-    </header>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
 
-    <main>
-      <section
-        id="home"
-        class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:py-28 lg:grid-cols-2 lg:px-10"
-      >
-        <div>
-          <p
-            class="mb-6 inline-flex items-center gap-2 rounded-full border border-dark-soft/20 bg-dark-light px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-dark-soft"
-          >
-            <span class="size-2 rounded-full bg-dark-soft"></span>Independent
-            digital studio
-          </p>
-          <h1
-            class="max-w-2xl text-5xl leading-[1.06] font-semibold tracking-[-0.055em] sm:text-6xl lg:text-7xl"
-          >
-            Make your next move <span class="text-dark-soft">matter.</span>
-          </h1>
-          <p class="mt-7 max-w-lg text-lg leading-8 text-dark-hard/65">
-            We turn ambitious ideas into useful, memorable digital experiences.
-            Clear the dark-harding, thoughtful design, and technology that gets
-            out of your way.
-          </p>
-          <div class="mt-9 flex flex-wrap items-center gap-4">
-            <a
-              href="#contact"
-              class="rounded-full bg-dark-soft px-6 py-3.5 text-sm font-semibold text-dark-light transition hover:bg-dark-hard"
-              >Start a conversation <span aria-hidden="true">→</span></a
-            ><a
-              href="#about"
-              class="px-4 py-3 text-sm font-semibold hover:text-dark-soft"
-              >Get to know us <span aria-hidden="true">↓</span></a
-            >
-          </div>
-          <div class="mt-14 border-t border-dark-hard/10 pt-6">
-            <p class="text-sm text-dark-hard/65">
-              <strong class="text-dark-hard">Good people, good work.</strong
-              ><br />A small team with a big-picture mindset.
-            </p>
-          </div>
-        </div>
-        <div class="relative mx-auto w-full max-w-xl">
-          <div
-            class="absolute -inset-3 rotate-3 rounded-[2.5rem] bg-dark-soft/10 shadow-lg shadow-dark-soft/20"
-            aria-hidden="true"
-          ></div>
-          <div
-            class="relative overflow-hidden rounded-4xl bg-dark-light p-8 sm:p-12"
-          >
-            <div
-              class="absolute -right-10 -top-10 size-48 rounded-full border border-dark-soft/20"
-              aria-hidden="true"
-            ></div>
-            <div class="relative flex min-h-80 flex-col justify-between">
-              <div class="flex items-start justify-between">
-                <span
-                  class="rounded-full bg-dark-light/70 px-3 py-1.5 text-xs font-semibold text-dark-soft"
-                  >Ideas into impact</span
-                ><span class="text-3xl text-dark-soft" aria-hidden="true"
-                  >✳</span
-                >
-              </div>
-              <div class="my-10">
-                <p class="text-sm font-medium text-dark-soft">
-                  A little clarity changes everything.
-                </p>
-                <p
-                  class="mt-3 max-w-sm text-4xl leading-tight font-semibold tracking-tight"
-                >
-                  Build what’s
-                  <span class="font-serif italic font-normal">next.</span>
-                </p>
-              </div>
-              <div
-                class="flex items-center justify-between border-t border-dark-soft/20 pt-4 text-xs font-medium text-dark-hard/60"
-              >
-                <span>Strategy · Design · Development</span><span>01 / 03</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<body class="font-sans text-dark-hard antialiased">
+  <header class="sticky top-0 z-10 border-b border-dark-hard/10 bg-dark-hard">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10" aria-label="Main navigation">
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-2 text-lg font-bold tracking-tight text-dark-light">
+        <span class="grid size-8 place-items-center rounded-xl bg-dark-soft text-dark-light" aria-hidden="true">✦</span>
+        Domo Services
+      </a>
 
-      <section id="about" class="scroll-mt-24 bg-white py-20 md:py-28">
-        <div class="mx-auto max-w-7xl px-6 lg:px-10">
-          <div class="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-end">
-            <div>
-              <p
-                class="text-sm font-semibold uppercase tracking-[0.16em] text-dark-soft"
-              >
-                A bit about us
-              </p>
-              <h2
-                class="mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl"
-              >
-                Good work starts with
-                <span class="text-dark-soft">good questions.</span>
-              </h2>
-            </div>
-            <p class="max-w-2xl text-lg leading-8 text-dark-hard/65">
-              Domo Services is a small, independent team partnering with people
-              who want to make a difference. We bring strategy, design, and
-              engineering together from day one—so the result feels cohesive,
-              works beautifully, and has room to grow.
-            </p>
-          </div>
-          <div class="mt-14 grid gap-5 sm:grid-cols-3">
-            <article class="rounded-2xl border border-dark-hard/10 p-7">
-              <span class="text-2xl text-moss" aria-hidden="true">◎</span>
-              <h3 class="mt-5 text-lg font-semibold">Find the signal</h3>
-              <p class="mt-2 leading-7 text-dark-hard/65">
-                We get to the heart of the challenge before jumping to
-                solutions.
-              </p>
-            </article>
-            <article class="rounded-2xl border border-dark-hard/10 p-7">
-              <span class="text-2xl text-moss" aria-hidden="true">◇</span>
-              <h3 class="mt-5 text-lg font-semibold">Make it matter</h3>
-              <p class="mt-2 leading-7 text-dark-hard/65">
-                Every detail earns its place, balancing clarity, character, and
-                craft.
-              </p>
-            </article>
-            <article class="rounded-2xl border border-dark-hard/10 p-7">
-              <span class="text-2xl text-moss" aria-hidden="true">↗</span>
-              <h3 class="mt-5 text-lg font-semibold">Move forward</h3>
-              <p class="mt-2 leading-7 text-dark-hard/65">
-                We build alongside your team, leaving you ready for what comes
-                next.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="scroll-mt-24 px-6 py-20 md:py-28 lg:px-10">
-        <div
-          class="mx-auto grid max-w-7xl gap-12 rounded-4xl bg-dark-hard p-8 text-dark-light sm:p-12 lg:grid-cols-2 lg:p-16"
-        >
-          <div>
-            <p
-              class="text-sm font-semibold uppercase tracking-[0.16em] text-dark-light"
-            >
-              Contact
-            </p>
-            <h2
-              class="mt-4 max-w-lg text-4xl leading-tight font-semibold tracking-[-0.04em] sm:text-5xl"
-            >
-              Have a good one in mind?
-            </h2>
-            <p class="mt-5 max-w-md leading-7 text-dark-light/65">
-              Tell us what you’re working on. We’ll get back to you soon and
-              figure out the best next step together.
-            </p>
-            <a
-              class="mt-8 inline-block text-sm font-medium text-dark-light underline decoration-dark-light/30 underline-offset-4 hover:text-dark-light"
-              href="mailto:hello@DomoServices.studio"
-              >hello@DomoServices.studio</a
-            >
-          </div>
-          <form
-            hx-post="/api/contact"
-            hx-target="#contact-result"
-            hx-swap="innerHTML"
-            class="grid gap-4"
-            aria-label="Contact form"
-          >
-            <label class="grid gap-2 text-sm font-medium" for="name"
-              >Your name<input
-                class="rounded-xl border border-dark-light/20 bg-dark-light/5 px-4 py-3 text-base outline-none placeholder:text-dark-light/35 focus:border-[#a9c7ae]"
-                id="name"
-                name="name"
-                autocomplete="name"
-                placeholder="Jane Smith"
-                required
-            /></label>
-            <label class="grid gap-2 text-sm font-medium" for="email"
-              >Email address<input
-                class="rounded-xl border border-dark-light/20 bg-dark-light/5 px-4 py-3 text-base outline-none placeholder:text-dark-light/35 focus:border-[#a9c7ae]"
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                placeholder="jane@example.com"
-                required
-            /></label>
-            <label class="grid gap-2 text-sm font-medium" for="message"
-              >What’s on your mind?<textarea
-                class="min-h-28 resize-y rounded-xl border border-dark-light/20 bg-dark-light/5 px-4 py-3 text-base outline-none placeholder:text-dark-light/35 focus:border-[#a9c7ae]"
-                id="message"
-                name="message"
-                placeholder="A little about your project..."
-                required
-              ></textarea>
-            </label>
-            <button
-              class="mt-1 w-fit rounded-full bg-dark-soft px-6 py-3 text-sm font-semibold text-dark-light transition hover:bg-dark-hard"
-              type="submit"
-            >
-              Send your note <span aria-hidden="true">→</span>
-            </button>
-            <p
-              id="contact-result"
-              class="min-h-5 text-sm text-[#c1d7c4]"
-              role="status"
-              aria-live="polite"
-            ></p>
-            <p class="text-xs text-dark-light">
-              By sending this form, you agree we may contact you about your
-              inquiry.
-            </p>
-          </form>
-        </div>
-      </section>
-    </main>
-
-    <footer
-      class="sticky bottom-0 z-10 py-6 lg:px10 border-b border-dark-hard/10 bg-dark-hard"
-    >
-      <div
-        class="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-dark-light sm:flex-row sm:items-center sm:justify-between"
-      >
-        <a href="#home" class="font-bold tracking-tight text-dark-light"
-          >✳ Domo Services</a
-        >
-        <p>Thoughtful by design. Built for what’s next.</p>
-        <p>© <span id="year"></span> Domo Studio</p>
+      <!-- Desktop Navigation Links -->
+      <div class="hidden gap-8 text-sm font-medium sm:flex text-dark-light">
+        <a class="hover:text-dark-soft" href="#home">Home</a>
+        <a class="hover:text-dark-soft" href="#about">About</a>
+        <a class="hover:text-dark-soft" href="#information">Information</a>
+        <a class="hover:text-dark-soft" href="#contact">Contact</a>
       </div>
-      <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-      </script>
-    </footer>
-  </body>
+
+      <!-- Desktop CTA Button & Mobile Toggle Button -->
+      <div class="flex items-center gap-4">
+        <a href="#contact"
+          class="hidden rounded-full bg-dark-hard px-5 py-2.5 text-sm font-semibold text-dark-light transition hover:bg-dark-soft sm:inline-flex">
+          Let’s talk <span aria-hidden="true">↗</span>
+        </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="menu-toggle" type="button" class="text-dark-light hover:text-dark-soft focus:outline-none sm:hidden"
+          aria-controls="mobile-menu" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <!-- Hamburger Icon -->
+          <svg id="menu-open-icon" class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+          <!-- Close (X) Icon -->
+          <svg id="menu-close-icon" class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden border-t border-dark-hard/10 px-6 pb-6 pt-4 sm:hidden">
+      <div class="flex flex-col gap-4 text-base font-medium text-dark-light">
+        <a class="hover:text-dark-soft" href="#home">Home</a>
+        <a class="hover:text-dark-soft" href="#about">About</a>
+        <a class="hover:text-dark-soft" href="#information">Information</a>
+        <a class="hover:text-dark-soft" href="#contact">Contact</a>
+        <a href="#contact"
+          class="mt-2 inline-flex justify-center rounded-full bg-dark-soft px-5 py-2.5 text-sm font-semibold text-dark-light">
+          Let’s talk <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- JavaScript to Toggle Mobile Menu -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const openIcon = document.getElementById('menu-open-icon');
+    const closeIcon = document.getElementById('menu-close-icon');
+
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+
+      menuToggle.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.classList.toggle('hidden');
+      openIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    });
+  </script>
+
+  <main>
+    <section id="home" class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:py-28 lg:grid-cols-2 lg:px-10">
+      <div>
+        <p
+          class="mb-6 inline-flex items-center gap-2 rounded-full border border-dark-soft/20 bg-dark-light px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-dark-soft">
+          <span class="size-2 rounded-full bg-dark-soft"></span>Independent
+          digital studio
+        </p>
+        <h1 class="max-w-2xl text-5xl leading-[1.06] font-semibold tracking-[-0.055em] sm:text-6xl lg:text-7xl">
+          Make your next move <span class="text-dark-soft">matter.</span>
+        </h1>
+        <p class="mt-7 max-w-lg text-lg leading-8 text-dark-hard/65">
+          We turn ambitious ideas into useful, memorable digital experiences.
+          Clear the dark-harding, thoughtful design, and technology that gets
+          out of your way.
+        </p>
+        <div class="mt-9 flex flex-wrap items-center gap-4">
+          <a href="#contact"
+            class="rounded-full bg-dark-soft px-6 py-3.5 text-sm font-semibold text-dark-light transition hover:bg-dark-hard">Start
+            a conversation <span aria-hidden="true">→</span></a><a href="#about"
+            class="px-4 py-3 text-sm font-semibold hover:text-dark-soft">Get to know us <span
+              aria-hidden="true">↓</span></a>
+        </div>
+        <div class="mt-14 border-t border-dark-hard/10 pt-6">
+          <p class="text-sm text-dark-hard/65">
+            <strong class="text-dark-hard">Good people, good work.</strong><br />A small team with a big-picture
+            mindset.
+          </p>
+        </div>
+      </div>
+      <div class="relative mx-auto w-full max-w-xl">
+        <div class="absolute -inset-3 rotate-3 rounded-[2.5rem] bg-dark-soft/10 shadow-lg shadow-dark-soft/20"
+          aria-hidden="true"></div>
+        <div class="relative overflow-hidden rounded-4xl bg-dark-light p-8 sm:p-12">
+          <div class="absolute -right-10 -top-10 size-48 rounded-full border border-dark-soft/20" aria-hidden="true">
+          </div>
+          <div class="relative flex min-h-80 flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <span class="rounded-full bg-dark-light/70 px-3 py-1.5 text-xs font-semibold text-dark-soft">Ideas into
+                impact</span><span class="text-3xl text-dark-soft" aria-hidden="true">✳</span>
+            </div>
+            <div class="my-10">
+              <p class="text-sm font-medium text-dark-soft">
+                A little clarity changes everything.
+              </p>
+              <p class="mt-3 max-w-sm text-4xl leading-tight font-semibold tracking-tight">
+                Build what’s
+                <span class="font-serif italic font-normal">next.</span>
+              </p>
+            </div>
+            <div
+              class="flex items-center justify-between border-t border-dark-soft/20 pt-4 text-xs font-medium text-dark-hard/60">
+              <span>Strategy · Design · Development</span><span>01 / 03</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="scroll-mt-24 bg-white py-20 md:py-28">
+      <div class="mx-auto max-w-7xl px-6 lg:px-10">
+        <div class="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-dark-soft">
+              A bit about us
+            </p>
+            <h2 class="mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
+              Good work starts with
+              <span class="text-dark-soft">good questions.</span>
+            </h2>
+          </div>
+          <p class="max-w-2xl text-lg leading-8 text-dark-hard/65">
+            Domo Services is a small, independent team partnering with people
+            who want to make a difference. We bring strategy, design, and
+            engineering together from day one—so the result feels cohesive,
+            works beautifully, and has room to grow.
+          </p>
+        </div>
+        <div class="mt-14 grid gap-5 sm:grid-cols-3">
+          <article class="rounded-2xl border border-dark-hard/10 p-7">
+            <span class="text-2xl text-moss" aria-hidden="true">◎</span>
+            <h3 class="mt-5 text-lg font-semibold">Find the signal</h3>
+            <p class="mt-2 leading-7 text-dark-hard/65">
+              We get to the heart of the challenge before jumping to
+              solutions.
+            </p>
+          </article>
+          <article class="rounded-2xl border border-dark-hard/10 p-7">
+            <span class="text-2xl text-moss" aria-hidden="true">◇</span>
+            <h3 class="mt-5 text-lg font-semibold">Make it matter</h3>
+            <p class="mt-2 leading-7 text-dark-hard/65">
+              Every detail earns its place, balancing clarity, character, and
+              craft.
+            </p>
+          </article>
+          <article class="rounded-2xl border border-dark-hard/10 p-7">
+            <span class="text-2xl text-moss" aria-hidden="true">↗</span>
+            <h3 class="mt-5 text-lg font-semibold">Move forward</h3>
+            <p class="mt-2 leading-7 text-dark-hard/65">
+              We build alongside your team, leaving you ready for what comes
+              next.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section id="information" class="scroll-mt-24 bg-white py-20 md:py-28">
+      <div class="mx-auto max-w-7xl px-6 lg:px-10">
+        <div class="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-dark-soft">
+              Built with modern web technology
+            </p>
+            <h2 class="mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
+              Fast, reliable websites powered by
+              <span class="text-dark-soft">Python &amp; HTMX.</span>
+            </h2>
+          </div>
+
+          <p class="max-w-2xl text-lg leading-8 text-dark-hard/65">
+            This site is built with FastAPI and HTMX, a lightweight
+            combination that delivers fast page loads, simple maintenance, and
+            a smooth user experience. By focusing on server-rendered
+            applications instead of heavy client-side frameworks, we create
+            websites that are easier to scale, easier to maintain, and
+            exceptionally responsive.
+          </p>
+        </div>
+
+        <div class="mt-14 grid gap-5 sm:grid-cols-3">
+          <article class="rounded-2xl border border-dark-hard/10 p-7">
+            <span class="text-2xl text-moss" aria-hidden="true">🐍</span>
+            <h3 class="mt-5 text-lg font-semibold">FastAPI</h3>
+            <p class="mt-2 leading-7 text-dark-hard/65">
+              A modern Python web framework known for high performance,
+              automatic API documentation, and clean, maintainable code. It
+              provides the backend foundation that powers the application.
+            </p>
+          </article>
+
+          <article class="rounded-2xl border border-dark-hard/10 p-7">
+            <span class="text-2xl text-moss" aria-hidden="true">⚡</span>
+            <h3 class="mt-5 text-lg font-semibold">HTMX</h3>
+            <p class="mt-2 leading-7 text-dark-hard/65">
+              HTMX brings dynamic interactions directly to HTML, allowing
+              pages to update without complex JavaScript frameworks. The
+              result is a faster, more accessible, and more maintainable user
+              experience.
+            </p>
+          </article>
+
+          <article class="rounded-2xl border border-dark-hard/10 p-7">
+            <span class="text-2xl text-moss" aria-hidden="true">🚀</span>
+            <h3 class="mt-5 text-lg font-semibold">Built for Performance</h3>
+            <p class="mt-2 leading-7 text-dark-hard/65">
+              Combining FastAPI and HTMX creates a streamlined architecture
+              that minimizes unnecessary complexity while delivering excellent
+              speed, reliability, and scalability.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="scroll-mt-24 px-6 py-20 md:py-28 lg:px-10">
+      <div
+        class="mx-auto grid max-w-7xl gap-12 rounded-4xl bg-dark-hard p-8 text-dark-light sm:p-12 lg:grid-cols-2 lg:p-16">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.16em] text-dark-light">
+            Contact
+          </p>
+          <h2 class="mt-4 max-w-lg text-4xl leading-tight font-semibold tracking-[-0.04em] sm:text-5xl">
+            Have a good one in mind?
+          </h2>
+          <p class="mt-5 max-w-md leading-7 text-dark-light/65">
+            Tell us what you’re working on. We’ll get back to you soon and
+            figure out the best next step together.
+          </p>
+          <a class="mt-8 inline-block text-sm font-medium text-dark-light underline decoration-dark-light/30 underline-offset-4 hover:text-dark-light"
+            href="mailto:hello@DomoServices.studio">hello@DomoServices.studio</a>
+        </div>
+        <form hx-post="/contact" hx-target="#contact" hx-swap="innerHTML" class="grid gap-4" aria-label="Contact form">
+          <label class="grid gap-2 text-sm font-medium" for="name">Your name<input
+              class="rounded-xl border border-dark-light/20 bg-dark-light/5 px-4 py-3 text-base outline-none placeholder:text-dark-light/35 focus:border-[#a9c7ae]"
+              id="name" name="name" autocomplete="name" placeholder="Jane Smith" required /></label>
+          <label class="grid gap-2 text-sm font-medium" for="email">Email address<input
+              class="rounded-xl border border-dark-light/20 bg-dark-light/5 px-4 py-3 text-base outline-none placeholder:text-dark-light/35 focus:border-[#a9c7ae]"
+              id="email" name="email" type="email" autocomplete="email" placeholder="jane@example.com"
+              required /></label>
+          <label class="grid gap-2 text-sm font-medium" for="message">What’s on your mind?<textarea
+              class="min-h-28 resize-y rounded-xl border border-dark-light/20 bg-dark-light/5 px-4 py-3 text-base outline-none placeholder:text-dark-light/35 focus:border-[#a9c7ae]"
+              id="message" name="message" placeholder="A little about your project..." required></textarea>
+          </label>
+          <button
+            class="mt-1 w-fit rounded-full bg-dark-soft px-6 py-3 text-sm font-semibold text-dark-light transition hover:bg-dark-hard"
+            type="submit">
+            Send your note <span aria-hidden="true">→</span>
+          </button>
+          <p id="contact-result" class="min-h-5 text-sm text-[#c1d7c4]" role="status" aria-live="polite"></p>
+          <p class="text-xs text-dark-light">
+            By sending this form, you agree we may contact you about your
+            inquiry.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sticky bottom-0 z-10 py-6 lg:px10 border-b border-dark-hard/10 bg-dark-hard">
+    <div
+      class="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-dark-light sm:flex-row sm:items-center sm:justify-between">
+      <a href="#home" class="font-bold tracking-tight text-dark-light">✳ Domo Services</a>
+      <p>Thoughtful by design. Built for what’s next.</p>
+      <p>© <span id="year"></span> Domo Studio</p>
+    </div>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+
 </html>

@@ -4,6 +4,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "start:py": ".venv/bin/python main.py",
+    "test:py": ".venv/bin/pytest",
     "build": "nx run-many --target=build --all --configuration=production --skip-nx-cache",
     "build:api": "nx run @domo/api:build:production --skip-nx-cache",
     "build:libs": "nx run-many --target=build --projects=@domo/types,@domo/constants,@domo/schemas,@domo/validates,@domo/utils,@domo/models,@domo/services,@domo/config,@domo/controllers,@domo/middleware --configuration=production --skip-nx-cache"

@@ -5,9 +5,10 @@
 @source '../../../libs/shared/ui-footer';
 @source '../../../libs/shared/ui-button';
 @source '../../../libs/shared/ui-sidebar';
-@source '../../../libs/shared/forms/';
-@source '../../../libs/shared/reusableComponents/';
-@source '../../my_encore/';
+@source '../../../libs/shared/forms';
+@source '../../../libs/shared/reusableComponents';
+@source '../../my_encore';
+@source '../../my_fastapi';
 
 
 @custom-variant dark (&:where(.dark, .dark *));

@@ -1,5 +1,6 @@
-# apps/my_fastapi/app/schemas.py
+# apps/my_fastapi/app/model/models.py
 from datetime import datetime
+
 from pydantic import BaseModel, EmailStr, Field
 
 
@@ -23,3 +24,7 @@ class SessionData(BaseModel):
     user_id: str
     created_at: datetime
     expires_at: datetime
+
+class SendEmail(BaseModel):
+    email: EmailStr
+    message: str = Field(min_length=1, max_length=500)

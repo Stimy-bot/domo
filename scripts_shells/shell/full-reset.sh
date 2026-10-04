@@ -3,10 +3,10 @@ set -euo pipefail
 
 echo "💣 FULL RESET: Nx monorepo"
 
-# 1. Forcefully kill any running Nx daemon processes to prevent VersionMismatchError
+# 1. Forcefully kill any running Nx daemon processes to start clean
 echo "→ Killing lingering Nx daemon processes"
-pkill -f nx-daemon || true
-pkill -f "@nx/" || true
+pkill -f "nx" || true
+pkill -f "nx-daemon" || true
 
 # 2. Reset Nx cache
 echo "→ Resetting Nx cache"
@@ -14,7 +14,7 @@ pnpm exec nx reset || true
 
 # 3. Remove build outputs, caches, and Nx daemon metadata
 echo "→ Removing build outputs and cache files"
-rm -rf dist .nx/cache .angular/cache node_modules/.cache/nx
+rm -rf dist .nx .angular/cache node_modules/.cache/nx
 find . \
   \( -name "dist" -o -name "*.tsbuildinfo" \) \
   -not -path "*/node_modules/*" \
@@ -38,9 +38,14 @@ pnpm install \
   --frozen-lockfile \
   --child-concurrency=1
 
-# 7. Rebuild
+# 7. Kill daemon spawned by pnpm postinstall hooks
+echo "→ Resetting Nx daemon post-installation"
+pnpm exec nx reset || true
+pkill -f "nx" || true
+
+# 8. Rebuild with daemon explicitly disabled
 echo "→ Rebuilding all Nx projects"
-pnpm exec nx run-many \
+NX_DAEMON=false pnpm exec nx run-many \
   --target=build \
   --all \
   --configuration=development \

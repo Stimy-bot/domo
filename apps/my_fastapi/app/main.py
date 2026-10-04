@@ -1,29 +1,73 @@
-# apps/my_fastapi/app/main.py
-import time
+import hashlib
 import pathlib
+import time
 from collections.abc import Callable
 from contextlib import asynccontextmanager
+from functools import lru_cache
 from typing import Annotated, Any
 from uuid import uuid4
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi import Cookie, Depends, FastAPI, Header, HTTPException, Path, Query, Request, status
+
+from fastapi import (
+    BackgroundTasks,
+    Cookie,
+    Depends,
+    FastAPI,
+    Form,
+    Header,
+    HTTPException,
+    Path,
+    Query,
+    Request,
+    status,
+)
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.database import AsyncDatabase
 from pymongo.errors import PyMongoError
 from starlette.middleware.base import RequestResponseEndpoint
 from starlette.responses import Response
 
-from app.auth import get_current_user
-from app.auth import router as auth_router
+from app.auth import get_current_user, router as auth_router
 from app.config import Settings, get_settings
-from app.schemas import UserPublic
+from app.models import UserPublic
 
 MongoClientFactory = Callable[..., AsyncMongoClient]
 BASE_DIR = pathlib.Path(__file__).resolve().parent
+STATIC_DIR = BASE_DIR / "static"
+
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+
+
+@lru_cache(maxsize=1024)
+def get_file_hash(filepath: str) -> str:
+    """Compute and cache an MD5 hash of static asset files for cache busting."""
+    path = STATIC_DIR / filepath
+    if path.is_file():
+        return hashlib.md5(path.read_bytes()).hexdigest()[:8]
+    return ""
+
+
+def url_for_static(request: Request, name: str, path: str) -> str:
+    """Custom url_for helper that appends a cache-busting version query param."""
+    url = request.url_for(name, path=path)
+    if name == "static":
+        file_hash = get_file_hash(path)
+        if file_hash:
+            return f"{url}?v={file_hash}"
+    return str(url)
+
+
+# Register static_url helper into Jinja2 globals
+templates.env.globals["static_url"] = url_for_static
+
+
+def write_notification(email: str, message=""):
+    with open("log.txt", mode="a") as email_file:
+        content = f"notification for {email}: {message}\n"
+        email_file.write(content)
 
 
 def create_app(
@@ -61,6 +105,9 @@ def create_app(
         version="0.1.0",
         lifespan=lifespan,
     )
+
+    application.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
     application.add_middleware(
         CORSMiddleware,
         allow_origins=(settings or Settings()).cors_origins,
@@ -102,19 +149,13 @@ def create_app(
             ) from error
         return {"status": "ready"}
 
-    @application.get("/examples/{item_id}", tags=["examples"])
-    async def read_example(
-        item_id: Annotated[int, Path(ge=1, description="A positive item identifier")],
-        q: Annotated[str | None, Query(max_length=100)] = None,
-        session_id: Annotated[str | None, Cookie()] = None,
-        x_client_version: Annotated[str | None, Header()] = None,
-    ) -> dict[str, int | str | None]:
-        return {
-            "item_id": item_id,
-            "q": q,
-            "session_id": session_id,
-            "client_version": x_client_version,
-        }
+    @application.post("/contact")
+    async def send_notification(
+        background_tasks: BackgroundTasks,
+        email: str = Form(),
+    ):
+        background_tasks.add_task(write_notification, email, message="some notification")
+        return {"message": "Email sent in the background"}
 
     @application.get("/users/me", response_model=UserPublic, tags=["users"])
     async def current_user(
@@ -122,6 +163,7 @@ def create_app(
     ) -> UserPublic:
         return user
 
+    # Ensure return application is at the very end of create_app()
     return application
 
 

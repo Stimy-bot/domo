@@ -156,6 +156,5 @@ def test_protected_profile_rejects_invalid_token(client: TestClient) -> None:
 def test_startup_requires_a_configured_jwt_secret() -> None:
     application = create_app(Settings(jwt_secret_key=None), mongo_client_factory=FakeMongoClient)
 
-    with pytest.raises(RuntimeError, match="JWT_SECRET_KEY"):
-        with TestClient(application):
-            pass
+    with pytest.raises(RuntimeError, match="JWT_SECRET_KEY"), TestClient(application):
+        pass

@@ -1,3 +1,4 @@
+# apps/my_fastapi/app/auth/auth.py
 import secrets
 from datetime import UTC, datetime, timedelta
 from typing import Annotated, Any
@@ -11,7 +12,9 @@ from pymongo.errors import DuplicateKeyError
 
 from app.config import Settings
 from app.config.database import get_database
-from app.schemas import UserCreate, UserLogin, UserPublic
+from app.models import SessionData, UserCreate, UserLogin, UserPublic
+from .auth_handler import verify_token  # or decodeJWT depending on your setup
+from .auth_handler import decodeJWT
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 password_hash = PasswordHash.recommended()
@@ -51,8 +54,8 @@ async def get_current_user(
     # Look up user attached to session
     try:
         user_id = ObjectId(session["user_id"])
-    except (InvalidId, TypeError, KeyError):
-        raise unauthorized
+    except (InvalidId, TypeError, KeyError) as err:
+        raise unauthorized from err
 
     user = await database["users"].find_one({"_id": user_id})
     if user is None:
