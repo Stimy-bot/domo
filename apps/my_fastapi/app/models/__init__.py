@@ -1,5 +1,19 @@
 # apps/my_fastapi/app/models/__init__.py
 
-from .models import SessionData, UserCreate, UserLogin, UserPublic
+from .models import (
+    AuthTokenResponse,
+    RefreshTokenRequest,
+    SessionData,
+    UserCreate,
+    UserLogin,
+    UserPublic,
+)
 
-__all__ = ["UserCreate", "UserLogin", "UserPublic", "SessionData"]
+__all__ = [
+    "AuthTokenResponse",
+    "RefreshTokenRequest",
+    "UserCreate",
+    "UserLogin",
+    "UserPublic",
+    "SessionData",
+]

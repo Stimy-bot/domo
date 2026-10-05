@@ -34,11 +34,17 @@ running; `GET /ready` checks MongoDB connectivity.
 - `GET /examples/{item_id}?q=...` demonstrates positive integer path validation,
   a bounded query parameter, `session_id` cookie input, and the
   `X-Client-Version` header. Path and query constraints appear in OpenAPI.
-- `POST /auth/register` creates a user with an Argon2 password hash. Email
+- `POST /auth/register` creates a user with an Argon2 password hash, creates a
+  session, and returns `user`, `accessToken`, and `refreshToken`. Email
   addresses have a unique MongoDB index.
-- `POST /auth/token` verifies JSON email/password credentials and returns a
-  short-lived HS256 bearer token.
-- `GET /users/me` requires `Authorization: Bearer <token>`.
+- `POST /auth/login` (also available as `/auth/token`) verifies JSON
+  email/password credentials and returns a new access/refresh token pair.
+- Access tokens are valid for 15 minutes and refresh tokens for 30 days.
+  Refresh tokens rotate at `POST /auth/refresh`; sessions are revocable with
+  `POST /auth/logout`. Tokens are also set as HttpOnly cookies; set
+  `AUTH_COOKIE_SECURE=false` only for local HTTP development.
+- `GET /users/me` requires `Authorization: Bearer <accessToken>` or the
+  `accessToken` HttpOnly cookie.
 - `GET /health` and `GET /ready` provide process and database health checks.
 
 The HTTP middleware returns an `X-Request-ID` and `X-Process-Time` header for

@@ -1,7 +1,9 @@
-from fastapi import HTTPException, Request
+from fastapi import HTTPException, Request, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-from .auth_handler import decodeJWT
+from app.config import Settings
+
+from .auth_handler import decode_token
 
 
 class JWTBearer(HTTPBearer):
@@ -9,24 +11,26 @@ class JWTBearer(HTTPBearer):
         super().__init__(auto_error=auto_error)
 
     async def __call__(self, request: Request):
-        credentials: HTTPAuthorizationCredentials = await super().__call__(request)
-        if credentials:
-            if credentials.scheme != "Bearer":
-                raise HTTPException(
-                    status_code=403, detail="Invalid authentication scheme."
-                )
-            if not self.verify_jwt(credentials.credentials):
-                raise HTTPException(
-                    status_code=403, detail="Invalid token or expired token."
-                )
-            return credentials.credentials
+        credentials: HTTPAuthorizationCredentials | None = await super().__call__(request)
+        if credentials is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Missing bearer token",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        if credentials.scheme.lower() != "bearer":
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid authentication scheme",
+            )
+        if not self.verify_jwt(credentials.credentials, request.app.state.settings):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token or expired token",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        return credentials.credentials
 
-        raise HTTPException(status_code=403, detail="Invalid authorization code.")
-
-    def verify_jwt(self, jwtoken: str) -> bool:
-        try:
-            payload = decodeJWT(jwtoken)
-        except Exception:
-            payload = None
-
-        return bool(payload)
+    @staticmethod
+    def verify_jwt(jwtoken: str, settings: Settings) -> bool:
+        return decode_token(jwtoken, token_type="access", settings=settings) is not None

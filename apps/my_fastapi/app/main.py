@@ -1,3 +1,5 @@
+# apps/my_fastapi/app/main.py
+import logging
 import hashlib
 import pathlib
 import time
@@ -20,6 +22,7 @@ from fastapi import (
     Request,
     status,
 )
+
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -31,8 +34,10 @@ from starlette.middleware.base import RequestResponseEndpoint
 from starlette.responses import Response
 
 from app.auth import get_current_user, router as auth_router
-from app.config import Settings, get_settings
-from app.models import UserPublic
+from app.config import Settings, get_settings,create_message, mail
+from app.models.models import SendEmail, UserPublic
+
+logger = logging.getLogger("uvicorn.error")
 
 MongoClientFactory = Callable[..., AsyncMongoClient]
 BASE_DIR = pathlib.Path(__file__).resolve().parent
@@ -78,6 +83,10 @@ def create_app(
     @asynccontextmanager
     async def lifespan(application: FastAPI):
         app_settings = settings or get_settings()
+        if app_settings.jwt_secret_key is None:
+            raise RuntimeError("JWT_SECRET_KEY must be configured before starting the API")
+        if len(app_settings.jwt_secret_key.get_secret_value()) < 32:
+            raise RuntimeError("JWT_SECRET_KEY must be at least 32 characters long")
 
         client = mongo_client_factory(
             app_settings.mongodb_uri,
@@ -95,10 +104,13 @@ def create_app(
 
             application.state.settings = app_settings
             application.state.database = database
+
+            logger.info(f"MongoDB connected successfully [database: '{app_settings.mongodb_database}']")
+
             yield
         finally:
             await client.close()
-
+            logger.info("MongoDB connection closed")
     application = FastAPI(
         title="FastAPI MongoDB Starter",
         description="Typed request parameters, middleware, MongoDB, and Session authentication.",
@@ -143,19 +155,52 @@ def create_app(
         try:
             await request.app.state.database.command("ping")
         except PyMongoError as error:
+            logger.error("Failed to ping MongoDB")
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                 detail="Database is unavailable",
             ) from error
         return {"status": "ready"}
 
-    @application.post("/contact")
-    async def send_notification(
-        background_tasks: BackgroundTasks,
-        email: str = Form(),
-    ):
-        background_tasks.add_task(write_notification, email, message="some notification")
-        return {"message": "Email sent in the background"}
+    @application.get("/examples/{item_id}", tags=["examples"])
+    async def read_example(
+        item_id: Annotated[int, Path(ge=1, description="A positive item identifier")],
+        q: Annotated[str | None, Query(max_length=100)] = None,
+        session_id: Annotated[str | None, Cookie()] = None,
+        x_client_version: Annotated[str | None, Header()] = None,
+    ) -> dict[str, int | str | None]:
+        return {
+            "item_id": item_id,
+            "q": q,
+            "session_id": session_id,
+            "client_version": x_client_version,
+        }
+
+    # app/main.py
+    @application.post("/send_email")
+    async def send_mail(payload: SendEmail):
+        # 1. Define or render your HTML body
+        html = f"""
+        <html>
+            <body>
+                <h1>Notification</h1>
+                <p>{payload.message or "Welcome to the application!"}</p>
+            </body>
+        </html>
+        """
+
+        # 2. Extract recipient email address as a list
+        recipients = [payload.email]
+
+        # 3. Create and dispatch message
+        message = create_message(
+            subject="Welcome!",
+            recipients=recipients,
+            body=html,
+        )
+        
+        await mail.send_message(message)
+        return {"message": "Email sent successfully"}
 
     @application.get("/users/me", response_model=UserPublic, tags=["users"])
     async def current_user(
