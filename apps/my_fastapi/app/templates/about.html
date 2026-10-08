@@ -1,0 +1,70 @@
+<!-- app/templates/about.html -->
+{% extends "layout.html" %}
+{% block content %}
+<section id="about" class="content-section py-4 px-4 mb-4">
+    <!-- Header Heading & Intro -->
+    <div class="row align-items-end mb-5">
+        <div class="col-md-5 mb-3 mb-md-0">
+            <p class="text-primary text-uppercase fw-semibold tracking-wide small mb-2">
+                A bit about us
+            </p>
+            <h1 class="display-6 fw-bold tracking-tight mb-0">
+                Good work starts with <span class="text-primary">good questions.</span>
+            </h1>
+        </div>
+        <div class="col-md-7">
+            <p class="lead text-body-secondary mb-0">
+                Domo Services is a small, independent team partnering with people
+                who want to make a difference. We bring strategy, design, and
+                engineering together from day one—so the result feels cohesive,
+                works beautifully, and has room to grow.
+            </p>
+        </div>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 border p-3 rounded-4 shadow-sm">
+                <div class="card-body">
+                    <div class="text-primary fs-3 mb-2" aria-hidden="true">◎</div>
+                    <h3 class="h5 fw-semibold card-title mb-2">
+                        Find the signal
+                    </h3>
+                    <p class="card-text text-body-secondary">
+                        We get to the heart of the challenge before jumping to solutions.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border p-3 rounded-4 shadow-sm">
+                <div class="card-body">
+                    <div class="text-primary fs-3 mb-2" aria-hidden="true">◇</div>
+                    <h3 class="h5 fw-semibold card-title mb-2">
+                        Make it matter
+                    </h3>
+                    <p class="card-text text-body-secondary">
+                        Every detail earns its place, balancing clarity, character, and craft.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border p-3 rounded-4 shadow-sm">
+                <div class="card-body">
+                    <div class="text-primary fs-3 mb-2" aria-hidden="true">↗</div>
+                    <h3 class="h5 fw-semibold card-title mb-2">
+                        Move forward
+                    </h3>
+                    <p class="card-text text-body-secondary">
+                        We build alongside your team, leaving you ready for what comes next.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

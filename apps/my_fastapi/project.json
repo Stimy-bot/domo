@@ -42,7 +42,7 @@
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": ".venv/bin/uvicorn main:app --reload",
+        "command": "uv run fastapi dev --reload",
         "cwd": "apps/my_fastapi"
       }
     },

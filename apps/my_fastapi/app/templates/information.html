@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section id="information" class="content-section py-4 px-4 mb-4">
+    <!-- Header Heading & Intro -->
+    <div class="row align-items-end mb-5 g-4">
+        <div class="col-md-5">
+            <p class="text-primary text-uppercase fw-semibold tracking-wide small mb-2">
+                Core Technologies
+            </p>
+            <h2 class="display-6 fw-bold tracking-tight mb-0">
+                High performance built on <span class="text-primary">simple architecture.</span>
+            </h2>
+        </div>
+        <div class="col-md-7">
+            <p class="lead text-body-secondary mb-0">
+                By combining <strong class="text-body">FastAPI</strong> for asynchronous backend services
+                with <strong class="text-body">Jinja2Templates</strong> for server-rendered views, we eliminate
+                heavy client-side bundle overhead. You get production-ready speed, automatic API docs, and seamless template rendering without modern web complexity.
+            </p>
+        </div>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 border p-3 rounded-4 shadow-sm">
+                <div class="card-body">
+                    <div class="text-primary fs-3 mb-2" aria-hidden="true">&#9889;</div>
+                    <h3 class="h5 fw-semibold card-title mb-2">
+                        FastAPI Backend
+                    </h3>
+                    <p class="card-text text-body-secondary">
+                        High-performance, asynchronous Python endpoints powered by Pydantic type validation and automatic OpenAPI documentation.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border p-3 rounded-4 shadow-sm">
+                <div class="card-body">
+                    <div class="text-primary fs-3 mb-2" aria-hidden="true">&#127912;</div>
+                    <h3 class="h5 fw-semibold card-title mb-2">
+                        Jinja2 Templating
+                    </h3>
+                    <p class="card-text text-body-secondary">
+                        Expressive server-side template inheritance and modular components that keep pages lightning-fast and SEO-friendly.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border p-3 rounded-4 shadow-sm">
+                <div class="card-body">
+                    <div class="text-primary fs-3 mb-2" aria-hidden="true">&#128640;</div>
+                    <h3 class="h5 fw-semibold card-title mb-2">
+                        Unified Simplicity
+                    </h3>
+                    <p class="card-text text-body-secondary">
+                        Minimal reliance on complex JavaScript build pipelines. Lightweight setup that ships fast, scales easily, and lowers maintenance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

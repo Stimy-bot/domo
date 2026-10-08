@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section id="introduction" class="content-section py-4 px-4 mb-4">
+    <div class="row align-items-center g-5">
+        <!-- Left Column: Copy & Actions -->
+        <div class="col-lg-6">
+            <div class="mb-4">
+                <span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 text-uppercase fw-semibold">
+                    <span class="d-inline-block rounded-circle bg-primary me-2" style="width: 8px; height: 8px;"></span>
+                    Independent digital studio
+                </span>
+            </div>
+            
+            <h1 class="display-5 fw-bold tracking-tight mb-4">
+                Make your next move <span class="text-primary">matter.</span>
+            </h1>
+            
+            <p class="lead text-body-secondary mb-4">
+                We turn ambitious ideas into useful, memorable digital experiences.
+                Clear thinking, thoughtful design, and technology that gets out of
+                your way.
+            </p>
+            
+            <div class="d-flex flex-wrap align-items-center gap-3 mb-5">
+                <a href="#contact" class="btn btn-primary btn-lg rounded-pill px-4 py-3 fw-semibold shadow-sm">
+                    Start a conversation <span aria-hidden="true" class="ms-1">&rarr;</span>
+                </a>
+                <a href="{{ url_for('about') }}" class="btn btn-link text-decoration-none text-body-secondary fw-semibold">
+                    Get to know us <span aria-hidden="true" class="ms-1">&darr;</span>
+                </a>
+            </div>
+            
+            <div class="pt-4 border-top">
+                <p class="text-body-secondary mb-0">
+                    <strong class="text-body">Good people, good work.</strong><br />
+                    A small team with a big-picture mindset.
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Column: Card Visual -->
+        <div class="col-lg-6">
+            <div class="position-relative mx-auto" style="max-width: 500px;">
+                <!-- Decorative background tilt -->
+                <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary bg-opacity-10 rounded-5 transform-gpu rotate-3" style="z-index: 0;"></div>
+                
+                <!-- Main Card -->
+                <div class="card position-relative border shadow rounded-5 bg-body p-4 p-sm-5" style="z-index: 1;">
+                    <div class="d-flex align-items-start justify-content-between mb-4">
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">Ideas into impact</span>
+                        <span class="fs-4 text-primary" aria-hidden="true">&#10035;</span>
+                    </div>
+                    
+                    <div class="my-4">
+                        <p class="text-primary fw-medium mb-2">A little clarity changes everything.</p>
+                        <h2 class="display-6 fw-bold tracking-tight mb-0">
+                            Build what’s <span class="fst-italic fw-normal text-primary">next.</span>
+                        </h2>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center border-top pt-3 text-body-secondary small">
+                        <span>Strategy &middot; Design &middot; Development</span>
+                        <span>01 / 03</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -7,7 +7,13 @@
       name="description"
       content="Thoughtful digital products, built with care."
     />
-    <title>Domo — Make your next move</title>
+    <title>
+      {% if title %}
+      Domo — Make your next move{{ title }}
+      {% else %}
+      Domo — Make your next move
+      {% endif %}
+    </title>
     
     <!-- Dark Mode Initialization Script (Prevents flash of wrong theme) -->
     <script>
@@ -488,7 +494,7 @@
           >✳ Domo Services</a
         >
         <p>Thoughtful by design. Built for what’s next.</p>
-        <p>© <span id="year"></span> Domo Studio</p>
+        <p>© <span id="year"></span> Domo Services</p>
       </div>
     </footer>
 
