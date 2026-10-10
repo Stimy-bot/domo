@@ -19,33 +19,33 @@
     </div>
     <form hx-post="/api/contact" hx-target="#contact-result" hx-swap="innerHTML"
       hx-on::after-request="if(event.detail.successful) this.reset()" class="grid gap-4" aria-label="Contact form">
-     <!-- Name Row -->
-                        <div class="row g-3 mb-3">
-                            <div class="col-md-6">
-                                <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="John" required>
-                                <div class="invalid-feedback">First name is required.</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Doe" required>
-                                <div class="invalid-feedback">Last name is required.</div>
-                            </div>
-                        </div>
+      <!-- Name Row -->
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="firstName" placeholder="John" required>
+          <div class="invalid-feedback">First name is required.</div>
+        </div>
+        <div class="col-md-6">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="lastName" placeholder="Doe" required>
+          <div class="invalid-feedback">Last name is required.</div>
+        </div>
+      </div>
 
-                        <!-- Email Field -->
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
-                            <div class="invalid-feedback">Please enter a valid email address.</div>
-                        </div>
+      <!-- Email Field -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+        <div class="invalid-feedback">Please enter a valid email address.</div>
+      </div>
 
-                        <!-- Subject Field -->
-                        <div class="mb-3">
-                            <label for="subject" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="subject" placeholder="How can we help you?" required>
-                            <div class="invalid-feedback">Please enter a subject.</div>
-                        </div>
+      <!-- Subject Field -->
+      <div class="mb-3">
+        <label for="subject" class="form-label">Subject</label>
+        <input type="text" class="form-control" id="subject" placeholder="How can we help you?" required>
+        <div class="invalid-feedback">Please enter a subject.</div>
+      </div>
       <!-- Message Field -->
       <div class="mb-3">
         <label for="message" class="form-label"> What's on your mind?

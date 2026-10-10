@@ -1,10 +1,11 @@
+# apps/my_fastapi/app/utils/image_utils.py
 import uuid
 from io import BytesIO
 from pathlib import Path
 
 from PIL import Image, ImageOps
 
-PROFILE_PICS_DIR = Path("media/profile_pics")
+PROFILE_PICS_DIR = Path("apps/media/profile_pics")
 
 
 def process_profile_image(content: bytes) -> str:

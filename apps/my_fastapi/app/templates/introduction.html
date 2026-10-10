@@ -23,7 +23,7 @@
             </p>
             
             <div class="d-flex flex-wrap align-items-center gap-3 mb-5">
-                <a href="#contact" class="btn btn-primary btn-lg rounded-pill px-4 py-3 fw-semibold shadow-sm">
+                <a href="{{url_for('contact')}}" class="btn btn-primary btn-lg rounded-pill px-4 py-3 fw-semibold shadow-sm">
                     Start a conversation <span aria-hidden="true" class="ms-1">&rarr;</span>
                 </a>
                 <a href="{{ url_for('about') }}" class="btn btn-link text-decoration-none text-body-secondary fw-semibold">
@@ -43,7 +43,7 @@
         <div class="col-lg-6">
             <div class="position-relative mx-auto" style="max-width: 500px;">
                 <!-- Decorative background tilt -->
-                <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary bg-opacity-10 rounded-5 transform-gpu rotate-3" style="z-index: 0;"></div>
+                <div class="position-absolute top-0 inset-0 w-100 h-100 bg-primary bg-opacity-10 rounded-5 transform-gpu rotate-3" style="z-index: 0;"></div>
                 
                 <!-- Main Card -->
                 <div class="card position-relative border shadow rounded-5 bg-body p-4 p-sm-5" style="z-index: 1;">

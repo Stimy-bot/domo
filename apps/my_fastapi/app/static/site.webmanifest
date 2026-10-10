@@ -6,11 +6,11 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#527c9f",
-  "icons": [
+  "images": [
     {
       "name": "",
       "short_name": "",
-      "icons": [
+      "images": [
         {
           "src": "/android-chrome-192x192.png",
           "sizes": "192x192",

@@ -8,11 +8,7 @@
       content="Thoughtful digital products, built with care."
     />
     <title>
-      {% if title %}
-      Domo — Make your next move{{ title }}
-      {% else %}
       Domo — Make your next move
-      {% endif %}
     </title>
     
     <!-- Dark Mode Initialization Script (Prevents flash of wrong theme) -->
@@ -31,27 +27,27 @@
     <!-- Tailwind CSS v4 browser build -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
-    <style type="text/tailwindcss">
-      @theme {
-        --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-        
-        /* Light Theme Tokens */
-        --color-ink: #17251f;
-        --color-moss: #47745d;
-        --color-paper: #f7f8f5;
-        --color-card: #ffffff;
-        --color-card-border: rgba(23, 37, 31, 0.1);
-      }
+<style type="text/tailwindcss">
+  @theme {
+    --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    
+    /* Light Theme Tokens */
+    --color-ink: #322A5C;
+    --color-moss: #83B4AE;
+    --color-paper: #F4F7F8;
+    --color-card: #FFFFFF;
+    --color-card-border: rgba(50, 42, 92, 0.12);
+  }
 
-      /* Dark Theme Token Overrides */
-      .dark {
-        --color-ink: #f1f5f3;
-        --color-moss: #5d9276;
-        --color-paper: #0b1310;
-        --color-card: #13201b;
-        --color-card-border: rgba(255, 255, 255, 0.1);
-      }
- </style>
+  /* Dark Theme Token Overrides */
+  .dark {
+    --color-ink: #F4F7F8;
+    --color-moss: #83B4AE;
+    --color-paper: #322A5C;
+    --color-card: #505678;
+    --color-card-border: rgba(255, 255, 255, 0.15);
+  }
+</style>
   <style>
       html {
         scroll-behavior: smooth;

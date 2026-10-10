@@ -231,6 +231,7 @@ async def validation_exception_handler(
     request: Request,
     exception: RequestValidationError,
 ):
+    print("Validation Error Details:", exception.errors())
     if request.url.path.startswith("/api"):
         return await request_validation_exception_handler(request, exception)
 

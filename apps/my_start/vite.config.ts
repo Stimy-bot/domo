@@ -3,11 +3,10 @@ import { devtools } from '@tanstack/devtools-vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import path from 'node:path'
+import { resolve } from 'node:path';
+const __dirname = import.meta.dirname;
 
 export default defineConfig({
-  root: import.meta.dirname,
-
   build: {
     rolldownOptions: {
       external: [
@@ -19,15 +18,19 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 1000,
-    outDir: path.resolve(import.meta.dirname, '../../dist/apps/my_start'),
+    outDir: resolve(import.meta.dirname, '../../dist/apps/my_start'),
     emptyOutDir: true,
   },
 
-  resolve: {
+root: __dirname,
+
+cacheDir: resolve(__dirname, '../../node_modules/.vite/my_start'),
+
+resolve: {
     // Vite 8 native tsconfig path resolution target
     tsconfigPaths: true,
     alias: {
-      '@': path.resolve(import.meta.dirname, './src'),
+      '@': resolve(import.meta.dirname, './src'),
     },
   },
 
@@ -43,8 +46,8 @@ export default defineConfig({
     !process.env.NX_GRAPH_CREATION &&
       tanstackStart({
         router: {
-          routesDirectory: path.resolve(import.meta.dirname, './src/routes'),
-          generatedRouteTree: path.resolve(import.meta.dirname, './src/routeTree.gen.ts'),
+          routesDirectory: resolve(import.meta.dirname, './src/routes'),
+          generatedRouteTree: resolve(import.meta.dirname, './src/routeTree.gen.ts'),
         },
       }),
     viteReact(),

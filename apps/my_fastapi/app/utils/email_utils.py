@@ -1,43 +1,55 @@
-from email.message import EmailMessage
-
-import aiosmtplib
+# apps/my_fastapi/app/utils/email_utils.py
+import logging
+from pathlib import Path
+import resend
 from fastapi.templating import Jinja2Templates
-
 from app.config.config import settings
 
-templates = Jinja2Templates(directory="templates")
+logger = logging.getLogger(__name__)
+
+APP_DIR = Path(__file__).resolve().parent.parent
+TEMPLATES_DIR = APP_DIR / "templates"
+
+templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
 
-async def send_email(
+def send_email(
     to_email: str,
     subject: str,
     plain_text: str,
     html_content: str | None = None,
 ) -> None:
-    message = EmailMessage()
-    message["From"] = settings.mail_from
-    message["To"] = to_email
-    message["Subject"] = subject
+    api_key = settings.resend_api_key.get_secret_value()
 
-    message.set_content(plain_text)
+    if not api_key or not api_key.startswith("re_"):
+        logger.error(f"Resend API key missing or invalid format. Got: '{api_key[:4]}...'")
+        return
+
+    resend.api_key = api_key
+
+    params: resend.Emails.SendParams = {
+        "from": settings.mail_from,
+        "to": [to_email],
+        "subject": subject,
+        "text": plain_text,
+    }
 
     if html_content:
-        message.add_alternative(html_content, subtype="html")
+        params["html"] = html_content
 
-    await aiosmtplib.send(
-        message,
-        hostname=settings.mail_server,
-        port=settings.mail_port,
-        username=settings.mail_username or None,
-        password=settings.mail_password.get_secret_value() or None,
-        start_tls=settings.mail_use_tls,
-    )
+    try:
+        response = resend.Emails.send(params)
+        logger.info(f"Email sent to {to_email}. Response: {response}")
+    except resend.exceptions.ResendError as e:
+        logger.error(f"Resend API error sending to {to_email}: {e}")
+    except Exception as e:
+        logger.error(f"Unexpected error sending email: {e}")
 
 
-async def send_password_reset_email(to_email: str, username: str, token: str) -> None:
+def send_password_reset_email(to_email: str, username: str, token: str) -> None:
     reset_url = f"{settings.frontend_url}/reset-password?token={token}"
 
-    template = templates.env.get_template("email/password_reset.html")
+    template = templates.get_template("email/password_reset.html")
     html_content = template.render(reset_url=reset_url, username=username)
 
     plain_text = f"""Hi {username},
@@ -54,7 +66,7 @@ Best regards,
 The FastAPI Blog Team
 """
 
-    await send_email(
+    send_email(
         to_email=to_email,
         subject="Reset Your Password - FastAPI Blog",
         plain_text=plain_text,

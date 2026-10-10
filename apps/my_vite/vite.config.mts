@@ -9,6 +9,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 const __dirname = import.meta.dirname;
 
 export default defineConfig({
+  envDir: resolve(__dirname, '../../'),
   plugins: [
     react(),
     tailwindcss(),

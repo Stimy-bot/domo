@@ -1,7 +1,10 @@
+# apps/my_fastapi/app/schemas/schemas.py
 from datetime import datetime
+import re
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
+PASSWORD_PATTERN = r"^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\s])[A-Za-z\d^\w\s\S]+$"
 
 class UserBase(BaseModel):
     username: str = Field(min_length=1, max_length=50)
@@ -9,7 +12,19 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    password: str = Field(min_length=8)
+    password: str = Field(
+        min_length=8,
+        description="Password must contain at least one digit, uppercase letter, lowercase letter, and special character.",
+    )
+
+    @field_validator("password")
+    @classmethod
+    def validate_password(cls, value: str) -> str:
+        if not re.match(PASSWORD_PATTERN, value):
+            raise ValueError(
+                "Password must contain at least one digit, uppercase letter, lowercase letter, and special character."
+            )
+        return value
 
 
 class UserPublic(BaseModel):
@@ -74,7 +89,25 @@ class ResetPasswordRequest(BaseModel):
     token: str
     new_password: str = Field(min_length=8)
 
+    @field_validator("new_password")
+    @classmethod
+    def validate_new_password(cls, value: str) -> str:
+        if not re.match(PASSWORD_PATTERN, value):
+            raise ValueError(
+                "Password must contain at least one digit, uppercase letter, lowercase letter, and special character."
+            )
+        return value
+
 
 class ChangePasswordRequest(BaseModel):
     current_password: str
     new_password: str = Field(min_length=8)
+
+    @field_validator("new_password")
+    @classmethod
+    def validate_new_password(cls, value: str) -> str:
+        if not re.match(PASSWORD_PATTERN, value):
+            raise ValueError(
+                "Password must contain at least one digit, uppercase letter, lowercase letter, and special character."
+            )
+        return value
