@@ -17,6 +17,8 @@ class Settings(BaseSettings):
         validation_alias=AliasChoices("RESEND_API_KEY", "resend_api_key"),
     )
 
+    database_url: str
+
     user: str = "onboarding@resend.dev"
     to: str = "delivered@resend.dev"
     gmailpass: str | None = None
