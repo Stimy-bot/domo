@@ -1,10 +1,12 @@
+// tools/tailwind-sync-plugin/src/generators/update-tailwind-globs.ts
 import {
-  Tree,
   createProjectGraphAsync,
+} from '@nx/devkit';
+import type {
+  Tree,
   ProjectGraph,
   ProjectGraphProjectNode,
 } from '@nx/devkit';
-import { SyncGeneratorResult } from 'nx/src/utils/sync-generators';
 import { join, relative, dirname } from 'path';
 import type { UpdateTailwindGlobsGeneratorSchema } from './schema';
 
@@ -16,7 +18,7 @@ const DEFAULT_STYLE_PATHS = ['src/styles.css', '.storybook/styles.css'];
 const VITE_CONFIG_PATTERNS = [
   'vite.config.ts',
   'vite.config.mts',
-  'vite.config.js',
+  'vite.config.mjs',
   'vite.config.mjs',
   'vitest.config.ts',
   'vitest.config.mts',
@@ -248,7 +250,7 @@ function escapeRegex(str: string): string {
 export async function updateTailwindGlobsGenerator(
   tree: Tree,
   options: UpdateTailwindGlobsGeneratorSchema = {}
-): Promise<SyncGeneratorResult> {
+): Promise<{ outOfSyncMessage?: string }> {
   const projectGraph = await createProjectGraphAsync();
   const updatedProjects: string[] = [];
 

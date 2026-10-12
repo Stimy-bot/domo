@@ -1,6 +1,8 @@
+# apps/my_fastapi/app/routers/users.py
 from datetime import UTC, datetime, timedelta
 from typing import Annotated
 
+from botocore.exceptions import ClientError
 from fastapi import (
     APIRouter,
     BackgroundTasks,
@@ -30,8 +32,12 @@ from app.auth.auth import (
 from app.config.config import settings
 from app.database.database import get_db
 from app.utils.email_utils import send_password_reset_email
-from app.utils.image_utils import delete_profile_image, process_profile_image
-from app.schemas import (
+from app.utils.image_utils import (
+    delete_profile_image,
+    process_profile_image,
+    upload_profile_image,
+)
+from app.schemas.schemas import (
     ChangePasswordRequest,
     ForgotPasswordRequest,
     PaginatedPostsResponse,
@@ -385,7 +391,7 @@ async def delete_user(
     await db.commit()
 
     if old_filename:
-        delete_profile_image(old_filename)
+        await delete_profile_image(old_filename)
 
 
 @router.patch("/{user_id}/picture", response_model=UserPrivate)
@@ -410,11 +416,23 @@ async def upload_profile_picture(
         )
 
     try:
-        new_filename = await run_in_threadpool(process_profile_image, content)
+        processed_bytes, new_filename = await run_in_threadpool(
+            process_profile_image,
+            content,
+        )
     except UnidentifiedImageError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid image file. Please upload a valid image (JPEG, PNG, GIF, WebP).",
+        ) from err
+
+    # Upload to S3 (also runs in threadpool via async wrapper)
+    try:
+        await upload_profile_image(processed_bytes, new_filename)
+    except ClientError as err:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to upload image. Please try again.",
         ) from err
 
     old_filename = current_user.image_file
@@ -424,7 +442,7 @@ async def upload_profile_picture(
     await db.refresh(current_user)
 
     if old_filename:
-        delete_profile_image(old_filename)
+        await delete_profile_image(old_filename)
 
     return current_user
 
@@ -453,6 +471,6 @@ async def delete_user_picture(
     await db.commit()
     await db.refresh(current_user)
 
-    delete_profile_image(old_filename)
+    await delete_profile_image(old_filename)
 
     return current_user

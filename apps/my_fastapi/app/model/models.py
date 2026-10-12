@@ -1,4 +1,3 @@
-# apps/my_fastapi/app/model/models.py
 from __future__ import annotations
 
 from datetime import UTC, datetime
@@ -6,6 +5,7 @@ from datetime import UTC, datetime
 from sqlalchemy import DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from app.config.config import settings
 from app.database.database import Base
 
 
@@ -35,7 +35,7 @@ class User(Base):
     @property
     def image_path(self) -> str:
         if self.image_file:
-            return f"/media/profile_pics/{self.image_file}"
+            return f"https://{settings.s3_bucket_name}.s3.{settings.s3_region}.amazonaws.com/images/{self.image_file}"
         return "/static/images/default.jpg"
 
 
@@ -54,7 +54,6 @@ class Post(Base):
         DateTime(timezone=True),
         default=lambda: datetime.now(UTC),
     )
-
     likes: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
 
     author: Mapped[User] = relationship(back_populates="posts")

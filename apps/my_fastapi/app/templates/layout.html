@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Site Info -->
     {% if title %}
-    <title>FastAPI Blog - {{ title }}</title>
+    <title>Domo Blog - {{ title }}</title>
     {% else %}
-    <title>FastAPI Blog</title>
+    <title>Domo Blog</title>
     {% endif %}
-    <meta name="description" content="FastAPI Tutorial">
+    <meta name="description" content="FastAPI Project">
     <meta name="author" content="Dominic Patrick">
     <!-- Open Graph Tags: The title of the page for social media sharing. It can match the title tag or be more descriptive. -->
-    <meta property="og:title" content="FastAPI Blog">
+    <meta property="og:title" content="Domo Blog">
     <!-- Open Graph Tags: Typically set to "website" for static sites or "article" for content-heavy pages. -->
     <meta property="og:type" content="website">
     <!-- Open Graph Tags: The URL of the page, used to ensure link previews resolve to the correct page. -->
@@ -53,7 +53,7 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md bg-steel fixed-top" data-bs-theme="dark">
             <div class="container">
-                <a class="navbar-brand me-1" href="{{ url_for('home') }}">FastAPI Blog</a>
+                <a class="navbar-brand me-1" href="{{ url_for('home') }}">Domo Blog</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -64,8 +64,9 @@
                         <a class="nav-link active" aria-current="page"
                             href="{{ url_for('introduction') }}">Introduction</a>
                         <a class="nav-link active" aria-current="page" href="{{ url_for('about') }}">About</a>
-                         <a class="nav-link active" aria-current="page" href="{{ url_for('information') }}">Information</a>
-                                                  <a class="nav-link active" aria-current="page" href="{{ url_for('contact') }}">Contact</a>
+                        <a class="nav-link active" aria-current="page"
+                            href="{{ url_for('information') }}">Information</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('contact') }}">Contact</a>
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">

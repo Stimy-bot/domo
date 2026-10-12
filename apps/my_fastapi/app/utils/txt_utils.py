@@ -1,8 +1,4 @@
-# *- coding: utf-8 -*-
-# send_txt_msg.py
-# 04-02-2021 03:08:34 EDT
-# (c) 2021 acamso
-
+# apps/my_fastapi/app/utils/txt_utils.py
 """Sends TXT message with GMail.
 
 This is a demonstration on how to send an text message with Python.

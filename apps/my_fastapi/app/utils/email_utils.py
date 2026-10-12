@@ -68,7 +68,7 @@ The FastAPI Blog Team
 
     send_email(
         to_email=to_email,
-        subject="Reset Your Password - FastAPI Blog",
+        subject="Reset Your Password - Domo Blog",
         plain_text=plain_text,
         html_content=html_content,
     )
