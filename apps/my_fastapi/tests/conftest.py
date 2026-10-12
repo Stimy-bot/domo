@@ -2,7 +2,7 @@ import os
 from collections.abc import AsyncGenerator
 
 os.environ["DATABASE_URL"] = (
-    "postgresql+psycopg://bloguser:blogpass@localhost/test_blog"
+    "postgresql+psycopg://dominic:blogpass@localhost/test_blog"
 )
 os.environ["S3_BUCKET_NAME"] = "test-bucket"
 os.environ["SECRET_KEY"] = "test-secret-key-for-testing-only"
@@ -111,7 +111,7 @@ async def create_test_user(
     client: AsyncClient,
     username: str = "testuser",
     email: str = "test@example.com",
-    password: str = "testpassword123",
+    password: str = "$Vivian1963",
 ) -> dict:
     response = await client.post(
         "/api/users",
@@ -128,7 +128,7 @@ async def create_test_user(
 async def login_user(
     client: AsyncClient,
     email: str = "test@example.com",
-    password: str = "testpassword123",
+    password: str = "$Vivian1963",
 ) -> str:
     response = await client.post(
         "/api/users/token",

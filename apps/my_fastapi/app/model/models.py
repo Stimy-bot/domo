@@ -35,7 +35,7 @@ class User(Base):
     @property
     def image_path(self) -> str:
         if self.image_file:
-            return f"https://{settings.s3_bucket_name}.s3.{settings.s3_region}.amazonaws.com/images/{self.image_file}"
+            return f"https://{settings.s3_bucket_name}.s3.{settings.s3_region}.amazonaws.com/profile_pics/{self.image_file}"
         return "/static/images/default.jpg"
 
 
