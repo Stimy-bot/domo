@@ -50,6 +50,7 @@ export default defineConfig({
   },
 
   resolve: {
+    tsconfigPaths: true,
     alias: {
       '@domo/state': resolve(__dirname, '../../libs/shared/state/src/index.ts'),
       '@domo/ui-header': resolve(__dirname, '../../libs/shared/ui-header/src/index.ts'),

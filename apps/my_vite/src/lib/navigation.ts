@@ -1,4 +1,4 @@
-// c/src/lib/navigation.ts
+// apps/my_vite/src/lib/navigation.ts
 
 // Define a more flexible type that matches React Router's NavigateOptions
 type NavigateOptions = {

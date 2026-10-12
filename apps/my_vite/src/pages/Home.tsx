@@ -5,13 +5,16 @@ import { Link } from 'react-router-dom';
   return (
     <div className="min-h-[calc(100vh-8rem)] flex flex-col justify-center items-center text-center px-4 py-30">
       <div className="max-w-3xl space-y-6">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Welcome my_vite
+        </h1>
         <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 dark:text-indigo-400 rounded-full">
           Vite + React + Tailwind
         </span>
         
-        <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Build faster web applications with <span className="text-indigo-600 dark:text-indigo-400">Nx & Domo</span>
-        </h1>
+        </h2>
         
         <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
           A high-performance workspace boilerplate designed for modern full-stack development, seamless modular architecture, and rapid UI prototyping.
