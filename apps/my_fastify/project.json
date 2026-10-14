@@ -13,8 +13,9 @@
         "main": "apps/my_fastify/src/main.ts",
         "tsConfig": "apps/my_fastify/tsconfig.app.json",
         "platform": "node",
-        "format": ["cjs"],
-        "bundle": false,
+        "format": ["esm"],
+        "bundle": true,
+        "thirdParty": false,
         "assets": [
             {
             "glob": "**/*",
