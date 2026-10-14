@@ -1,12 +1,32 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": "../../",
     "outDir": "../../dist/out-tsc",
     "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "es2022",
     "ignoreDeprecations": "6.0"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "../../dist", "../../node_modules", "node_modules"]
+  "exclude": [
+    "**/*.spec.ts",
+    "../../dist",
+    "../../node_modules",
+    "node_modules"
+  ],
+  "references": [
+    {
+      "path": "../../libs/shared/utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/models/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/controllers/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/constants/tsconfig.lib.json"
+    }
+  ]
 }

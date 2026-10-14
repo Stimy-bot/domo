@@ -13,10 +13,17 @@
       "@domo/ui-header": ["./libs/shared/ui-header/src/index.ts"],
       "@domo/ui-sidebar": ["./libs/shared/ui-sidebar/src/index.ts"],
       "@domo/utils": ["./libs/shared/utils/src/index.ts"],
-      "@domo/reusableComponents": ["./libs/shared/reusableComponents/src/index.ts"],
-      "@domo/constants": ["./libs/shared/constants/src/index.ts"]
+      "@domo/reusableComponents": [
+        "./libs/shared/reusableComponents/src/index.ts"
+      ],
+      "@domo/constants": ["./libs/shared/constants/src/index.ts"],
+      "@domo/models": ["./libs/shared/models/src/index.ts"],
+      "@domo/schemas": ["./libs/shared/schemas/src/index.ts"],
+      "@domo/types": ["./libs/shared/types/src/index.ts"],
+      "@domo/controllers": ["./libs/shared/controllers/src/index.ts"],
+      "@domo/services": ["./libs/shared/services/src/index.ts"]
     },
-    "typeRoots": ["./types", "./node_modules/@types","./node_modules"],
+    "typeRoots": ["./types", "./node_modules/@types", "./node_modules"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
@@ -29,7 +36,5 @@
     "customConditions": ["@domo/source"],
     "noUncheckedSideEffectImports": false
   },
-  "include": [
-    "types/**/*.d.ts"
-  ]
+  "include": ["src/**/*.ts", "types/**/*.d.ts"]
 }

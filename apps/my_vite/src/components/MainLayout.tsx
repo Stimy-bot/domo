@@ -5,7 +5,7 @@ import { UiSidebar } from '@domo/ui-sidebar';
 
 export function MainLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950">
+      <div className="animate-slide-in-left dark:bg-dark-hard bg-white">
       <UiHeader />
       <div className="flex flex-1">
         <UiSidebar />

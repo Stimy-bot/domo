@@ -1,0 +1,6 @@
+
+### Options
+GET http://localhost:5000/user:6a7a93e7dc7bbc3d89ba0573
+
+
+

@@ -10,11 +10,10 @@
     "types": ["node"]
   },
   "exclude": ["**/*.spec.*", "**/*.test.*", "vite.config.*", "vitest.config.*"],
-  "include": [
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "../../../types/**/*.d.ts"
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
+  "references": [
+    {
+      "path": "../types/tsconfig.lib.json"
+    }
   ]
 }

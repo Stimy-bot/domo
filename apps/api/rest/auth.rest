@@ -1,0 +1,39 @@
+### ==========================================
+### Configuration / File Variables
+### ==========================================
+@baseUrl = http://localhost:5000/auth
+@accessToken = {{login.response.body.accessToken}}
+
+### ==========================================
+### 1. LOGIN
+### ==========================================
+# @name login
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "leslie@gmail.com",
+  "password": "$Vivian1963"
+}
+
+### ==========================================
+### 2. REFRESH ACCESS TOKEN
+### ==========================================
+# Note: Cookie path is set to /api/refresh in route definition
+POST {{baseUrl}}/refresh
+Cookie: refresh=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OTVmMzhmZTEwYmMyZDI1MThjYzM2ZjAiLCJpYXQiOjE3ODYzOTg0OTl9.1UHgDgEO7B0gAZMuUaCA8N811HTIbbwl7pvEcldgoDk
+
+### ==========================================
+### 3. GET PROFILE
+### ==========================================
+GET {{baseUrl}}/profile
+Authorization: Bearer {{accessToken}}
+
+### ==========================================
+### 4. UPDATE PROFILE
+### ==========================================
+PUT {{baseUrl}}/profile
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+  "bio": "Hi my name is Dominic"

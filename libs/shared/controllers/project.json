@@ -1,0 +1,9 @@
+{
+  "name": "@domo/controllers",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/controllers/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project controllers --web",
+  "targets": {}
+}
