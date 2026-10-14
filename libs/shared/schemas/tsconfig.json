@@ -1,11 +1,13 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true
+"composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "../../../dist/out-tsc"
   },
   "include": [
-    "src/**/*.ts", "src/**/*.tsx",
+    "src/**/*.ts",
     "src/**/*.tsx",
     "apps/**/*.ts",
     "libs/**/*.ts",

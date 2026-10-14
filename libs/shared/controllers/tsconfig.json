@@ -1,18 +1,14 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
+    "outDir": "../../../dist/out-tsc",
     "composite": true,
-    "types": ["node"]
-},
-  "include": [
-    "src/**/*.ts", "src/**/*.tsx"
-  ],
-  "exclude": [
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
-  ],
-    "references": [
+    "declaration": true,
+    "declarationMap": true,
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/index.ts"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"],
+  "references": [
     {
       "path": "../types"
     },

@@ -1,0 +1,26 @@
+# Git
+.git
+.gitignore
+
+# Python virtual environment & caches
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Environment variables & secrets
+.env
+.env.*
+
+# Documentation & IDE files
+README.md
+.vscode/
+.idea/
+
+# Test files & reports (optional, if you don't run tests inside the container)
+tests/
+*.log

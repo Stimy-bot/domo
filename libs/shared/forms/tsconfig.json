@@ -4,7 +4,8 @@
     "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,
-    "composite": true
+    "composite": true,
+    "outDir": "../../../dist/out-tsc"
   },
   "include": ["src/**/*.tsx", "src/**/*"],
   "exclude": [

@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 import type { MongoClientOptions } from 'mongodb';
 
 if (typeof window === 'undefined') {
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });}
+  dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+}
 
 export const DEVELOPMENT = process.env['NODE_ENV'] === 'development';
 export const TEST = process.env['NODE_ENV'] === 'test';

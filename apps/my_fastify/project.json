@@ -13,9 +13,8 @@
         "main": "apps/my_fastify/src/main.ts",
         "tsConfig": "apps/my_fastify/tsconfig.app.json",
         "platform": "node",
-        "format": ["esm"],
-        "bundle": true,
-        "thirdParty": false,
+        "format": ["cjs"],
+        "bundle": false,
         "assets": [
             {
             "glob": "**/*",
@@ -44,7 +43,8 @@
       "executor": "@nx/js:node",
       "options": {
         "buildTarget": "@domo/my_fastify:build",
-        "inspect": true
+        "inspect": true,
+        "runtimeArgs": ["--env-file=.env"]
       },
       "configurations": {
         "development": {

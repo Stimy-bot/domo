@@ -1,12 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": false,
-    "declaration": true,
-    "outDir": "../../dist/out-tsc",
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "target": "es2022"
+    "outDir": "../../dist/out-tsc"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
   "exclude": [

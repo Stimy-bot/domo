@@ -442,9 +442,29 @@ importers:
         specifier: ^1.58.6
         version: 1.58.6
 
-  apps/my_fastify: {}
-
   apps/my_start: {}
+
+  libs/shared/config: {}
+
+  libs/shared/constants: {}
+
+  libs/shared/controllers: {}
+
+  libs/shared/middleware: {}
+
+  libs/shared/models: {}
+
+  libs/shared/schemas: {}
+
+  libs/shared/services: {}
+
+  libs/shared/state: {}
+
+  libs/shared/types: {}
+
+  libs/shared/utils: {}
+
+  libs/shared/validates: {}
 
   tools/tailwind-sync-plugin: {}
 

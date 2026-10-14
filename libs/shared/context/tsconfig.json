@@ -1,10 +1,10 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,
-    "composite": true
+    "composite": true,
+    "outDir": "../../../dist/out-tsc"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.tsx"],
   "exclude": [
