@@ -1,3 +1,4 @@
+# apps/my_fastapi/app/auth/auth.py
 import hashlib
 import secrets
 from datetime import UTC, datetime, timedelta

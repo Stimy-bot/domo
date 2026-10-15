@@ -19,7 +19,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.model import models
 from app.config.config import settings
 from app.database.database import engine, get_db
-from app.routers import posts, users
+from app.routers import contact, posts, users
 
 
 @asynccontextmanager
@@ -38,6 +38,7 @@ templates = Jinja2Templates(directory=APP_DIR / "templates")
 
 app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(posts.router, prefix="/api/posts", tags=["posts"])
+app.include_router(contact.router) 
 
 @app.middleware("http")
 async def add_security_headers(request: Request, call_next):

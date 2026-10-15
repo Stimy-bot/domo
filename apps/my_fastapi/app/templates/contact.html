@@ -1,5 +1,6 @@
+<!-- apps/my_fastapi/app/templates/contact.html -->
 {% extends "layout.html" %} {% block content %}
-<section id="contact" class="content-section py-4 px-4 mb-4">
+<div id="contact" class="content-section py-4 px-4 mb-4">
   <div class="mx-auto grid max-w-7xl gap-12 rounded-[48px] bg-card p-8 text-ink sm:p-12 lg:grid-cols-2 lg:p-16">
     <div>
       <p class="text-primary text-uppercase fw-semibold tracking-wide mb-2">
@@ -17,18 +18,19 @@
         hello@domoservices.studio
       </a>
     </div>
-    <form hx-post="/api/contact" hx-target="#contact-result" hx-swap="innerHTML"
-      hx-on::after-request="if(event.detail.successful) this.reset()" class="grid gap-4" aria-label="Contact form">
+    
+    <!-- Added id="contactForm" and removed hx attributes so JS fetch handles it -->
+    <form id="contactForm" class="grid gap-4" aria-label="Contact form">
       <!-- Name Row -->
       <div class="row g-3 mb-3">
         <div class="col-md-6">
           <label for="firstName" class="form-label">First Name</label>
-          <input type="text" class="form-control" id="firstName" placeholder="John" required>
+          <input type="text" class="form-control" id="firstName" name="first_name" placeholder="John" required>
           <div class="invalid-feedback">First name is required.</div>
         </div>
         <div class="col-md-6">
           <label for="lastName" class="form-label">Last Name</label>
-          <input type="text" class="form-control" id="lastName" placeholder="Doe" required>
+          <input type="text" class="form-control" id="lastName" name="last_name" placeholder="Doe" required>
           <div class="invalid-feedback">Last name is required.</div>
         </div>
       </div>
@@ -36,21 +38,22 @@
       <!-- Email Field -->
       <div class="mb-3">
         <label for="email" class="form-label">Email Address</label>
-        <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
         <div class="invalid-feedback">Please enter a valid email address.</div>
       </div>
 
       <!-- Subject Field -->
       <div class="mb-3">
         <label for="subject" class="form-label">Subject</label>
-        <input type="text" class="form-control" id="subject" placeholder="How can we help you?" required>
+        <input type="text" class="form-control" id="subject" name="subject" placeholder="How can we help you?" required>
         <div class="invalid-feedback">Please enter a subject.</div>
       </div>
       <!-- Message Field -->
       <div class="mb-3">
         <label for="message" class="form-label"> What's on your mind?
         </label>
-        <textarea class="form-control" id="message" rows="4" placeholder="Your message here..." required></textarea>
+        <textarea class="form-control" id="message" name="message" rows="4" placeholder="Your message here..."
+          required></textarea>
         <div class="invalid-feedback">Please write your message.</div>
       </div>
       <!-- Submit Button -->
@@ -65,5 +68,63 @@
       </p>
     </form>
   </div>
-</section>
+</div>
 {% endblock content %}
+
+{% block scripts %}
+<script type="module">
+  import { getErrorMessage, showModal } from '/static/js/utils.js';
+
+  const contactForm = document.getElementById('contactForm');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // Check if user has an access token stored
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        document.getElementById('errorMessage').textContent = 'You must be logged in to send a message.';
+        showModal('errorModal');
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+        return;
+      }
+
+      const formData = new FormData(contactForm);
+
+      try {
+        const response = await fetch('/api/send_email', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          body: formData,
+        });
+
+        if (response.ok) {
+          const resultHtml = await response.text();
+          document.getElementById('contact-result').innerHTML = resultHtml;
+          contactForm.reset();
+        } else if (response.status === 401) {
+          localStorage.removeItem('access_token');
+          document.getElementById('errorMessage').textContent = 'Session expired. Please log in again.';
+          showModal('errorModal');
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 2000);
+        } else {
+          const error = await response.json();
+          document.getElementById('errorMessage').textContent = getErrorMessage(error);
+          showModal('errorModal');
+        }
+      } catch (error) {
+        document.getElementById('errorMessage').textContent =
+          'Network error. Please check your connection and try again.';
+        showModal('errorModal');
+      }
+    });
+  }
+</script>
+{% endblock scripts %}
