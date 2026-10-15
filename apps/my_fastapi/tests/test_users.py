@@ -31,7 +31,7 @@ async def test_create_user_duplicate_email(client: AsyncClient):
         json={
             "username": "different_user",
             "email": "test@example.com",
-            "password": "password123",
+            "password": "Password123!"        
         },
     )
 
@@ -46,7 +46,7 @@ async def test_create_user_success(client: AsyncClient):
         json={
             "username": "newuser",
             "email": "newuser@example.com",
-            "password": "securepassword123",
+            "password": "SecurePassword123!",
         },
     )
 
@@ -91,7 +91,7 @@ async def test_forgot_password_sends_email(client: AsyncClient):
     await create_test_user(client)
 
     with patch(
-        "routers.users.send_password_reset_email",
+        "app.routers.users.send_password_reset_email",
         new_callable=AsyncMock,
     ) as mock_send:
         response = await client.post(
