@@ -1,0 +1,18 @@
+docker run -p 8080:8080 --env-file .env fastapi-app
+
+domo-blog-511701
+
+gcloud config set project PROJECT_ID
+
+gcloud services enable run.googleapis.
+
+gcloud services enable cloudbuild.googleapis.com
+
+gcloud auth configure-docker us-east4-docker.pkg.dev
+
+docker build -t us-east4-docker.pkg.dev/domo-blog-511701/fastapi-repo/fastapi-app:latest 
+
+gcloud run deploy fastapi-service \
+    --image us-east4-docker.pkg.dev/YOUR_PROJECT_ID/fastapi-repo/fastapi-app \
+    --region us-east4 \
+    --allow-unauthenticated

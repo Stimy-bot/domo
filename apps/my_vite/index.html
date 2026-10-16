@@ -1,14 +1,29 @@
+<!-- apps/my_vite/index.html -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>MyVite</title>
     <base href="/" />
-     <meta name="author" content="Dominic Patrick" />
+    <meta name="author" content="Dominic Patrick" />
     <meta name="description" content="Hire a skilled web developer proficient in React, MERN stack, and Firebase to create modern, responsive websites and applications. Find out more about their expertise and how they can elevate your online presence." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <link href="/src/index.css" rel="stylesheet">
+    <link href="/src/index.css" rel="stylesheet" />
+
+    <!-- Inline script to set initial theme and prevent FOUC -->
+    <script>
+      (function() {
+        const userTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (userTheme === 'dark' || (!userTheme && systemPrefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
