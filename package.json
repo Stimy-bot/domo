@@ -8,7 +8,10 @@
     "test:py": ".venv/bin/pytest",
     "build": "nx run-many --target=build --all --configuration=production --skip-nx-cache",
     "build:api": "nx run @domo/api:build:production --skip-nx-cache",
-    "build:libs": "nx run-many --target=build --projects=@domo/types,@domo/constants,@domo/schemas,@domo/validates,@domo/utils,@domo/models,@domo/services,@domo/config,@domo/controllers,@domo/middleware --configuration=production --skip-nx-cache"
+    "build:libs": "nx run-many --target=build --projects=@domo/types,@domo/constants,@domo/schemas,@domo/validates,@domo/utils,@domo/models,@domo/services,@domo/config,@domo/controllers,@domo/middleware --configuration=production --skip-nx-cache",
+    "lint": "nx run-many --target=lint",
+  "lint:fix": "nx run-many --target=lint --fix",
+  "format": "biome format --write ."
   },
   "private": true,
   "pnpm": {
@@ -19,7 +22,11 @@
       "allowAny": [
         "typescript"
       ]
-    }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "lightningcss"
+    ]
   },
   "workspaces": [
     "apps/*",
@@ -31,6 +38,8 @@
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
+    "@berenddeboer/nx-biome": "^1.0.3",
+    "@biomejs/biome": "2.4.5",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@eslint/js": "^9.8.0",
     "@nx/devkit": "23.1.1",
@@ -69,6 +78,7 @@
     "@vitejs/plugin-react": "^6.0.0",
     "@vitest/coverage-v8": "~4.1.0",
     "@vitest/ui": "~4.1.0",
+    "babel-plugin-react-compiler": "^1.0.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.1",
     "esbuild": "^0.27.0",

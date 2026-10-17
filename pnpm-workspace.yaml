@@ -1,14 +1,16 @@
 packages:
-  - 'packages/**'
   - 'apps/*'
-  - 'libs/**'
-  - 'tools/**'
+  - 'packages/*'
+  - 'libs/*'
+  - 'libs/shared/*'
+  - 'tools/*'
+
 allowBuilds:
   '@firebase/util': true
   '@google/genai': true
   '@parcel/watcher': true
   '@swc/core': true
-  esbuild: false
+  esbuild: true
   nx: true
   protobufjs: true
   unrs-resolver: true

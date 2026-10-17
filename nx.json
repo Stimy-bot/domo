@@ -25,7 +25,7 @@
   },
   "plugins": [
     {
-      "plugin": "@nx/eslint/plugin",
+      "plugin": "@berenddeboer/nx-biome",
       "options": {
         "targetName": "lint"
       }
@@ -59,7 +59,7 @@
     },
     {
       "plugin": "@nxlv/python",
-      "options": { }
+      "options": {}
     },
     {
       "plugin": "@nx/docker",
