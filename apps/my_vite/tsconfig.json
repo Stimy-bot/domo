@@ -22,21 +22,6 @@
       "path": "../../libs/shared/context"
     },
     {
-      "path": "../../libs/shared/utils"
-    },
-    {
-      "path": "../../libs/shared/state"
-    },
-    {
-      "path": "../../libs/shared/types"
-    },
-    {
-      "path": "../../libs/shared/ui-footer"
-    },
-    {
-      "path": "../../libs/shared/ui-header"
-    },
-    {
       "path": "../../libs/shared/reusableComponents"
     }
   ]

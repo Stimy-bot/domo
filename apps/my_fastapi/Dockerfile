@@ -1,3 +1,4 @@
+# apps/my_fastapi/Dockerfile
 # BUILD STAGE
 FROM python:3.14.4-slim-bookworm AS builder
 

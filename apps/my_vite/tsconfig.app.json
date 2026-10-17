@@ -25,21 +25,6 @@
       "path": "../../libs/shared/context/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/shared/utils/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/shared/state/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/shared/types/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/shared/ui-footer/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/shared/ui-header/tsconfig.lib.json"
-    },
-    {
       "path": "../../libs/shared/reusableComponents/tsconfig.lib.json"
     }
   ]
