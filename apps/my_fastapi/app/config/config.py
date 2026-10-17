@@ -42,7 +42,7 @@ class Settings(BaseSettings):
 
     mail_server: str = "localhost"
     mail_enabled: bool = False
-    mail_port: int = 587
+    mail_port: int = 465
     mail_username: str = ""
     mail_password: SecretStr = SecretStr("")
     mail_from: str = "FastAPI Blog <onboarding@resend.dev>"

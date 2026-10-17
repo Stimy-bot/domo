@@ -1,0 +1,33 @@
+(push to Google Cloud)
+
+# 1. Build and push directly using buildx (without --load)
+docker buildx build . \
+  --builder multi-builder \
+  --platform linux/amd64,linux/arm64 \
+  --tag us-central1-docker.pkg.dev/domo-blog-511701/domo-repo/my_fastapi:latest \
+  --push
+
+# 2. Deploy immediately to Cloud Run
+gcloud run deploy my-fastapi-service \
+  --image=us-central1-docker.pkg.dev/domo-blog-511701/domo-repo/my_fastapi:latest \
+  --platform=managed \
+  --region=us-central4 \
+  --allow-unauthenticated \
+  --port=8080 \
+  --set-env-vars="RESEND_API_KEY=re_aUZR6EaD_5tbrZ7wYeEXPUxG35Ut9fW8T,database_url=postgresql://neondb_owner:npg_qKM0GOzE4mjk@ep-square-dawn-b8nlf6xy-pooler.c-14.us-east-1.aws.neon.tech/blog?sslmode=require&channel_binding=require,s3_bucket_name=domo-blog-uploads"
+
+//TODO (Run Docker's system prune command to remove unused containers, networks, and build cache)
+
+docker system prune -a --volumes -f
+
+(Once the prune finishes and frees up space, run your local build again:)
+
+docker build -t apps-my_fastapi:latest .
+
+(Run your container with your environment variables:)
+
+docker run --rm -p 8080:8080 \
+  -e RESEND_API_KEY="re_aUZR6EaD_5tbrZ7wYeEXPUxG35Ut9fW8T" \
+  -e database_url="postgresql://neondb_owner:npg_qKM0GOzE4mjk@ep-square-dawn-b8nlf6xy-pooler.c-14.us-east-1.aws.neon.tech/blog?sslmode=require&channel_binding=require" \
+  -e s3_bucket_name="domo-blog-uploads" \
+  apps-my_fastapi:latest

@@ -69,6 +69,14 @@ async def health_check(db: Annotated[AsyncSession, Depends(get_db)]):
         ) from exc
     return {"status": "healthy"}
 
+async def get_sidebar_data(db: AsyncSession):
+    result = await db.execute(
+        select(models.Post)
+        .order_by(models.Post.date_posted.desc())
+        .limit(5)
+    )
+    return result.scalars().first()
+
 @app.get("/", include_in_schema=False, name="home")
 @app.get("/posts", include_in_schema=False, name="posts")
 async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
@@ -85,6 +93,8 @@ async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
 
     has_more = len(posts) < total
 
+    sidebar_latest_posts = await get_sidebar_data(db)
+
     return templates.TemplateResponse(
         request,
         "home.html",
@@ -93,6 +103,7 @@ async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
             "title": "Home",
             "limit": settings.posts_per_page,
             "has_more": has_more,
+            "sidebar_latest_posts": sidebar_latest_posts,
         },
     )
 
