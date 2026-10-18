@@ -5,6 +5,13 @@
   "sourceRoot": "apps/my_fastapi/app",
   "tags": ["type:app", "language:python"],
   "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build . --tag apps-my_fastapi",
+        "cwd": "apps/my_fastapi"
+      }
+    },
     "add": {
       "executor": "nx:run-commands",
       "options": {

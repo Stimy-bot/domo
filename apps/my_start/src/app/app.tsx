@@ -1,11 +1,10 @@
-// Uncomment this line to use CSS modules
-// import styles from './app.module.css';
-import NxWelcome from './nx-welcome';
+// apps/my_start/src/app/app.tsx
+import { UiButton } from '@domo/ui-buttons';
 
 export function App() {
   return (
     <div>
-      <NxWelcome title="my_start" />
+      <h1>Hi there</h1>{' '}
     </div>
   );
 }

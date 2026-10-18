@@ -1,4 +1,3 @@
-# apps/my_fastapi/Dockerfile
 # BUILD STAGE
 FROM python:3.14.4-slim-bookworm AS builder
 
@@ -36,5 +35,5 @@ ENV PATH="/app/.venv/bin:$PATH"
 ENV PYTHONUNBUFFERED=1
 ENV PORT=8080
 
-# exec replaces shell so fastapi receives SIGTERM for clean shutdown
-CMD ["/bin/sh", "-c", "exec fastapi run --host 0.0.0.0 --port \"$PORT\" --proxy-headers --forwarded-allow-ips '*'"]CMD ["sh", "-c", "exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8080} --proxy-headers --forwarded-allow-ips '*'"]
+# Clean single CMD instruction with shell expansion support for Cloud Run/Local
+CMD ["sh", "-c", "exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8080} --proxy-headers --forwarded-allow-ips '*'"]

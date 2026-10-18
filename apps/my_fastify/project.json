@@ -17,12 +17,12 @@
         "bundle": true,
         "thirdParty": false,
         "assets": [
-            {
+          {
             "glob": "**/*",
             "input": "apps/my_fastify/src/public",
             "output": "public"
           },
-           {
+          {
             "glob": "**/*",
             "input": "apps/my_fastify/src/views",
             "output": "views"
@@ -54,9 +54,8 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["apps/my_fastify/**/*.ts"]
+        "args": ["**/*.ts"]
       }
     },
     "test": {

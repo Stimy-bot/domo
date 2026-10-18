@@ -3,6 +3,7 @@
 @import "tailwindcss";
 
 /* nx-tailwind-sources:start */
+@source "../../../libs/shared/ui-buttons";
 /* nx-tailwind-sources:end */
 @plugin "@tailwindcss/typography";
 

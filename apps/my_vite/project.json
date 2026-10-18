@@ -1,27 +1,23 @@
 {
   "name": "@domo/my_vite",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "tags": ["type:app"],
   "sourceRoot": "apps/my_vite/src",
   "projectType": "application",
+  "tags": ["type:app"],
   "targets": {
     "build": {
       "command": "vite build -c vite.config.mts",
+      "syncGenerators": ["@domo/tailwind-sync-plugin:update-tailwind-globs"],
       "options": {
         "cwd": "apps/my_vite"
-      },
-      "syncGenerators": [
-        "@domo/tailwind-sync-plugin:update-tailwind-globs"
-      ]
+      }
     },
     "serve": {
       "command": "vite -c vite.config.mts",
+      "syncGenerators": ["@domo/tailwind-sync-plugin:update-tailwind-globs"],
       "options": {
         "cwd": "apps/my_vite"
-      },
-      "syncGenerators": [
-        "@domo/tailwind-sync-plugin:update-tailwind-globs"
-      ]
+      }
     },
     "dev": {
       "command": "vite -c vite.config.mts",
@@ -36,13 +32,8 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "apps/my_vite/**/*.ts",
-          "apps/my_vite/**/*.tsx",
-          "apps/my_vite/**/*.mts"
-        ]
+        "args": ["**/*.ts", "**/*.tsx", "**/*.mts"]
       }
     },
     "test": {

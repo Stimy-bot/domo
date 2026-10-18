@@ -28,9 +28,8 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["src/**/*.ts", "src/**/*.tsx"]
+        "args": ["src/**/*.ts", "src/**/*.tsx"]
       }
     },
     "test": {

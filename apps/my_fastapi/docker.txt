@@ -31,3 +31,17 @@ docker run --rm -p 8080:8080 \
   -e database_url="postgresql://neondb_owner:npg_qKM0GOzE4mjk@ep-square-dawn-b8nlf6xy-pooler.c-14.us-east-1.aws.neon.tech/blog?sslmode=require&channel_binding=require" \
   -e s3_bucket_name="domo-blog-uploads" \
   apps-my_fastapi:latest
+
+
+# Enable Multi-Arch Emulation (Quick One-Time Fix)
+docker run --privileged --rm tonistiigi/binfmt --install all
+
+
+# Drop multi-arch for local builds
+docker build . --tag apps-my_fastapi
+
+# Install QEMU handlers in Docker
+docker run --privileged --rm tonistiigi/binfmt --install all
+
+# Then
+pnpm nx run @domo/my_fastapi:build
