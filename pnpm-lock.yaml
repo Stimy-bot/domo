@@ -113,6 +113,9 @@ importers:
       '@tanstack/store':
         specifier: ^0.11.1
         version: 0.11.2
+      '@trpc/server':
+        specifier: ^11.19.0
+        version: 11.19.0(typescript@6.0.3)
       '@types/ejs':
         specifier: ^3.1.5
         version: 3.1.5
@@ -215,6 +218,9 @@ importers:
       streamdown:
         specifier: ^2.6.0
         version: 2.7.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      superjson:
+        specifier: ^2.2.6
+        version: 2.2.6
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.7.0
@@ -4694,6 +4700,12 @@ packages:
 
   '@tokenizer/token@0.3.0':
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
+
+  '@trpc/server@11.19.0':
+    resolution: {integrity: sha512-7C1goiDurz82yFKtZUbEzjXd0Rg/jyisaIZQhdvus+1l7E6mwcEYZXjZ1US/HF8kOyz1LERL8UN3bcboJtjcyQ==}
+    hasBin: true
+    peerDependencies:
+      typescript: '>=5.7.2'
 
   '@tybys/wasm-util@0.10.4':
     resolution: {integrity: sha512-W3c4gRigFS0T/Ma4qIYF3GDAc5AQdHb1yL5znJT1Zv1YaD9Kitx656wBjvr19qbiosmZT8lWDM5BEMynUqX65A==}
@@ -15685,6 +15697,10 @@ snapshots:
       - supports-color
 
   '@tokenizer/token@0.3.0': {}
+
+  '@trpc/server@11.19.0(typescript@6.0.3)':
+    dependencies:
+      typescript: 6.0.3
 
   '@tybys/wasm-util@0.10.4':
     dependencies:
