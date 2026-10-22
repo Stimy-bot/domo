@@ -2,10 +2,11 @@
   "name": "@domo/my_start",
   "private": "true",
   "type": "module",
-  "dependencies": {},
   "scripts": {
     "dev": "vite",
     "serve": "vite",
     "build": "tsc && vite build"
+  },
+  "devDependencies": {
   }
 }

@@ -10,11 +10,15 @@
     "build:api": "nx run @domo/api:build:production --skip-nx-cache",
     "build:libs": "nx run-many --target=build --projects=@domo/types,@domo/constants,@domo/schemas,@domo/validates,@domo/utils,@domo/models,@domo/services,@domo/config,@domo/controllers,@domo/middleware --configuration=production --skip-nx-cache",
     "lint": "nx run-many --target=lint",
-  "lint:fix": "nx run-many --target=lint --fix",
-  "format": "biome format --write ."
+    "lint:fix": "nx run-many --target=lint --fix",
+    "format": "biome format --write ."
   },
   "private": true,
   "pnpm": {
+    "overrides": {
+      "@tanstack/query-core": "5.102.8",
+      "@tanstack/react-query": "5.102.8"
+    },
     "peerDependencyRules": {
       "allowedVersions": {
         "typescript": "6"
@@ -45,8 +49,6 @@
     "@nx/devkit": "23.1.1",
     "@nx/docker": "23.1.1",
     "@nx/esbuild": "23.1.1",
-    "@nx/eslint": "23.1.1",
-    "@nx/eslint-plugin": "23.1.1",
     "@nx/js": "23.1.1",
     "@nx/node": "23.1.1",
     "@nx/playwright": "23.1.1",
@@ -62,6 +64,7 @@
     "@swc/helpers": "0.5.23",
     "@tailwindcss/typography": "^0.5.20",
     "@tanstack/devtools-vite": "^0.8.5",
+    "@tanstack/react-devtools": "^0.10.13",
     "@tanstack/react-query-devtools": "^5.102.8",
     "@tanstack/react-router-devtools": "^1.167.1",
     "@tanstack/router-plugin": "^1.168.35",
@@ -82,13 +85,9 @@
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.1",
     "esbuild": "^0.27.0",
-    "eslint": "^9.8.0",
-    "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.1",
     "eslint-plugin-playwright": "^1.6.2",
-    "eslint-plugin-react": "^7.35.0",
-    "eslint-plugin-react-hooks": "5.0.0",
     "jiti": "2.4.2",
     "jsdom": "^27.1.0",
     "jsonc-eslint-parser": "^2.1.0",
@@ -139,6 +138,7 @@
     "@tanstack/react-router-ssr-query": "^1.167.2",
     "@tanstack/react-router-with-query": "^1.130.17",
     "@tanstack/react-start": "^1.168.49",
+    "@tanstack/react-start-router-manifest": "^1.120.19",
     "@tanstack/react-store": "^0.11.1",
     "@tanstack/react-table": "^9.2.4",
     "@tanstack/store": "^0.11.1",

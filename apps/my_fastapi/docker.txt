@@ -45,3 +45,10 @@ docker run --privileged --rm tonistiigi/binfmt --install all
 
 # Then
 pnpm nx run @domo/my_fastapi:build
+
+# Start the Docker Socket and Service
+Run these commands:
+
+Bash
+sudo systemctl start docker.socket
+sudo systemctl start docker.service
