@@ -11,6 +11,7 @@
     "module": "preserve",
     "moduleResolution": "bundler",
     "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
     "paths": {
       "@domo/my_fastapi": ["./apps/my_fastapi/*"],
       "@domo/my_fastify": ["./apps/my_fastify/src/index.ts"],

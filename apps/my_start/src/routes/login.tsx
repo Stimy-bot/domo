@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 // import { Input } from '@domo/reusableComponents'
-export const Route = createFileRoute("/sign_in")({
+export const Route = createFileRoute("/login")({
   component: RouteComponent,
 });
 
