@@ -1,24 +1,24 @@
 // libs/shared/reusableComponents/src/lib/styledDatePicker.tsx
-import { CustomDatePicker } from './customDatePicker'
+import { CustomDatePicker } from './customDatePicker';
 
 interface Field {
-  name: string
+  name: string;
   state: {
-    value: string
-    meta: any
-  }
-  handleBlur: () => void
-  handleChange: (value: any) => void
+    value: string;
+    meta: any;
+  };
+  handleBlur: () => void;
+  handleChange: (value: any) => void;
 }
 
 const StyledDatePicker = ({
   field,
   label,
-  placeholder = "YYYY-DD-MM",
+  placeholder = 'YYYY-DD-MM',
 }: {
-  field: Field
-  label: string
-  placeholder?: string
+  field: Field;
+  label: string;
+  placeholder?: string;
 }) => {
   return (
     <div className="mb-4">
@@ -27,19 +27,15 @@ const StyledDatePicker = ({
       </label>
       <CustomDatePicker
         selected={field.state.value ? new Date(field.state.value) : null}
-        onChange={(date: Date | null) =>
-          field.handleChange(date ? date.toISOString() : null)
-        }
+        onChange={(date: Date | null) => field.handleChange(date ? date.toISOString() : null)}
         onBlur={field.handleBlur}
         placeholderText={placeholder}
       />
       {field.state.meta.errors?.length > 0 && (
-        <p className="text-red-500 text-xs italic mt-1">
-          {field.state.meta.errors.join(", ")}
-        </p>
+        <p className="text-red-500 text-xs italic mt-1">{field.state.meta.errors.join(', ')}</p>
       )}
     </div>
-  )
-}
+  );
+};
 
 export { StyledDatePicker };

@@ -11,7 +11,7 @@ export type AuthEventUser = z.infer<typeof AuthEventUserSchema>;
 
 // Roles available in your system
 export const ROLES = ['user', 'admin', 'superAdmin'] as const;
-export type RoleType = typeof ROLES[number];
+export type RoleType = (typeof ROLES)[number];
 
 type Role = 'user' | 'admin' | 'superAdmin';
 

@@ -1,16 +1,8 @@
 #!/usr/bin/env node
 
-import {
-  appendFile,
-  chmod,
-  mkdir,
-  readFile,
-  rename,
-  stat,
-  writeFile,
-} from 'node:fs/promises';
-import { basename, dirname, join, resolve } from 'node:path';
+import { appendFile, chmod, mkdir, readFile, rename, stat, writeFile } from 'node:fs/promises';
 import { homedir } from 'node:os';
+import { basename, dirname, join, resolve } from 'node:path';
 import process from 'node:process';
 
 const DEFAULT_CLOUD_URL = 'https://cloud.nx.app';
@@ -34,11 +26,7 @@ class HttpError extends CliError {
         429: 'Nx Cloud rate limited this request.',
         503: 'The Nx Cloud API is unavailable.',
       }[status] ?? 'The Nx Cloud request failed.';
-    super(
-      `${summary} GET ${
-        new URL(url).pathname
-      } returned HTTP ${status}${detail}.`,
-    );
+    super(`${summary} GET ${new URL(url).pathname} returned HTTP ${status}${detail}.`);
     this.status = status;
     this.resource = resource;
   }
@@ -107,12 +95,7 @@ function printHelp() {
 
 function parseArgs(argv) {
   const args = [...argv];
-  if (
-    args.length === 0 ||
-    args[0] === '--help' ||
-    args[0] === '-h' ||
-    args[0] === 'help'
-  ) {
+  if (args.length === 0 || args[0] === '--help' || args[0] === '-h' || args[0] === 'help') {
     return { command: 'help', positionals: [], options: {} };
   }
 
@@ -150,12 +133,8 @@ function parseArgs(argv) {
     }
     if (!endOfOptions && arg.startsWith('--')) {
       const equalsIndex = arg.indexOf('=');
-      const rawName = arg.slice(
-        2,
-        equalsIndex === -1 ? undefined : equalsIndex,
-      );
-      const inlineValue =
-        equalsIndex === -1 ? undefined : arg.slice(equalsIndex + 1);
+      const rawName = arg.slice(2, equalsIndex === -1 ? undefined : equalsIndex);
+      const inlineValue = equalsIndex === -1 ? undefined : arg.slice(equalsIndex + 1);
       if (rawName in booleanOptions) {
         if (inlineValue !== undefined) {
           throw new CliError(`--${rawName} does not accept a value.`);
@@ -164,9 +143,7 @@ function parseArgs(argv) {
         continue;
       }
       if (!(rawName in optionNames)) {
-        throw new CliError(
-          `Unknown option --${rawName}. Run with --help for usage.`,
-        );
+        throw new CliError(`Unknown option --${rawName}. Run with --help for usage.`);
       }
       const value = inlineValue ?? args[++index];
       if (value === undefined || value === '') {
@@ -187,37 +164,24 @@ function parseArgs(argv) {
 
   if (options.help) return { command: 'help', positionals, options };
   if (!['catalog', 'describe', 'request'].includes(command)) {
-    throw new CliError(
-      `Unknown command ${JSON.stringify(command)}. Run with --help for usage.`,
-    );
+    throw new CliError(`Unknown command ${JSON.stringify(command)}. Run with --help for usage.`);
   }
   if (command === 'catalog' && positionals.length !== 0) {
     throw new CliError('catalog does not accept an endpoint selector.');
   }
-  if (
-    (command === 'describe' || command === 'request') &&
-    positionals.length !== 1
-  ) {
+  if ((command === 'describe' || command === 'request') && positionals.length !== 1) {
     throw new CliError(`${command} requires exactly one endpoint selector.`);
   }
   if (command !== 'request') {
     for (const key of ['path', 'query']) {
-      if (options[key].length > 0)
-        throw new CliError(`--${key} is valid only with request.`);
+      if (options[key].length > 0) throw new CliError(`--${key} is valid only with request.`);
     }
-    for (const key of [
-      'pages',
-      'pageSize',
-      'format',
-      'out',
-      'metadataOut',
-      'dryRun',
-    ]) {
+    for (const key of ['pages', 'pageSize', 'format', 'out', 'metadataOut', 'dryRun']) {
       if (options[key] !== undefined && options[key] !== false) {
         throw new CliError(
           `--${key.replace(
             /[A-Z]/g,
-            (letter) => `-${letter.toLowerCase()}`,
+            letter => `-${letter.toLowerCase()}`,
           )} is valid only with request.`,
         );
       }
@@ -269,15 +233,12 @@ async function findNxJson(workspaceOption) {
   let start = resolve(workspaceOption ?? process.cwd());
   if (await isFile(start)) {
     if (basename(start) !== 'nx.json') {
-      throw new CliError(
-        `--workspace must be a directory or an nx.json file: ${start}`,
-      );
+      throw new CliError(`--workspace must be a directory or an nx.json file: ${start}`);
     }
     return start;
   }
   if (!(await isDirectory(start))) {
-    if (workspaceOption)
-      throw new CliError(`Workspace path does not exist: ${start}`);
+    if (workspaceOption) throw new CliError(`Workspace path does not exist: ${start}`);
     return null;
   }
 
@@ -325,10 +286,7 @@ function cloudUrlIdentity(value) {
 }
 
 function openApiUrl(cloudUrl) {
-  return new URL(
-    NX_CLOUD_API_OPENAPI_PATH,
-    normalizeCloudUrl(cloudUrl),
-  ).toString();
+  return new URL(NX_CLOUD_API_OPENAPI_PATH, normalizeCloudUrl(cloudUrl)).toString();
 }
 
 async function resolveCloudContext(options, { requireCloudId }) {
@@ -338,24 +296,17 @@ async function resolveCloudContext(options, { requireCloudId }) {
     (requireCloudId && !options.cloudId && !process.env.NX_CLOUD_ID);
   const nxJsonPath = needsNxConfig ? await findNxJson(options.workspace) : null;
   if (options.workspace && !nxJsonPath) {
-    throw new CliError(
-      `Could not find nx.json from ${resolve(options.workspace)}.`,
-      [
-        'Pass the Nx workspace root to --workspace.',
-        'Or run this command from a directory below the workspace root.',
-        'Use --cloud-url and --cloud-id only when you intentionally query a workspace without local configuration.',
-      ],
-    );
+    throw new CliError(`Could not find nx.json from ${resolve(options.workspace)}.`, [
+      'Pass the Nx workspace root to --workspace.',
+      'Or run this command from a directory below the workspace root.',
+      'Use --cloud-url and --cloud-id only when you intentionally query a workspace without local configuration.',
+    ]);
   }
   const nxConfig = nxJsonPath ? await readNxConfig(nxJsonPath) : null;
   const cloudUrl = normalizeCloudUrl(
-    options.cloudUrl ??
-      process.env.NX_CLOUD_URL ??
-      nxConfig?.nxCloudUrl ??
-      DEFAULT_CLOUD_URL,
+    options.cloudUrl ?? process.env.NX_CLOUD_URL ?? nxConfig?.nxCloudUrl ?? DEFAULT_CLOUD_URL,
   );
-  const cloudId =
-    options.cloudId ?? process.env.NX_CLOUD_ID ?? nxConfig?.nxCloudId;
+  const cloudId = options.cloudId ?? process.env.NX_CLOUD_ID ?? nxConfig?.nxCloudId;
   if (requireCloudId && (typeof cloudId !== 'string' || cloudId.length === 0)) {
     throw new CliError('No Nx Cloud ID is available for this request.', [
       'Run this command from the Nx workspace root, or pass --workspace <directory>.',
@@ -404,17 +355,13 @@ async function readWorkspaceAccessTokenFile(pathValue) {
     fileStat = await stat(path);
     token = (await readFile(path, 'utf8')).trim();
   } catch (error) {
-    throw new CliError(
-      `Cannot read workspace access token file ${path}: ${error.message}`,
-    );
+    throw new CliError(`Cannot read workspace access token file ${path}: ${error.message}`);
   }
-  if (!fileStat.isFile())
-    throw new CliError(`Workspace access token path is not a file: ${path}`);
+  if (!fileStat.isFile()) throw new CliError(`Workspace access token path is not a file: ${path}`);
   if (process.platform !== 'win32' && (fileStat.mode & 0o077) !== 0) {
-    throw new CliError(
-      `Workspace access token file permissions are too broad: ${path}`,
-      [`Run chmod 600 ${path} before the request.`],
-    );
+    throw new CliError(`Workspace access token file permissions are too broad: ${path}`, [
+      `Run chmod 600 ${path} before the request.`,
+    ]);
   }
   if (!token || /\s/.test(token)) {
     throw new CliError(
@@ -442,9 +389,7 @@ async function resolveWorkspaceAccessToken(options) {
       'Use either --token-file or a workspace access token environment variable, not both.',
     );
   }
-  return options.tokenFile
-    ? readWorkspaceAccessTokenFile(options.tokenFile)
-    : environmentToken;
+  return options.tokenFile ? readWorkspaceAccessTokenFile(options.tokenFile) : environmentToken;
 }
 
 async function resolvePersonalAccessToken(options, cloudUrl) {
@@ -464,7 +409,7 @@ async function resolvePersonalAccessToken(options, cloudUrl) {
     );
   }
   const expectedUrl = cloudUrlIdentity(cloudUrl);
-  const matches = parseIni(contents).filter((section) => {
+  const matches = parseIni(contents).filter(section => {
     const token = section.values.get('personalaccesstoken');
     if (!token) return false;
     try {
@@ -503,10 +448,7 @@ async function resolveAuthentication(options, context, workspaceAccessToken) {
       headers: { Authorization: `Bearer ${workspaceAccessToken}` },
     };
   }
-  const personalAccessToken = await resolvePersonalAccessToken(
-    options,
-    context.cloudUrl,
-  );
+  const personalAccessToken = await resolvePersonalAccessToken(options, context.cloudUrl);
   return {
     type: 'personalAccessToken',
     headers: {
@@ -544,9 +486,7 @@ async function fetchJson(url, headers = {}) {
       redirect: 'follow',
     });
   } catch (error) {
-    throw new CliError(
-      `Network request failed for ${new URL(url).pathname}: ${error.message}`,
-    );
+    throw new CliError(`Network request failed for ${new URL(url).pathname}: ${error.message}`);
   }
   const text = await response.text();
   if (!response.ok) {
@@ -573,12 +513,7 @@ async function loadOpenApi(specPath, cloudUrl) {
   } else {
     spec = await fetchJson(openApiUrl(cloudUrl));
   }
-  if (
-    !spec ||
-    typeof spec !== 'object' ||
-    !spec.paths ||
-    typeof spec.paths !== 'object'
-  ) {
+  if (!spec || typeof spec !== 'object' || !spec.paths || typeof spec.paths !== 'object') {
     throw new CliError('The OpenAPI document has no paths object.');
   }
   return spec;
@@ -598,7 +533,7 @@ function resolveReference(spec, value) {
     const parts = current.$ref
       .slice(2)
       .split('/')
-      .map((part) => part.replace(/~1/g, '/').replace(/~0/g, '~'));
+      .map(part => part.replace(/~1/g, '/').replace(/~0/g, '~'));
     let resolved = spec;
     for (const part of parts) resolved = resolved?.[part];
     if (!resolved) break;
@@ -644,13 +579,10 @@ function schemaSummary(spec, schema, depth = 0) {
   const type = Array.isArray(resolved.type)
     ? resolved.type.join('|')
     : (resolved.type ?? 'unknown');
-  const itemSchema = resolved.items
-    ? resolveReference(spec, resolved.items)
-    : null;
+  const itemSchema = resolved.items ? resolveReference(spec, resolved.items) : null;
   const enumValues = resolved.enum ?? itemSchema?.enum;
   const result = { type };
-  if (typeof source.$ref === 'string')
-    result.schema = source.$ref.split('/').at(-1);
+  if (typeof source.$ref === 'string') result.schema = source.$ref.split('/').at(-1);
   if (resolved.format) result.format = resolved.format;
   if (resolved.title) result.title = resolved.title;
   if (enumValues) result.enum = enumValues;
@@ -662,30 +594,23 @@ function schemaSummary(spec, schema, depth = 0) {
     'uniqueItems',
     'pattern',
   ]) {
-    if (resolved[constraint] !== undefined)
-      result[constraint] = resolved[constraint];
+    if (resolved[constraint] !== undefined) result[constraint] = resolved[constraint];
   }
-  if (Array.isArray(resolved.required))
-    result.required = [...resolved.required].sort();
+  if (Array.isArray(resolved.required)) result.required = [...resolved.required].sort();
   if (resolved.properties) {
     result.properties = Object.keys(resolved.properties).sort();
     if (depth < 2) {
       result.fields = Object.fromEntries(
         Object.entries(resolved.properties)
           .sort(([left], [right]) => left.localeCompare(right))
-          .map(([name, property]) => [
-            name,
-            schemaSummary(spec, property, depth + 1),
-          ]),
+          .map(([name, property]) => [name, schemaSummary(spec, property, depth + 1)]),
       );
     }
   }
   if (itemSchema) result.items = schemaSummary(spec, resolved.items, depth + 1);
   for (const keyword of ['oneOf', 'anyOf', 'allOf']) {
     if (Array.isArray(resolved[keyword]) && depth < 2) {
-      result[keyword] = resolved[keyword].map((entry) =>
-        schemaSummary(spec, entry, depth + 1),
-      );
+      result[keyword] = resolved[keyword].map(entry => schemaSummary(spec, entry, depth + 1));
     }
   }
   return result;
@@ -695,7 +620,7 @@ function responseContent(spec, responseValue) {
   const response = resolveReference(spec, responseValue);
   const content = response?.content ?? {};
   const mediaType =
-    Object.keys(content).find((key) => key.toLowerCase().includes('json')) ??
+    Object.keys(content).find(key => key.toLowerCase().includes('json')) ??
     Object.keys(content)[0] ??
     null;
   return {
@@ -717,37 +642,29 @@ function documentedResponses(spec, entry) {
         rawSchema: content.schema,
       };
     })
-    .sort((left, right) =>
-      left.status.localeCompare(right.status, undefined, { numeric: true }),
-    );
+    .sort((left, right) => left.status.localeCompare(right.status, undefined, { numeric: true }));
 }
 
 function successfulResponse(responses) {
   return (
-    responses.find((response) => /^2\d\d$/.test(response.status)) ??
-    responses.find((response) => /^3\d\d$/.test(response.status)) ??
+    responses.find(response => /^2\d\d$/.test(response.status)) ??
+    responses.find(response => /^3\d\d$/.test(response.status)) ??
     null
   );
 }
 
 function collectionItemSummary(spec, schema) {
   const responseSchema = resolveReference(spec, schema ?? {});
-  const itemsProperty = resolveReference(
-    spec,
-    responseSchema?.properties?.items ?? {},
-  );
+  const itemsProperty = resolveReference(spec, responseSchema?.properties?.items ?? {});
   if (!schemaIncludesType(itemsProperty, 'array')) return null;
   return schemaSummary(spec, itemsProperty.items);
 }
 
 function describeSecurity(spec, entry) {
   const requirements = entry.operation.security ?? spec.security ?? [];
-  return requirements.map((requirement) =>
-    Object.keys(requirement).map((name) => {
-      const scheme = resolveReference(
-        spec,
-        spec.components?.securitySchemes?.[name] ?? {},
-      );
+  return requirements.map(requirement =>
+    Object.keys(requirement).map(name => {
+      const scheme = resolveReference(spec, spec.components?.securitySchemes?.[name] ?? {});
       return {
         name,
         type: scheme?.type ?? 'unknown',
@@ -779,7 +696,7 @@ function describeOperation(spec, entry) {
     summary: entry.operation.summary ?? '',
     description: entry.operation.description ?? '',
     security: describeSecurity(spec, entry),
-    parameters: parametersFor(spec, entry).map((parameter) => ({
+    parameters: parametersFor(spec, entry).map(parameter => ({
       in: parameter.in,
       name: parameter.name,
       required: Boolean(parameter.required),
@@ -789,9 +706,7 @@ function describeOperation(spec, entry) {
       schema: schemaSummary(spec, parameter.schema),
     })),
     response,
-    responses: responses.map(
-      ({ rawSchema: _rawSchema, ...documented }) => documented,
-    ),
+    responses: responses.map(({ rawSchema: _rawSchema, ...documented }) => documented),
   };
 }
 
@@ -831,8 +746,7 @@ function resolveSelector(spec, cloudUrl, selector) {
   let linkPathValues = new Map();
   const isPathTemplate = selector.includes('{') && selector.includes('}');
   const isAbsoluteLink = /^https?:\/\//i.test(selector);
-  const isLink =
-    isAbsoluteLink || (selector.startsWith('/') && !isPathTemplate);
+  const isLink = isAbsoluteLink || (selector.startsWith('/') && !isPathTemplate);
 
   if (isLink) {
     let link;
@@ -845,13 +759,9 @@ function resolveSelector(spec, cloudUrl, selector) {
     linkQueryPairs = [...link.searchParams.entries()];
     const cipeUiMatch = /^\/cipes\/([^/]+)\/?$/.exec(link.pathname);
     if (cipeUiMatch) {
-      const cipeOperation = operations.find((entry) =>
-        /\/cipes\/\{[^}]+}$/.test(entry.path),
-      );
+      const cipeOperation = operations.find(entry => /\/cipes\/\{[^}]+}$/.test(entry.path));
       if (!cipeOperation)
-        throw new CliError(
-          'The supplied CIPE URL has no matching Nx Cloud API operation.',
-        );
+        throw new CliError('The supplied CIPE URL has no matching Nx Cloud API operation.');
       pathSelector = cipeOperation.path.replace(
         /\{[^}]+}/,
         encodeURIComponent(decodeURIComponent(cipeUiMatch[1])),
@@ -859,42 +769,36 @@ function resolveSelector(spec, cloudUrl, selector) {
       linkQueryPairs = [];
     }
   } else if (selector.includes('?')) {
-    throw new CliError(
-      'Use a full relative API link when a selector contains query parameters.',
-    );
+    throw new CliError('Use a full relative API link when a selector contains query parameters.');
   }
 
   const normalizedSelector = pathSelector.replace(/^\//, '');
   let matches = operations
     .filter(
-      (entry) =>
+      entry =>
         entry.path === pathSelector ||
         entry.path.replace(/^\//, '') === normalizedSelector ||
         entry.path.endsWith(`/${normalizedSelector}`),
     )
-    .map((entry) => ({ entry, pathValues: new Map() }));
+    .map(entry => ({ entry, pathValues: new Map() }));
 
   if (matches.length === 0 && isLink) {
     matches = operations
-      .map((entry) => ({
+      .map(entry => ({
         entry,
         pathValues: matchTemplate(entry.path, pathSelector),
       }))
-      .filter((candidate) => candidate.pathValues !== null);
+      .filter(candidate => candidate.pathValues !== null);
   }
 
   if (matches.length === 0) {
     throw new CliError(
-      `No documented GET operation matches ${JSON.stringify(
-        selector,
-      )}. Run catalog first.`,
+      `No documented GET operation matches ${JSON.stringify(selector)}. Run catalog first.`,
     );
   }
   if (matches.length > 1) {
-    const paths = matches.map((candidate) => candidate.entry.path).join(', ');
-    throw new CliError(
-      `Endpoint selector ${JSON.stringify(selector)} is ambiguous: ${paths}`,
-    );
+    const paths = matches.map(candidate => candidate.entry.path).join(', ');
+    throw new CliError(`Endpoint selector ${JSON.stringify(selector)} is ambiguous: ${paths}`);
   }
 
   const resolved = matches[0];
@@ -903,9 +807,7 @@ function resolveSelector(spec, cloudUrl, selector) {
     entry: resolved.entry,
     linkQueryPairs,
     linkPathValues,
-    cloudUrl: isAbsoluteLink
-      ? normalizeCloudUrl(new URL(selector).origin)
-      : cloudUrl,
+    cloudUrl: isAbsoluteLink ? normalizeCloudUrl(new URL(selector).origin) : cloudUrl,
   };
 }
 
@@ -916,17 +818,13 @@ function schemaIncludesType(schema, expected) {
 
 function valueSchema(spec, parameter) {
   const schema = resolveReference(spec, parameter.schema ?? {});
-  return schemaIncludesType(schema, 'array')
-    ? resolveReference(spec, schema.items ?? {})
-    : schema;
+  return schemaIncludesType(schema, 'array') ? resolveReference(spec, schema.items ?? {}) : schema;
 }
 
 function validateValue(spec, parameter, value) {
   const schema = valueSchema(spec, parameter) ?? {};
   if (schemaIncludesType(schema, 'boolean') && !/^(true|false)$/i.test(value)) {
-    throw new CliError(
-      `Query parameter ${parameter.name} must be true or false.`,
-    );
+    throw new CliError(`Query parameter ${parameter.name} must be true or false.`);
   }
   if (schemaIncludesType(schema, 'integer') && !/^-?\d+$/.test(value)) {
     throw new CliError(`Query parameter ${parameter.name} must be an integer.`);
@@ -935,21 +833,15 @@ function validateValue(spec, parameter, value) {
     throw new CliError(`Query parameter ${parameter.name} must be a number.`);
   }
   if (schema.minimum !== undefined && Number(value) < schema.minimum) {
-    throw new CliError(
-      `Query parameter ${parameter.name} must be at least ${schema.minimum}.`,
-    );
+    throw new CliError(`Query parameter ${parameter.name} must be at least ${schema.minimum}.`);
   }
   if (schema.maximum !== undefined && Number(value) > schema.maximum) {
-    throw new CliError(
-      `Query parameter ${parameter.name} must be at most ${schema.maximum}.`,
-    );
+    throw new CliError(`Query parameter ${parameter.name} must be at most ${schema.maximum}.`);
   }
   if (Array.isArray(schema.enum)) {
     const valid = schema.enum.map(String);
-    if (!valid.some((entry) => entry.toLowerCase() === value.toLowerCase())) {
-      throw new CliError(
-        `Query parameter ${parameter.name} must be one of: ${valid.join(', ')}.`,
-      );
+    if (!valid.some(entry => entry.toLowerCase() === value.toLowerCase())) {
+      throw new CliError(`Query parameter ${parameter.name} must be one of: ${valid.join(', ')}.`);
     }
   }
 }
@@ -972,40 +864,30 @@ function buildRequestPlan(spec, selection, options) {
   const parameters = parametersFor(spec, selection.entry);
   const pathParameters = new Map(
     parameters
-      .filter((parameter) => parameter.in === 'path')
-      .map((parameter) => [parameter.name, parameter]),
+      .filter(parameter => parameter.in === 'path')
+      .map(parameter => [parameter.name, parameter]),
   );
   const queryParameters = new Map(
     parameters
-      .filter((parameter) => parameter.in === 'query')
-      .map((parameter) => [parameter.name, parameter]),
+      .filter(parameter => parameter.in === 'query')
+      .map(parameter => [parameter.name, parameter]),
   );
-  const userPathPairs = options.path.map((value) =>
-    parseKeyValue(value, '--path'),
-  );
-  const userQueryPairs = options.query.map((value) =>
-    parseKeyValue(value, '--query'),
-  );
+  const userPathPairs = options.path.map(value => parseKeyValue(value, '--path'));
+  const userQueryPairs = options.query.map(value => parseKeyValue(value, '--query'));
   const pathValues = new Map(selection.linkPathValues);
 
   for (const [name, value] of userPathPairs) {
     if (!pathParameters.has(name)) {
-      throw new CliError(
-        `${name} is not a documented path parameter for ${selection.entry.path}.`,
-      );
+      throw new CliError(`${name} is not a documented path parameter for ${selection.entry.path}.`);
     }
     if (pathValues.has(name)) {
-      throw new CliError(
-        `Path parameter ${name} already comes from the API link.`,
-      );
+      throw new CliError(`Path parameter ${name} already comes from the API link.`);
     }
     pathValues.set(name, value);
   }
   for (const parameter of pathParameters.values()) {
     if (parameter.required && !pathValues.has(parameter.name)) {
-      throw new CliError(
-        `Missing required path parameter --path ${parameter.name}=<value>.`,
-      );
+      throw new CliError(`Missing required path parameter --path ${parameter.name}=<value>.`);
     }
   }
 
@@ -1014,14 +896,10 @@ function buildRequestPlan(spec, selection, options) {
     const pageSize = parseNaturalNumber(options.pageSize, '--page-size');
     const limitParameter = queryParameters.get('limit');
     if (!limitParameter) {
-      throw new CliError(
-        `${selection.entry.path} has no documented limit parameter.`,
-      );
+      throw new CliError(`${selection.entry.path} has no documented limit parameter.`);
     }
     if (queryPairs.some(([name]) => name === 'limit')) {
-      throw new CliError(
-        'Use either --page-size or --query limit=<count>, not both.',
-      );
+      throw new CliError('Use either --page-size or --query limit=<count>, not both.');
     }
     validateValue(spec, limitParameter, String(pageSize));
     queryPairs.push(['limit', String(pageSize)]);
@@ -1038,33 +916,24 @@ function buildRequestPlan(spec, selection, options) {
     counts.set(name, (counts.get(name) ?? 0) + 1);
     if (
       (counts.get(name) ?? 0) > 1 &&
-      !schemaIncludesType(
-        resolveReference(spec, parameter.schema ?? {}),
-        'array',
-      )
+      !schemaIncludesType(resolveReference(spec, parameter.schema ?? {}), 'array')
     ) {
       throw new CliError(`Query parameter ${name} cannot be repeated.`);
     }
     validateValue(spec, parameter, value);
   }
 
-  const expandedPath = selection.entry.path.replace(
-    /\{([^}]+)}/g,
-    (_match, name) => encodeURIComponent(pathValues.get(name)),
+  const expandedPath = selection.entry.path.replace(/\{([^}]+)}/g, (_match, name) =>
+    encodeURIComponent(pathValues.get(name)),
   );
-  const pages =
-    options.pages === undefined
-      ? 1
-      : parseNaturalNumber(options.pages, '--pages');
+  const pages = options.pages === undefined ? 1 : parseNaturalNumber(options.pages, '--pages');
   const format = options.format ?? 'json';
   if (!['json', 'ndjson'].includes(format)) {
     throw new CliError('--format must be json or ndjson.');
   }
 
   const outputPath = options.out ? resolve(options.out) : null;
-  const metadataOutputPath = options.metadataOut
-    ? resolve(options.metadataOut)
-    : null;
+  const metadataOutputPath = options.metadataOut ? resolve(options.metadataOut) : null;
   if (outputPath && outputPath === metadataOutputPath) {
     throw new CliError('--out and --metadata-out must use different files.');
   }
@@ -1095,9 +964,7 @@ async function fetchApiResponse(url, headers) {
       redirect: 'follow',
     });
   } catch (error) {
-    throw new CliError(
-      `Network request failed for ${new URL(url).pathname}: ${error.message}`,
-    );
+    throw new CliError(`Network request failed for ${new URL(url).pathname}: ${error.message}`);
   }
   const body = Buffer.from(await response.arrayBuffer());
   if (!response.ok) {
@@ -1108,11 +975,9 @@ async function fetchApiResponse(url, headers) {
       resource: 'Nx Cloud API request',
     });
   }
-  const contentType =
-    response.headers.get('content-type') ?? 'application/octet-stream';
+  const contentType = response.headers.get('content-type') ?? 'application/octet-stream';
   const text = body.toString('utf8');
-  const looksLikeJson =
-    contentType.toLowerCase().includes('json') || /^[\s\n\r]*[\[{]/.test(text);
+  const looksLikeJson = contentType.toLowerCase().includes('json') || /^[\s\n\r]*[[{]/.test(text);
   if (!looksLikeJson) return { body, contentType, json: null };
   return { body, contentType, json: parseJson(text, new URL(url).pathname) };
 }
@@ -1124,7 +989,7 @@ async function writePrivateFile(outputPath, contents) {
 }
 
 async function emitNdjsonPage(rows, outputPath, isFirstPage) {
-  const text = rows.map((row) => JSON.stringify(row)).join('\n');
+  const text = rows.map(row => JSON.stringify(row)).join('\n');
   const contents = text ? `${text}\n` : '';
   if (outputPath) {
     if (isFirstPage) await writePrivateFile(outputPath, contents);
@@ -1138,7 +1003,7 @@ async function emitJson(value, format, outputPath) {
   let text;
   if (format === 'ndjson') {
     const rows = Array.isArray(value) ? value : [value];
-    text = rows.map((row) => JSON.stringify(row)).join('\n');
+    text = rows.map(row => JSON.stringify(row)).join('\n');
     if (text) text += '\n';
   } else {
     text = `${JSON.stringify(value, null, 2)}\n`;
@@ -1189,9 +1054,7 @@ async function runRequest(context, spec, selection, options) {
   let fetchedItemCount = 0;
   const items = [];
   const streamingOutputPath =
-    plan.format === 'ndjson' && plan.outputPath
-      ? `${plan.outputPath}.partial`
-      : null;
+    plan.format === 'ndjson' && plan.outputPath ? `${plan.outputPath}.partial` : null;
 
   for (let page = 1; page <= plan.pages; page += 1) {
     const url = requestUrl(requestCloudUrl, plan.path, currentQueryPairs);
@@ -1206,38 +1069,26 @@ async function runRequest(context, spec, selection, options) {
         );
       }
       await writePrivateFile(plan.outputPath, response.body);
-      process.stderr.write(
-        `Wrote ${plan.outputPath} (${response.contentType})\n`,
-      );
+      process.stderr.write(`Wrote ${plan.outputPath} (${response.contentType})\n`);
       return;
     }
 
     pagesFetched += 1;
     if (Array.isArray(response.json.items)) {
       if (isCollection === false)
-        throw new CliError(
-          'The endpoint changed response shape during pagination.',
-        );
+        throw new CliError('The endpoint changed response shape during pagination.');
       isCollection = true;
       fetchedItemCount += response.json.items.length;
       if (plan.format === 'ndjson') {
-        await emitNdjsonPage(
-          response.json.items,
-          streamingOutputPath,
-          page === 1,
-        );
+        await emitNdjsonPage(response.json.items, streamingOutputPath, page === 1);
       } else {
         items.push(...response.json.items);
       }
       nextCursor = response.json.nextCursor ?? null;
-      process.stderr.write(
-        `Fetched page ${page}: ${response.json.items.length} items\n`,
-      );
+      process.stderr.write(`Fetched page ${page}: ${response.json.items.length} items\n`);
     } else {
       if (page !== 1)
-        throw new CliError(
-          'The endpoint does not return a paginated items collection.',
-        );
+        throw new CliError('The endpoint does not return a paginated items collection.');
       isCollection = false;
       objectResponse = response.json;
       nextCursor = null;
@@ -1250,15 +1101,9 @@ async function runRequest(context, spec, selection, options) {
         'The response returned nextCursor, but the live schema has no cursor query parameter.',
       );
     }
-    currentQueryPairs = removeQueryKey(
-      currentQueryPairs,
-      plan.cursorParameter.name,
-    );
+    currentQueryPairs = removeQueryKey(currentQueryPairs, plan.cursorParameter.name);
     if (plan.sortParameter)
-      currentQueryPairs = removeQueryKey(
-        currentQueryPairs,
-        plan.sortParameter.name,
-      );
+      currentQueryPairs = removeQueryKey(currentQueryPairs, plan.sortParameter.name);
     currentQueryPairs.push([plan.cursorParameter.name, String(nextCursor)]);
   }
 
@@ -1321,30 +1166,21 @@ function printDescription(description) {
   process.stdout.write(`${description.method} ${description.path}\n`);
   if (description.summary) process.stdout.write(`${description.summary}\n`);
   if (description.description)
-    process.stdout.write(
-      `${description.description.replace(/\s+/g, ' ').trim()}\n`,
-    );
+    process.stdout.write(`${description.description.replace(/\s+/g, ' ').trim()}\n`);
   process.stdout.write('Authentication alternatives:\n');
-  if (description.security.length === 0)
-    process.stdout.write('  None documented\n');
+  if (description.security.length === 0) process.stdout.write('  None documented\n');
   for (const alternative of description.security) {
-    process.stdout.write(
-      `  ${alternative.map((scheme) => scheme.name).join(' + ')}\n`,
-    );
+    process.stdout.write(`  ${alternative.map(scheme => scheme.name).join(' + ')}\n`);
     for (const scheme of alternative) {
       if (scheme.description)
-        process.stdout.write(
-          `    ${scheme.description.replace(/\s+/g, ' ').trim()}\n`,
-        );
+        process.stdout.write(`    ${scheme.description.replace(/\s+/g, ' ').trim()}\n`);
     }
   }
   process.stdout.write('Parameters:\n');
   if (description.parameters.length === 0) process.stdout.write('  None\n');
   for (const parameter of description.parameters) {
     const required = parameter.required ? ' required' : '';
-    const enumValues = parameter.schema.enum
-      ? ` [${parameter.schema.enum.join(', ')}]`
-      : '';
+    const enumValues = parameter.schema.enum ? ` [${parameter.schema.enum.join(', ')}]` : '';
     process.stdout.write(
       `  ${parameter.in} ${parameter.name}: ${parameter.schema.type}${enumValues}${required}\n`,
     );
@@ -1356,30 +1192,20 @@ function printDescription(description) {
       );
     }
     if (parameter.description)
-      process.stdout.write(
-        `    ${parameter.description.replace(/\s+/g, ' ').trim()}\n`,
-      );
+      process.stdout.write(`    ${parameter.description.replace(/\s+/g, ' ').trim()}\n`);
   }
-  const fields =
-    description.response.properties?.join(', ') ?? 'none documented';
+  const fields = description.response.properties?.join(', ') ?? 'none documented';
   const status = description.response.status ?? 'success';
-  process.stdout.write(
-    `${status} response: ${description.response.type}; fields: ${fields}\n`,
-  );
+  process.stdout.write(`${status} response: ${description.response.type}; fields: ${fields}\n`);
   if (description.response.description) {
-    process.stdout.write(
-      `  ${description.response.description.replace(/\s+/g, ' ').trim()}\n`,
-    );
+    process.stdout.write(`  ${description.response.description.replace(/\s+/g, ' ').trim()}\n`);
   }
   if (description.response.item) {
-    const itemFields =
-      description.response.item.properties?.join(', ') ?? 'none documented';
-    process.stdout.write(
-      `  item: ${description.response.item.type}; fields: ${itemFields}\n`,
-    );
+    const itemFields = description.response.item.properties?.join(', ') ?? 'none documented';
+    process.stdout.write(`  item: ${description.response.item.type}; fields: ${itemFields}\n`);
   }
   const otherResponses = description.responses.filter(
-    (response) => response.status !== description.response.status,
+    response => response.status !== description.response.status,
   );
   if (otherResponses.length > 0) {
     process.stdout.write('Other responses:\n');
@@ -1404,15 +1230,13 @@ async function main() {
   options.workspaceAccessToken = workspaceAccessToken;
   const suppliedSelector = positionals[0];
   const suppliedAbsoluteUrl =
-    typeof suppliedSelector === 'string' &&
-    /^https?:\/\//i.test(suppliedSelector)
+    typeof suppliedSelector === 'string' && /^https?:\/\//i.test(suppliedSelector)
       ? new URL(suppliedSelector)
       : null;
   const contextOptions = suppliedAbsoluteUrl
     ? { ...options, cloudUrl: suppliedAbsoluteUrl.origin }
     : options;
-  const requireCloudId =
-    command === 'request' && !options.dryRun && !workspaceAccessToken;
+  const requireCloudId = command === 'request' && !options.dryRun && !workspaceAccessToken;
   const context = await resolveCloudContext(contextOptions, { requireCloudId });
   const spec = await loadOpenApi(options.spec, context.cloudUrl);
 
@@ -1422,14 +1246,12 @@ async function main() {
       title: spec.info?.title ?? 'Nx Cloud API',
       version: spec.info?.version ?? spec.openapi ?? 'unknown',
       openapi: spec.openapi ?? 'unknown',
-      security: (spec.security ?? []).map((requirement) =>
-        Object.keys(requirement),
-      ),
-      operations: listOperations(spec).map((entry) => ({
+      security: (spec.security ?? []).map(requirement => Object.keys(requirement)),
+      operations: listOperations(spec).map(entry => ({
         method: entry.method,
         path: entry.path,
         summary: entry.operation.summary ?? '',
-        parameters: parametersFor(spec, entry).map((parameter) => ({
+        parameters: parametersFor(spec, entry).map(parameter => ({
           in: parameter.in,
           name: parameter.name,
           required: Boolean(parameter.required),
@@ -1445,15 +1267,9 @@ async function main() {
   }
 
   const selection = resolveSelector(spec, context.cloudUrl, positionals[0]);
-  if (
-    cloudUrlIdentity(selection.cloudUrl) !== cloudUrlIdentity(context.cloudUrl)
-  ) {
+  if (cloudUrlIdentity(selection.cloudUrl) !== cloudUrlIdentity(context.cloudUrl)) {
     const linkedSpec = await loadOpenApi(options.spec, selection.cloudUrl);
-    const linkedSelection = resolveSelector(
-      linkedSpec,
-      selection.cloudUrl,
-      positionals[0],
-    );
+    const linkedSelection = resolveSelector(linkedSpec, selection.cloudUrl, positionals[0]);
     if (command === 'describe') {
       const description = {
         cloudUrl: cloudUrlIdentity(selection.cloudUrl),
@@ -1543,18 +1359,13 @@ function recoverySteps(error) {
   ];
 }
 
-main().catch((error) => {
-  const message =
-    error instanceof CliError
-      ? error.message
-      : `Unexpected error: ${error.message}`;
+main().catch(error => {
+  const message = error instanceof CliError ? error.message : `Unexpected error: ${error.message}`;
   process.stderr.write(`Error: ${message}\n`);
   const steps = recoverySteps(error);
   if (steps.length > 0) {
     process.stderr.write('Next steps:\n');
-    steps.forEach((step, index) =>
-      process.stderr.write(`  ${index + 1}. ${step}\n`),
-    );
+    steps.forEach((step, index) => process.stderr.write(`  ${index + 1}. ${step}\n`));
   }
   process.exitCode = 1;
 });

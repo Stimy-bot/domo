@@ -1,12 +1,9 @@
 // @domo/libs/shared-models/src/lib/sessionModel.ts
-import { ObjectId, type Db } from 'mongodb';
-import {
-  signToken,
-} from '@domo/utils';
 
- const thirtyDaysFromNow = () =>
-  new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
- 
+import { signToken } from '@domo/utils';
+import type { Db, ObjectId } from 'mongodb';
+
+const thirtyDaysFromNow = () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
 export interface SessionInput {
   userId: ObjectId;
@@ -48,9 +45,7 @@ export function getRefreshToken(sessionId: ObjectId | string): string {
 
 // --- Factory for Creating Session Documents ---
 
-export function buildSessionDocument(
-  input: SessionInput,
-): Omit<SessionEntity, '_id'> {
+export function buildSessionDocument(input: SessionInput): Omit<SessionEntity, '_id'> {
   const now = new Date();
 
   return {
@@ -60,9 +55,7 @@ export function buildSessionDocument(
     createdAt: now,
     expiresAt:
       input.expiresAt ??
-      (typeof thirtyDaysFromNow === 'function'
-        ? thirtyDaysFromNow()
-        : thirtyDaysFromNow),
+      (typeof thirtyDaysFromNow === 'function' ? thirtyDaysFromNow() : thirtyDaysFromNow),
   };
 }
 

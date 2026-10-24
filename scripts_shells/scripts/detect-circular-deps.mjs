@@ -14,15 +14,17 @@ function getLibraries() {
     process.exit(1);
   }
 
-  return fs.readdirSync(libsDir, { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory())
-    .map((dirent) => dirent.name);
+  return fs
+    .readdirSync(libsDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
 }
 
 // 2. Scan TypeScript files for import/export statements
 function getFileImports(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8');
-  const importRegex = /(?:import|export)\s+[\s\S]*?\s+from\s+['"]([^'"]+)['"]|(?:import|export)\s*['"]([^'"]+)['"]/g;
+  const importRegex =
+    /(?:import|export)\s+[\s\S]*?\s+from\s+['"]([^'"]+)['"]|(?:import|export)\s*['"]([^'"]+)['"]/g;
   const imports = [];
   let match;
 
@@ -51,7 +53,11 @@ function buildDependencyGraph(libraries) {
 
       if (entry.isDirectory() && entry.name !== 'node_modules') {
         walkDirectory(fullPath, currentLib);
-      } else if (entry.isFile() && /\.(ts|tsx|js|jsx)$/.test(entry.name) && !entry.name.endsWith('.spec.ts')) {
+      } else if (
+        entry.isFile() &&
+        /\.(ts|tsx|js|jsx)$/.test(entry.name) &&
+        !entry.name.endsWith('.spec.ts')
+      ) {
         const importSpecifiers = getFileImports(fullPath);
 
         for (const specifier of importSpecifiers) {
@@ -148,6 +154,8 @@ if (cycles.length === 0) {
   cycles.forEach((cycle, index) => {
     console.error(`  ${index + 1}) ${cycle.join(' ➔ ')}`);
   });
-  console.log('\nResolve these by removing reverse imports or moving shared types/utilities into a lower-level library.');
+  console.log(
+    '\nResolve these by removing reverse imports or moving shared types/utilities into a lower-level library.',
+  );
   process.exit(1);
 }

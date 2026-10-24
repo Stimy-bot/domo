@@ -1,25 +1,26 @@
 // client/src/components/Captcha.tsx
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import type React from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface CaptchaProps {
   onVerify: (isVerified: boolean) => void;
 }
 
 const generateCaptchaText = (length = 6) => {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-  };
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+};
 
-    const getRandomColor = (min: number, max: number) => {
-    const r = Math.floor(Math.random() * (max - min) + min);
-    const g = Math.floor(Math.random() * (max - min) + min);
-    const b = Math.floor(Math.random() * (max - min) + min);
-    return `rgb(${r},${g},${b})`;
-  };
+const getRandomColor = (min: number, max: number) => {
+  const r = Math.floor(Math.random() * (max - min) + min);
+  const g = Math.floor(Math.random() * (max - min) + min);
+  const b = Math.floor(Math.random() * (max - min) + min);
+  return `rgb(${r},${g},${b})`;
+};
 
 const Captcha: React.FC<CaptchaProps> = ({ onVerify }) => {
   const [captchaText, setCaptchaText] = useState('');
@@ -36,7 +37,7 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerify }) => {
     if (!ctx) return;
 
     // Clear and set background
-    ctx.fillStyle = '#f3f4f6'; 
+    ctx.fillStyle = '#f3f4f6';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Add random noise lines to confuse bots
@@ -51,7 +52,7 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerify }) => {
     // Draw each character with random rotation and color
     const charArray = text.split('');
     const space = canvas.width / (charArray.length + 1);
-    
+
     ctx.font = '60px arial';
     ctx.textBaseline = 'middle';
 
@@ -116,8 +117,8 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerify }) => {
     <div className="flex flex-col items-center dark:bg-dark-hard p-6 rounded-lg shadow-md border border-dark-soft text-dark-light mx-auto w-full max-w-87.5">
       {/* Canvas and Reload Button Row */}
       <div className="flex flex-row items-center justify-between w-full mb-4">
-        <canvas 
-          ref={canvasRef} 
+        <canvas
+          ref={canvasRef}
           style={{ width: '400px', height: '50px' }} // Maintain CSS size
           className="rounded-lg border border-dark-soft bg-gray-100"
         />
@@ -134,7 +135,7 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerify }) => {
       <input
         type="text"
         value={userInput}
-        onChange={(e) => setUserInput(e.target.value)}
+        onChange={e => setUserInput(e.target.value)}
         placeholder="Enter CAPTCHA"
         className="w-full p-3 border border-dark-soft rounded mb-3 focus:ring-2 focus:ring-blue-500 outline-none dark:bg-dark-hard dark:text-white"
       />

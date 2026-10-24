@@ -1,11 +1,11 @@
 // libs/shared/reusableComponents/src/lib/customDatePicker.tsx
-import * as React from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import {Input} from "./input";
+import * as React from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { Input } from './input';
 
 // Utility for dynamic class names
-const cn = (...classes: string[]) => classes.filter(Boolean).join(" ");
+const cn = (...classes: string[]) => classes.filter(Boolean).join(' ');
 
 // Props for custom input
 interface CustomDateInputProps {
@@ -23,19 +23,19 @@ const CustomDateInput = React.forwardRef<HTMLInputElement, CustomDateInputProps>
       ref={ref}
       readOnly
       className={cn(
-        "custom-class",
-        "additional-class",
-        "w-full",
-        "mt-1 rounded-lg",
-        "outline-none border text-dark-light font-semibold bg-white"
+        'custom-class',
+        'additional-class',
+        'w-full',
+        'mt-1 rounded-lg',
+        'outline-none border text-dark-light font-semibold bg-white',
       )}
     />
-  )
+  ),
 );
-CustomDateInput.displayName = "CustomDateInput";
+CustomDateInput.displayName = 'CustomDateInput';
 
 // Fully controlled date picker with no internal state
-const CustomDatePicker: React.FC<React.ComponentProps<typeof DatePicker>> = (props) => {
+const CustomDatePicker: React.FC<React.ComponentProps<typeof DatePicker>> = props => {
   return (
     <DatePicker
       {...props}
@@ -49,7 +49,7 @@ const CustomDatePicker: React.FC<React.ComponentProps<typeof DatePicker>> = (pro
   );
 };
 
-CustomDatePicker.displayName = "CustomDatePicker";
+CustomDatePicker.displayName = 'CustomDatePicker';
 
 export { CustomDatePicker };
 export default CustomDatePicker;

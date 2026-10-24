@@ -1,6 +1,6 @@
 // libs/shared/reusableComponents/src/lib/baseInput.tsx
-import {formatNameToTitle} from "@domo/utils";
-import { useState } from "react";
+import { formatNameToTitle } from '@domo/utils';
+import { useState } from 'react';
 
 // --- Icon Definitions ---
 
@@ -67,30 +67,40 @@ interface Field {
 
 // --- BaseInput Component ---
 
-const BaseInput = ({ field, label, type = "text", className = "" }: { field: Field; label: string; type?: string; className?: string}) => {
+const BaseInput = ({
+  field,
+  label,
+  type = 'text',
+  className = '',
+}: {
+  field: Field;
+  label: string;
+  type?: string;
+  className?: string;
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordType = type === 'password';
 
   // Determine the actual HTML input type
   const inputType = isPasswordType && showPassword ? 'text' : type;
-  
+
   // Determine if the field has an error for potential border color change
   const isError = field.state.meta.isTouched && field.state.meta.errors.length > 0;
-  
+
   return (
     <div className={`mb-4 ${className}`}>
       <label htmlFor={field.name} className="text-dark-light font-semibold block">
         {formatNameToTitle(field.name)}
       </label>
-      
+
       {/* Input container for positioning the toggle button */}
       <div className="relative w-full">
         <input
           id={field.name}
           name={field.name}
-          value={field.state.value ?? ""}
+          value={field.state.value ?? ''}
           onBlur={field.handleBlur}
-          onChange={(e) => field.handleChange(e.target.value)}
+          onChange={e => field.handleChange(e.target.value)}
           // Use the determined inputType
           type={inputType}
           placeholder={label}
@@ -100,12 +110,12 @@ const BaseInput = ({ field, label, type = "text", className = "" }: { field: Fie
             ${isError ? 'border-red-500' : 'border-dark-light'}
           `}
         />
-        
+
         {/* Password Toggle Button */}
         {isPasswordType && (
           <button
             type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
+            onClick={() => setShowPassword(prev => !prev)}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dark-light hover:text-dark-soft"
             aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
@@ -115,9 +125,7 @@ const BaseInput = ({ field, label, type = "text", className = "" }: { field: Fie
       </div>
 
       {field.state.meta.errors.length > 0 && field.state.meta.isTouched ? (
-        <em className="text-red-500 text-xs italic">
-          {field.state.meta.errors.join(", ")}
-        </em>
+        <em className="text-red-500 text-xs italic">{field.state.meta.errors.join(', ')}</em>
       ) : null}
       {field.state.meta.isValidating ? (
         <p className="text-blue-500 text-xs italic">Validating...</p>

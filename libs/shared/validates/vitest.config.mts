@@ -1,9 +1,10 @@
 /// <reference types='vitest' />
-import { defineConfig } from 'vite';
+
+import * as path from 'node:path';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import * as path from 'node:path';
 
 const __dirname = path.resolve(process.cwd(), 'libs/shared/validates');
 
@@ -30,7 +31,7 @@ export default defineConfig(() => ({
     lib: {
       entry: 'src/index.ts',
       name: 'validates',
-      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
+      fileName: format => `index.${format === 'es' ? 'mjs' : 'js'}`,
       formats: ['es' as const, 'cjs' as const],
     },
     rollupOptions: {

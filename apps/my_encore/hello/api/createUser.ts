@@ -1,12 +1,12 @@
 // apps/my_encore/hello/api/createUser.ts
-import { api } from "encore.dev/api";
-import { getDb } from "../encore.service";
+import { api } from 'encore.dev/api';
+import { getDb } from '../encore.service';
 
 export const createUser = api(
-  { method: "POST", path: "/users" },
+  { method: 'POST', path: '/users' },
   async (req: { name: string; email: string }) => {
     const db = await getDb();
-    const users = db.collection("users");
+    const users = db.collection('users');
 
     const result = await users.insertOne({
       name: req.name,
@@ -15,5 +15,5 @@ export const createUser = api(
     });
 
     return { id: result.insertedId.toString() };
-  }
+  },
 );

@@ -1,4 +1,11 @@
-import { Type, type Static, type TObject, type TString, type TOptional, type TNumber } from '@sinclair/typebox';
+import {
+  type Static,
+  type TNumber,
+  type TObject,
+  type TOptional,
+  type TString,
+  Type,
+} from '@sinclair/typebox';
 
 export const UserSchema = Type.Object({
   name: Type.String(),

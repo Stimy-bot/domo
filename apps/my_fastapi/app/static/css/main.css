@@ -1,9 +1,7 @@
 :root {
   /* Fonts */
-  --font-heading: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
-    sans-serif;
-  --font-body: "Nunito", system-ui, -apple-system, BlinkMacSystemFont,
-    sans-serif;
+  --font-heading: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Colors */
   --color-bg-body: #fafafa;
@@ -28,8 +26,8 @@
 /* Base Styles */
 body {
   font-family: var(--font-body);
-  background: var(--color-bg-body);
   color: var(--color-text-primary);
+  background: var(--color-bg-body);
 }
 
 main {
@@ -85,13 +83,15 @@ button:focus-visible {
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05);
-  transition: box-shadow 0.15s ease, transform 0.15s ease,
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease,
     border-color 0.15s ease;
 }
 
 .content-section:hover {
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
   border-color: var(--color-border-light);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
 }
 
 /* Articles */
@@ -107,14 +107,14 @@ a.article-title:focus {
 }
 
 .article-content {
-  white-space: pre-line;
   font-size: 1.25rem;
+  white-space: pre-line;
 }
 
 .article-img {
-  height: var(--article-img-size);
-  width: var(--article-img-size);
   flex-shrink: 0;
+  width: var(--article-img-size);
+  height: var(--article-img-size);
   object-fit: cover;
   border: 1px solid var(--color-border-light);
   box-shadow: 0 0 0 2px var(--color-bg-content);
@@ -143,8 +143,8 @@ a.article-title:focus {
 
 /* Account/Profile */
 .account-img {
-  height: var(--account-img-size);
   width: var(--account-img-size);
+  height: var(--account-img-size);
   object-fit: cover;
 }
 
@@ -255,8 +255,8 @@ a.article-title:focus {
   }
 
   .article-img {
-    height: 3rem;
     width: 3rem;
+    height: 3rem;
   }
 }
 

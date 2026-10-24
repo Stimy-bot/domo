@@ -13,12 +13,18 @@ interface Option {
   value: string;
   label: string;
 }
-const RadioGroup = ({ field, label, options }: { field: Field; label: string; options: Option[] }) => (
+const RadioGroup = ({
+  field,
+  label,
+  options,
+}: {
+  field: Field;
+  label: string;
+  options: Option[];
+}) => (
   <div className="mb-4">
-    <label className="block text-dark-light text-sm font-bold mb-2">
-      {label}
-    </label>
-    {options.map((option) => (
+    <label className="block text-dark-light text-sm font-bold mb-2">{label}</label>
+    {options.map(option => (
       <div key={option.value} className="flex items-center mb-2 text-dark-light">
         <input
           type="radio"
@@ -27,7 +33,7 @@ const RadioGroup = ({ field, label, options }: { field: Field; label: string; op
           value={option.value}
           checked={field.state.value === option.value}
           onBlur={field.handleBlur}
-          onChange={(e) => field.handleChange(e.target.value)}
+          onChange={e => field.handleChange(e.target.value)}
           className="mr-2 leading-tight"
         />
         <label htmlFor={`${field.name}-${option.value}`} className="text -sm text-dark-light">

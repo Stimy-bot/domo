@@ -1,13 +1,9 @@
 // apps/my_fastify/src/app/plugins/jwt.ts
-import fp from 'fastify-plugin';
-import {
-  createSigner,
-  createVerifier,
-  type SignerOptions,
-  type VerifierOptions,
-} from 'fast-jwt';
-import type { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+
 import { Audience, loadEnv } from '@domo/constants';
+import { createSigner, createVerifier, type SignerOptions, type VerifierOptions } from 'fast-jwt';
+import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import fp from 'fastify-plugin';
 
 const { JWT_SECRET, JWT_REFRESH_SECRET } = loadEnv();
 
@@ -31,11 +27,8 @@ export default fp(async (fastify: FastifyInstance) => {
     allowedAud: defaultAudience,
   });
 
-  fastify.decorate('jwt', ({
-    signToken(
-      payload: any,
-      options?: Partial<SignerOptions & { secret: string }>,
-    ) {
+  fastify.decorate('jwt', {
+    signToken(payload: any, options?: Partial<SignerOptions & { secret: string }>) {
       const clean = JSON.parse(JSON.stringify(payload));
 
       if (options?.secret || options?.expiresIn) {
@@ -73,34 +66,29 @@ export default fp(async (fastify: FastifyInstance) => {
         return { error: err.message };
       }
     },
-  }) as any);
+  } as any);
 
-  fastify.decorate(
-    'authenticate',
-    async (request: FastifyRequest, reply: FastifyReply) => {
-      try {
-        const raw = request.headers.authorization;
-        const token = raw?.startsWith('Bearer ')
-          ? raw.slice(7)
-          : raw;
+  fastify.decorate('authenticate', async (request: FastifyRequest, reply: FastifyReply) => {
+    try {
+      const raw = request.headers.authorization;
+      const token = raw?.startsWith('Bearer ') ? raw.slice(7) : raw;
 
-        if (!token) {
-          return reply.code(401).send({ error: 'Missing token' });
-        }
-
-        const { payload, error } = (
-          fastify.jwt as unknown as {
-            verifyToken(token: string): { payload?: any; error?: string };
-          }
-        ).verifyToken(token);
-        if (error || !payload) {
-          return reply.code(401).send({ error: error ?? 'Invalid token' });
-        }
-
-        request.user = payload;
-      } catch (err: any) {
-        return reply.code(401).send({ error: err.message });
+      if (!token) {
+        return reply.code(401).send({ error: 'Missing token' });
       }
-    },
-  );
+
+      const { payload, error } = (
+        fastify.jwt as unknown as {
+          verifyToken(token: string): { payload?: any; error?: string };
+        }
+      ).verifyToken(token);
+      if (error || !payload) {
+        return reply.code(401).send({ error: error ?? 'Invalid token' });
+      }
+
+      request.user = payload;
+    } catch (err: any) {
+      return reply.code(401).send({ error: err.message });
+    }
+  });
 });

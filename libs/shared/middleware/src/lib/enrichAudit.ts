@@ -1,8 +1,9 @@
 // libs/middleware/src/lib/enrichAudit.ts
-import type { FastifyRequest, FastifyReply } from 'fastify';
-import { ObjectId } from '@fastify/mongodb';
-import { insertLogIntoDb } from '@domo/services';
+
 import type { AuditEventType } from '@domo/schemas';
+import { insertLogIntoDb } from '@domo/services';
+import { ObjectId } from '@fastify/mongodb';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 
 export interface CustomAuditLog {
   type?: AuditEventType;
@@ -37,13 +38,9 @@ export function enrichAudit(defaultType: AuditEventType) {
 
       const params = req.params as Record<string, string | undefined>;
       const targetParam = params?.['id'];
-      let autoTarget: { _id: string } | undefined = undefined;
+      let autoTarget: { _id: string } | undefined;
 
-      if (
-        targetParam &&
-        typeof targetParam === 'string' &&
-        ObjectId.isValid(targetParam)
-      ) {
+      if (targetParam && typeof targetParam === 'string' && ObjectId.isValid(targetParam)) {
         autoTarget = { _id: targetParam };
       }
 
@@ -65,10 +62,7 @@ export function enrichAudit(defaultType: AuditEventType) {
         // Pass req.db as first parameter matching Fastify MongoDB native driver setup
         await insertLogIntoDb(req.db, log as unknown);
       } catch (err) {
-        req.log.error(
-          err,
-          `[Audit Error] ${log.type}: ${(err as Error).message}`
-        );
+        req.log.error(err, `[Audit Error] ${log.type}: ${(err as Error).message}`);
       }
     }
   };

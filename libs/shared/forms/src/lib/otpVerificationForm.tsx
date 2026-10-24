@@ -1,7 +1,8 @@
 // libs/shared/forms/src/lib/otpVerificationForm.tsx
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { useOtpVerification } from '@domo/hooks';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface OtpVerificationFormProps {
   phone: string;
@@ -17,16 +18,8 @@ const OtpVerificationForm: React.FC<OtpVerificationFormProps> = ({
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
 
-  const {
-    handleVerify,
-    handleResend,
-    resetStatus,
-    isLoading,
-    error,
-    isSuccess,
-    timer,
-    canResend,
-  } = useOtpVerification(phone);
+  const { handleVerify, handleResend, resetStatus, isLoading, error, isSuccess, timer, canResend } =
+    useOtpVerification(phone);
 
   // Improved Auto-submit logic: only trigger if there isn't an active error
   useEffect(() => {

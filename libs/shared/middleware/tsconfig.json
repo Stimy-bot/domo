@@ -1,13 +1,20 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-"composite": true,
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
     "outDir": "../../../dist/out-tsc"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts", "src/index.ts"],
-    "references": [
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "apps/**/*.ts",
+    "libs/**/*.ts",
+    "types/**/*.d.ts",
+    "src/index.ts"
+  ],
+  "references": [
     {
       "path": "../schemas"
     },

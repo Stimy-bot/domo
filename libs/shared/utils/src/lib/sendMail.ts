@@ -1,5 +1,5 @@
-import { Resend } from "resend";
-import { loadEnv } from "@domo/constants";
+import { loadEnv } from '@domo/constants';
+import { Resend } from 'resend';
 
 type Params = {
   to: string;
@@ -12,10 +12,9 @@ const env = loadEnv();
 const resend = new Resend(env.RESEND_API_KEY);
 
 const getFromEmail = () =>
-  env.isDev ? "onboarding@resend.dev" : (env.EMAIL_SENDER ?? "onboarding@resend.dev");
+  env.isDev ? 'onboarding@resend.dev' : (env.EMAIL_SENDER ?? 'onboarding@resend.dev');
 
-const getToEmail = (to: string) =>
-  env.isDev ? "delivered@resend.dev" : to;
+const getToEmail = (to: string) => (env.isDev ? 'delivered@resend.dev' : to);
 
 export const sendMail = async ({ to, subject, text, html }: Params) =>
   await resend.emails.send({

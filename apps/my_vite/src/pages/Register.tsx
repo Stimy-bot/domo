@@ -1,7 +1,7 @@
-import { AppRegister } from '@domo/forms'
+import { AppRegister } from '@domo/forms';
 
 function Register() {
-return < AppRegister />;
+  return <AppRegister />;
 }
 
-export {Register};
+export { Register };

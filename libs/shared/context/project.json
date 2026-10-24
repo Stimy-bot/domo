@@ -1,6 +1,6 @@
 {
   "name": "@domo/context",
-    "root": "libs/shared/context",
+  "root": "libs/shared/context",
   "sourceRoot": "libs/shared/context/src",
   "projectType": "library",
   "tags": [],

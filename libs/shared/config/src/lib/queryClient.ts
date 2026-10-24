@@ -31,15 +31,19 @@ const fetchUserRole = async () => {
 
 // Custom hook for accessing the user role
 export const useUserRole = () => {
-  const { data: role, error, isLoading } = useQuery({
+  const {
+    data: role,
+    error,
+    isLoading,
+  } = useQuery({
     queryKey: ['userRole'],
     queryFn: fetchUserRole,
     retry: 0, // Explicitly 0 or false works
     staleTime: 300000, // 5 minutes
-    
+
     // ADD THESE TWO:
     refetchOnWindowFocus: false, // Prevents 401 spam when you switch tabs
-    retryOnMount: false,         // Prevents retrying if the component re-mounts after a fail
+    retryOnMount: false, // Prevents retrying if the component re-mounts after a fail
   });
 
   return { role, error, isLoading };

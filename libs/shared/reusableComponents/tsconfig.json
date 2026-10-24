@@ -2,24 +2,21 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-"composite": true,
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
     "outDir": "../../../dist/out-tsc"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
- "node_modules",
- "dist",
+    "node_modules",
+    "dist",
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "**/*.test.ts",
     "**/*.test.tsx"
   ],
-    "references": [
+  "references": [
     {
       "path": "../ui-footer"
     },

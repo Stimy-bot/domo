@@ -1,5 +1,5 @@
-import { ObjectId, type Db } from 'mongodb';
-import {VerificationCodeType} from '@domo/constants';
+import { VerificationCodeType } from '@domo/constants';
+import { type Db, ObjectId } from 'mongodb';
 
 export type VerificationCodeTypeKey = keyof typeof VerificationCodeType;
 
@@ -24,19 +24,14 @@ export interface VerificationCodeEntity {
 }
 
 // Formatted structure for API responses
-export type SafeVerificationCode = Omit<
-  VerificationCodeEntity,
-  '_id' | 'userId'
-> & {
+export type SafeVerificationCode = Omit<VerificationCodeEntity, '_id' | 'userId'> & {
   _id: string;
   userId: string;
 };
 
 // --- Sanitization Helper ---
 
-export function sanitizeVerificationCode(
-  codeDoc: VerificationCodeEntity,
-): SafeVerificationCode {
+export function sanitizeVerificationCode(codeDoc: VerificationCodeEntity): SafeVerificationCode {
   const { _id, userId, ...rest } = codeDoc;
   return {
     ...rest,
@@ -52,21 +47,14 @@ export function buildVerificationCodeDocument(
 ): Omit<VerificationCodeEntity, '_id'> {
   const now = new Date();
 
-  const parsedUserId =
-    typeof input.userId === 'string'
-      ? new ObjectId(input.userId)
-      : input.userId;
+  const parsedUserId = typeof input.userId === 'string' ? new ObjectId(input.userId) : input.userId;
 
   const parsedExpiresAt =
-    typeof input.expiresAt === 'string'
-      ? new Date(input.expiresAt)
-      : input.expiresAt;
+    typeof input.expiresAt === 'string' ? new Date(input.expiresAt) : input.expiresAt;
 
   // Validate conditional requirement for code
   if (input.type !== VerificationCodeType.EmailVerification && !input.code) {
-    throw new Error(
-      `Verification code is required for type "${String(input.type)}"`,
-    );
+    throw new Error(`Verification code is required for type "${String(input.type)}"`);
   }
 
   return {
@@ -92,4 +80,3 @@ export async function ensureVerificationCodeIndexes(db: Db): Promise<void> {
     { key: { expiresAt: 1 }, expireAfterSeconds: 0 },
   ]);
 }
-

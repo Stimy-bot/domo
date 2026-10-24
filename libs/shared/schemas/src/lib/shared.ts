@@ -1,10 +1,10 @@
 // src/schemas/shared.ts
-import { z } from 'zod';
-import validator from 'validator';
 
+import validator from 'validator';
+import { z } from 'zod';
 
 export const ipAddressSchema = z.preprocess(
-  (val) => {
+  val => {
     if (typeof val === 'string' && val.includes(',')) {
       return val.split(',')[0]?.trim() ?? '';
     }
@@ -14,15 +14,20 @@ export const ipAddressSchema = z.preprocess(
     }
     return val;
   },
-  z.string().refine(
-    (ip) => {
-      // Relaxed check: as long as it's a valid IP, "unknown", or looks like a local Docker IP
-      return validator.isIP(ip) || ip === 'unknown' || ip === '127.0.0.1' || ip.startsWith('172.');
-    },
-    { message: 'Invalid IP address' }
-  ).optional().or(z.literal('unknown')) // Fallback so it never crashes the app
+  z
+    .string()
+    .refine(
+      ip => {
+        // Relaxed check: as long as it's a valid IP, "unknown", or looks like a local Docker IP
+        return (
+          validator.isIP(ip) || ip === 'unknown' || ip === '127.0.0.1' || ip.startsWith('172.')
+        );
+      },
+      { message: 'Invalid IP address' },
+    )
+    .optional()
+    .or(z.literal('unknown')), // Fallback so it never crashes the app
 );
-
 
 export const arraysEqual = (a: string[], b: string[]): boolean => {
   if (a.length !== b.length) return false;

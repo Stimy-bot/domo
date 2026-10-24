@@ -13,7 +13,7 @@
 
     <!-- Inline script to set initial theme and prevent FOUC -->
     <script>
-      (function() {
+      (() => {
         const userTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 

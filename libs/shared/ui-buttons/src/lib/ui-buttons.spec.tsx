@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
-import {UiButton} from './ui-button.js';
+import { describe, expect, it } from 'vitest';
+import { UiButton } from './ui-button.js';
 
 describe('UiButton', () => {
   it('should render successfully', () => {

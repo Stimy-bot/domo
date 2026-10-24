@@ -1,17 +1,17 @@
 // libs/shared/utils/src/lib/getGoogleURL.ts
 function getGoogleOAuthURL() {
   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-  
+
   const redirect_uri = process.env.VITE_GOOGLE_OAUTH_REDIRECT_URL;
   const client_id = process.env.VITE_GOOGLE_CLIENT_ID;
 
   // Safety Check
   if (!redirect_uri || !client_id) {
-    console.error("❌ Google OAuth Error: Missing Environment Variables!", {
+    console.error('❌ Google OAuth Error: Missing Environment Variables!', {
       redirect_uri,
-      client_id
+      client_id,
     });
-    return "#error-missing-env"; 
+    return '#error-missing-env';
   }
 
   const options = {

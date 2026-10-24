@@ -30,10 +30,10 @@ function applyTheme(mode: ThemeMode) {
   document.documentElement.style.colorScheme = resolved;
 }
 
-export const useUIStore = create<UIState>((set) => ({
+export const useUIStore = create<UIState>(set => ({
   themeMode: 'auto',
 
-  setThemeMode: (mode) => {
+  setThemeMode: mode => {
     set({ themeMode: mode });
     applyTheme(mode);
     window.localStorage.setItem('theme', mode);

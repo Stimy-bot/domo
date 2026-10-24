@@ -1,5 +1,5 @@
-import { api } from "encore.dev/api";
-import { getDb } from "./encore.service";
+import { api } from 'encore.dev/api';
+import { getDb } from './encore.service';
 
 interface UserLog {
   name: string;
@@ -8,11 +8,11 @@ interface UserLog {
 
 // Example POST endpoint inside the hello service
 export const greetAndLog = api(
-  { expose: true, method: "POST", path: "/hello" },
+  { expose: true, method: 'POST', path: '/hello' },
   async (params: { name: string }): Promise<{ message: string; logId: string }> => {
     // Await the connection pool from our service container
     const db = await getDb();
-    const collection = db.collection<UserLog>("logs");
+    const collection = db.collection<UserLog>('logs');
 
     const newLog = {
       name: params.name,
@@ -25,5 +25,5 @@ export const greetAndLog = api(
       message: `Hello, ${params.name}!`,
       logId: result.insertedId.toString(),
     };
-  }
+  },
 );

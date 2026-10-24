@@ -1,7 +1,8 @@
 // libs/shared/reusableComponents/src/lib/mainLayout.tsx
-import type { ReactNode } from 'react';
-import { UiHeader } from '@domo/ui-header';
+
 import { UiFooter } from '@domo/ui-footer';
+import { UiHeader } from '@domo/ui-header';
+import type { ReactNode } from 'react';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -9,13 +10,12 @@ interface MainLayoutProps {
 
 function MainLayout({ children }: MainLayoutProps) {
   return (
-      <div className="animate-slide-in-left dark:bg-dark-hard bg-white">
-    <UiHeader />
-        {children}
+    <div className="animate-slide-in-left dark:bg-dark-hard bg-white">
+      <UiHeader />
+      {children}
       <UiFooter />
-      </div>
+    </div>
   );
-  
 }
 
 export { MainLayout };

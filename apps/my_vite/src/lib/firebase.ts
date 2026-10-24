@@ -1,7 +1,7 @@
 // client/src/api/firebase.ts
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 const viteEnv = (import.meta as ImportMeta & { env?: Environment }).env;
 
@@ -12,9 +12,7 @@ type GlobalScope = typeof globalThis & {
 };
 
 const getEnvVar = (key: string) => {
-  const globalScope = typeof globalThis !== 'undefined'
-    ? (globalThis as GlobalScope)
-    : undefined;
+  const globalScope = typeof globalThis !== 'undefined' ? (globalThis as GlobalScope) : undefined;
   const processEnv = globalScope?.process?.env;
 
   if (processEnv?.[key] !== undefined) {
@@ -34,32 +32,28 @@ export const firebaseConfig = {
   authDomain: viteEnv?.VITE_FIREBASE_AUTH_DOMAIN ?? getEnvVar('VITE_FIREBASE_AUTH_DOMAIN'),
   projectId: viteEnv?.VITE_FIREBASE_PROJECT_ID ?? getEnvVar('VITE_FIREBASE_PROJECT_ID'),
   storageBucket: viteEnv?.VITE_FIREBASE_STORAGE_BUCKET ?? getEnvVar('VITE_FIREBASE_STORAGE_BUCKET'),
-  messagingSenderId: viteEnv?.VITE_FIREBASE_MESSAGING_SENDER_ID ?? getEnvVar('VITE_FIREBASE_MESSAGING_SENDER_ID'),
+  messagingSenderId:
+    viteEnv?.VITE_FIREBASE_MESSAGING_SENDER_ID ?? getEnvVar('VITE_FIREBASE_MESSAGING_SENDER_ID'),
   appId: viteEnv?.VITE_FIREBASE_APP_ID ?? getEnvVar('VITE_FIREBASE_APP_ID'),
 };
 
 // 🛡️ Safety Check: Prevent crash if keys are missing
-const isConfigValid = !!firebaseConfig.apiKey && firebaseConfig.apiKey !== "undefined";
+const isConfigValid = !!firebaseConfig.apiKey && firebaseConfig.apiKey !== 'undefined';
 
 if (!isConfigValid) {
   console.error(
-    'Firebase API key is missing from the Vite build. Set VITE_FIREBASE_API_KEY in the frontend build environment and redeploy.'
+    'Firebase API key is missing from the Vite build. Set VITE_FIREBASE_API_KEY in the frontend build environment and redeploy.',
   );
 }
 
 // Initialize Firebase (Singleton pattern)
-const app = isConfigValid 
-  ? (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp())
+const app = isConfigValid
+  ? getApps().length === 0
+    ? initializeApp(firebaseConfig)
+    : getApp()
   : null; // Fallback to null to prevent "app undefined" errors
 
 const storage = isConfigValid && app ? getStorage(app) : null;
 const auth = isConfigValid && app ? getAuth(app) : null;
 
-export { 
-  app, 
-  auth, 
-  storage, 
-  ref, 
-  uploadBytes, 
-  getDownloadURL 
-};
+export { app, auth, storage, ref, uploadBytes, getDownloadURL };

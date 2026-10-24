@@ -1,21 +1,17 @@
-import type { FastifyPluginAsync, RouteHandlerMethod } from 'fastify';
-import { 
-  getUserHandler, 
-  updateHandler, 
-  deleteHandler, 
-  deleteAllHandler, 
-  toggleUserActiveStatusHandler, 
-  getUsersHandler, 
+import {
+  deleteAllHandler,
+  deleteHandler,
+  getUserHandler,
+  getUsersHandler,
+  toggleUserActiveStatusHandler,
+  updateHandler,
 } from '@domo/controllers';
+import { authorize, enrichAudit, requireValidTargetId } from '@domo/middleware';
 import { updateSchema } from '@domo/schemas';
-import { 
-  enrichAudit, 
-  authorize, 
-  requireValidTargetId, 
-} from '@domo/middleware';
-import { validateBody } from '@domo/validates'
+import { validateBody } from '@domo/validates';
+import type { FastifyPluginAsync, RouteHandlerMethod } from 'fastify';
 
-const userRoutes: FastifyPluginAsync = async (fastify) => {
+const userRoutes: FastifyPluginAsync = async fastify => {
   // --- 1. Current User Routes (Self) ---
   fastify.get('/', getUserHandler);
 
@@ -31,7 +27,7 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
         enrichAudit('all_accounts_deletion'),
       ],
     },
-    deleteAllHandler
+    deleteAllHandler,
   );
 
   // --- 3. Targeted User Routes (:id) ---
@@ -40,7 +36,7 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
     {
       preHandler: [requireValidTargetId],
     },
-    getUserHandler as RouteHandlerMethod
+    getUserHandler as RouteHandlerMethod,
   );
 
   fastify.patch(
@@ -53,7 +49,7 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
         enrichAudit('user_update'),
       ],
     },
-    updateHandler as RouteHandlerMethod
+    updateHandler as RouteHandlerMethod,
   );
 
   fastify.patch(
@@ -66,7 +62,7 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
         enrichAudit('user_status_change'),
       ],
     },
-    toggleUserActiveStatusHandler as RouteHandlerMethod
+    toggleUserActiveStatusHandler as RouteHandlerMethod,
   );
 
   fastify.patch(
@@ -79,7 +75,7 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
         enrichAudit('user_status_change'),
       ],
     },
-    toggleUserActiveStatusHandler as RouteHandlerMethod
+    toggleUserActiveStatusHandler as RouteHandlerMethod,
   );
 
   fastify.delete(
@@ -91,7 +87,7 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
         enrichAudit('account_deletion'),
       ],
     },
-    deleteHandler as RouteHandlerMethod
+    deleteHandler as RouteHandlerMethod,
   );
 };
 

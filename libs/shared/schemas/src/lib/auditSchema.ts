@@ -1,7 +1,7 @@
 // client/src/schemas/auditSchema.ts
 import { z } from 'zod';
+import { userRefSchema } from './auditLogSchema.js';
 import { ipAddressSchema, objectIdSchema } from './primitives.js';
-import { userRefSchema } from './auditLogSchema.js'
 
 // --- 1. Primitive Schemas ---
 // Use .nullish() because historical data often lacks IPs or has malformed strings
@@ -11,8 +11,8 @@ import { userRefSchema } from './auditLogSchema.js'
 //   .regex(/^[0-9a-fA-F]{24}$/, 'Invalid Mongo ObjectId');
 
 export const isoDateSchema = z.preprocess(
-  (arg) => (typeof arg === 'string' ? new Date(arg) : arg),
-  z.date()
+  arg => (typeof arg === 'string' ? new Date(arg) : arg),
+  z.date(),
 );
 
 // --- 2. Reusable User Reference ---
@@ -32,11 +32,22 @@ export const isoDateSchema = z.preprocess(
 
 // --- 3. Event Types ---
 export const auditEventTypes = [
-  'role_change', 'account_deletion', 'user_login', 'user_logout',
-  'user_register', 'email_verification', 'password_reset', 'custom_event',
-  'user_update', 'user_get_profile', 'create_company',
-  'update_company', 'delete_company', 'user_status_change', 'dashboard_visit',
-  'user_login_failed'
+  'role_change',
+  'account_deletion',
+  'user_login',
+  'user_logout',
+  'user_register',
+  'email_verification',
+  'password_reset',
+  'custom_event',
+  'user_update',
+  'user_get_profile',
+  'create_company',
+  'update_company',
+  'delete_company',
+  'user_status_change',
+  'dashboard_visit',
+  'user_login_failed',
 ] as const;
 
 export const auditEventTypeSchema = z.enum(auditEventTypes);
@@ -69,16 +80,20 @@ export const roleChangeMetadataSchema = z.object({
   newRole: z.string().nullish(),
 });
 
-export const userLoginMetadataSchema = z.object({
-  method: z.enum(['password', 'oauth', 'magic_link', 'user_login_failed']).default('password'),
-  success: z.boolean().default(true),
-  ipAddress: ipAddressSchema,
-  userAgent: z.string().nullish(),
-}).catchall(z.any());
+export const userLoginMetadataSchema = z
+  .object({
+    method: z.enum(['password', 'oauth', 'magic_link', 'user_login_failed']).default('password'),
+    success: z.boolean().default(true),
+    ipAddress: ipAddressSchema,
+    userAgent: z.string().nullish(),
+  })
+  .catchall(z.any());
 
-export const userUpdateMetadataSchema = z.object({
-  fieldsChanged: z.array(z.string()).nullish(),
-}).catchall(z.any());
+export const userUpdateMetadataSchema = z
+  .object({
+    fieldsChanged: z.array(z.string()).nullish(),
+  })
+  .catchall(z.any());
 
 export const emailVerificationMetadataSchema = z.object({
   method: z.union([z.literal('link'), z.literal('code'), z.literal('link_click')]).nullish(),
@@ -86,10 +101,12 @@ export const emailVerificationMetadataSchema = z.object({
   email: z.string().email().nullish(),
 });
 
-export const updateCompanyMetadataSchema = z.object({
-  fieldsChanged: z.array(z.string()).nullish(),
-  companyId: objectIdSchema,
-}).catchall(z.any());
+export const updateCompanyMetadataSchema = z
+  .object({
+    fieldsChanged: z.array(z.string()).nullish(),
+    companyId: objectIdSchema,
+  })
+  .catchall(z.any());
 
 export const customEventMetadataSchema = z.record(z.string(), z.any());
 
@@ -106,7 +123,12 @@ export const auditEventMetadataMap: Record<AuditEventType, z.ZodTypeAny> = {
   custom_event: customEventMetadataSchema,
   user_get_profile: z.object({ viewedBy: userRefSchema.nullish() }),
   user_update: userUpdateMetadataSchema,
-  user_login_failed: z.object({ method: z.string().default('password'), success: z.literal(false).default(false), ipAddress: ipAddressSchema, reason: z.string().nullish() }),
+  user_login_failed: z.object({
+    method: z.string().default('password'),
+    success: z.literal(false).default(false),
+    ipAddress: ipAddressSchema,
+    reason: z.string().nullish(),
+  }),
   create_company: z.object({ companyName: z.string().nullish() }),
   update_company: updateCompanyMetadataSchema,
   delete_company: z.object({ companyId: objectIdSchema, reason: z.string().nullish() }),
@@ -115,39 +137,43 @@ export const auditEventMetadataMap: Record<AuditEventType, z.ZodTypeAny> = {
 
 // --- 6. Helper & Discriminated Union ---
 function makeLogVariant<T extends AuditEventType>(type: T, metadata: z.ZodTypeAny) {
-  return z.object({
-    type: z.literal(type),
-    metadata: metadata,
-  })
-  .merge(baseLogFields) // This ensures _id and createdAt are explicitly part of the type
-.catchall(z.any());
+  return z
+    .object({
+      type: z.literal(type),
+      metadata: metadata,
+    })
+    .merge(baseLogFields) // This ensures _id and createdAt are explicitly part of the type
+    .catchall(z.any());
 }
 
-const auditLogVariants = (Object.keys(auditEventMetadataMap) as AuditEventType[]).map(
-  (type) => makeLogVariant(type, auditEventMetadataMap[type])
+const auditLogVariants = (Object.keys(auditEventMetadataMap) as AuditEventType[]).map(type =>
+  makeLogVariant(type, auditEventMetadataMap[type]),
 );
 
 export const auditLogSchema = z.discriminatedUnion(
   'type',
-  auditLogVariants as [typeof auditLogVariants[number], ...typeof auditLogVariants[number][]]
+  auditLogVariants as [(typeof auditLogVariants)[number], ...(typeof auditLogVariants)[number][]],
 );
 
 export const auditLogListSchema = z.array(auditLogSchema);
 export type AuditLog = z.infer<typeof auditLogSchema>;
 
 // --- 7. Create Input Schema ---
-const createAuditLogVariants = (Object.keys(auditEventMetadataMap) as AuditEventType[]).map(
-  (type) => z.object({
+const createAuditLogVariants = (Object.keys(auditEventMetadataMap) as AuditEventType[]).map(type =>
+  z.object({
     type: z.literal(type),
     metadata: auditEventMetadataMap[type],
     actor: userRefSchema.nullish(),
     target: userRefSchema.nullish(),
-  })
+  }),
 );
 
 export const createAuditLogInputSchema = z.discriminatedUnion(
   'type',
-  createAuditLogVariants as [typeof createAuditLogVariants[number], ...typeof createAuditLogVariants[number][]]
+  createAuditLogVariants as [
+    (typeof createAuditLogVariants)[number],
+    ...(typeof createAuditLogVariants)[number][],
+  ],
 );
 
 export type CreateAuditLogInput = z.infer<typeof createAuditLogInputSchema>;

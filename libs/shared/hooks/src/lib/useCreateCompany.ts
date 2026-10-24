@@ -1,8 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
-import {useAuth} from './useAuth';
 import { createCompany } from '@domo/client';
-import { createCompanySchema, type CreateCompany } from '@domo/schemas';
+import { type CreateCompany, createCompanySchema } from '@domo/schemas';
 import { validateZod } from '@domo/validates';
+import { useMutation } from '@tanstack/react-query';
+import { useAuth } from './useAuth';
 
 export const useCreateCompany = () => {
   const { user } = useAuth();

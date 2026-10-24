@@ -71,6 +71,5 @@ export const navbarLinks: NavLink[] = [
   // Guest-only
   { title: 'Comments', link: ROUTES.COMMENTS, role: [] },
   { title: 'Register', link: ROUTES.REGISTER, role: [] },
-    { title: 'Login', link: ROUTES.LOGIN, role: [] },
-
+  { title: 'Login', link: ROUTES.LOGIN, role: [] },
 ];

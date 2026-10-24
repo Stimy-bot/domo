@@ -17,18 +17,14 @@ export interface AuthState {
   isAuthenticated: boolean;
 
   // Actions
-  login: (payload: {
-    user: User;
-    accessToken: string;
-    refreshToken: string;
-  }) => void;
+  login: (payload: { user: User; accessToken: string; refreshToken: string }) => void;
 
   logout: () => void;
 
   hydrate: () => void;
 }
 
- export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>(set => ({
   user: null,
   accessToken: null,
   refreshToken: null,
@@ -85,6 +81,5 @@ export interface AuthState {
     });
   },
 }));
-
 
 export type AuthStoreState = ReturnType<typeof useAuthStore.getState>;

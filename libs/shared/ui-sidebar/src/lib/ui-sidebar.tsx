@@ -1,14 +1,7 @@
-import React, { useState } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import  cn   from './cn';
-import { 
-  Home, 
-  BarChart2, 
-  Settings, 
-  Users, 
-  ChevronLeft, 
-  Menu 
-} from 'lucide-react';
+import { BarChart2, ChevronLeft, Home, Menu, Settings, Users } from 'lucide-react';
+import React, { useState } from 'react';
+import cn from './cn';
 
 export interface SidebarItem {
   label: string;
@@ -30,23 +23,23 @@ interface SidebarLinkProps extends React.ComponentPropsWithoutRef<'a'> {
   active?: boolean;
 }
 
- const SidebarLink = React.forwardRef<HTMLAnchorElement, SidebarLinkProps>(
+const SidebarLink = React.forwardRef<HTMLAnchorElement, SidebarLinkProps>(
   ({ className, asChild = false, active, ...props }, ref) => {
     const Comp = asChild ? Slot : 'a';
     return (
       <Comp
         ref={ref}
         className={cn(
-          "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group",
-          active 
-            ? "bg-dark-hard text-dark-light" 
-            : "text-slate-400 hover:bg-slate-800 hover:text-slate-100",
-          className
+          'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group',
+          active
+            ? 'bg-dark-hard text-dark-light'
+            : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100',
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
 SidebarLink.displayName = 'SidebarLink';
 
@@ -54,19 +47,21 @@ export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <aside 
+    <aside
       className={cn(
-        "flex flex-col h-screen pt-20 bg-dark-hard text-slate-100 border-r border-slate-800 transition-all duration-300 ease-in-out",
-        isCollapsed ? "w-16" : "w-64"
+        'flex flex-col h-screen pt-20 bg-dark-hard text-slate-100 border-r border-slate-800 transition-all duration-300 ease-in-out',
+        isCollapsed ? 'w-16' : 'w-64',
       )}
     >
       {/* Header Area */}
       <div className="flex items-center justify-between h-16 px-4 border-b border-slate-800">
-        {!isCollapsed && <span className="font-bold text-lg tracking-wide text-indigo-400">Workspace</span>}
-        <button 
+        {!isCollapsed && (
+          <span className="font-bold text-lg tracking-wide text-indigo-400">Workspace</span>
+        )}
+        <button
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-100 transition-colors"
-          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           {isCollapsed ? <Menu size={18} /> : <ChevronLeft size={18} />}
         </button>
@@ -74,23 +69,23 @@ export function Sidebar() {
 
       {/* Navigation Items */}
       <nav className="flex-1 py-4 space-y-1 px-2">
-        {defaultNavigation.map((item) => {
+        {defaultNavigation.map(item => {
           const Icon = item.icon;
           return (
-            <SidebarLink
-              key={item.label}
-              href={item.href}
-              active={item.active}
-            >
-              <Icon className={cn(
-                "h-5 w-5 shrink-0",
-                item.active ? "text-white" : "text-slate-400 group-hover:text-slate-100"
-              )} />
-              
-              <span className={cn(
-                "transition-opacity duration-200 whitespace-nowrap",
-                isCollapsed ? "opacity-0 pointer-events-none w-0" : "opacity-100"
-              )}>
+            <SidebarLink key={item.label} href={item.href} active={item.active}>
+              <Icon
+                className={cn(
+                  'h-5 w-5 shrink-0',
+                  item.active ? 'text-white' : 'text-slate-400 group-hover:text-slate-100',
+                )}
+              />
+
+              <span
+                className={cn(
+                  'transition-opacity duration-200 whitespace-nowrap',
+                  isCollapsed ? 'opacity-0 pointer-events-none w-0' : 'opacity-100',
+                )}
+              >
                 {item.label}
               </span>
             </SidebarLink>

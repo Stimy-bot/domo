@@ -1,9 +1,9 @@
 // libs/shared/reusableComponents/src/lib/handleClickOutsideDropdown.tsx
-import { useEffect, type RefObject } from 'react';
+import { type RefObject, useEffect } from 'react';
 
 function HandleClickOutsideDropdown(
   ref: RefObject<HTMLElement>,
-  handler: (event: MouseEvent | TouchEvent) => void
+  handler: (event: MouseEvent | TouchEvent) => void,
 ): void {
   useEffect(() => {
     const handleEvent = (event: MouseEvent | TouchEvent) => {

@@ -1,10 +1,10 @@
 // libs/shared/schemas/src/lib/auditLogSchema.ts
-import { z, ZodObject, type ZodRawShape } from 'zod';
+import { type ZodObject, type ZodRawShape, z } from 'zod';
 import {
-  objectIdSchema,
-  isoDateStringSchema,
   ipAddressSchema,
-  optionalTrimmedString
+  isoDateStringSchema,
+  objectIdSchema,
+  optionalTrimmedString,
 } from './primitives.js';
 
 //
@@ -13,7 +13,7 @@ import {
 export const userRefSchema = z.object({
   _id: objectIdSchema.optional(),
   email: optionalTrimmedString,
-  fullName: optionalTrimmedString
+  fullName: optionalTrimmedString,
 });
 
 //
@@ -50,19 +50,21 @@ export type AuditEventType = z.infer<typeof auditEventTypeSchema>;
 // 3. Per-Event Metadata Schemas (use objectIdSchema for id fields)
 //
 
-export const otp_resendMetadataSchema = z.object({
-  method: z.enum(['manual', 'timeout', 'forced']),
-}).catchall(z.unknown());
+export const otp_resendMetadataSchema = z
+  .object({
+    method: z.enum(['manual', 'timeout', 'forced']),
+  })
+  .catchall(z.unknown());
 
 export const otp_failedMetadataSchema = z.object({
   method: z.enum(['manual', 'timeout', 'forced']),
-  sessionId: z.string().optional()
+  sessionId: z.string().optional(),
 });
 
 export const otpRequestMetadataSchema = z.object({
   method: z.enum(['manual', 'timeout', 'forced']),
   sessionId: z.string().optional(),
-  phone: z.string().optional(),        // Add this
+  phone: z.string().optional(), // Add this
 });
 
 export const smsDeliveryCallbackMetadataSchema = z.object({
@@ -99,84 +101,84 @@ export const roleChangeMetadataSchema = z.object({
   previousRole: z.string(),
   newRole: z.string(),
   changedBy: objectIdSchema,
-})
+});
 
 export const accountDeletionMetadataSchema = z.object({
   reason: z.enum(['user_request', 'admin_action', 'inactivity']),
-  deletedBy: objectIdSchema
+  deletedBy: objectIdSchema,
 });
 
 export const userLoginMetadataSchema = z.object({
   method: z.enum(['password', 'oauth', 'user_login_failed', 'magic_link']),
   userAgent: z.string().optional(),
-  success: z.boolean()
+  success: z.boolean(),
 });
 
 export const userLogoutMetadataSchema = z.object({
   method: z.enum(['manual', 'timeout', 'forced']),
-  sessionId: z.string().optional()
+  sessionId: z.string().optional(),
 });
 
 export const userRegisterMetadataSchema = z.object({
   method: z.enum(['manual', 'oauth', 'invite', 'sms']),
-  sessionId: z.string().optional()
+  sessionId: z.string().optional(),
 });
 
 export const emailVerificationMetadataSchema = z.object({
   method: z.enum(['link_click', 'code_entry']),
   verificationId: z.string(),
-  email: z.string().email()
+  email: z.string().email(),
 });
 
 export const passwordResetMetadataSchema = z.object({
   resetMethod: z.enum(['email', 'sms']),
   resetToken: z.string(),
-  success: z.boolean()
+  success: z.boolean(),
 });
 
 export const userUpdateMetadataSchema = z.object({
   method: z.enum(['manual', 'oauth', 'link_click', 'webhook', 'sms', 'passwordless']),
   sessionId: z.string().optional(),
-  success: z.boolean().optional()
+  success: z.boolean().optional(),
 });
 
 export const customEventMetadataSchema = z.record(z.string(), z.any());
 
 export const userGetProfileMetadataSchema = z.object({
-  success: z.boolean()
+  success: z.boolean(),
 });
 
 export const createCompanyMetadataSchema = z.object({
   companyName: z.string(),
-  companyId: objectIdSchema
+  companyId: objectIdSchema,
 });
 
 export const updateCompanyMetadataSchema = z.object({
   companyId: objectIdSchema,
-  updatedFields: z.array(z.string())
+  updatedFields: z.array(z.string()),
 });
 
 export const deleteCompanyMetadataSchema = z.object({
   companyId: objectIdSchema,
-  companyName: z.string()
+  companyName: z.string(),
 });
 
 export const userStatusChangeMetadataSchema = z.object({
   previousStatus: z.boolean().optional(),
   newStatus: z.boolean().optional(),
   changedBy: objectIdSchema.optional(),
-  reason: z.string().optional()
+  reason: z.string().optional(),
 });
 
 export const allAccountsDeletionMetadataSchema = z.object({
-  method: z.string().optional(),     // e.g. 'manual'
+  method: z.string().optional(), // e.g. 'manual'
   success: z.boolean(),
   reason: z.string().optional(),
   deletedCount: z.number(),
 });
 
 export const otpVerificationMetadataSchema = z.object({
-  method: z.string().optional(),     // e.g. 'manual'
+  method: z.string().optional(), // e.g. 'manual'
   success: z.boolean(),
   reason: z.string().optional(),
 });
@@ -191,7 +193,7 @@ export type UserLoginMetadata = z.infer<typeof userLoginMetadataSchema>;
 const baseEvent = z.object({
   actor: userRefSchema.optional(),
   target: userRefSchema.optional(),
-  ip: ipAddressSchema.optional()
+  ip: ipAddressSchema.optional(),
 });
 
 //
@@ -199,10 +201,12 @@ const baseEvent = z.object({
 //
 // Replace your makeCreate with this
 const makeCreate = (typeLiteral: AuditEventType, metaSchema: z.ZodType) =>
-  z.object({
-    type: z.literal(typeLiteral),
-    metadata: metaSchema
-  }).extend(baseEvent.shape);
+  z
+    .object({
+      type: z.literal(typeLiteral),
+      metadata: metaSchema,
+    })
+    .extend(baseEvent.shape);
 
 export const createAuditLogInputSchema = z.discriminatedUnion('type', [
   makeCreate('user_register_conflict', userRegisterConflictMetadataSchema),
@@ -227,7 +231,7 @@ export const createAuditLogInputSchema = z.discriminatedUnion('type', [
   makeCreate('delete_company', deleteCompanyMetadataSchema),
   makeCreate('user_status_change', userStatusChangeMetadataSchema),
   makeCreate('all_accounts_deletion', allAccountsDeletionMetadataSchema),
-  makeCreate('dashboard_visit', dashboardVisitMetadataSchema)
+  makeCreate('dashboard_visit', dashboardVisitMetadataSchema),
 ]);
 
 export type CreateAuditLogInput = z.infer<typeof createAuditLogInputSchema>;
@@ -238,37 +242,138 @@ export type CreateAuditLogInput = z.infer<typeof createAuditLogInputSchema>;
 const withMeta = <T extends ZodObject<ZodRawShape>>(schema: T) =>
   schema.extend({
     _id: objectIdSchema,
-    createdAt: isoDateStringSchema
+    createdAt: isoDateStringSchema,
   });
 
 export const auditLogSchema = z.discriminatedUnion('type', [
-  withMeta(z.object({ type: z.literal('user_register_conflict'), metadata: userRegisterConflictMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('otp_resend'), metadata: otp_resendMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('otp_failed'), metadata: otp_failedMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('otp_request'), metadata: otpRequestMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('sms_delivery_callback'), metadata: smsDeliveryCallbackMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('otp_verification'), metadata: otpVerificationMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('dashboard_visit'), metadata: dashboardVisitMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('user_get_profile'), metadata: userGetProfileMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('role_change'), metadata: roleChangeMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('account_deletion'), metadata: accountDeletionMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('user_login'), metadata: userLoginMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('user_login_failed'), metadata: userLoginMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('user_logout'), metadata: userLogoutMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('user_register'), metadata: userRegisterMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('email_verification'), metadata: emailVerificationMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('password_reset'), metadata: passwordResetMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('user_update'), metadata: userUpdateMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('custom_event'), metadata: customEventMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('create_company'), metadata: createCompanyMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('update_company'), metadata: updateCompanyMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('delete_company'), metadata: deleteCompanyMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('user_status_change'), metadata: userStatusChangeMetadataSchema }).extend(baseEvent.shape)),
-  withMeta(z.object({ type: z.literal('all_accounts_deletion'), metadata: allAccountsDeletionMetadataSchema }).extend(baseEvent.shape))
+  withMeta(
+    z
+      .object({
+        type: z.literal('user_register_conflict'),
+        metadata: userRegisterConflictMetadataSchema,
+      })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('otp_resend'), metadata: otp_resendMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('otp_failed'), metadata: otp_failedMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('otp_request'), metadata: otpRequestMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({
+        type: z.literal('sms_delivery_callback'),
+        metadata: smsDeliveryCallbackMetadataSchema,
+      })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('otp_verification'), metadata: otpVerificationMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('dashboard_visit'), metadata: dashboardVisitMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('user_get_profile'), metadata: userGetProfileMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('role_change'), metadata: roleChangeMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('account_deletion'), metadata: accountDeletionMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('user_login'), metadata: userLoginMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('user_login_failed'), metadata: userLoginMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('user_logout'), metadata: userLogoutMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('user_register'), metadata: userRegisterMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('email_verification'), metadata: emailVerificationMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('password_reset'), metadata: passwordResetMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('user_update'), metadata: userUpdateMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('custom_event'), metadata: customEventMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('create_company'), metadata: createCompanyMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('update_company'), metadata: updateCompanyMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('delete_company'), metadata: deleteCompanyMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({ type: z.literal('user_status_change'), metadata: userStatusChangeMetadataSchema })
+      .extend(baseEvent.shape),
+  ),
+  withMeta(
+    z
+      .object({
+        type: z.literal('all_accounts_deletion'),
+        metadata: allAccountsDeletionMetadataSchema,
+      })
+      .extend(baseEvent.shape),
+  ),
 ]);
 
 export type AuditLog = z.infer<typeof auditLogSchema>;
-const auditLogEntryPreprocess = z.preprocess((val) => {
+const auditLogEntryPreprocess = z.preprocess(val => {
   if (!val || typeof val !== 'object') return val;
   const entry = { ...val } as Record<string, unknown>;
   // Ensure metadata exists so the Discriminated Union doesn't choke
@@ -276,7 +381,8 @@ const auditLogEntryPreprocess = z.preprocess((val) => {
   return entry;
 }, auditLogSchema);
 
-export const auditLogListSchema = z.array(auditLogEntryPreprocess); export type AuditLogList = z.infer<typeof auditLogListSchema>;
+export const auditLogListSchema = z.array(auditLogEntryPreprocess);
+export type AuditLogList = z.infer<typeof auditLogListSchema>;
 
 //
 // 7. Audit Log Filter Schema
@@ -293,10 +399,10 @@ export const auditLogFilterSchema = z.object({
       gt: isoDateStringSchema.optional(),
       gte: isoDateStringSchema.optional(),
       lt: isoDateStringSchema.optional(),
-      lte: isoDateStringSchema.optional()
+      lte: isoDateStringSchema.optional(),
     })
     .optional(),
-  limit: z.coerce.number().int().positive().optional()
+  limit: z.coerce.number().int().positive().optional(),
 });
 
 export type AuditLogFilter = z.infer<typeof auditLogFilterSchema>;

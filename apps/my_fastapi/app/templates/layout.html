@@ -461,12 +461,12 @@
     </script>
     <!-- Create Post Form Handler -->
     <script type="module">
+      import { getToken } from '/static/js/auth.js';
       import {
         getErrorMessage,
         hideModal,
         showModal,
       } from '/static/js/utils.js';
-      import { getToken } from '/static/js/auth.js';
 
       const createForm = document.getElementById('createPostForm');
 

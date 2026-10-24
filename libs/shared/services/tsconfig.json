@@ -1,7 +1,7 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-"composite": true,
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
     "outDir": "../../../dist/out-tsc"
@@ -11,7 +11,7 @@
     "src/**/*.tsx",
     "types/**/*.d.ts",
     "../../../config/src/env.client.ts",
-    "../../../utils/src/jwt.client.ts",
+    "../../../utils/src/jwt.client.ts"
   ],
   "references": [
     {

@@ -1,11 +1,12 @@
 // libs/shared/hooks/src/lib/useUpdateProfilePicture.ts
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getDownloadURL, ref, uploadBytes, deleteObject } from 'firebase/storage';
-import { storage } from '@domo/firebase';
+
 import { update } from '@domo/client';
-import { useAuth } from './useAuth';
-import { useRef, useState } from 'react';
+import { storage } from '@domo/firebase';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import imageCompression from 'browser-image-compression';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { useRef, useState } from 'react';
+import { useAuth } from './useAuth';
 
 type MinimalUser = {
   id?: string;
@@ -22,7 +23,7 @@ function useUpdateProfilePicture(userId: string) {
   const user = auth?.user;
 
   const [currentPicture, setCurrentPicture] = useState<string | null>(
-    user?.profilePicture || user?.data?.profilePicture || null
+    user?.profilePicture || user?.data?.profilePicture || null,
   );
 
   // Standardize the ID lookup
@@ -39,7 +40,7 @@ function useUpdateProfilePicture(userId: string) {
         maxSizeMB: 0.1,
         maxWidthOrHeight: 800,
         useWebWorker: true,
-        fileType: 'image/webp'
+        fileType: 'image/webp',
       };
       const compressedFile = await imageCompression(file, options);
 
@@ -95,7 +96,7 @@ function useUpdateProfilePicture(userId: string) {
       queryClient.invalidateQueries({ queryKey: ['auth'] });
       queryClient.invalidateQueries({ queryKey: ['users'] });
     },
-    onError: (err: Error) => alert(err.message)
+    onError: (err: Error) => alert(err.message),
   });
 
   const deleteMutation = useMutation({
@@ -104,7 +105,7 @@ function useUpdateProfilePicture(userId: string) {
       queryClient.invalidateQueries({ queryKey: ['auth'] });
       queryClient.invalidateQueries({ queryKey: ['users'] });
     },
-    onError: () => alert('Failed to remove image.')
+    onError: () => alert('Failed to remove image.'),
   });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,7 +118,7 @@ function useUpdateProfilePicture(userId: string) {
         onSettled: () => {
           // revoke object URL after upload settles to avoid memory leak
           URL.revokeObjectURL(objectUrl);
-        }
+        },
       });
     }
     // clear the input value so the same file can be selected again
@@ -140,7 +141,7 @@ function useUpdateProfilePicture(userId: string) {
     imageRef,
     currentPicture,
     setCurrentPicture,
-    clearPicture
+    clearPicture,
   };
 }
 

@@ -1,8 +1,8 @@
 // apps/my_vite/src/pages/Login.tsx
-import { AppLogin } from '@domo/forms'
+import { AppLogin } from '@domo/forms';
 
 function Login() {
-return < AppLogin />;
+  return <AppLogin />;
 }
 
-export {Login};
+export { Login };

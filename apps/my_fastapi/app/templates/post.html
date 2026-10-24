@@ -106,7 +106,7 @@
 {% block scripts %}
     <script type="module">
     import { getCurrentUser, getToken } from '/static/js/auth.js';
-    import { getErrorMessage, showModal, hideModal } from '/static/js/utils.js';
+    import { getErrorMessage, hideModal, showModal } from '/static/js/utils.js';
 
     const postId = {{ post.id }};
     const postUserId = {{ post.user_id }};

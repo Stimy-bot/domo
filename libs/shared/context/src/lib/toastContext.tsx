@@ -1,4 +1,5 @@
-import React, { createContext, useCallback, useMemo, useState } from 'react';
+import type React from 'react';
+import { createContext, useCallback, useMemo, useState } from 'react';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 
@@ -22,20 +23,19 @@ export const ToastProvider: React.FC<React.PropsWithChildren<object>> = ({ child
 
   const addToast = useCallback((t: Omit<Toast, 'id'>) => {
     const id = String(Date.now());
-    setToasts((s) => [...s, { id, ...t }]);
+    setToasts(s => [...s, { id, ...t }]);
     // auto remove after 5s
-    setTimeout(() => setToasts((s) => s.filter((x) => x.id !== id)), 5000);
+    setTimeout(() => setToasts(s => s.filter(x => x.id !== id)), 5000);
   }, []);
 
   const removeToast = useCallback((id: string) => {
-    setToasts((s) => s.filter((x) => x.id !== id));
+    setToasts(s => s.filter(x => x.id !== id));
   }, []);
 
-  const value = useMemo<ToastContextType>(() => ({ toasts, addToast, removeToast }), [toasts, addToast, removeToast]);
-
-  return (
-    <ToastContext.Provider value={value}>
-      {children}
-    </ToastContext.Provider>
+  const value = useMemo<ToastContextType>(
+    () => ({ toasts, addToast, removeToast }),
+    [toasts, addToast, removeToast],
   );
+
+  return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>;
 };

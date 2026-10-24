@@ -1,10 +1,10 @@
-import { FastifyPluginAsync, FastifyRequest } from 'fastify';
-import { ObjectId } from 'mongodb';
-import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OK } from '@domo/types';
 import { rolePermissions } from '@domo/config';
-import { UserEntity, RoleType } from '@domo/models';
+import { authenticateHook, authorize, requireValidTargetId } from '@domo/middleware';
+import type { RoleType, UserEntity } from '@domo/models';
 import { logAuthEvent } from '@domo/services';
-import { authenticateHook, requireValidTargetId, authorize } from '@domo/middleware';
+import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OK } from '@domo/types';
+import type { FastifyPluginAsync, FastifyRequest } from 'fastify';
+import { ObjectId } from 'mongodb';
 
 type ParamsId = { id: string };
 type PatchBody = { role?: string };
@@ -16,11 +16,12 @@ type AuthenticatedRequest = FastifyRequest & {
     email?: string;
     fullName?: string;
   };
-}
+};
 
 const auditActorFromReq = (req: FastifyRequest) => {
   const authReq = req as AuthenticatedRequest;
-  const rawUser = authReq.user ?? (req.raw as unknown as { user?: AuthenticatedRequest['user'] })?.user;
+  const rawUser =
+    authReq.user ?? (req.raw as unknown as { user?: AuthenticatedRequest['user'] })?.user;
 
   return {
     _id: String(rawUser?.id ?? rawUser?._id ?? ''),
@@ -29,7 +30,7 @@ const auditActorFromReq = (req: FastifyRequest) => {
   };
 };
 
-const roleRoutes: FastifyPluginAsync = async (fastify) => {
+const roleRoutes: FastifyPluginAsync = async fastify => {
   fastify.get('/', async (_req, reply) => {
     const roles = Object.entries(rolePermissions).map(([name, permissions]) => ({
       name,
@@ -41,18 +42,16 @@ const roleRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.patch(
     '/user/:id/role',
     {
-      preHandler: [
-        authenticateHook,
-        authorize('canChangeAnyUserRole'),
-        requireValidTargetId,
-      ],
+      preHandler: [authenticateHook, authorize('canChangeAnyUserRole'), requireValidTargetId],
     },
     async (req: FastifyRequest<{ Params: ParamsId; Body: PatchBody }>, reply) => {
       const { id } = req.params;
       const { role } = req.body ?? {};
 
       if (!fastify.mongo?.db) {
-        return reply.status(INTERNAL_SERVER_ERROR).send({ error: 'Database connection not initialized' });
+        return reply
+          .status(INTERNAL_SERVER_ERROR)
+          .send({ error: 'Database connection not initialized' });
       }
 
       if (!ObjectId.isValid(id)) {
@@ -61,7 +60,9 @@ const roleRoutes: FastifyPluginAsync = async (fastify) => {
 
       const validRoles = Object.keys(rolePermissions);
       const normalizedRole = typeof role === 'string' ? role.trim().toLowerCase() : '';
-      const matchedRole = validRoles.find((r) => r.toLowerCase() === normalizedRole) as RoleType | undefined;
+      const matchedRole = validRoles.find(r => r.toLowerCase() === normalizedRole) as
+        | RoleType
+        | undefined;
 
       if (!matchedRole) {
         return reply
@@ -86,7 +87,7 @@ const roleRoutes: FastifyPluginAsync = async (fastify) => {
               updatedAt: new Date(),
             },
           },
-          { returnDocument: 'after' }
+          { returnDocument: 'after' },
         );
 
         if (!updatedUser) {
@@ -112,7 +113,7 @@ const roleRoutes: FastifyPluginAsync = async (fastify) => {
         fastify.log.error({ err }, 'Error updating role');
         return reply.status(INTERNAL_SERVER_ERROR).send({ error: 'Internal server error' });
       }
-    }
+    },
   );
 };
 

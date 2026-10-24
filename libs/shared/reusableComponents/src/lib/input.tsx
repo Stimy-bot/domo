@@ -1,12 +1,14 @@
 // libs/shared/reusableComponents/src/lib/input.tsx
-import React, { forwardRef, useState } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import type { ReactNode } from 'react';
+
 import { cn } from '@domo/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+import type React from 'react';
+import type { ReactNode } from 'react';
+import { forwardRef, useState } from 'react';
 
 interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
-  VariantProps<typeof inputVariants> {
+    VariantProps<typeof inputVariants> {
   children?: ReactNode;
 }
 
@@ -37,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {isPasswordType && (
           <button
             type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
+            onClick={() => setShowPassword(prev => !prev)}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
             aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
@@ -83,16 +85,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 const inputVariants = cva('rounded-lg', {
   variants: {
     variant: {
-      primary:
-        'placeholder:text-[#959ead] text-dark-hard font-semibold border mt-2',
-      secondary:
-        'text-dark-light p-2 bg-dark-hard hover:text-white border-1 mb-2',
+      primary: 'placeholder:text-[#959ead] text-dark-hard font-semibold border mt-2',
+      secondary: 'text-dark-light p-2 bg-dark-hard hover:text-white border-1 mb-2',
     },
     customSize: {
       sm: 'text-sm px-1 py-0',

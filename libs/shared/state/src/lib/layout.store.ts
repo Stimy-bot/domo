@@ -19,10 +19,10 @@ interface LayoutState {
   closeMobileMenu: () => void;
 }
 
-export const useLayoutStore = create<LayoutState>((set) => ({
+export const useLayoutStore = create<LayoutState>(set => ({
   // Sidebar
   sidebarOpen: false,
-  toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
+  toggleSidebar: () => set(s => ({ sidebarOpen: !s.sidebarOpen })),
   openSidebar: () => set({ sidebarOpen: true }),
   closeSidebar: () => set({ sidebarOpen: false }),
 
@@ -33,10 +33,9 @@ export const useLayoutStore = create<LayoutState>((set) => ({
 
   // Mobile menu
   mobileMenuOpen: false,
-  toggleMobileMenu: () => set((s) => ({ mobileMenuOpen: !s.mobileMenuOpen })),
+  toggleMobileMenu: () => set(s => ({ mobileMenuOpen: !s.mobileMenuOpen })),
   openMobileMenu: () => set({ mobileMenuOpen: true }),
   closeMobileMenu: () => set({ mobileMenuOpen: false }),
 }));
-
 
 export type LayoutStoreState = ReturnType<typeof useLayoutStore.getState>;

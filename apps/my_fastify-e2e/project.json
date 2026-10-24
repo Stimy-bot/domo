@@ -5,7 +5,8 @@
   "implicitDependencies": ["@domo/my_fastify"],
   "targets": {
     "test": {
-      "executor": "@nx/js:test",      "options": {
+      "executor": "@nx/js:test",
+      "options": {
         "config": "apps/my_fastify-e2e/playwright.config.ts"
       }
     }

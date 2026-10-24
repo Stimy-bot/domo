@@ -1,16 +1,23 @@
 // libs/shared/forms/src/lib/appForgot.tsx
-import { MainLayout, EmailInput, FormFactory, type FieldConfig, type SubmissionResult } from "@domo/reusableComponents";
-import { sendPasswordResetEmail } from "@domo/client";
-import { useMutation } from "@tanstack/react-query";
+
+import { sendPasswordResetEmail } from '@domo/client';
+import {
+  EmailInput,
+  type FieldConfig,
+  FormFactory,
+  MainLayout,
+  type SubmissionResult,
+} from '@domo/reusableComponents';
+import { useMutation } from '@tanstack/react-query';
 
 type ForgotFormValues = {
   email: string;
-}
+};
 
- function AppForgot() {
+function AppForgot() {
   const forgotFormOptions = {
     defaultValues: {
-      email: ""
+      email: '',
     },
   };
   // Use mutateAsync so we can await the result and return a SubmissionResult
@@ -18,7 +25,11 @@ type ForgotFormValues = {
     mutationFn: sendPasswordResetEmail,
   });
 
-  const handleForgotSubmit = async ({ value }: { value: ForgotFormValues }): Promise<SubmissionResult> => {
+  const handleForgotSubmit = async ({
+    value,
+  }: {
+    value: ForgotFormValues;
+  }): Promise<SubmissionResult> => {
     try {
       // Trigger the mutation
       await sendPasswordReset(value.email);
@@ -26,31 +37,32 @@ type ForgotFormValues = {
       // Return success: FormFactory will show the toast and redirect to login
       return {
         success: true,
-        message: "Check your inbox for a reset link!",
-        redirect: "/login",
+        message: 'Check your inbox for a reset link!',
+        redirect: '/login',
       };
     } catch (error: any) {
-      const errorMessage = error.response?.data?.error || error.message || "Failed to send reset email.";
+      const errorMessage =
+        error.response?.data?.error || error.message || 'Failed to send reset email.';
 
-      console.error("Submission error:", errorMessage);
+      console.error('Submission error:', errorMessage);
 
       return {
         success: false,
-        message: errorMessage
+        message: errorMessage,
       };
     }
   };
 
   const forgotFieldsConfig: FieldConfig<ForgotFormValues>[] = [
     {
-      name: "email",
-      label: "Email",
-      placeholder: "Enter Email",
+      name: 'email',
+      label: 'Email',
+      placeholder: 'Enter Email',
       component: EmailInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
         onChangeAsync: ({ value }: { value: string }) =>
-          !value.includes("@") ? "Invalid email address" : undefined,
+          !value.includes('@') ? 'Invalid email address' : undefined,
       },
     },
   ];
@@ -80,4 +92,4 @@ type ForgotFormValues = {
   );
 }
 
-export { AppForgot }
+export { AppForgot };

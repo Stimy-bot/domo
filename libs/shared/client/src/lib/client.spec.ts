@@ -1,5 +1,5 @@
+import { describe, expect, it } from 'vitest';
 import { client } from './client.js';
-import { describe, it, expect } from 'vitest'
 
 describe('client', () => {
   it('should work', () => {

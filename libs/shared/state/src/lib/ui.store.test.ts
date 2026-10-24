@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { useUIStore } from './ui.store';
 
 describe('UI Store - Theme Mode', () => {
@@ -23,4 +23,3 @@ describe('UI Store - Theme Mode', () => {
     expect(setItem).toHaveBeenCalledWith('theme', 'dark');
   });
 });
-

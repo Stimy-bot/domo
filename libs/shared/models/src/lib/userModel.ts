@@ -1,7 +1,8 @@
 // libs/shared/models/src/lib/userModel.ts
-import { ObjectId, type Db } from 'mongodb';
+
 import { rolePermissions } from '@domo/constants';
-import { randomBytes, scrypt as _scrypt, timingSafeEqual } from 'crypto';
+import { scrypt as _scrypt, randomBytes, timingSafeEqual } from 'crypto';
+import type { Db, ObjectId } from 'mongodb';
 import { promisify } from 'util';
 
 const scrypt = promisify(_scrypt);
@@ -23,7 +24,6 @@ export async function compareValue(value: string, stored: string): Promise<boole
   if (derived.length !== key.length) return false;
   return timingSafeEqual(derived, key);
 }
-
 
 export const ROLES = ['user', 'admin', 'superAdmin'] as const;
 export type RoleType = (typeof ROLES)[number];
@@ -47,9 +47,9 @@ export interface UserInput {
   age?: number;
   gender?: GenderType;
   birthDate?: Date;
-    ip?: string;
-    phoneVerified?: boolean;
-    active?: boolean;
+  ip?: string;
+  phoneVerified?: boolean;
+  active?: boolean;
   bio?: string;
   phone?: string;
   carrier?: 'att' | 'verizon' | 'tmobile';
@@ -106,7 +106,7 @@ export function getUserFullName(user: Pick<UserEntity, 'firstName' | 'lastName'>
 
 export function getUserPermissions(roles: RoleType[] = []): string[] {
   const permissionSet = new Set<string>();
-  roles.forEach((role) => {
+  roles.forEach(role => {
     const perms = rolePermissions[role];
     if (perms) perms.forEach((p: string) => permissionSet.add(p));
   });
@@ -151,8 +151,7 @@ export async function buildUserDocument(input: UserInput): Promise<Omit<UserEnti
     lastName: input.lastName?.trim() ?? '',
     ...(hashedPassword && { password: hashedPassword }),
     verified: false,
-    profilePicture:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png',
+    profilePicture: 'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png',
     isAdmin: false,
     role: ['user'],
     active: true,

@@ -1,6 +1,6 @@
-import { GoogleMap, MarkerF, InfoWindowF, useLoadScript } from "@react-google-maps/api";
-import { useState, useMemo, useRef, useEffect } from "react";
-import type { Marker } from "@domo/hooks";
+import type { Marker } from '@domo/hooks';
+import { GoogleMap, InfoWindowF, MarkerF, useLoadScript } from '@react-google-maps/api';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 interface MapComponentProps {
   markers: Marker[];
@@ -8,10 +8,16 @@ interface MapComponentProps {
   width?: string;
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({ markers, height = "600px", width = "100%" }) => {
+const MapComponent: React.FC<MapComponentProps> = ({
+  markers,
+  height = '600px',
+  width = '100%',
+}) => {
   const { isLoaded, loadError } = useLoadScript({
     // Type-safe fallback for import.meta.env inside monorepo libraries
-    googleMapsApiKey: (import.meta as unknown as { env: Record<string, string | undefined> }).env.VITE_MAP_API_KEY ?? "",
+    googleMapsApiKey:
+      (import.meta as unknown as { env: Record<string, string | undefined> }).env
+        .VITE_MAP_API_KEY ?? '',
   });
 
   const [activeMarker, setActiveMarker] = useState<number | null>(null);
@@ -22,7 +28,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ markers, height = "600px", 
     if (firstMarker) {
       return {
         lat: Number(firstMarker.position.lat),
-        lng: Number(firstMarker.position.lng)
+        lng: Number(firstMarker.position.lng),
       };
     }
     return { lat: 38.885215, lng: -76.956672 };
@@ -50,12 +56,12 @@ const MapComponent: React.FC<MapComponentProps> = ({ markers, height = "600px", 
       onLoad={onMapLoad}
       onClick={() => setActiveMarker(null)}
     >
-      {markers.map((marker) => (
+      {markers.map(marker => (
         <MarkerF
           key={marker.id}
           position={{
             lat: Number(marker.position.lat),
-            lng: Number(marker.position.lng)
+            lng: Number(marker.position.lng),
           }}
           onClick={() => setActiveMarker(marker.id)}
         >
@@ -64,12 +70,12 @@ const MapComponent: React.FC<MapComponentProps> = ({ markers, height = "600px", 
               onCloseClick={() => setActiveMarker(null)}
               position={{
                 lat: Number(marker.position.lat),
-                lng: Number(marker.position.lng)
+                lng: Number(marker.position.lng),
               }}
             >
-              <div style={{ color: "#000", minWidth: "150px" }}>
-                <h4 style={{ margin: "0 0 5px 0" }}>{marker.name}</h4>
-                <p style={{ margin: 0, fontSize: "12px" }}>
+              <div style={{ color: '#000', minWidth: '150px' }}>
+                <h4 style={{ margin: '0 0 5px 0' }}>{marker.name}</h4>
+                <p style={{ margin: 0, fontSize: '12px' }}>
                   Coordinates: {marker.position.lat.toFixed(4)}, {marker.position.lng.toFixed(4)}
                 </p>
               </div>

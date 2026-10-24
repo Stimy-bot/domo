@@ -11,12 +11,16 @@
     }
   },
   "files": {
-    "ignoreUnknown": false,
+    "ignoreUnknown": true,
     "includes": [
-      "**",
+      "**/*",
+      "!**/*.html",
       "!**/routeTree.gen.ts",
-      "!**/dist",
-      "!**/.next"
+      "!**/dist/**/*",
+      "!**/.next/**/*",
+      "!**/node_modules/**/*",
+      "!**/.output/**/*",
+      "!**/tmp/**/*"
     ]
   },
   "formatter": {
@@ -28,12 +32,36 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "a11y": {
+        "noSvgWithoutTitle": "off"
+      },
+      "complexity": {
+        "noImportantStyles": "off"
+      },
+      "correctness": {
+        "noUnusedVariables": "warn"
+      },
+      "style": {
+        "noDefaultExport": "off",
+        "useNodejsImportProtocol": "off"
+      }
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "recommended": true,
+      "source": {
+        "organizeImports": "on",
+        "useSortedProperties": "on"
+      }
     }
   },
   "javascript": {
     "formatter": {
-      "quoteStyle": "single"
+      "quoteStyle": "single",
+      "arrowParentheses": "asNeeded"
     }
   }
 }

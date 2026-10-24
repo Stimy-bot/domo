@@ -1,15 +1,14 @@
 @import "tailwindcss";
 /* @plugin "tailwindcss-animate"; */
 
-@source '../../../libs/shared/ui-header';
-@source '../../../libs/shared/ui-footer';
-@source '../../../libs/shared/ui-button';
-@source '../../../libs/shared/ui-sidebar';
-@source '../../../libs/shared/forms';
-@source '../../../libs/shared/reusableComponents';
-@source '../../my_encore';
-@source '../../my_fastapi';
-
+@source "../../../libs/shared/ui-header";
+@source "../../../libs/shared/ui-footer";
+@source "../../../libs/shared/ui-button";
+@source "../../../libs/shared/ui-sidebar";
+@source "../../../libs/shared/forms";
+@source "../../../libs/shared/reusableComponents";
+@source "../../my_encore";
+@source "../../my_fastapi";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -22,9 +21,9 @@
   --breakpoint-2xl: 1536px;
 
   /* Colors */
-  --color-dark-light: #5A7184;
-  --color-dark-hard: #0D2436;
-  --color-dark-soft: #183B56;
+  --color-dark-light: #5a7184;
+  --color-dark-hard: #0d2436;
+  --color-dark-soft: #183b56;
 
   /* Fill colors */
   --fill-current: currentColor;
@@ -65,10 +64,12 @@
 html {
   box-sizing: border-box;
 }
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 body {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }

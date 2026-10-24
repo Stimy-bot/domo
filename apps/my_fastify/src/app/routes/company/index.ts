@@ -1,22 +1,22 @@
 // apps/my_fastify/src/app/routes/company/index.ts
-import type { FastifyPluginAsync } from 'fastify';
-import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { companySchema, auditEventTypeSchema } from '@domo/schemas';
-import { enrichAudit, authenticateHook, authorize } from '@domo/middleware';
+
 import {
   companyHandler,
+  deleteCompanyHandler,
   getCompaniesHandler,
   getCompanyHandler,
   updateCompanyHandler,
-  deleteCompanyHandler
 } from '@domo/controllers';
+import { authenticateHook, authorize, enrichAudit } from '@domo/middleware';
+import { auditEventTypeSchema, companySchema } from '@domo/schemas';
+import type { FastifyPluginAsync } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 
-const companyRoutes: FastifyPluginAsync = async (fastify) => {
+const companyRoutes: FastifyPluginAsync = async fastify => {
   const server = fastify.withTypeProvider<ZodTypeProvider>();
 
   // Create Company
-  server.post
-  <{ Params: Record<string, never> }>(
+  server.post<{ Params: Record<string, never> }>(
     '/',
     {
       preHandler: [
@@ -34,14 +34,14 @@ const companyRoutes: FastifyPluginAsync = async (fastify) => {
   server.get<{ Params: Record<string, never> }>(
     '/companies',
     { onRequest: [authenticateHook] },
-    getCompaniesHandler
+    getCompaniesHandler,
   );
 
   // Get Single Company
   server.get<{ Params: { id: string } }>(
     '/getCompany/:id',
     { onRequest: [authenticateHook] },
-    getCompanyHandler
+    getCompanyHandler,
   );
 
   // Update Company
@@ -49,10 +49,7 @@ const companyRoutes: FastifyPluginAsync = async (fastify) => {
     '/updateCompany/:id',
     {
       onRequest: [authenticateHook],
-      preHandler: [
-        authorize('canEditAnyCompany'),
-        enrichAudit('update_company'),
-      ],
+      preHandler: [authorize('canEditAnyCompany'), enrichAudit('update_company')],
       schema: {
         body: companySchema,
         params: {
@@ -72,10 +69,7 @@ const companyRoutes: FastifyPluginAsync = async (fastify) => {
     '/deleteCompany/:id',
     {
       onRequest: [authenticateHook],
-      preHandler: [
-        authorize('canDeleteAnyCompany'),
-        enrichAudit('delete_company'),
-      ],
+      preHandler: [authorize('canDeleteAnyCompany'), enrichAudit('delete_company')],
       schema: {
         params: {
           type: 'object',

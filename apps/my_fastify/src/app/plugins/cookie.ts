@@ -1,7 +1,8 @@
 // apps/my_fastify/src/app/plugins/cookie.ts
-import fp from 'fastify-plugin';
+
 import fastifyCookie from '@fastify/cookie';
 import type { FastifyInstance, FastifyReply } from 'fastify';
+import fp from 'fastify-plugin';
 
 export default fp(async (fastify: FastifyInstance) => {
   const accessSecret = process.env.JWT_SECRET;
@@ -20,23 +21,26 @@ export default fp(async (fastify: FastifyInstance) => {
     hook: 'onRequest',
   });
 
-  fastify.decorate('setAuthCookies', (reply: FastifyReply, accessToken: string, refreshToken: string) => {
-    reply
-      .setCookie('accessToken', accessToken, {
-        path: '/',
-        httpOnly: true,
-        sameSite: 'lax',
-        secure: process.env.NODE_ENV === 'production',
-        signed: true,
-      })
-      .setCookie('refreshToken', refreshToken, {
-        path: '/auth/refresh',
-        httpOnly: true,
-        sameSite: 'lax',
-        secure: process.env.NODE_ENV === 'production',
-        signed: true,
-      });
-  });
+  fastify.decorate(
+    'setAuthCookies',
+    (reply: FastifyReply, accessToken: string, refreshToken: string) => {
+      reply
+        .setCookie('accessToken', accessToken, {
+          path: '/',
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+          signed: true,
+        })
+        .setCookie('refreshToken', refreshToken, {
+          path: '/auth/refresh',
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+          signed: true,
+        });
+    },
+  );
 
   fastify.decorate('clearAuthCookies', (reply: FastifyReply) => {
     reply

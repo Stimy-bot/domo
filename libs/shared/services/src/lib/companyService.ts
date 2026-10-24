@@ -1,7 +1,8 @@
 // libs/shared/services/src/lib/companyService.ts
-import { ObjectId, Collection, Db } from 'mongodb';
+
 import { BAD_REQUEST, NOT_FOUND } from '@domo/types';
 import { appAssert } from '@domo/utils';
+import { type Collection, type Db, ObjectId } from 'mongodb';
 
 // Define the shape of your MongoDB document interface
 export interface CompanyEntity {
@@ -21,20 +22,14 @@ export class CompanyService {
 
   // --- Get All Companies ---
   static async getCompanies(db: Db): Promise<CompanyEntity[]> {
-    return await this.getCollection({ db })
-      .find({})
-      .sort({ createdAt: -1 })
-      .toArray();
+    return await CompanyService.getCollection({ db }).find({}).sort({ createdAt: -1 }).toArray();
   }
 
   // --- Get Single Company By ID ---
-  static async getCompanyById(
-    db: Db,
-    id: string | ObjectId,
-  ): Promise<CompanyEntity> {
+  static async getCompanyById(db: Db, id: string | ObjectId): Promise<CompanyEntity> {
     const objectId = typeof id === 'string' ? new ObjectId(id) : id;
-    const company = await this.getCollection({ db }).findOne({ _id: objectId });
-    
+    const company = await CompanyService.getCollection({ db }).findOne({ _id: objectId });
+
     appAssert(company, NOT_FOUND, 'Company not found');
     return company;
   }
@@ -48,7 +43,7 @@ export class CompanyService {
     },
     userId: string | ObjectId,
   ): Promise<CompanyEntity> {
-    const collection = this.getCollection({ db });
+    const collection = CompanyService.getCollection({ db });
 
     // 1. Check duplicate company email directly on collection
     const existing = await collection.findOne({ company_email: data.company_email });
@@ -86,7 +81,7 @@ export class CompanyService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { _id, createdAt, ...fieldsToUpdate } = updateData;
 
-    const result = await this.getCollection({ db }).findOneAndUpdate(
+    const result = await CompanyService.getCollection({ db }).findOneAndUpdate(
       { _id: objectId },
       {
         $set: {
@@ -102,13 +97,10 @@ export class CompanyService {
   }
 
   // --- Delete Company ---
-  static async deleteCompany(
-    db: Db,
-    id: string | ObjectId,
-  ): Promise<boolean> {
+  static async deleteCompany(db: Db, id: string | ObjectId): Promise<boolean> {
     const objectId = typeof id === 'string' ? new ObjectId(id) : id;
 
-    const result = await this.getCollection({ db }).deleteOne({ _id: objectId });
+    const result = await CompanyService.getCollection({ db }).deleteOne({ _id: objectId });
     return result.deletedCount > 0;
   }
 }

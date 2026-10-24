@@ -10,9 +10,8 @@
     /* Modules & Resolution */
     "module": "preserve",
     "moduleResolution": "bundler",
-    "ignoreDeprecations": "6.0",
-    "baseUrl": ".",
     "paths": {
+      "@domo/*": [".libs/*"],
       "@domo/my_fastapi": ["./apps/my_fastapi/*"],
       "@domo/my_fastify": ["./apps/my_fastify/src/index.ts"],
       "@domo/my_fastify/*": ["./apps/my_fastify/src/*"],
@@ -41,9 +40,7 @@
       "@domo/middleware/*": ["./libs/shared/middleware/src/*"],
       "@domo/models": ["./libs/shared/models/src/index.ts"],
       "@domo/models/*": ["./libs/shared/models/src/*"],
-      "@domo/reusableComponents": [
-        "./libs/shared/reusableComponents/src/index.ts"
-      ],
+      "@domo/reusableComponents": ["./libs/shared/reusableComponents/src/index.ts"],
       "@domo/reusableComponents/*": ["./libs/shared/reusableComponents/src/*"],
       "@domo/schemas": ["./libs/shared/schemas/src/index.ts"],
       "@domo/schemas/*": ["./libs/shared/schemas/src/*"],
@@ -65,17 +62,11 @@
       "@domo/utils/*": ["./libs/shared/utils/src/*"],
       "@domo/validates": ["./libs/shared/validates/src/index.ts"],
       "@domo/validates/*": ["./libs/shared/validates/src/*"],
-      "@domo/tailwind-sync-plugin": [
-        "./tools/tailwind-sync-plugin/src/index.ts"
-      ],
+      "@domo/tailwind-sync-plugin": ["./tools/tailwind-sync-plugin/src/index.ts"],
       "@domo/config/client": ["./libs/shared/config/src/env.client.ts"],
       "@domo/config/server": ["./libs/shared/config/src/env.server.ts"],
-      "@domo/constants/client": [
-        "./libs/shared/constants/src/lib/env.client.ts"
-      ],
-      "@domo/constants/server": [
-        "./libs/shared/constants/src/lib/env.server.ts"
-      ],
+      "@domo/constants/client": ["./libs/shared/constants/src/lib/env.client.ts"],
+      "@domo/constants/server": ["./libs/shared/constants/src/lib/env.server.ts"],
       "@domo/utils/client": ["./libs/shared/utils/src/jwt.client.ts"],
       "@domo/utils/server": ["./libs/shared/utils/src/jwt.server.ts"],
       "@domo/tailwind-sync-plugin/*": ["./tools/tailwind-sync-plugin/src/*"]

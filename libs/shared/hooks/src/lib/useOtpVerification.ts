@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from 'react';
 
 export const useOtpVerification = (phone: string) => {
   const [timer, setTimer] = useState(60);
@@ -11,7 +11,7 @@ export const useOtpVerification = (phone: string) => {
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (timer > 0) {
-      interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
+      interval = setInterval(() => setTimer(prev => prev - 1), 1000);
     } else {
       setCanResend(true);
     }
@@ -23,20 +23,20 @@ export const useOtpVerification = (phone: string) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${process.env.VITE_API_URL ?? ""}${url}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch(`${process.env.VITE_API_URL ?? ''}${url}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Request failed");
+        throw new Error(data.message || 'Request failed');
       }
       return data;
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "A network error occurred");
+      setError(err instanceof Error ? err.message : 'A network error occurred');
       throw err;
     } finally {
       setIsLoading(false);
@@ -46,18 +46,22 @@ export const useOtpVerification = (phone: string) => {
   // 3. Action Handlers
   const handleVerify = async (code: string) => {
     try {
-      await sendRequest("/auth/otp/verify", { phone, code });
+      await sendRequest('/auth/otp/verify', { phone, code });
       setIsSuccess(true);
-    } catch { /* Error handled in sendRequest */ }
+    } catch {
+      /* Error handled in sendRequest */
+    }
   };
 
   const handleResend = useCallback(async () => {
     if (!canResend) return;
     try {
-      await sendRequest("/auth/otp/resend", { phone });
+      await sendRequest('/auth/otp/resend', { phone });
       setTimer(60);
       setCanResend(false);
-    } catch { /* Error handled in sendRequest */ }
+    } catch {
+      /* Error handled in sendRequest */
+    }
   }, [phone, canResend]);
 
   const resetStatus = () => setError(null);

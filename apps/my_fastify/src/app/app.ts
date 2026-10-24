@@ -1,34 +1,31 @@
 // apps/my_fastify/src/app/app.ts
-import { type FastifyPluginAsync, type FastifyServerOptions } from 'fastify';
-import { type AutoloadPluginOptions } from '@fastify/autoload';
+
+import { authenticateHook } from '@domo/middleware';
+import type { AutoloadPluginOptions } from '@fastify/autoload';
+import type { FastifyPluginAsync, FastifyServerOptions } from 'fastify';
 import cookiePlugin from './plugins/cookie';
 import corsPlugin from './plugins/cors';
-import jwtPlugin from './plugins/jwt';
-import swagger from './plugins/swagger';
 import errorHandlerPlugin from './plugins/error-handler';
-import root from './routes/root/index.js';
-import healthCheck from './routes/healthcheck/index';
-import { userRoutes } from './routes/user/index';
-import { authRoutes } from './routes/auth/index';
-import { sessionRoutes } from './routes/session/index';
-import { companyRoutes } from './routes/company/index';
-import { markerRoutes } from './routes/markers/index';
-import { auditRoutes } from './routes/audit/index';
-import { roleRoutes } from './routes/role/index';
+import jwtPlugin from './plugins/jwt';
 import mongodb from './plugins/mongodb';
-import { authenticateHook } from '@domo/middleware';
+import swagger from './plugins/swagger';
+import { auditRoutes } from './routes/audit/index';
+import { authRoutes } from './routes/auth/index';
+import { companyRoutes } from './routes/company/index';
+import healthCheck from './routes/healthcheck/index';
+import { markerRoutes } from './routes/markers/index';
+import { roleRoutes } from './routes/role/index';
+import root from './routes/root/index.js';
+import { sessionRoutes } from './routes/session/index';
+import { userRoutes } from './routes/user/index';
 
-export interface AppOptions
-  extends FastifyServerOptions, Partial<AutoloadPluginOptions> {
+export interface AppOptions extends FastifyServerOptions, Partial<AutoloadPluginOptions> {
   skipOverride?: boolean;
 }
 
 const options: AppOptions = {};
 
-const app: FastifyPluginAsync<AppOptions> = async (
-  fastify: any,
-  opts: any,
-): Promise<void> => {
+const app: FastifyPluginAsync<AppOptions> = async (fastify: any, opts: any): Promise<void> => {
   await fastify.register(mongodb, opts);
   await fastify.register(cookiePlugin, opts);
   await fastify.register(corsPlugin, opts);

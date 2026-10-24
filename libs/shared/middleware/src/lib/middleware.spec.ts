@@ -1,5 +1,5 @@
+import { describe, expect, it } from 'vitest';
 import { middleware } from './middleware.js';
-import { describe, it, expect } from 'vitest';
 
 describe('middleware', () => {
   it('should work', () => {

@@ -17,7 +17,7 @@ const CheckboxInput = ({ field, label }: { field: Field; label: string }) => (
       type="checkbox"
       checked={field.state.value}
       onBlur={field.handleBlur}
-      onChange={(e) => field.handleChange(e.target.checked)}
+      onChange={e => field.handleChange(e.target.checked)}
       className="mr-2 leading-tight"
     />
     <label htmlFor={field.name} className="text-sm text-dark-hard font-bold">

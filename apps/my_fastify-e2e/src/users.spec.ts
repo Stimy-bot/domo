@@ -1,7 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('Fastify Users API', () => {
-
   test('GET /api/users - returns array of users with status 200', async ({ request }) => {
     // Perform GET request (uses baseURL from playwright.config.mts)
     const response = await request.get('/api/users');
@@ -22,7 +21,9 @@ test.describe('Fastify Users API', () => {
     });
   });
 
-  test('POST /api/users - creates new user and validates response headers/body', async ({ request }) => {
+  test('POST /api/users - creates new user and validates response headers/body', async ({
+    request,
+  }) => {
     const newUser = {
       name: 'Sarah',
       role: 'developer',
@@ -68,5 +69,4 @@ test.describe('Fastify Users API', () => {
     const body = await response.json();
     expect(body).toEqual({ error: 'User not found' });
   });
-
 });

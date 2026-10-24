@@ -1,5 +1,5 @@
 // libs/shared/reusableComponents/src/lib/numberInput.tsx
-import { BaseInput } from "./baseInput"
+import { BaseInput } from './baseInput';
 
 interface Field {
   name: string;

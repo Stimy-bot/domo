@@ -9,9 +9,11 @@ const clientEnvSchema = z.object({
   VITE_GOOGLE_CLIENT_ID: z.string().min(1),
 });
 
-const viteEnv = (import.meta as ImportMeta & {
-  env: Record<string, string | undefined>;
-}).env;
+const viteEnv = (
+  import.meta as ImportMeta & {
+    env: Record<string, string | undefined>;
+  }
+).env;
 
 // 2. Parse import.meta.env (Vite's exposed variables)
 const parseClientEnv = () => {

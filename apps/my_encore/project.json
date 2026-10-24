@@ -17,7 +17,7 @@
       "dependsOn": ["^build"],
       "options": {
         "cwd": "apps/my_encore",
-      "command": "encore run"
+        "command": "encore run"
       },
       "configurations": {
         "production": {

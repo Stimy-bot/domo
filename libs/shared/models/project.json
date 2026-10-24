@@ -1,6 +1,6 @@
 {
   "name": "@domo/models",
-    "root": "libs/shared/models",
+  "root": "libs/shared/models",
   "sourceRoot": "libs/shared/models/src",
   "projectType": "library",
   "tags": [],

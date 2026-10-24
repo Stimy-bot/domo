@@ -1,35 +1,37 @@
 // libs/shared/controllers/src/lib/companyController.ts
-import type { FastifyRequest, FastifyReply } from 'fastify';
-import type { Db } from 'mongodb';
-import { ObjectId } from 'bson';
-import { BAD_REQUEST, CREATED, NOT_FOUND, OK, UNAUTHORIZED } from '@domo/types';
-import { catchErrors, appAssert } from '@domo/utils';
-import { CompanyService } from '@domo/services';
+
 import { CompanyModel } from '@domo/models';
 import { createCompanySchema, updateCompanySchema } from '@domo/schemas';
+import { CompanyService } from '@domo/services';
+import { BAD_REQUEST, CREATED, NOT_FOUND, OK, UNAUTHORIZED } from '@domo/types';
+import { appAssert, catchErrors } from '@domo/utils';
+import { ObjectId } from 'bson';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { Db } from 'mongodb';
 import z from 'zod';
 
 const mongoIdSchema = z.string().regex(/^[0-9a-fA-F]{24}$/);
 
 // Augment request type to recognize @fastify/mongodb decorations
-type AuthenticatedRequest<T extends Record<string, unknown> = Record<string, never>> = FastifyRequest<{
-  Params: T;
-}> & {
-  mongo?: {
-    db?: Db;
+type AuthenticatedRequest<T extends Record<string, unknown> = Record<string, never>> =
+  FastifyRequest<{
+    Params: T;
+  }> & {
+    mongo?: {
+      db?: Db;
+    };
+    user?: {
+      _id?: ObjectId | string;
+      email?: string;
+      fullName?: string;
+    };
+    auditLog?: {
+      type: string;
+      actor: { _id?: ObjectId | string; email?: string; fullName?: string };
+      target: { _id: ObjectId };
+      metadata?: Record<string, unknown>;
+    };
   };
-  user?: {
-    _id?: ObjectId | string;
-    email?: string;
-    fullName?: string;
-  };
-  auditLog?: {
-    type: string;
-    actor: { _id?: ObjectId | string; email?: string; fullName?: string };
-    target: { _id: ObjectId };
-    metadata?: Record<string, unknown>;
-  };
-};
 
 // Accept any AuthenticatedRequest parameter variant
 const getDbInstance = (req: AuthenticatedRequest<Record<string, unknown>>): Db => {
@@ -43,7 +45,7 @@ export const getCompaniesHandler = catchErrors(
     const db = getDbInstance(req);
     const companies = await CompanyService.getCompanies(db);
     return reply.code(OK).send(companies);
-  }
+  },
 );
 
 export const getCompanyHandler = catchErrors(
@@ -57,7 +59,7 @@ export const getCompanyHandler = catchErrors(
     appAssert(company, NOT_FOUND, 'Company not found');
 
     return reply.code(OK).send(company);
-  }
+  },
 );
 
 export const companyHandler = catchErrors(
@@ -82,13 +84,12 @@ export const companyHandler = catchErrors(
     const savedCompany = await CompanyService.createCompany(
       db,
       { ...parsed, company_name, company_email },
-      userId.toString()
+      userId.toString(),
     );
 
     // 3. Attach Audit Log
-    const targetId = savedCompany._id instanceof ObjectId
-      ? savedCompany._id
-      : new ObjectId(savedCompany._id);
+    const targetId =
+      savedCompany._id instanceof ObjectId ? savedCompany._id : new ObjectId(savedCompany._id);
 
     req.auditLog = {
       type: 'create_company',
@@ -106,7 +107,7 @@ export const companyHandler = catchErrors(
     };
 
     return reply.code(CREATED).send(savedCompany);
-  }
+  },
 );
 
 export const updateCompanyHandler = catchErrors(
@@ -131,7 +132,7 @@ export const updateCompanyHandler = catchErrors(
     };
 
     return reply.code(OK).send(updatedCompany);
-  }
+  },
 );
 
 export const deleteCompanyHandler = catchErrors(
@@ -155,5 +156,5 @@ export const deleteCompanyHandler = catchErrors(
     };
 
     return reply.code(OK).send({ message: 'Company deleted successfully' });
-  }
+  },
 );

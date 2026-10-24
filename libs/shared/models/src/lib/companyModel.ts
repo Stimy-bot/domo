@@ -1,6 +1,7 @@
 // server/src/models/companyModel.ts
-import { Db, ObjectId, Collection, type IndexDescription } from 'mongodb';
-import { companyCategoryEnum } from '@domo/schemas';
+
+import type { companyCategoryEnum } from '@domo/schemas';
+import { type Collection, type Db, type IndexDescription, ObjectId } from 'mongodb';
 
 // 1) Address Interface
 export interface CompanyAddress {
@@ -18,7 +19,7 @@ export interface CompanyDocument {
   company_name: string;
   company_email: string;
   company_description?: string;
-  company_category: typeof companyCategoryEnum.options[number];
+  company_category: (typeof companyCategoryEnum.options)[number];
   company_phone?: string;
   company_website?: string;
   logo_url?: string;
@@ -28,13 +29,10 @@ export interface CompanyDocument {
   updatedAt?: Date;
 }
 
-const DEFAULT_LOGO_URL =
-  'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png';
+const DEFAULT_LOGO_URL = 'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png';
 
 // 3) Collection Accessor Helper
-export const getCompanyCollection = (
-  db: Db
-): Collection<CompanyDocument> => {
+export const getCompanyCollection = (db: Db): Collection<CompanyDocument> => {
   return db.collection<CompanyDocument>('companies');
 };
 
@@ -56,8 +54,8 @@ export function createCompanyPayload(
     userId: ObjectId;
     company_name: string;
     company_email: string;
-    company_category: typeof companyCategoryEnum.options[number];
-  }
+    company_category: (typeof companyCategoryEnum.options)[number];
+  },
 ): Omit<CompanyDocument, '_id'> {
   const now = new Date();
 
@@ -118,8 +116,8 @@ export class CompanyModel {
       userId: ObjectId;
       company_name: string;
       company_email: string;
-      company_category: typeof companyCategoryEnum.options[number];
-    }
+      company_category: (typeof companyCategoryEnum.options)[number];
+    },
   ): Promise<CompanyDocument> {
     const documentToInsert = createCompanyPayload(payload);
     const result = await getCompanyCollection(db).insertOne(documentToInsert);
@@ -136,7 +134,7 @@ export class CompanyModel {
   static async updateById(
     db: Db,
     id: string | ObjectId,
-    updateData: Partial<CompanyDocument>
+    updateData: Partial<CompanyDocument>,
   ): Promise<CompanyDocument | null> {
     const _id = typeof id === 'string' ? new ObjectId(id) : id;
 
@@ -156,7 +154,7 @@ export class CompanyModel {
     const result = await getCompanyCollection(db).findOneAndUpdate(
       { _id },
       { $set: setPayload },
-      { returnDocument: 'after' }
+      { returnDocument: 'after' },
     );
 
     return result;

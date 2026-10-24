@@ -1,6 +1,7 @@
 // libs/shared/reusableComponents/src/lib/textInput.tsx
-import {BaseInput} from "./baseInput"
-import type { AnyFieldApi } from "@tanstack/react-form"; 
+
+import type { AnyFieldApi } from '@tanstack/react-form';
+import { BaseInput } from './baseInput';
 
 const TextInput = ({ field, label, ...rest }: { field: AnyFieldApi; label: string }) => (
   <BaseInput field={field} label={label} type="text" {...rest} />

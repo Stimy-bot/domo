@@ -22,9 +22,7 @@ export interface GoogleUser {
   birthdate?: string;
 }
 
-export const exchangeCodeForToken = async (
-  code: string,
-): Promise<GoogleTokenResponse> => {
+export const exchangeCodeForToken = async (code: string): Promise<GoogleTokenResponse> => {
   const client_id = process.env['GOOGLE_CLIENT_ID'];
   const client_secret = process.env['GOOGLE_CLIENT_SECRET'];
   const redirect_uri = process.env['GOOGLE_OAUTH_REDIRECT_URL'];
@@ -50,10 +48,7 @@ export const exchangeCodeForToken = async (
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      console.error(
-        'Google Token Exchange Error:',
-        error.response?.data || error.message,
-      );
+      console.error('Google Token Exchange Error:', error.response?.data || error.message);
     } else {
       console.error('Google Token Exchange Error:', error);
     }
@@ -61,23 +56,15 @@ export const exchangeCodeForToken = async (
   }
 };
 
-export const getGoogleUser = async (
-  access_token: string,
-): Promise<GoogleUser> => {
+export const getGoogleUser = async (access_token: string): Promise<GoogleUser> => {
   try {
-    const response = await axios.get<GoogleUser>(
-      'https://www.googleapis.com/oauth2/v3/userinfo',
-      {
-        headers: { Authorization: `Bearer ${access_token}` },
-      },
-    );
+    const response = await axios.get<GoogleUser>('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: { Authorization: `Bearer ${access_token}` },
+    });
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      console.error(
-        'Google User Info Error:',
-        error.response?.data || error.message,
-      );
+      console.error('Google User Info Error:', error.response?.data || error.message);
     }
     throw error;
   }

@@ -1,6 +1,6 @@
 {
   "name": "@domo/error",
-    "root": "libs/shared/error",
+  "root": "libs/shared/error",
   "sourceRoot": "libs/shared/error/src",
   "projectType": "library",
   "tags": [],

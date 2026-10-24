@@ -1,4 +1,4 @@
-import { ObjectId, type Db } from 'mongodb';
+import { type Db, ObjectId } from 'mongodb';
 
 export interface UserRefInput {
   _id: ObjectId | string;
@@ -50,8 +50,7 @@ export type SafeAuditLog = Omit<AuditLogEntity, '_id' | 'actor' | 'target'> & {
 export function buildUserRef(userRef?: UserRefInput | null): UserRef | null {
   if (!userRef) return null;
 
-  const parsedId =
-    typeof userRef._id === 'string' ? new ObjectId(userRef._id) : userRef._id;
+  const parsedId = typeof userRef._id === 'string' ? new ObjectId(userRef._id) : userRef._id;
 
   return {
     _id: parsedId,
@@ -84,9 +83,7 @@ export function sanitizeAuditLog(log: AuditLogEntity): SafeAuditLog {
 
 // --- Factory for Creating Audit Log Documents ---
 
-export function buildAuditLogDocument(
-  input: AuditLogInput,
-): Omit<AuditLogEntity, '_id'> {
+export function buildAuditLogDocument(input: AuditLogInput): Omit<AuditLogEntity, '_id'> {
   const now = new Date();
 
   return {

@@ -7,12 +7,7 @@
     "moduleResolution": "Nodenext",
     "jsx": "react-jsx",
 
-    "types": [
-      "vitest/globals",
-      "vitest/importMeta",
-      "vite/client",
-      "node"
-    ],
+    "types": ["vitest/globals", "vitest/importMeta", "vite/client", "node"],
 
     "rootDir": ".",
     "outDir": "../../../dist/out-tsc"

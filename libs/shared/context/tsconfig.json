@@ -7,12 +7,6 @@
     "outDir": "../../../dist/out-tsc"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.tsx"],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "**/*.spec.tsx",
-    "**/*.test.ts",
-    "**/*.test.tsx"
-  ],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx"],
   "references": []
 }

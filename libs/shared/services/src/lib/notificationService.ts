@@ -1,8 +1,9 @@
 // libs/shared/services/src/lib/notificationService.ts
+
+import { configs } from '@domo/config';
+import type { FastifyInstance, FastifyPluginAsync } from 'fastify';
 import fp from 'fastify-plugin';
-import { FastifyPluginAsync, FastifyInstance } from 'fastify';
 import { Resend } from 'resend';
-import {configs} from '@domo/config';
 import { twilioService } from './twilioService';
 
 const resend = new Resend(configs.RESEND_API_KEY);
@@ -12,8 +13,7 @@ export class NotificationService {
 
   async sendFormNotification(data: Record<string, any>) {
     const senderName =
-      data.fullName ||
-      `${data.firstName || ''} ${data.lastName || 'Anonymous'}`.trim();
+      data.fullName || `${data.firstName || ''} ${data.lastName || 'Anonymous'}`.trim();
     const recipientEmail = data.email || 'noreply@example.com';
 
     let subject = 'New Form Submission';
@@ -77,7 +77,7 @@ export class NotificationService {
         try {
           await twilioService.sendSMS(
             configs.MY_PERSONAL_NUMBER,
-            `Priority Quote: ${senderName} - ${data.serviceType || 'N/A'}`
+            `Priority Quote: ${senderName} - ${data.serviceType || 'N/A'}`,
           );
         } catch (smsErr) {
           this.fastify.log.error({ smsErr }, 'SMS failed (non-fatal)');
@@ -102,7 +102,7 @@ declare module 'fastify' {
   }
 }
 
-const notificationPlugin: FastifyPluginAsync = async (fastify) => {
+const notificationPlugin: FastifyPluginAsync = async fastify => {
   const svc = new NotificationService(fastify);
   fastify.decorate('notificationService', svc);
 };

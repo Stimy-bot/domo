@@ -1,5 +1,5 @@
 // libs/shared/reusableComponents/src/lib/selectInput.tsx
-import React from 'react';
+import type React from 'react';
 
 // 1. Refined Field Interface (Assuming value should be string for select)
 interface Field {
@@ -32,13 +32,11 @@ const SelectInput: React.FC<SelectInputProps> = ({
   field,
   label,
   options,
-  placeholder = "Select an option"
+  placeholder = 'Select an option',
 }) => {
   const { name, state, handleBlur, handleChange } = field;
   const { value, meta } = state;
-  const displayValue = Array.isArray(value)
-    ? (value[0] ?? '')
-    : (value ?? '');
+  const displayValue = Array.isArray(value) ? (value[0] ?? '') : (value ?? '');
   return (
     <div className="py-4">
       <label htmlFor={name} className="block text-dark-light font-semibold mb-2">
@@ -49,11 +47,13 @@ const SelectInput: React.FC<SelectInputProps> = ({
         name={name}
         value={displayValue}
         onBlur={handleBlur}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={e => handleChange(e.target.value)}
         className=" font-semibold border rounded w-full py-4.5 px-3 text-dark-light bg-white leading-tight focus:outline-none focus:shadow-outline"
       >
-        <option value="" disabled>{placeholder}</option>
-        {options.map((option) => (
+        <option value="" disabled>
+          {placeholder}
+        </option>
+        {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>

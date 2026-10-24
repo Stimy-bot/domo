@@ -7,6 +7,5 @@
     "serve": "vite",
     "build": "tsc && vite build"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

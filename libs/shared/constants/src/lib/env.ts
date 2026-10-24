@@ -1,17 +1,15 @@
 // @domo/libs/shared/constants/src/lib/env.ts
-import { Type, type Static } from '@sinclair/typebox'
-import { Value } from '@sinclair/typebox/value'
+import { type Static, Type } from '@sinclair/typebox';
+import { Value } from '@sinclair/typebox/value';
 
 const EnvSchema = Type.Object({
   MONGO_URL: Type.String(),
   JWT_SECRET: Type.String(),
   JWT_REFRESH_SECRET: Type.String(),
   COOKIE_SECRET: Type.String(),
-  NODE_ENV: Type.Optional(Type.Union([
-    Type.Literal('development'),
-    Type.Literal('production'),
-    Type.Literal('test')
-  ])),
+  NODE_ENV: Type.Optional(
+    Type.Union([Type.Literal('development'), Type.Literal('production'), Type.Literal('test')]),
+  ),
   SERVER_PORT: Type.Optional(Type.String()),
   HOST: Type.Optional(Type.String()),
   PORT: Type.Optional(Type.String()),
@@ -25,24 +23,26 @@ const EnvSchema = Type.Object({
   MY_PERSONAL_NUMBER: Type.Optional(Type.String()),
   EMAIL_USER: Type.Optional(Type.String()),
   EMAIL_PASS: Type.Optional(Type.String()),
-  SMS_MOCK: Type.Optional(Type.Union([Type.Literal('true'), Type.Literal('false'), Type.Literal('1'), Type.Literal('0')])),
-})
+  SMS_MOCK: Type.Optional(
+    Type.Union([Type.Literal('true'), Type.Literal('false'), Type.Literal('1'), Type.Literal('0')]),
+  ),
+});
 
-type RawEnv = Static<typeof EnvSchema>
+type RawEnv = Static<typeof EnvSchema>;
 
 export function loadEnv() {
-  const ok = Value.Check(EnvSchema, process.env)
+  const ok = Value.Check(EnvSchema, process.env);
   if (!ok) {
-    const errors = [...Value.Errors(EnvSchema, process.env)]
-    console.error('ENV VALIDATION FAILED:', errors)
-    throw new Error('Environment validation failed')
+    const errors = [...Value.Errors(EnvSchema, process.env)];
+    console.error('ENV VALIDATION FAILED:', errors);
+    throw new Error('Environment validation failed');
   }
 
-  const raw = Value.Cast(EnvSchema, process.env) as unknown as RawEnv
+  const raw = Value.Cast(EnvSchema, process.env) as unknown as RawEnv;
 
   // Normalize and convert types
-  const nodeEnv = raw.NODE_ENV ?? (process.env['NODE_ENV'] ?? 'development')
-  const smsMock = raw.SMS_MOCK === 'true' || raw.SMS_MOCK === '1'
+  const nodeEnv = raw.NODE_ENV ?? process.env['NODE_ENV'] ?? 'development';
+  const smsMock = raw.SMS_MOCK === 'true' || raw.SMS_MOCK === '1';
 
   const config = {
     MONGO_URL: raw.MONGO_URL,
@@ -68,9 +68,9 @@ export function loadEnv() {
     isDev: nodeEnv === 'development',
     isProd: nodeEnv === 'production',
     isTest: nodeEnv === 'test',
-  }
-//TODO Use the returned config where you need  environment-specific behavior: 
-/*  
+  };
+  //TODO Use the returned config where you need  environment-specific behavior:
+  /*  
 const config = loadEnv()
 
 if (config.isProd) {
@@ -82,5 +82,5 @@ if (config.SMS_MOCK) {
 }
 
 */
-  return config
+  return config;
 }

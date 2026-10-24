@@ -1,15 +1,9 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "../../../dist/out-tsc"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "apps/**/*.ts",
-    "libs/**/*.ts",
-    "types/**/*.d.ts"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
   "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts"],
   "references": []
 }

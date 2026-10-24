@@ -1,4 +1,3 @@
-
 import { z } from 'zod';
 
 // Runtime guard to prevent browser execution
@@ -26,13 +25,18 @@ const parseServerEnv = () => {
   const normalizedEnv = {
     NODE_ENV: getEnv('NODE_ENV', 'development') as 'development' | 'production' | 'test',
     JWT_SECRET: getEnv('JWT_SECRET', getEnv('SECRET_KEY')) ?? '',
-    BETTER_AUTH_SECRET:
-      getEnv('BETTER_AUTH_SECRET', getEnv('SESSION_SECRET') ?? getEnv('COOKIE_SECRET') ?? getEnv('JWT_SECRET') ?? ''),
+    BETTER_AUTH_SECRET: getEnv(
+      'BETTER_AUTH_SECRET',
+      getEnv('SESSION_SECRET') ?? getEnv('COOKIE_SECRET') ?? getEnv('JWT_SECRET') ?? '',
+    ),
     BETTER_AUTH_URL:
-      sanitizeUrl(getEnv('BETTER_AUTH_URL', getEnv('APP_ORIGIN') ?? getEnv('VITE_API_URL'))) ?? 'http://localhost:5000',
+      sanitizeUrl(getEnv('BETTER_AUTH_URL', getEnv('APP_ORIGIN') ?? getEnv('VITE_API_URL'))) ??
+      'http://localhost:5000',
     GOOGLE_CLIENT_SECRET: getEnv('GOOGLE_CLIENT_SECRET', getEnv('GOOGLE_CLIENT_ID') ?? ''),
-    MONGO_DATABASE_URI:
-      getEnv('MONGO_DATABASE_URI', getEnv('MONGO_URI') ?? getEnv('MONGO_CONNECTION') ?? 'mongodb://127.0.0.1:27017/domo'),
+    MONGO_DATABASE_URI: getEnv(
+      'MONGO_DATABASE_URI',
+      getEnv('MONGO_URI') ?? getEnv('MONGO_CONNECTION') ?? 'mongodb://127.0.0.1:27017/domo',
+    ),
   };
 
   const result = serverEnvSchema.safeParse(normalizedEnv);

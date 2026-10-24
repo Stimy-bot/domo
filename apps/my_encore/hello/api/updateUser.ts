@@ -1,13 +1,13 @@
 // apps/my_encore/hello/api/updateUser.ts
-import { api } from "encore.dev/api";
-import { getDb } from "../encore.service";
-import { ObjectId } from "mongodb";
+import { api } from 'encore.dev/api';
+import { ObjectId } from 'mongodb';
+import { getDb } from '../encore.service';
 
 export const updateUser = api(
-  { method: "PUT", path: "/users/:id" },
+  { method: 'PUT', path: '/users/:id' },
   async ({ id, name, email }: { id: string; name?: string; email?: string }) => {
     const db = await getDb();
-    const users = db.collection("users");
+    const users = db.collection('users');
 
     const update = {
       ...(name && { name }),
@@ -15,11 +15,8 @@ export const updateUser = api(
       updatedAt: new Date(),
     };
 
-    const result = await users.updateOne(
-      { _id: new ObjectId(id) },
-      { $set: update }
-    );
+    const result = await users.updateOne({ _id: new ObjectId(id) }, { $set: update });
 
     return { modifiedCount: result.modifiedCount };
-  }
+  },
 );

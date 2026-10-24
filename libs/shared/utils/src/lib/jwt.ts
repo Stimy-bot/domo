@@ -1,6 +1,7 @@
 // libs/shared/utils/src/lib/jwt.ts
-import { createSigner, createVerifier, type SignerOptions, type VerifierOptions } from 'fast-jwt';
+
 import { Audience, loadEnv } from '@domo/constants';
+import { createSigner, createVerifier, type SignerOptions, type VerifierOptions } from 'fast-jwt';
 
 // --- Environment Variables ---
 

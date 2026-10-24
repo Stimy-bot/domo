@@ -4,7 +4,7 @@
     "outDir": "../../../dist/out-tsc",
     "composite": true,
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/index.ts"],
   "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"],

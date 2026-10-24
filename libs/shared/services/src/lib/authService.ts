@@ -1,11 +1,7 @@
 // libs/shared/services/src/lib/authService.ts
-import type { FastifyBaseLogger } from 'fastify';
-import type { Db } from 'mongodb';
-import { ObjectId } from '@fastify/mongodb';
-import {
-  VerificationCodeType,
-  loadEnv,
-} from '@domo/constants';
+
+import { loadEnv, VerificationCodeType } from '@domo/constants';
+import type { Role } from '@domo/types';
 import {
   CONFLICT,
   INTERNAL_SERVER_ERROR,
@@ -13,23 +9,24 @@ import {
   TOO_MANY_REQUESTS,
   UNAUTHORIZED,
 } from '@domo/types';
-import { ONE_DAY_MS } from '@domo/utils';
-import type { Role } from '@domo/types';
-
 import {
-  hashValue,
-  compareValue,
   appAssert,
+  compareValue,
+  fiveMinutesAgo,
   getPasswordResetTemplate,
   getVerifyEmailTemplate,
-  fiveMinutesAgo,
+  hashValue,
+  ONE_DAY_MS,
   oneHourFromNow,
   oneYearFromNow,
-  thirtyDaysFromNow,
   sendMail,
   signToken,
+  thirtyDaysFromNow,
   verifyToken,
 } from '@domo/utils';
+import { ObjectId } from '@fastify/mongodb';
+import type { FastifyBaseLogger } from 'fastify';
+import type { Db } from 'mongodb';
 import { insertLogIntoDb } from './auditService.js';
 import { twilioService } from './twilioService.js';
 
@@ -211,11 +208,7 @@ export const createAccount = async (
   });
 
   if (existingUser && existingUser.phoneVerified) {
-    appAssert(
-      false,
-      CONFLICT,
-      'This account is already verified. Please login.',
-    );
+    appAssert(false, CONFLICT, 'This account is already verified. Please login.');
   }
 
   // 2. Upsert User
@@ -245,11 +238,7 @@ export const createAccount = async (
   };
 
   const options = { upsert: true, returnDocument: 'after' as const };
-  const user = await usersCollection.findOneAndUpdate(
-    filter,
-    update,
-    options,
-  );
+  const user = await usersCollection.findOneAndUpdate(filter, update, options);
 
   appAssert(user, INTERNAL_SERVER_ERROR, 'Failed to create account');
 
@@ -259,10 +248,7 @@ export const createAccount = async (
       await twilioService.sendVerificationCode(phone, ctx.logger);
     } catch (err: unknown) {
       if (ctx.logger) {
-        ctx.logger.error(
-          { err, phone },
-          'Twilio Verify start failed during registration',
-        );
+        ctx.logger.error({ err, phone }, 'Twilio Verify start failed during registration');
       } else {
         console.error('Twilio Verify start failed during registration:', err);
       }
@@ -340,20 +326,11 @@ export const loginUser = async (
   return { user: sanitizeUser(user), accessToken, refreshToken };
 };
 
-export const refreshUserAccessToken = async (
-  ctx: ServiceContext,
-  refreshToken: string,
-) => {
+export const refreshUserAccessToken = async (ctx: ServiceContext, refreshToken: string) => {
   const payload = verifyToken(refreshToken);
-  const sessionId = (
-    payload as typeof payload & { sessionId?: string }
-  )?.sessionId;
+  const sessionId = (payload as typeof payload & { sessionId?: string })?.sessionId;
 
-  appAssert(
-    sessionId,
-    UNAUTHORIZED,
-    'Invalid refresh token',
-  );
+  appAssert(sessionId, UNAUTHORIZED, 'Invalid refresh token');
 
   const sessionsCollection = ctx.db.collection('sessions');
   const usersCollection = ctx.db.collection<UserDocument>('users');
@@ -423,10 +400,7 @@ export const verifyEmail = async (ctx: ServiceContext, codeId: string) => {
   return { user: sanitizeUser(updatedUser) };
 };
 
-export const sendPasswordResetEmail = async (
-  ctx: ServiceContext,
-  email: string,
-) => {
+export const sendPasswordResetEmail = async (ctx: ServiceContext, email: string) => {
   const usersCollection = ctx.db.collection('users');
   const codesCollection = ctx.db.collection('verificationCodes');
 
@@ -441,9 +415,7 @@ export const sendPasswordResetEmail = async (
   appAssert(recent <= 1, TOO_MANY_REQUESTS, 'Try again later');
 
   const expiresAt = oneHourFromNow();
-  const verificationCodeValue = Math.floor(
-    100000 + Math.random() * 900000,
-  ).toString();
+  const verificationCodeValue = Math.floor(100000 + Math.random() * 900000).toString();
 
   const codeInsert = await codesCollection.insertOne({
     userId: user._id,
@@ -489,10 +461,7 @@ export const resetPassword = async (
   const userId = new ObjectId(code['userId'] as string | ObjectId);
   const newHashedPassword = await hashValue(password);
 
-  await usersCollection.updateOne(
-    { _id: userId },
-    { $set: { password: newHashedPassword } },
-  );
+  await usersCollection.updateOne({ _id: userId }, { $set: { password: newHashedPassword } });
 
   await codesCollection.deleteOne({ _id: code._id });
   await sessionsCollection.deleteMany({ userId });
@@ -505,15 +474,7 @@ export const resetPassword = async (
 
 export const updateAccount = async (
   ctx: ServiceContext,
-  {
-    userId,
-    userAgent = '',
-    ip,
-    role,
-    active,
-    method = 'manual',
-    ...fields
-  }: UpdateAccountParams,
+  { userId, userAgent = '', ip, role, active, method = 'manual', ...fields }: UpdateAccountParams,
 ) => {
   const usersCollection = ctx.db.collection<UserDocument>('users');
   const targetId = new ObjectId(userId);
@@ -543,7 +504,7 @@ export const updateAccount = async (
   const updateFields: Record<string, unknown> = {};
   let profileChanged = false;
 
-  Object.keys(fields).forEach((key) => {
+  Object.keys(fields).forEach(key => {
     if (allowedFields.includes(key) && fields[key] !== undefined) {
       if (user[key] !== fields[key]) {
         profileChanged = true;
@@ -587,10 +548,7 @@ export const updateAccount = async (
     ip: normalizeIp(ip),
   };
 
-  if (
-    role !== undefined &&
-    JSON.stringify(updatedUser.role) !== JSON.stringify(oldRole)
-  ) {
+  if (role !== undefined && JSON.stringify(updatedUser.role) !== JSON.stringify(oldRole)) {
     await insertLogIntoDb(ctx.db, {
       ...logBase,
       type: 'user_update',
@@ -622,9 +580,7 @@ export const updateAccount = async (
       metadata: {
         method: method === 'oauth' ? 'oauth' : 'manual',
         action: 'profile_update',
-        updatedFields: Object.keys(fields).filter((k) =>
-          allowedFields.includes(k),
-        ),
+        updatedFields: Object.keys(fields).filter(k => allowedFields.includes(k)),
       },
     }).catch((err: unknown) => ctx.logger?.error({ err }, 'Audit Log Failed'));
   }
@@ -744,10 +700,7 @@ export const verifyOtpService = async (
 
   appAssert(check && check.valid, UNAUTHORIZED, 'Invalid or expired OTP');
 
-  await usersCollection.updateOne(
-    { _id: user._id },
-    { $set: { phoneVerified: true } },
-  );
+  await usersCollection.updateOne({ _id: user._id }, { $set: { phoneVerified: true } });
 
   const { accessToken, refreshToken } = await createSessionAndTokens(
     ctx,

@@ -1,8 +1,8 @@
 // apps/my_vite/src/pages/Contact.tsx
-import { AppContact } from '@domo/forms'
+import { AppContact } from '@domo/forms';
 
 function Contact() {
-return < AppContact />;
+  return <AppContact />;
 }
 
-export {Contact};
+export { Contact };

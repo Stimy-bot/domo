@@ -1,45 +1,56 @@
-import { betterAuth } from 'better-auth'
-import { MongoClient } from "mongodb";
-import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { tanstackStartCookies } from 'better-auth/tanstack-start'
+import { betterAuth } from 'better-auth';
+import { mongodbAdapter } from 'better-auth/adapters/mongodb';
+import { tanstackStartCookies } from 'better-auth/tanstack-start';
+import { MongoClient } from 'mongodb';
 
-const mongoUri = process.env.MONGO_URI || import.meta.env.MONGO_URI || "mongodb://localhost:27017/database";
+// const mongoUri = process.env.MONGO_URI;
 
-// Use a global variable in development to prevent multiple connection pools during HMR
-let client: MongoClient;
+// if (!mongoUri) {
+//   throw new Error("MONGO_URI environment variable is not set");
+// }
 
-if (process.env.NODE_ENV === 'development') {
-  let globalWithMongo = global as typeof global & {
-    _mongoClient?: MongoClient;
-  };
-  if (!globalWithMongo._mongoClient) {
-    globalWithMongo._mongoClient = new MongoClient(mongoUri);
-    await globalWithMongo._mongoClient.connect();
-  }
-  client = globalWithMongo._mongoClient;
-} else {
-  client = new MongoClient(mongoUri);
-  await client.connect(); // <-- This was missing!
-}
+// declare global {
+//   // eslint-disable-next-line no-var
+//   var mongoClient: MongoClient | undefined;
+// }
+
+// let client: MongoClient;
+
+// if (process.env.NODE_ENV === "development") {
+//   if (!global.mongoClient) {
+//     global.mongoClient = new MongoClient(mongoUri);
+//     await global.mongoClient.connect();
+//   }
+
+//   client = global.mongoClient;
+// } else {
+//   client = new MongoClient(mongoUri);
+//   await client.connect();
+// }
+const client = new MongoClient('mongodb://localhost:27017/database');
 
 const db = client.db();
 
 export const auth = betterAuth({
+  database: mongodbAdapter(db),
+
+  plugins: [tanstackStartCookies()],
+
   emailAndPassword: {
     enabled: true,
   },
-  plugins: [tanstackStartCookies()],
-  database: mongodbAdapter(db, {
-    client
-  }),
   socialProviders: {
-    github: { 
-        clientId: process.env.GITHUB_CLIENT_ID as string, 
-        clientSecret: process.env.GITHUB_CLIENT_SECRET as string, 
-    }, 
-     google: {
-        clientId: process.env.GOOGLE_CLIENT_ID as string,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    },
+    google: {
+      clientId: process.env.VITE_GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.VITE_GOOGLE_CLIENT_SECRET as string,
+    },
+    linkedin: {
+      clientId: process.env.LINKEDIN_CLIENT_ID as string,
+      clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
     },
   },
-})
+});

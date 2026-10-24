@@ -1,13 +1,12 @@
 // apps/my_fastify/src/routes/root/index.ts
-import type { FastifyPluginAsync, FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import fastifyStatic from '@fastify/static';
+
 import fs from 'node:fs';
 import path from 'node:path';
 import { INTERNAL_SERVER_ERROR, NOT_FOUND } from '@domo/types';
+import fastifyStatic from '@fastify/static';
+import type { FastifyInstance, FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
 
-const root: FastifyPluginAsync = async (
-  fastify: FastifyInstance,
-): Promise<void> => {
+const root: FastifyPluginAsync = async (fastify: FastifyInstance): Promise<void> => {
   const publicDir = path.resolve(process.cwd(), 'apps/my_fastify/src/public');
   const viewsDir = path.resolve(process.cwd(), 'apps/my_fastify/src/views');
 
@@ -30,15 +29,15 @@ const root: FastifyPluginAsync = async (
   });
 
   // 3. Custom 404 handler (Renders views/404.html)
-fastify.setNotFoundHandler((_request: FastifyRequest, reply: FastifyReply) => {
-  const notFoundPath = path.join(viewsDir, '404.html');
+  fastify.setNotFoundHandler((_request: FastifyRequest, reply: FastifyReply) => {
+    const notFoundPath = path.join(viewsDir, '404.html');
 
-  if (fs.existsSync(notFoundPath)) {
-    return reply.type('text/html').sendFile('404.html');
-  }
+    if (fs.existsSync(notFoundPath)) {
+      return reply.type('text/html').sendFile('404.html');
+    }
 
-  return reply.status(NOT_FOUND).send({ error: 'Not Found' });
-});
+    return reply.status(NOT_FOUND).send({ error: 'Not Found' });
+  });
 
   // 4. Root route (Renders views/index.html)
   fastify.get('', async (_request: FastifyRequest, reply: FastifyReply) => {

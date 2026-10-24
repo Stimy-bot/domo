@@ -1,37 +1,37 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"cSpell.words": [
-			"aishop",
-			"BUILDKIT",
-			"domo",
-			"ehthumbs",
-			"fastapi",
-			"geoip",
-			"htmx",
-			"ldark",
-			"libpeerconnection",
-			"njsproj",
-			"ntvs",
-			"nxlv",
-			"ollama",
-			"opencontainers",
-			"pwdlib",
-			"pytest",
-			"testem",
-			"totaldata",
-			"Totaldata",
-			"typebox",
-			"uvicorn",
-			"venv",
-			"vinxi",
-			"vite",
-			"vitest",
-			"worktrees"
-		]
-	}
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "cSpell.words": [
+      "aishop",
+      "BUILDKIT",
+      "domo",
+      "ehthumbs",
+      "fastapi",
+      "geoip",
+      "htmx",
+      "ldark",
+      "libpeerconnection",
+      "njsproj",
+      "ntvs",
+      "nxlv",
+      "ollama",
+      "opencontainers",
+      "pwdlib",
+      "pytest",
+      "testem",
+      "totaldata",
+      "Totaldata",
+      "typebox",
+      "uvicorn",
+      "venv",
+      "vinxi",
+      "vite",
+      "vitest",
+      "worktrees"
+    ]
+  }
 }

@@ -1,13 +1,8 @@
 // tools/tailwind-sync-plugin/src/generators/update-tailwind-globs.ts
-import {
-  createProjectGraphAsync,
-} from '@nx/devkit';
-import type {
-  Tree,
-  ProjectGraph,
-  ProjectGraphProjectNode,
-} from '@nx/devkit';
-import { join, relative, dirname } from 'path';
+
+import type { ProjectGraph, ProjectGraphProjectNode, Tree } from '@nx/devkit';
+import { createProjectGraphAsync } from '@nx/devkit';
+import { dirname, join, relative } from 'path';
 import type { UpdateTailwindGlobsGeneratorSchema } from './schema';
 
 const START_MARKER = '/* nx-tailwind-sources:start */';
@@ -31,7 +26,7 @@ const VITE_CONFIG_PATTERNS = [
 function findTailwindCssFile(
   tree: Tree,
   projectRoot: string,
-  additionalPaths: string[] = []
+  additionalPaths: string[] = [],
 ): string | undefined {
   const searchPaths = [...DEFAULT_STYLE_PATHS, ...additionalPaths];
   for (const relPath of searchPaths) {
@@ -50,7 +45,7 @@ function findTailwindCssFile(
 function findAnyStylesFile(
   tree: Tree,
   projectRoot: string,
-  additionalPaths: string[] = []
+  additionalPaths: string[] = [],
 ): string | undefined {
   const searchPaths = [...DEFAULT_STYLE_PATHS, ...additionalPaths];
   for (const relPath of searchPaths) {
@@ -71,10 +66,7 @@ function projectUsesVitePlugin(tree: Tree, projectRoot: string): boolean {
     const content = tree.read(configPath)?.toString();
     if (content) {
       // Check for tailwindcss import from @tailwindcss/vite and usage
-      if (
-        content.includes('@tailwindcss/vite') &&
-        content.match(/tailwindcss\s*\(\s*\)/)
-      ) {
+      if (content.includes('@tailwindcss/vite') && content.match(/tailwindcss\s*\(\s*\)/)) {
         return true;
       }
     }
@@ -94,7 +86,7 @@ interface TailwindProject {
 function findTailwindProjects(
   projectGraph: ProjectGraph,
   tree: Tree,
-  additionalStylePaths: string[] = []
+  additionalStylePaths: string[] = [],
 ): TailwindProject[] {
   const results: TailwindProject[] = [];
 
@@ -102,20 +94,12 @@ function findTailwindProjects(
     if (!project.data.root) continue;
 
     // First check for CSS file with @import 'tailwindcss'
-    let cssFile = findTailwindCssFile(
-      tree,
-      project.data.root,
-      additionalStylePaths
-    );
+    let cssFile = findTailwindCssFile(tree, project.data.root, additionalStylePaths);
     const usesVitePlugin = projectUsesVitePlugin(tree, project.data.root);
 
     // For Vite plugin projects without @import 'tailwindcss', look for any styles.css
     if (!cssFile && usesVitePlugin) {
-      cssFile = findAnyStylesFile(
-        tree,
-        project.data.root,
-        additionalStylePaths
-      );
+      cssFile = findAnyStylesFile(tree, project.data.root, additionalStylePaths);
     }
 
     if (cssFile || usesVitePlugin) {
@@ -129,10 +113,7 @@ function findTailwindProjects(
 /**
  * Collect all transitive dependencies for a project
  */
-function collectDependencies(
-  projectName: string,
-  projectGraph: ProjectGraph
-): Set<string> {
+function collectDependencies(projectName: string, projectGraph: ProjectGraph): Set<string> {
   const dependencies = new Set<string>();
   const queue = [projectName];
   const visited = new Set<string>();
@@ -144,7 +125,7 @@ function collectDependencies(
     visited.add(current);
 
     const deps = projectGraph.dependencies[current] || [];
-    deps.forEach((dep) => {
+    deps.forEach(dep => {
       dependencies.add(dep.target);
       queue.push(dep.target);
     });
@@ -160,7 +141,7 @@ function updateSourceDirectives(
   tree: Tree,
   projectName: string,
   cssFilePath: string,
-  projectGraph: ProjectGraph
+  projectGraph: ProjectGraph,
 ): boolean {
   const dependencies = collectDependencies(projectName, projectGraph);
 
@@ -168,7 +149,7 @@ function updateSourceDirectives(
   const sourceDirectives: string[] = [];
   const cssDir = dirname(cssFilePath);
 
-  dependencies.forEach((dep) => {
+  dependencies.forEach(dep => {
     const project = projectGraph.nodes[dep];
     if (project && project.data.root) {
       // Calculate relative path from CSS file directory to dependency root
@@ -184,19 +165,15 @@ function updateSourceDirectives(
   const currentContent = tree.read(cssFilePath)?.toString() || '';
 
   // Build the managed block
-  const managedBlock = [START_MARKER, ...sourceDirectives, END_MARKER].join(
-    '\n'
-  );
+  const managedBlock = [START_MARKER, ...sourceDirectives, END_MARKER].join('\n');
 
   // Check if markers already exist
-  const hasMarkers =
-    currentContent.includes(START_MARKER) &&
-    currentContent.includes(END_MARKER);
+  const hasMarkers = currentContent.includes(START_MARKER) && currentContent.includes(END_MARKER);
 
   if (hasMarkers) {
     // Extract existing managed section content for comparison
     const markerRegex = new RegExp(
-      `${escapeRegex(START_MARKER)}[\\s\\S]*?${escapeRegex(END_MARKER)}`
+      `${escapeRegex(START_MARKER)}[\\s\\S]*?${escapeRegex(END_MARKER)}`,
     );
     const existingBlock = currentContent.match(markerRegex)?.[0] || '';
 
@@ -212,10 +189,7 @@ function updateSourceDirectives(
 
   // No markers yet - need to insert them
   // Remove any existing bare @source directives (migration from old format)
-  const cleanedContent = currentContent.replace(
-    /\n@source\s+["'][^"']*packages\/[^"']+["'];/g,
-    ''
-  );
+  const cleanedContent = currentContent.replace(/\n@source\s+["'][^"']*packages\/[^"']+["'];/g, '');
 
   // Try to find @import 'tailwindcss' first
   const tailwindImportRegex = /@import\s+['"]tailwindcss['"];/;
@@ -249,27 +223,18 @@ function escapeRegex(str: string): string {
 
 export async function updateTailwindGlobsGenerator(
   tree: Tree,
-  options: UpdateTailwindGlobsGeneratorSchema = {}
+  options: UpdateTailwindGlobsGeneratorSchema = {},
 ): Promise<{ outOfSyncMessage?: string }> {
   const projectGraph = await createProjectGraphAsync();
   const updatedProjects: string[] = [];
 
   // Find all Tailwind v4 projects
-  const tailwindProjects = findTailwindProjects(
-    projectGraph,
-    tree,
-    options.additionalStylePaths
-  );
+  const tailwindProjects = findTailwindProjects(projectGraph, tree, options.additionalStylePaths);
 
   // Update @source directives for each project with a CSS file
   for (const { project, cssFile } of tailwindProjects) {
     if (cssFile) {
-      const updated = updateSourceDirectives(
-        tree,
-        project.name,
-        cssFile,
-        projectGraph
-      );
+      const updated = updateSourceDirectives(tree, project.name, cssFile, projectGraph);
       if (updated) {
         updatedProjects.push(project.name);
       }
@@ -281,9 +246,7 @@ export async function updateTailwindGlobsGenerator(
   }
 
   return {
-    outOfSyncMessage: `Tailwind @source directives updated for: ${updatedProjects.join(
-      ', '
-    )}`,
+    outOfSyncMessage: `Tailwind @source directives updated for: ${updatedProjects.join(', ')}`,
   };
 }
 

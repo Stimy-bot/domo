@@ -5,4 +5,4 @@ const VerificationCodeType = {
   SmsOtp: 'SmsOtp',
 } as const;
 
-export {VerificationCodeType};
+export { VerificationCodeType };

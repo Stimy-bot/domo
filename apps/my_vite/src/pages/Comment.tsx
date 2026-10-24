@@ -1,8 +1,8 @@
 // apps/my_vite/src/pages/Comment.tsx
-import { AppComment } from '@domo/forms'
+import { AppComment } from '@domo/forms';
 
 function Comment() {
-return < AppComment />;
+  return <AppComment />;
 }
 
-export {Comment};
+export { Comment };

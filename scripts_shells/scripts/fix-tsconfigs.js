@@ -16,7 +16,7 @@ function findFiles(dir) {
 }
 
 const files = findFiles(root);
-const targetFiles = files.filter((f) => {
+const targetFiles = files.filter(f => {
   try {
     const txt = fs.readFileSync(f, 'utf8');
     return /"outDir"\s*:\s*".*dist\/out-tsc/.test(txt);
@@ -62,7 +62,9 @@ for (const file of targetFiles) {
 
     // Merge include entries
     const desired = ['src/**/*.ts', 'src/**/*.tsx', 'src/types/**/*.d.ts'];
-    json.include = Array.isArray(json.include) ? Array.from(new Set([...json.include, ...desired])) : desired;
+    json.include = Array.isArray(json.include)
+      ? Array.from(new Set([...json.include, ...desired]))
+      : desired;
 
     // Write back with 2-space formatting
     fs.writeFileSync(file, JSON.stringify(json, null, 2) + '\n', 'utf8');

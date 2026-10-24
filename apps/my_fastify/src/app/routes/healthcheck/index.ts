@@ -15,6 +15,6 @@ export default async function healthCheck(fastify: FastifyInstance) {
     },
     async () => {
       return { hello: 'world' };
-    }
+    },
   );
 }

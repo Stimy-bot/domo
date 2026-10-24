@@ -1,6 +1,5 @@
 // libs/shared/utils/src/lib/navigation.ts
 
-
 // Define a more flexible type that matches React Router's NavigateOptions
 type NavigateOptions = {
   state?: unknown;

@@ -1,6 +1,6 @@
 {
   "name": "@domo/middleware",
-    "root": "libs/shared/middleware",
+  "root": "libs/shared/middleware",
   "sourceRoot": "libs/shared/middleware/src",
   "projectType": "library",
   "tags": [],

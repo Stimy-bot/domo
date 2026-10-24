@@ -1,16 +1,17 @@
 // libs/shared/schemas/src/lib/auditMongoSchema.ts
-import { z } from 'zod';
+
 import { ObjectId } from 'bson';
+import { z } from 'zod';
 
 // Schema for documents fetched from MongoDB
 export const auditLogDocumentSchema = z.object({
   _id: z.instanceof(ObjectId),
-      type: z.string(),
-    actor: z.any(),
-    target: z.any(),
-    metadata: z.any(),
-    ip: z.string(),
-    createdAt: z.date()
+  type: z.string(),
+  actor: z.any(),
+  target: z.any(),
+  metadata: z.any(),
+  ip: z.string(),
+  createdAt: z.date(),
 });
 
 // 2) Type alias for documents you read back from Mongo

@@ -6,8 +6,5 @@
     "types": ["vitest/globals", "node"],
     "outDir": "../../../dist/out-tsc"
   },
-  "include": [
-    "src/**/*.test.ts",
-    "src/**/*.spec.ts"
-  ]
+  "include": ["src/**/*.test.ts", "src/**/*.spec.ts"]
 }

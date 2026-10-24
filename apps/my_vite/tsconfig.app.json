@@ -10,13 +10,7 @@
       "vitest/importMeta"
     ]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "apps/**/*.ts",
-    "libs/**/*.ts",
-    "types/**/*.d.ts"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
   "references": [
     {
       "path": "../../libs/shared/forms/tsconfig.lib.json"

@@ -1,14 +1,12 @@
-
-export * from './lib/forms';
 export * from './lib/appComment';
 export * from './lib/appCompany';
+export * from './lib/appContact';
 export * from './lib/appForgot';
 export * from './lib/appLogin';
 export * from './lib/appProfile';
 export * from './lib/appQuote';
 export * from './lib/appRegister';
 export * from './lib/appUser';
+export * from './lib/forms';
 export * from './lib/otpVerificationForm';
 export * from './lib/resetPasswordForm';
-export * from './lib/appContact'
-

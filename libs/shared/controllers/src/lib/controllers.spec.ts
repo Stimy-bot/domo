@@ -1,5 +1,5 @@
+import { describe, expect, it } from 'vitest';
 import { controllers } from './controllers';
-import { describe, it, expect } from 'vitest';
 
 describe('controllers', () => {
   it('should work', () => {

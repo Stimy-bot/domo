@@ -6,10 +6,7 @@ type NavigateOptions = {
   replace?: boolean;
 };
 
-export let navigate: (
-  path: string,
-  options?: NavigateOptions,
-) => void = () => {
+export let navigate: (path: string, options?: NavigateOptions) => void = () => {
   throw new Error('Navigation function has not been initialized');
 };
 

@@ -15,7 +15,7 @@ export function normalizeRoles(role: UserRole[] | UserRole | null | undefined): 
  */
 export function hasRole(
   roles: UserRole[] | UserRole | null | undefined,
-  target: UserRole
+  target: UserRole,
 ): boolean {
   const normalized = normalizeRoles(roles);
   return normalized.includes(target);

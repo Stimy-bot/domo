@@ -1,23 +1,24 @@
 // apps/my_fastify/src/app/routes/auth/index.ts
-import type { FastifyPluginAsync } from "fastify";
+
 import {
-  sendPasswordResetHandler,
   loginHandler,
   logoutHandler,
   refreshHandler,
   registerHandler,
   resetPasswordHandler,
+  sendPasswordResetHandler,
   verifyEmailHandler,
-} from "@domo/controllers";
+} from '@domo/controllers';
+import type { FastifyPluginAsync } from 'fastify';
 
-const authRoutes: FastifyPluginAsync = async (fastify) => {
-  fastify.post("/register", registerHandler);
-  fastify.post("/login", loginHandler);
-  fastify.get("/refresh", refreshHandler);
-  fastify.get("/logout", logoutHandler);
-  fastify.get("/email/verify/:code", verifyEmailHandler);
-  fastify.post("/password/forgot", sendPasswordResetHandler);
-  fastify.post("/password/reset", resetPasswordHandler);
+const authRoutes: FastifyPluginAsync = async fastify => {
+  fastify.post('/register', registerHandler);
+  fastify.post('/login', loginHandler);
+  fastify.get('/refresh', refreshHandler);
+  fastify.get('/logout', logoutHandler);
+  fastify.get('/email/verify/:code', verifyEmailHandler);
+  fastify.post('/password/forgot', sendPasswordResetHandler);
+  fastify.post('/password/reset', resetPasswordHandler);
 };
 
 export { authRoutes };

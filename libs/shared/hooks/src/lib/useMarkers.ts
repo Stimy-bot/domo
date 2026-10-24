@@ -1,5 +1,5 @@
 // libs/shared/hooks/src/lib/useMarkers.ts
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export interface Marker {
   id: number;
@@ -33,8 +33,8 @@ export const useMarkers = (url: string) => {
         }
 
         // Validate JSON content type to avoid the "Unexpected token < in JSON" (HTML) error
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
           throw new TypeError("Oops! The server didn't send JSON. Is your Backend URL correct?");
         }
 
@@ -42,8 +42,8 @@ export const useMarkers = (url: string) => {
         setMarkers(data);
       } catch (err: any) {
         // Only update state if the error wasn't caused by a manual abort
-        if (err.name !== "AbortError") {
-          console.error("Marker Fetch Error:", err.message);
+        if (err.name !== 'AbortError') {
+          console.error('Marker Fetch Error:', err.message);
           setError(err.message);
         }
       } finally {

@@ -1,14 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/libs/shared/ui-sidebar",
+    "outDir": "../../../dist/libs/shared/ui-sidebar"
   },
-"include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.jsx"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",

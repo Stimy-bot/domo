@@ -1,13 +1,14 @@
 // libs/shared/hooks/src/lib/useAuth.ts
+
+import { getUser } from '@domo/client';
 import { AUTH_QUERY_KEY } from '@domo/constants';
 import { useQuery } from '@tanstack/react-query';
-import { getUser } from '@domo/client';
 
 const useAuth = (opts = {}) => {
-  const { 
-    data: user, 
-    isLoading, 
-    isError 
+  const {
+    data: user,
+    isLoading,
+    isError,
   } = useQuery({
     queryKey: AUTH_QUERY_KEY,
     queryFn: getUser,
@@ -17,7 +18,7 @@ const useAuth = (opts = {}) => {
 
   return {
     user,
-    isLoading, 
+    isLoading,
     isAuthenticated: !!user && !isError,
   };
 };

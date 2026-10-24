@@ -3,14 +3,11 @@
   "compilerOptions": {
     "outDir": "../../dist/apps/my_start",
     "moduleResolution": "bundler",
-    "types": [
-      "vitest/globals",
-      "node"
-    ],
+    "types": ["vitest/globals", "node"],
     "composite": true,
     "declaration": true,
     "emitDeclarationOnly": false,
-    "noEmit": false,
+    "noEmit": false
   },
   "include": [
     "src/**/*.spec.ts",

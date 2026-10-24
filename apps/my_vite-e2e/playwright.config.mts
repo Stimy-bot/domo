@@ -1,7 +1,8 @@
 // apps/my_vite-e2e/playwright.config.mts
-import { defineConfig, devices } from '@playwright/test';
-import { nxE2EPreset } from '@nx/playwright/preset';
+
 import { workspaceRoot } from '@nx/devkit';
+import { nxE2EPreset } from '@nx/playwright/preset';
+import { defineConfig, devices } from '@playwright/test';
 
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env['BASE_URL'] || 'http://localhost:5173';
@@ -29,8 +30,8 @@ export default defineConfig({
     baseURL,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-  extraHTTPHeaders: {
-      'Accept': 'application/json',
+    extraHTTPHeaders: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
   },

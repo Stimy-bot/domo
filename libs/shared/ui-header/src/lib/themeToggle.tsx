@@ -1,5 +1,5 @@
+import { type ThemeMode, type UIStoreState, useUIStore } from '@domo/state';
 import { useEffect } from 'react';
-import { useUIStore, type ThemeMode, type UIStoreState } from '@domo/state';
 
 function getInitialMode(): ThemeMode {
   if (typeof window === 'undefined') return 'auto';
@@ -34,8 +34,7 @@ export default function ThemeToggle() {
   }, [mode, setThemeMode]);
 
   function toggleMode() {
-    const next: ThemeMode =
-      mode === 'light' ? 'dark' : mode === 'dark' ? 'auto' : 'light';
+    const next: ThemeMode = mode === 'light' ? 'dark' : mode === 'dark' ? 'auto' : 'light';
 
     setThemeMode(next);
   }

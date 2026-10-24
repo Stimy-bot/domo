@@ -1,13 +1,14 @@
 // libs/services/src/lib/auditService.ts
-import type { FastifyRequest } from 'fastify';
-import geoip from 'geoip-lite';
-import { Db, ObjectId, type WithId, type Document } from 'mongodb';
+
 import {
+  type AuditLog,
   auditLogSchema,
   createAuditLogInputSchema,
   objectIdSchema,
-  type AuditLog,
 } from '@domo/schemas';
+import type { FastifyRequest } from 'fastify';
+import geoip from 'geoip-lite';
+import { type Db, type Document, ObjectId, type WithId } from 'mongodb';
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -66,10 +67,7 @@ export type ActorParam = {
   fullName?: string;
 };
 
-export async function insertLogIntoDb(
-  db: Db,
-  input: unknown,
-): Promise<AuditLog> {
+export async function insertLogIntoDb(db: Db, input: unknown): Promise<AuditLog> {
   const parsed = createAuditLogInputSchema.parse(input);
 
   const toObjectId = (v: unknown) =>
@@ -147,10 +145,7 @@ export async function logAuthEvent<M extends Record<string, unknown>>(
     const log = await insertLogIntoDb(req.db, payload);
     return { ok: true, log };
   } catch (err) {
-    req.log.error(
-      { err, type, actorId, cleanIp },
-      '[AUDIT] Failed to log event',
-    );
+    req.log.error({ err, type, actorId, cleanIp }, '[AUDIT] Failed to log event');
     if (options?.failHard) throw err;
     return { ok: false, error: err };
   }
@@ -158,9 +153,7 @@ export async function logAuthEvent<M extends Record<string, unknown>>(
 
 export async function getAuditLogById(db: Db, id: unknown): Promise<AuditLog> {
   const validId = objectIdSchema.parse(id);
-  const doc = await db
-    .collection('audit_logs')
-    .findOne({ _id: new ObjectId(validId) });
+  const doc = await db.collection('audit_logs').findOne({ _id: new ObjectId(validId) });
 
   if (!doc) throw new Error(`AuditLog with id=${validId} not found`);
   return auditLogSchema.parse(normalizeAuditDoc(doc));
@@ -183,10 +176,7 @@ export async function fetchLogsFromDb(
     if (result.success) {
       acc.push(result.data);
     } else {
-      console.warn(
-        `[AUDIT] Validation failed for log ${doc['_id']}:`,
-        result.error.format(),
-      );
+      console.warn(`[AUDIT] Validation failed for log ${doc['_id']}:`, result.error.format());
     }
     return acc;
   }, []);
@@ -200,13 +190,8 @@ export async function deleteAllLogsFromDb(
   return { deletedCount: result.deletedCount ?? 0 };
 }
 
-export async function deleteAuditLogById(
-  db: Db,
-  id: unknown,
-): Promise<boolean> {
+export async function deleteAuditLogById(db: Db, id: unknown): Promise<boolean> {
   const validId = objectIdSchema.parse(id);
-  const result = await db
-    .collection('audit_logs')
-    .deleteOne({ _id: new ObjectId(validId) });
+  const result = await db.collection('audit_logs').deleteOne({ _id: new ObjectId(validId) });
   return result.deletedCount === 1;
 }

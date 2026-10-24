@@ -1,29 +1,20 @@
 // libs/shared/controllers/src/lib/userController.ts
-import type { FastifyReply, FastifyRequest } from 'fastify';
-import { ObjectId } from 'bson';
-import z from 'zod';
+
+import { sanitizeUser, type UserEntity } from '@domo/models';
+import { updateSchema } from '@domo/schemas';
+import { type ActorParam, deleteAllUsers, logAuthEvent, updateAccount } from '@domo/services';
 import {
+  type AccessTokenPayload,
   BAD_REQUEST,
   FORBIDDEN,
   NOT_FOUND,
   OK,
   UNAUTHORIZED,
 } from '@domo/types';
-import { sanitizeUser, type UserEntity } from '@domo/models';
-import { updateSchema } from '@domo/schemas';
-import {
-  deleteAllUsers,
-  logAuthEvent,
-  updateAccount,
-  type ActorParam,
-} from '@domo/services';
-import {
-  appAssert,
-  catchErrors,
-  clearAuthCookies,
-  verifyToken,
-} from '@domo/utils';
-import { type AccessTokenPayload } from '@domo/types';
+import { appAssert, catchErrors, clearAuthCookies, verifyToken } from '@domo/utils';
+import { ObjectId } from 'bson';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import z from 'zod';
 
 type ReqWithAuth = FastifyRequest & {
   authUser?: AccessTokenPayload & { permissions?: string[] };
@@ -32,47 +23,43 @@ type ReqWithAuth = FastifyRequest & {
 };
 
 /* GET /user */
-export const getUserHandler = catchErrors(
-  async (req: FastifyRequest, reply: FastifyReply) => {
-    const r = req as ReqWithAuth;
+export const getUserHandler = catchErrors(async (req: FastifyRequest, reply: FastifyReply) => {
+  const r = req as ReqWithAuth;
 
-    appAssert(r.userId, UNAUTHORIZED, 'Not authenticated');
+  appAssert(r.userId, UNAUTHORIZED, 'Not authenticated');
 
-    appAssert(ObjectId.isValid(r.userId), UNAUTHORIZED, 'Invalid user id');
+  appAssert(ObjectId.isValid(r.userId), UNAUTHORIZED, 'Invalid user id');
 
-    const usersCollection = req.db.collection<UserEntity>('users');
-    const user = await usersCollection.findOne({
-      _id: new ObjectId(r.userId as string),
-    });
-    appAssert(user, NOT_FOUND, 'User not found');
+  const usersCollection = req.db.collection<UserEntity>('users');
+  const user = await usersCollection.findOne({
+    _id: new ObjectId(r.userId as string),
+  });
+  appAssert(user, NOT_FOUND, 'User not found');
 
-    // Optionally populate company if present
-    const companyDoc = user.company
-      ? await req.db.collection('companies').findOne({ _id: user.company })
-      : null;
+  // Optionally populate company if present
+  const companyDoc = user.company
+    ? await req.db.collection('companies').findOne({ _id: user.company })
+    : null;
 
-    const safeUser = sanitizeUser(user);
+  const safeUser = sanitizeUser(user);
 
-    return reply.status(OK).send({
-      ...safeUser,
-      company: companyDoc,
-    });
-  },
-);
+  return reply.status(OK).send({
+    ...safeUser,
+    company: companyDoc,
+  });
+});
 
 /* GET /users */
-export const getUsersHandler = catchErrors(
-  async (req: FastifyRequest, reply: FastifyReply) => {
-    const usersCollection = req.db.collection<UserEntity>('users');
-    const users = await usersCollection
-      .find({})
-      .project({ password: 0, otp: 0, otpExpiresAt: 0 })
-      .toArray();
+export const getUsersHandler = catchErrors(async (req: FastifyRequest, reply: FastifyReply) => {
+  const usersCollection = req.db.collection<UserEntity>('users');
+  const users = await usersCollection
+    .find({})
+    .project({ password: 0, otp: 0, otpExpiresAt: 0 })
+    .toArray();
 
-    const sanitizedUsers = users.map((u) => sanitizeUser(u as UserEntity));
-    return reply.status(OK).send(sanitizedUsers);
-  },
-);
+  const sanitizedUsers = users.map(u => sanitizeUser(u as UserEntity));
+  return reply.status(OK).send(sanitizedUsers);
+});
 
 /* GET /user/me */
 export const getCurrentUserHandler = catchErrors(
@@ -81,8 +68,8 @@ export const getCurrentUserHandler = catchErrors(
     appAssert(accessToken, UNAUTHORIZED, 'Missing access token');
 
     try {
- const { payload, error } = verifyToken(accessToken);
-appAssert(payload?.userId, UNAUTHORIZED, error || 'Invalid access token');
+      const { payload, error } = verifyToken(accessToken);
+      appAssert(payload?.userId, UNAUTHORIZED, error || 'Invalid access token');
 
       const usersCollection = req.db.collection<UserEntity>('users');
       const user = await usersCollection.findOne({
@@ -101,10 +88,7 @@ appAssert(payload?.userId, UNAUTHORIZED, error || 'Invalid access token');
 
 /* PATCH /user/update/:id */
 export const updateHandler = catchErrors(
-  async (
-    req: FastifyRequest<{ Params: { id: string } }>,
-    reply: FastifyReply,
-  ) => {
+  async (req: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
     const r = req as ReqWithAuth;
 
     const payload = updateSchema.parse({
@@ -136,7 +120,7 @@ export const updateHandler = catchErrors(
 
     const isSelf = requestingUserId === targetUserId;
     const permissions = (r.authUser?.permissions ?? []) as string[];
-    const hasPerm = (permissions || []).some((p) =>
+    const hasPerm = (permissions || []).some(p =>
       [
         'canEditUser',
         'canEditAnyUser',
@@ -157,8 +141,7 @@ export const updateHandler = catchErrors(
       { db: req.db, logger: req.log },
       {
         ...payload,
-        active:
-          typeof payload.active === 'boolean' ? payload.active : undefined,
+        active: typeof payload.active === 'boolean' ? payload.active : undefined,
         userId: targetUserId,
         actorId: requestingUserId,
       },
@@ -167,12 +150,8 @@ export const updateHandler = catchErrors(
     try {
       const actor: ActorParam = {
         _id: requestingUserId,
-        email: String(
-          (r.authUser as { email?: unknown } | undefined)?.email || '',
-        ),
-        fullName: String(
-          (r.authUser as { fullName?: unknown } | undefined)?.fullName || '',
-        ),
+        email: String((r.authUser as { email?: unknown } | undefined)?.email || ''),
+        fullName: String((r.authUser as { fullName?: unknown } | undefined)?.fullName || ''),
       };
 
       await logAuthEvent(req, actor, 'user_update', {
@@ -180,10 +159,7 @@ export const updateHandler = catchErrors(
         success: true,
       });
 
-      if (
-        payload.active !== undefined &&
-        payload.active !== targetUser.active
-      ) {
+      if (payload.active !== undefined && payload.active !== targetUser.active) {
         await logAuthEvent(req, actor, 'user_status_change', {
           method: 'manual',
           previousStatus: Boolean(targetUser.active),
@@ -193,10 +169,7 @@ export const updateHandler = catchErrors(
         });
       }
     } catch (auditErr) {
-      req.log.error(
-        { err: auditErr },
-        '[AUDIT] user update logging failed (non-fatal)',
-      );
+      req.log.error({ err: auditErr }, '[AUDIT] user update logging failed (non-fatal)');
     }
 
     return reply.status(OK).send({ user, accessToken, refreshToken });
@@ -205,13 +178,8 @@ export const updateHandler = catchErrors(
 
 /* DELETE /user/:id */
 export const deleteHandler = catchErrors(
-  async (
-    req: FastifyRequest<{ Params: { id: string } }>,
-    reply: FastifyReply,
-  ) => {
-    const { id } = z
-      .object({ id: z.string().regex(/^[0-9a-fA-F]{24}$/) })
-      .parse(req.params);
+  async (req: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+    const { id } = z.object({ id: z.string().regex(/^[0-9a-fA-F]{24}$/) }).parse(req.params);
 
     const usersCollection = req.db.collection<UserEntity>('users');
     const deletedUser = await usersCollection.findOneAndDelete({
@@ -243,9 +211,7 @@ export const toggleUserActiveStatusHandler = catchErrors(
     const { active } = req.body || {};
 
     if (typeof active !== 'boolean') {
-      return reply
-        .status(BAD_REQUEST)
-        .send({ message: 'Invalid active status' });
+      return reply.status(BAD_REQUEST).send({ message: 'Invalid active status' });
     }
 
     const usersCollection = req.db.collection<UserEntity>('users');
@@ -259,8 +225,7 @@ export const toggleUserActiveStatusHandler = catchErrors(
       return reply.status(NOT_FOUND).send({ message: 'User not found' });
     }
 
-    const actorPayload = (req as ReqWithAuth).authUser as
-      AccessTokenPayload | undefined;
+    const actorPayload = (req as ReqWithAuth).authUser as AccessTokenPayload | undefined;
     const actorId = String(actorPayload?.userId ?? '');
     const actorEmail = actorPayload?.email ?? 'unknown';
     const actorName = actorPayload?.fullName ?? 'unknown';
@@ -291,32 +256,26 @@ export const toggleUserActiveStatusHandler = catchErrors(
 );
 
 /* DELETE /user/delete/all */
-export const deleteAllHandler = catchErrors(
-  async (req: FastifyRequest, reply: FastifyReply) => {
-    const r = req as ReqWithAuth;
-    const requestingUser = r.authUser as AccessTokenPayload | undefined;
+export const deleteAllHandler = catchErrors(async (req: FastifyRequest, reply: FastifyReply) => {
+  const r = req as ReqWithAuth;
+  const requestingUser = r.authUser as AccessTokenPayload | undefined;
 
-    appAssert(requestingUser, FORBIDDEN, 'Forbidden');
-    appAssert(
-      requestingUser.permissions?.includes('canDeleteAllUsers'),
-      FORBIDDEN,
-      'Forbidden',
-    );
+  appAssert(requestingUser, FORBIDDEN, 'Forbidden');
+  appAssert(requestingUser.permissions?.includes('canDeleteAllUsers'), FORBIDDEN, 'Forbidden');
 
-    const result = await deleteAllUsers({ db: req.db, logger: req.log });
+  const result = await deleteAllUsers({ db: req.db, logger: req.log });
 
-    const actor: ActorParam = {
-      _id: String(requestingUser.userId),
-      email: requestingUser.email,
-      fullName: requestingUser.fullName,
-    };
+  const actor: ActorParam = {
+    _id: String(requestingUser.userId),
+    email: requestingUser.email,
+    fullName: requestingUser.fullName,
+  };
 
-    await logAuthEvent(req, actor, 'all_accounts_deletion', {
-      method: 'manual',
-      success: true,
-      reason: 'Admin action',
-    });
+  await logAuthEvent(req, actor, 'all_accounts_deletion', {
+    method: 'manual',
+    success: true,
+    reason: 'Admin action',
+  });
 
-    return reply.status(OK).send({ message: result.message });
-  },
-);
+  return reply.status(OK).send({ message: result.message });
+});

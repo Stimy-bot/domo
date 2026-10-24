@@ -1,23 +1,20 @@
-import { resolve } from 'node:path'
-import tailwindcss from '@tailwindcss/vite'
-import { devtools } from '@tanstack/devtools-vite'
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
-import viteReact from '@vitejs/plugin-react'
-import { defineConfig } from 'vitest/config'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import { resolve } from 'node:path';
+import tailwindcss from '@tailwindcss/vite';
+import { devtools } from '@tanstack/devtools-vite';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import viteReact from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig(() => {
-  const rootDir = import.meta.dirname
+  const rootDir = import.meta.dirname;
 
   return {
     root: rootDir,
     cacheDir: resolve(rootDir, '../../node_modules/.vite/my_start'),
     build: {
       rolldownOptions: {
-        external: [
-          '@tanstack/ai-client',
-          '@tanstack/ai-react',
-        ],
+        external: ['@tanstack/ai-client', '@tanstack/ai-react'],
         output: {
           codeSplitting: true,
         },
@@ -51,5 +48,5 @@ export default defineConfig(() => {
         }),
       viteReact(),
     ].filter(Boolean),
-  }
-})
+  };
+});

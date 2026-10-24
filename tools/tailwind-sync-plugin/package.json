@@ -42,8 +42,7 @@
       }
     }
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "generators": "./generators.json",
   "files": [
     "dist",

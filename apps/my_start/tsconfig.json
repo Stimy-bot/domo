@@ -10,7 +10,10 @@
       "path": "./tsconfig.spec.json"
     },
     {
-    "path": "../../libs/shared/ui-buttons"
+      "path": "../../libs/shared/ui-buttons"
+    },
+    {
+      "path": "../../libs/shared/reusableComponents"
     }
   ]
 }

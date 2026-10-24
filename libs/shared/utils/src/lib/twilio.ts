@@ -1,5 +1,5 @@
-import twilio from 'twilio';
 import dotenv from 'dotenv';
+import twilio from 'twilio';
 
 dotenv.config();
 
@@ -15,10 +15,12 @@ const isProd = String(process.env['NODE_ENV'] || '').toLowerCase() === 'producti
 const allowMock = useMock && !isProd;
 
 if (!accountSid || !authToken || !verifyServiceSid) {
-  console.warn('[Twilio] credentials or service SID missing. Using mock only if SMS_MOCK=true and NODE_ENV!=production.');
+  console.warn(
+    '[Twilio] credentials or service SID missing. Using mock only if SMS_MOCK=true and NODE_ENV!=production.',
+  );
 }
 
-const client = (accountSid && authToken) ? twilio(accountSid, authToken) : null;
+const client = accountSid && authToken ? twilio(accountSid, authToken) : null;
 
 function normalizePhone(phone: string) {
   if (!phone) return phone;
@@ -34,8 +36,7 @@ export const startVerification = async (phone: string) => {
   if (!client) {
     throw new Error('Twilio client not configured');
   }
-  return client.verify.v2.services(verifyServiceSid)
-    .verifications.create({ to, channel: 'sms' });
+  return client.verify.v2.services(verifyServiceSid).verifications.create({ to, channel: 'sms' });
 };
 
 export const checkVerification = async (phone: string, otp: string | number) => {
@@ -50,6 +51,5 @@ export const checkVerification = async (phone: string, otp: string | number) => 
   if (!client) {
     throw new Error('Twilio client not configured');
   }
-  return client.verify.v2.services(verifyServiceSid)
-    .verificationChecks.create({ to, code });
+  return client.verify.v2.services(verifyServiceSid).verificationChecks.create({ to, code });
 };

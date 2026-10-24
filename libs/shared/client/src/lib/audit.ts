@@ -1,10 +1,6 @@
-import { normalizeAndValidateIp } from '@domo/utils';
-import {
-  auditLogListSchema,
-  auditLogSchema,
-  createAuditLogInputSchema,
-} from '@domo/schemas';
 import { API } from '@domo/config';
+import { auditLogListSchema, auditLogSchema, createAuditLogInputSchema } from '@domo/schemas';
+import { normalizeAndValidateIp } from '@domo/utils';
 
 const AUDIT_PATH = '/audit-logs';
 
@@ -76,12 +72,12 @@ export async function createAuditLog(input: any) {
 
   // Use 'ip' to stay consistent with the server-side schema
   const ip = normalizeAndValidateIp(input?.ip ?? input?.ipAddress ?? input?.metadata?.ipAddress);
-  
+
   const normalized = {
     type: ensureString(input?.type),
     actor: normalizeActor(input?.actor, idx),
     target: input?.target ? normalizeTarget(input?.target, idx) : undefined,
-    ip, 
+    ip,
     metadata: normalizeMetadata(input?.metadata ?? {}),
   };
 

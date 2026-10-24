@@ -1,5 +1,5 @@
+import { describe, expect, it } from 'vitest';
 import { config } from './config';
-import { describe, it, expect } from 'vitest';
 
 describe('config', () => {
   it('should work', () => {

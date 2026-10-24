@@ -91,13 +91,7 @@
         },
         "runTarget": {
           "name": "run",
-          "args": [
-            "--rm",
-            "--publish",
-            "5000:5000",
-            "--env",
-            "NODE_ENV=production"
-          ]
+          "args": ["--rm", "--publish", "5000:5000", "--env", "NODE_ENV=production"]
         }
       }
     },
@@ -106,11 +100,7 @@
       "options": {
         "targetName": "lint"
       },
-      "include": [
-        "apps/my_fastify/**/*",
-        "apps/my_start/**/*",
-        "apps/my_vite/**/*"
-      ]
+      "include": ["apps/my_fastify/**/*", "apps/my_start/**/*", "apps/my_vite/**/*"]
     }
   ],
   "generators": {
@@ -191,8 +181,6 @@
     }
   },
   "sync": {
-    "disabledTaskSyncGenerators": [
-      "@aishop/tailwind-sync-plugin:update-tailwind-globs"
-    ]
+    "disabledTaskSyncGenerators": ["@aishop/tailwind-sync-plugin:update-tailwind-globs"]
   }
 }

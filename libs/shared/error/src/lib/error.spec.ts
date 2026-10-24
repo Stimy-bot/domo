@@ -1,5 +1,5 @@
-import {error} from './error.js';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { error } from './error.js';
 
 describe('shared', () => {
   it('should work', () => {

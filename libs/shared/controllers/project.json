@@ -1,6 +1,6 @@
 {
   "name": "@domo/controllers",
-    "root": "libs/shared/controllers",
+  "root": "libs/shared/controllers",
   "sourceRoot": "libs/shared/controllers/src",
   "projectType": "library",
   "tags": [],

@@ -1,7 +1,7 @@
+import { TanStackDevtools } from '@tanstack/react-devtools';
+import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
-import { TanStackDevtools } from '@tanstack/react-devtools'
-import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import type { ReactNode } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -55,17 +55,18 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <Header />
         {children}
         <Footer />
-          <TanStackDevtools
-      plugins={[
-        {
-          name: 'TanStack Query',
-          render: <ReactQueryDevtoolsPanel />,
-        },
-        {
-          name: 'TanStack Router',
-          render: <TanStackRouterDevtoolsPanel />,
-        },
-      ]} />
+        <TanStackDevtools
+          plugins={[
+            {
+              name: 'TanStack Query',
+              render: <ReactQueryDevtoolsPanel />,
+            },
+            {
+              name: 'TanStack Router',
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
         <Scripts />
       </body>
     </html>

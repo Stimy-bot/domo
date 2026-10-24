@@ -1,26 +1,28 @@
 // libs/shared/forms/src/lib/appProfile.tsx
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { update as updateUser } from '@domo/client';
-import { useAuth } from '@domo/hooks';
-import {
-  MainLayout,
-  FormFactory,
-  type FieldConfig,
-  type SubmissionResult,
-  TextInput,
-  EmailInput,
-  PasswordInput,
-  ImageInput,
-  PhoneNumberInput,
-  TextArea,
-  RadioGroup,
-  StyledDatePicker,
-} from '@domo/reusableComponents';
 import { emailRegex, phoneRegex, pwRegex } from '@domo/constants';
 import { storage } from '@domo/firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { useAuth } from '@domo/hooks';
+import {
+  EmailInput,
+  type FieldConfig,
+  FormFactory,
+  ImageInput,
+  MainLayout,
+  PasswordInput,
+  PhoneNumberInput,
+  RadioGroup,
+  StyledDatePicker,
+  type SubmissionResult,
+  TextArea,
+  TextInput,
+} from '@domo/reusableComponents';
 import type { AnyFieldApi } from '@tanstack/react-form';
-import React, { useMemo } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import type React from 'react';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 type ProfileFormValues = {
@@ -53,15 +55,11 @@ function AppProfile() {
       email: userData.email || '',
       phone: userData.phone || '',
       verified: userData.verified || false,
-      createdAt: userData.createdAt
-        ? new Date(userData.createdAt).toLocaleDateString()
-        : '',
+      createdAt: userData.createdAt ? new Date(userData.createdAt).toLocaleDateString() : '',
       profilePicture: userData.profilePicture || null,
       bio: userData.bio || '',
       gender: userData.gender || 'prefer-not-to-say',
-      birthDate: userData.birthDate
-        ? new Date(userData.birthDate).toISOString().split('T')[0]
-        : '',
+      birthDate: userData.birthDate ? new Date(userData.birthDate).toISOString().split('T')[0] : '',
     };
   }, [user]);
 
@@ -86,8 +84,7 @@ function AppProfile() {
     },
   });
 
-  if (!user || !profileData)
-    return <div className="p-20 text-center">Loading profile...</div>;
+  if (!user || !profileData) return <div className="p-20 text-center">Loading profile...</div>;
 
   // 3. Handle Submit with Firebase Upload
   const handleProfileSubmit = async ({
@@ -111,10 +108,7 @@ function AppProfile() {
               message: 'Cloud storage not initialized.',
             };
           }
-          const storageRef = ref(
-            storage,
-            `avatars/${profileData.id}-${Date.now()}`,
-          );
+          const storageRef = ref(storage, `avatars/${profileData.id}-${Date.now()}`);
           const snapshot = await uploadBytes(storageRef, value.profilePicture);
           profilePictureUrl = await getDownloadURL(snapshot.ref);
         } catch (fbError) {
@@ -176,9 +170,7 @@ function AppProfile() {
       validators: {
         onChangeAsyncDebounceMs: 500,
         onChangeAsync: ({ value }: { value: string }) =>
-          value.length < 3
-            ? 'First name must be at least 3 characters'
-            : undefined,
+          value.length < 3 ? 'First name must be at least 3 characters' : undefined,
       },
     },
     {
@@ -189,9 +181,7 @@ function AppProfile() {
       validators: {
         onChangeAsyncDebounceMs: 500,
         onChangeAsync: ({ value }: { value: string }) =>
-          value.length < 3
-            ? 'Last name must be at least 3 characters'
-            : undefined,
+          value.length < 3 ? 'Last name must be at least 3 characters' : undefined,
       },
     },
     {
@@ -219,9 +209,7 @@ function AppProfile() {
             return 'Email is required';
           }
           // Use the imported emailRegex for validation
-          return emailRegex.test(value)
-            ? undefined
-            : 'Invalid email address format';
+          return emailRegex.test(value) ? undefined : 'Invalid email address format';
         },
       },
       props: { readOnly: true },

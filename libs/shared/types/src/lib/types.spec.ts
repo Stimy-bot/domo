@@ -1,5 +1,5 @@
-import { types } from './types.js';
 import { describe, expect, it } from 'vitest';
+import { types } from './types.js';
 
 describe('types', () => {
   it('should work', () => {

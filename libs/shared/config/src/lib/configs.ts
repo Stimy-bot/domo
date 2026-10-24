@@ -64,7 +64,7 @@ export const server = {
 };
 
 // Application Config
- const configs = {
+const configs = {
   RESEND_API_KEY: process.env['RESEND_API_KEY'],
   GMAIL: process.env['GMAIL'],
   USER: process.env['USER'],
@@ -105,4 +105,4 @@ export const carrierGateway: Record<string, string> = {
   tmobile: 'tmomail.net',
 };
 
-export {configs}
+export { configs };

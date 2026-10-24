@@ -1,6 +1,6 @@
 {
   "name": "@domo/forms",
-    "root": "libs/shared/forms",
+  "root": "libs/shared/forms",
   "sourceRoot": "libs/shared/forms/src",
   "projectType": "library",
   "tags": [],

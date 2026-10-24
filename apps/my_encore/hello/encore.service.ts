@@ -1,10 +1,10 @@
-import { Service } from "encore.dev/service";
-import { secret } from "encore.dev/config";
-import { MongoClient, Db } from "mongodb";
+import { secret } from 'encore.dev/config';
+import { Service } from 'encore.dev/service';
+import { type Db, MongoClient } from 'mongodb';
 
-export default new Service("hello");
+export default new Service('hello');
 
-export const mongoConnectionString = secret("MongoConnectionString");
+export const mongoConnectionString = secret('MongoConnectionString');
 
 let dbInstance: Db | null = null;
 
@@ -14,14 +14,14 @@ export async function getDb(): Promise<Db> {
   const uri = mongoConnectionString();
 
   const client = new MongoClient(uri, {
-    serverApi: { version: "1", strict: true, deprecationErrors: true },
+    serverApi: { version: '1', strict: true, deprecationErrors: true },
   });
 
   await client.connect();
-  await client.db("admin").command({ ping: 1 });
+  await client.db('admin').command({ ping: 1 });
 
-  console.log("MongoDB connected inside hello service");
+  console.log('MongoDB connected inside hello service');
 
-  dbInstance = client.db("mydb");
+  dbInstance = client.db('mydb');
   return dbInstance;
 }

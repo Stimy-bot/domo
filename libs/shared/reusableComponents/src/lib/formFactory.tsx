@@ -1,31 +1,32 @@
 // libs/shared/reusableComponents/src/lib/formFactory.tsx
+
+import { useToast } from '@domo/context';
 import {
-  useForm,
-  FieldApi as TanstackFieldApi,
-  type FormOptions,
   type DeepKeys,
   type FormApi,
+  type FormOptions,
+  type FieldApi as TanstackFieldApi,
+  useForm,
 } from '@tanstack/react-form';
-import { SubmitButton } from './submitButton';
-import React, { useMemo, useState } from 'react';
-import { useToast } from '@domo/context';
-import Captcha from './captcha';
+import type React from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Captcha from './captcha';
+import { SubmitButton } from './submitButton';
 
-export type ConsistentFormApi<TFormValues extends Record<string, unknown>> =
-  FormApi<
-    TFormValues,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined
-  >;
+export type ConsistentFormApi<TFormValues extends Record<string, unknown>> = FormApi<
+  TFormValues,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined
+>;
 
 type ConsistentFieldApi<
   TFormValues extends Record<string, unknown>,
@@ -97,9 +98,7 @@ export interface FieldConfig<
   section?: string;
 }
 
-function FormFactory<
-  TFormValues extends Record<string, unknown>,
->({
+function FormFactory<TFormValues extends Record<string, unknown>>({
   formOptions,
   fieldsConfig,
   onValidSubmit,
@@ -180,27 +179,13 @@ function FormFactory<
               </div>
             )}
             {fields.map(
-              ({
-                name,
-                label,
-                placeholder,
-                component: Component,
-                validators,
-                props,
-                visible,
-              }) => {
+              ({ name, label, placeholder, component: Component, validators, props, visible }) => {
                 if (visible && !visible(form)) return null;
                 return (
-                  <form.Field
-                    key={name}
-                    name={name}
-                    validators={validators as any}
-                  >
-                    {(field) => (
+                  <form.Field key={name} name={name} validators={validators as any}>
+                    {field => (
                       <Component
-                        field={
-                          field as unknown as ConsistentFieldApi<TFormValues>
-                        }
+                        field={field as unknown as ConsistentFieldApi<TFormValues>}
                         label={label}
                         placeholder={placeholder}
                         {...(props ?? {})}
@@ -214,16 +199,14 @@ function FormFactory<
         ))}
 
         <Captcha
-          onVerify={(isVerified) => {
+          onVerify={isVerified => {
             setCaptchaVerified(isVerified);
             if (isVerified) setCaptchaError('');
           }}
         />
 
         {captchaError && (
-          <p className="p-4 text-center text-red-500 text-sm mt-2 font-semibold">
-            {captchaError}
-          </p>
+          <p className="p-4 text-center text-red-500 text-sm mt-2 font-semibold">{captchaError}</p>
         )}
 
         <SubmitButton
@@ -238,4 +221,4 @@ function FormFactory<
   );
 }
 
-export { FormFactory }
+export { FormFactory };
