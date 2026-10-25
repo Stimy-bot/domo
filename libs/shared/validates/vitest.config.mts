@@ -4,7 +4,6 @@ import * as path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 const __dirname = path.resolve(process.cwd(), 'libs/shared/validates');
 
@@ -13,7 +12,7 @@ export default defineConfig(() => ({
   cacheDir: '../../../node_modules/.vite/libs/shared/validates',
   plugins: [
     react(),
-    tsconfigPaths(),
+    
     dts({
       entryRoot: 'src',
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),

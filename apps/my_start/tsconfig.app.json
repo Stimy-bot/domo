@@ -1,10 +1,16 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts"
+  ],
   "compilerOptions": {
     "target": "ES2022",
     "jsx": "react-jsx",
-    "module": "NodeNext",
+    "module": "ESNext",
     "paths": {
       "*": ["../../*"],
       "#/*": ["./src/*"],
@@ -12,8 +18,9 @@
     },
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["node", "vite/client"],
+
     /* Bundler mode */
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
@@ -26,7 +33,13 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "references": [
+"references": [
+    {
+      "path": "../../libs/shared/config/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/utils/tsconfig.lib.json"
+    },
     {
       "path": "../../libs/shared/reusableComponents/tsconfig.lib.json"
     },

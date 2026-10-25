@@ -4,7 +4,6 @@ import * as path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 // Modern ES module replacement for Node's __dirname
 const __dirname = import.meta.dirname;
@@ -14,7 +13,7 @@ export default defineConfig(() => ({
   cacheDir: '../../../node_modules/.vite/libs/shared/constants',
   plugins: [
     react(),
-    tsconfigPaths(),
+    
     dts({
       entryRoot: 'src',
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),

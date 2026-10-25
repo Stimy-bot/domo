@@ -1,4 +1,4 @@
-// This file was bundled by Encore v1.58.6
+// This file was bundled by Encore v1.58.8
 //
 // https://encore.dev
 
@@ -9,8 +9,8 @@ import { registerGateways, registerHandlers, run } from "encore.dev/internal/cod
 import { api } from "encore.dev/api";
 
 // hello/encore.service.ts
-import { Service } from "encore.dev/service";
 import { secret } from "encore.dev/config";
+import { Service } from "encore.dev/service";
 import { MongoClient } from "mongodb";
 var encore_service_default = new Service("hello");
 var mongoConnectionString = secret("MongoConnectionString");
@@ -72,14 +72,11 @@ var getUser = api3(
 
 // hello/api/pingDb.ts
 import { api as api4 } from "encore.dev/api";
-var pingDb = api4(
-  { method: "GET", path: "/mongo/ping" },
-  async () => {
-    const db = await getDb();
-    const result = await db.command({ ping: 1 });
-    return { ok: true, result };
-  }
-);
+var pingDb = api4({ method: "GET", path: "/mongo/ping" }, async () => {
+  const db = await getDb();
+  const result = await db.command({ ping: 1 });
+  return { ok: true, result };
+});
 
 // hello/api/updateUser.ts
 import { api as api5 } from "encore.dev/api";
@@ -94,10 +91,7 @@ var updateUser = api5(
       ...email && { email },
       updatedAt: /* @__PURE__ */ new Date()
     };
-    const result = await users.updateOne(
-      { _id: new ObjectId3(id) },
-      { $set: update }
-    );
+    const result = await users.updateOne({ _id: new ObjectId3(id) }, { $set: update });
     return { modifiedCount: result.modifiedCount };
   }
 );

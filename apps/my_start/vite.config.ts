@@ -3,8 +3,8 @@ import tailwindcss from '@tailwindcss/vite';
 import { devtools } from '@tanstack/devtools-vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import viteReact from '@vitejs/plugin-react';
-import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
+import { nodePolyfills } from 'vite-plugin-node-polyfills'; // 👈 Import the plugin
 
 export default defineConfig(() => {
   const rootDir = import.meta.dirname;
@@ -12,9 +12,15 @@ export default defineConfig(() => {
   return {
     root: rootDir,
     cacheDir: resolve(rootDir, '../../node_modules/.vite/my_start'),
+    define: {
+      global: 'globalThis',
+    },
+    optimizeDeps: {
+      exclude: ['mongodb', 'bson'],
+    },
     build: {
       rolldownOptions: {
-        external: ['@tanstack/ai-client', '@tanstack/ai-react'],
+        external: ['@tanstack/ai-client', '@tanstack/ai-react', 'crypto', 'util', 'fs', 'path'],
         output: {
           codeSplitting: true,
         },
@@ -25,11 +31,9 @@ export default defineConfig(() => {
     },
     resolve: {
       tsconfigPaths: true,
-      
       alias: {
         '@': resolve(rootDir, './src'),
-              crypto: 'crypto-browserify',
-      stream: 'stream-browserify',
+        // No need for manual crypto/stream aliases below; the plugin handles it!
       },
     },
     server: {
@@ -38,8 +42,11 @@ export default defineConfig(() => {
       },
     },
     plugins: [
-      tsconfigPaths({
-        projects: [resolve(rootDir, '../../tsconfig.base.json')],
+ nodePolyfills({
+        protocolImports: true,
+        exclude: [
+          'module',
+        ],
       }),
       devtools(),
       tailwindcss(),

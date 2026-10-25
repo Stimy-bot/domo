@@ -2,13 +2,13 @@
   "name": "@domo/my_encore",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "build": "encore build",
+"scripts": {
+    "build": "../../.encore/bin/encore build docker --config=infra-config.json my_encore:latest",
     "start": "encore run",
     "check": "encore check",
     "test": "encore test"
   },
   "dependencies": {
-    "encore.dev": "^1.58.6"
+    "encore.dev": "^1.58.8"
   }
 }
