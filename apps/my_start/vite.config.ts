@@ -24,8 +24,12 @@ export default defineConfig(() => {
       emptyOutDir: true,
     },
     resolve: {
+      tsconfigPaths: true,
+      
       alias: {
         '@': resolve(rootDir, './src'),
+              crypto: 'crypto-browserify',
+      stream: 'stream-browserify',
       },
     },
     server: {

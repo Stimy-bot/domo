@@ -16,6 +16,9 @@
   "include": ["src/**/*.tsx", "src/**/*"],
   "references": [
     {
+      "path": "../../libs/shared/ui-buttons"
+    },
+    {
       "path": "../../libs/shared/forms"
     },
     {

@@ -26,5 +26,12 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "references": []
+  "references": [
+    {
+      "path": "../../libs/shared/reusableComponents/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/ui-buttons/tsconfig.lib.json"
+    }
+  ]
 }

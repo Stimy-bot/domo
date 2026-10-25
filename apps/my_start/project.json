@@ -5,6 +5,14 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "serve-static": {
+      "executor": "@nx/vite:serve-static",
+      "options": {
+        "buildTarget": "@domo/my_start:build",
+        "spa": true,
+        "outputPath": "dist/apps/my_start/client"
+      }
+    },
     "dev": {
       "options": {
         "config": "vite.config.ts",
