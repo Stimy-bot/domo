@@ -4,7 +4,8 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/libs/shared/models",
+    "tsBuildInfoFile": "../../../dist/libs/shared/models.tsbuildinfo"
   },
   "include": [
     "src/**/*.ts",

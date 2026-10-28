@@ -4,7 +4,8 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "../../../dist/libs/shared/hooks",
+    "tsBuildInfoFile": "../../../dist/libs/shared/hooks.tsbuildinfo",
     "types": ["node", "google.maps"]
   },
   "include": [

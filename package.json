@@ -16,8 +16,8 @@
   "private": true,
   "pnpm": {
     "overrides": {
-      "@tanstack/query-core": "5.102.8",
-      "@tanstack/react-query": "5.102.8"
+      "@tanstack/react-query": "5.104.4",
+      "@tanstack/query-core": "5.104.4"
     },
     "peerDependencyRules": {
       "allowedVersions": {
@@ -82,7 +82,6 @@
     "@vitest/ui": "~4.1.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "buffer": "^6.0.3",
-    "crypto-browserify": "^3.12.1",
     "esbuild": "^0.27.0",
     "jiti": "2.4.2",
     "jsdom": "^27.1.0",
@@ -172,6 +171,7 @@
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "6.30.3",
     "resend": "^6.21.0",
+    "safe-buffer": "^5.2.1",
     "streamdown": "^2.6.0",
     "superjson": "^2.2.6",
     "tailwind-merge": "^3.6.0",

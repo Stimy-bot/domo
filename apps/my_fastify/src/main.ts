@@ -1,7 +1,7 @@
 // apps/my_fastify/src/main.ts
 
 import { loadEnv } from '@domo/constants';
-import { lifecycle } from '@domo/utils';
+import { lifecycle } from '@domo/utils/server';
 import type { FastifyInstance } from 'fastify';
 import Fastify from 'fastify';
 import {

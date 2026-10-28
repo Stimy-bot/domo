@@ -1,6 +1,9 @@
 // libs/shared/utils/src/lib/hash.ts
-import { scrypt as _scrypt, randomBytes, timingSafeEqual } from 'crypto';
-import { promisify } from 'util';
+import { scrypt as _scrypt, randomBytes, timingSafeEqual } from 'node:crypto';
+import { promisify } from 'node:util';
+
+console.log('scrypt:', _scrypt);
+console.log('randomBytes:', randomBytes);
 
 const scrypt = promisify(_scrypt);
 

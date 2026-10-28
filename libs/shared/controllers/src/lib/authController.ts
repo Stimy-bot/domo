@@ -30,12 +30,14 @@ import {
   AppError,
   appAssert,
   catchErrors,
+} from '@domo/utils/client';
+import {
   clearAuthCookies,
   getAccessTokenCookieOptions,
   getRefreshTokenCookieOptions,
   setAuthCookies,
-  verifyToken,
-} from '@domo/utils';
+} from '@domo/utils/server';
+import { verifyToken } from '@domo/utils'
 import { ObjectId } from 'bson';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';

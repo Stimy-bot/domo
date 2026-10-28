@@ -5,11 +5,11 @@ import type { Db } from 'mongodb';
 
 export default fp(
   async (fastify: FastifyInstance) => {
-    const url = process.env.MONGO_DATABASE_URI || 'mongodb://127.0.0.1:27017/domo';
+    const url = process.env.MONGO_URI as string || 'mongodb://127.0.0.1:27017/domo';
 
     if (!url) {
-      fastify.log.error('MONGO_DATABASE_URI environment variable is missing!');
-      throw new Error('Missing MONGO_DATABASE_URI configuration');
+      fastify.log.error('MONGO_URI environment variable is missing!');
+      throw new Error('Missing MONGO_URI configuration');
     }
 
     const mongoPlugin =

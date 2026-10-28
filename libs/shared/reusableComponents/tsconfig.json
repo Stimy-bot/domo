@@ -5,7 +5,8 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/libs/shared/reusableComponents",
+    "tsBuildInfoFile": "../../../dist/libs/shared/reusableComponents.tsbuildinfo"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [

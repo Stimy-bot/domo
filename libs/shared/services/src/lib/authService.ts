@@ -1,5 +1,4 @@
 // libs/shared/services/src/lib/authService.ts
-
 import { loadEnv, VerificationCodeType } from '@domo/constants';
 import type { Role } from '@domo/types';
 import {
@@ -10,20 +9,25 @@ import {
   UNAUTHORIZED,
 } from '@domo/types';
 import {
-  appAssert,
-  compareValue,
   fiveMinutesAgo,
-  getPasswordResetTemplate,
-  getVerifyEmailTemplate,
-  hashValue,
   ONE_DAY_MS,
   oneHourFromNow,
   oneYearFromNow,
-  sendMail,
-  signToken,
   thirtyDaysFromNow,
+  getPasswordResetTemplate,
+  getVerifyEmailTemplate,
   verifyToken,
 } from '@domo/utils';
+import {
+  compareValue,
+  hashValue,
+  sendMail,
+  signToken,
+} from '@domo/utils/server';
+import {
+  appAssert,
+} from '@domo/utils/client';
+
 import { ObjectId } from '@fastify/mongodb';
 import type { FastifyBaseLogger } from 'fastify';
 import type { Db } from 'mongodb';
@@ -170,10 +174,10 @@ export const createSessionAndTokens = async (
     sessionId,
   });
 
-  // Refresh token: sign with explicit refresh secret and expiry
+  // Refresh token: sign with explicit refresh secret and expiry duration
   const refreshToken = signToken(
     { sessionId },
-    { secret: env.JWT_REFRESH_SECRET, expiresIn: 30 * 24 * 60 * 60 * 1000 },
+    '30d',
   );
 
   return { accessToken, refreshToken, sessionId };
@@ -207,7 +211,7 @@ export const createAccount = async (
     $or: [{ email }, { phone }],
   });
 
-  if (existingUser && existingUser.phoneVerified) {
+  if (existingUser?.phoneVerified) {
     appAssert(false, CONFLICT, 'This account is already verified. Please login.');
   }
 
@@ -300,7 +304,7 @@ export const loginUser = async (
   const usersCollection = ctx.db.collection<UserDocument>('users');
 
   const user = await usersCollection.findOne({ email });
-  appAssert(user && user.password, UNAUTHORIZED, 'Invalid email or password');
+  appAssert(user?.password, UNAUTHORIZED, 'Invalid email or password');
 
   const isValid = await compareValue(password, user.password);
   appAssert(isValid, UNAUTHORIZED, 'Invalid email or password');
@@ -340,12 +344,12 @@ export const refreshUserAccessToken = async (ctx: ServiceContext, refreshToken: 
   });
   const now = Date.now();
   appAssert(
-    session && new Date(session['expiresAt'] as string | number | Date).getTime() > now,
+    session && new Date(session.expiresAt as string | number | Date).getTime() > now,
     UNAUTHORIZED,
     'Session expired',
   );
 
-  const expiresAtMs = new Date(session['expiresAt'] as string | number | Date).getTime();
+  const expiresAtMs = new Date(session.expiresAt as string | number | Date).getTime();
   if (expiresAtMs - now <= ONE_DAY_MS) {
     await sessionsCollection.updateOne(
       { _id: session._id },
@@ -354,7 +358,7 @@ export const refreshUserAccessToken = async (ctx: ServiceContext, refreshToken: 
   }
 
   const user = await usersCollection.findOne({
-    _id: new ObjectId(session['userId'] as string | ObjectId),
+    _id: new ObjectId(session.userId as string | ObjectId),
   });
   appAssert(user, INTERNAL_SERVER_ERROR, 'User not found during token refresh');
 
@@ -366,12 +370,12 @@ export const refreshUserAccessToken = async (ctx: ServiceContext, refreshToken: 
       role: user.role,
       sessionId: session._id.toString(),
     },
-    { expiresIn: 15 * 60 * 1000 },
+    '15m',
   );
 
   const newRefreshToken = signToken(
     { sessionId: session._id.toString() },
-    { secret: env.JWT_REFRESH_SECRET, expiresIn: 30 * 24 * 60 * 60 * 1000 },
+    '30d',
   );
 
   return { accessToken: newAccessToken, newRefreshToken };
@@ -389,7 +393,7 @@ export const verifyEmail = async (ctx: ServiceContext, codeId: string) => {
   appAssert(validCode, NOT_FOUND, 'Invalid or expired verification code');
 
   const updatedUser = await usersCollection.findOneAndUpdate(
-    { _id: new ObjectId(validCode['userId'] as string | ObjectId) },
+    { _id: new ObjectId(validCode.userId as string | ObjectId) },
     { $set: { verified: true } },
     { returnDocument: 'after' },
   );
@@ -458,7 +462,7 @@ export const resetPassword = async (
   });
   appAssert(code, NOT_FOUND, 'Invalid or expired code');
 
-  const userId = new ObjectId(code['userId'] as string | ObjectId);
+  const userId = new ObjectId(code.userId as string | ObjectId);
   const newHashedPassword = await hashValue(password);
 
   await usersCollection.updateOne({ _id: userId }, { $set: { password: newHashedPassword } });
@@ -688,7 +692,7 @@ export const verifyOtpService = async (
   const user = await usersCollection.findOne({ phone });
   appAssert(user, NOT_FOUND, 'User not found');
 
-  let check;
+let check: { valid?: boolean };
   try {
     check = await twilioService.checkVerificationCode(phone, otp, ctx.logger);
   } catch (err: unknown) {

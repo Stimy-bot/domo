@@ -4,7 +4,7 @@ import { CompanyModel } from '@domo/models';
 import { createCompanySchema, updateCompanySchema } from '@domo/schemas';
 import { CompanyService } from '@domo/services';
 import { BAD_REQUEST, CREATED, NOT_FOUND, OK, UNAUTHORIZED } from '@domo/types';
-import { appAssert, catchErrors } from '@domo/utils';
+import { appAssert, catchErrors } from '@domo/utils/client';
 import { ObjectId } from 'bson';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { Db } from 'mongodb';

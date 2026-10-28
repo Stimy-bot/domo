@@ -1,7 +1,8 @@
+// libs/shared/ui-buttons/src/lib/ui-button.tsx
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
-import { cn } from './cn.js';
+import { cn } from './cn';
 
 export interface ButtonProps {
   className?: string;

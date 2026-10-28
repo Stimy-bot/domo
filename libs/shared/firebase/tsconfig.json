@@ -4,7 +4,8 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/libs/shared/firebase",
+    "tsBuildInfoFile": "../../../dist/libs/shared/firebase.tsbuildinfo"
   },
   "include": [
     "src/**/*.ts",

@@ -23,9 +23,9 @@ export interface GoogleUser {
 }
 
 export const exchangeCodeForToken = async (code: string): Promise<GoogleTokenResponse> => {
-  const client_id = process.env['GOOGLE_CLIENT_ID'];
-  const client_secret = process.env['GOOGLE_CLIENT_SECRET'];
-  const redirect_uri = process.env['GOOGLE_OAUTH_REDIRECT_URL'];
+  const client_id = process.env['GOOGLE_CLIENT_ID as string'];
+  const client_secret = process.env['GOOGLE_CLIENT_SECRET as string'];
+  const redirect_uri = process.env['GOOGLE_OAUTH_REDIRECT_URL as string'];
 
   if (!client_id || !client_secret || !redirect_uri) {
     throw new Error('Missing Google OAuth environment variables in backend.');

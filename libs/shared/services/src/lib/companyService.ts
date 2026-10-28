@@ -1,7 +1,7 @@
 // libs/shared/services/src/lib/companyService.ts
 
 import { BAD_REQUEST, NOT_FOUND } from '@domo/types';
-import { appAssert } from '@domo/utils';
+import { appAssert } from '@domo/utils/client';
 import { type Collection, type Db, ObjectId } from 'mongodb';
 
 // Define the shape of your MongoDB document interface

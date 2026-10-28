@@ -2,15 +2,18 @@
 
 import { serverEnv } from '@domo/constants/server';
 import jwt, { type SignOptions } from 'jsonwebtoken';
+import type { Role } from '@domo/types';
 
 if (typeof window !== 'undefined') {
   throw new Error('[SECURITY ERROR] jwt.server.ts was imported in a browser environment!');
 }
 
 export interface UserPayload {
-  userId: string;
-  email: string;
-  role: string;
+userId?: string;
+  email?: string;
+  role?: string | Role[];
+  fullName?: string;  
+  sessionId?: string;
 }
 
 /**

@@ -5,7 +5,8 @@
     "declaration": true,
     "declarationMap": true,
     "types": ["node"],
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/libs/shared/error",
+    "tsBuildInfoFile": "../../../dist/libs/shared/error.tsbuildinfo"
   },
   "include": [
     "src/**/*.ts",

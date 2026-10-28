@@ -4,7 +4,8 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/libs/shared/middleware",
+    "tsBuildInfoFile": "../../../dist/libs/shared/middleware.tsbuildinfo"
   },
   "include": [
     "src/**/*.ts",

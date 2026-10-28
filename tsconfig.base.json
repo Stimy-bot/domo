@@ -65,12 +65,16 @@
       "@domo/validates": ["./libs/shared/validates/src/index.ts"],
       "@domo/validates/*": ["./libs/shared/validates/src/*"],
       "@domo/tailwind-sync-plugin": ["./tools/tailwind-sync-plugin/src/index.ts"],
-      "@domo/config/client": ["./libs/shared/config/src/env.client.ts"],
-      "@domo/config/server": ["./libs/shared/config/src/env.server.ts"],
+      "@domo/config/client": ["./libs/shared/config/src/index.client.ts"],
+      "@domo/config/server": ["./libs/shared/config/src/index.ts"],
       "@domo/constants/client": ["./libs/shared/constants/src/lib/env.client.ts"],
       "@domo/constants/server": ["./libs/shared/constants/src/lib/env.server.ts"],
-      "@domo/utils/client": ["./libs/shared/utils/src/jwt.client.ts"],
-      "@domo/utils/server": ["./libs/shared/utils/src/jwt.server.ts"],
+   "@domo/utils/client": [
+  "./libs/shared/utils/src/index.client.ts"
+],
+"@domo/utils/server": [
+  "./libs/shared/utils/src/index.server.ts"
+],
       "@domo/tailwind-sync-plugin/*": ["./tools/tailwind-sync-plugin/src/*"]
     },
 

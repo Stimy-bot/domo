@@ -216,7 +216,7 @@ function AppRegister() {
     <MainLayout>
       <section className="container h-full md:w-150 w-full mx-auto px-5 py-20">
         <div className="w-full h-full mx-auto">
-          <h2 className="font-roboto text-4xl font-bold text-center text-dark-hard dark:text-[#5a7184]">
+          <h2 className="font-roboto text-4xl font-bold text-center text-dark-hard dark:text-#5a7184">
             {step === 'register' ? 'Create an account' : 'Verify your phone'}
           </h2>
           <div className="p-8 rounded-lg border-solid border-dark-light shadow-2xl pt-10">
@@ -242,6 +242,7 @@ function AppRegister() {
                 </p>
                 <OtpVerificationForm phone={phone} onSuccess={() => navigate('/')} />
                 <button
+                type='button'
                   onClick={() => setStep('register')}
                   className="relative mt-4 text-sm text-blue-500 hover:underline"
                 >

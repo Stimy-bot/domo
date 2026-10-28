@@ -59,6 +59,7 @@ export function Sidebar() {
           <span className="font-bold text-lg tracking-wide text-indigo-400">Workspace</span>
         )}
         <button
+        type='button'
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-100 transition-colors"
           aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}

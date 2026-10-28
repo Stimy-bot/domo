@@ -4,8 +4,8 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "../../dist/out-tsc",
-    "tsBuildInfoFile": "../../dist/out-tsc/my_fastify.tsbuildinfo"
+    "outDir": "../../dist/apps/my_fastify",
+    "tsBuildInfoFile": "../../dist/apps/my_fastify/my_fastify.tsbuildinfo"
   },
   "include": ["src/**/*.ts", "src/index.ts"],
   "references": [

@@ -11,7 +11,8 @@ import {
   OK,
   UNAUTHORIZED,
 } from '@domo/types';
-import { appAssert, catchErrors, clearAuthCookies, verifyToken } from '@domo/utils';
+import { verifyToken, clearAuthCookies } from '@domo/utils';
+import { appAssert, catchErrors } from '@domo/utils/client';
 import { ObjectId } from 'bson';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import z from 'zod';
