@@ -1,4 +1,4 @@
-// @domo/libs/shared-models/src/lib/sessionModel.ts
+// @domo/libs/models/src/lib/sessionModel.ts
 
 import { signToken } from '@domo/utils';
 import type { Db, ObjectId } from 'mongodb';

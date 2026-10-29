@@ -1,4 +1,4 @@
-// libs/shared-constants/src/lib/errors.ts
+// libs/constants/src/lib/errors.ts
 
 export class AppError extends Error {
   public readonly statusCode: number;

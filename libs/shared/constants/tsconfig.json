@@ -16,8 +16,8 @@
     "**/*.test.tsx"
   ],
   "references": [
-    // {
-    //   "path": "../types"
-    // }
+    {
+      "path": "../types"
+    }
   ]
 }

@@ -1,13 +1,13 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../dist/apps/my_start",
+    "outDir": "../../dist/out-tsc/apps/my_start",
     "moduleResolution": "bundler",
     "types": ["vitest/globals", "node"],
-    "composite": true,
-    "declaration": true,
+    "composite": false,
+    "declaration": false,
     "emitDeclarationOnly": false,
-    "noEmit": false
+    "noEmit": true
   },
   "include": [
     "src/**/*.spec.ts",

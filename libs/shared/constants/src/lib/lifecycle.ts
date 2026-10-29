@@ -1,4 +1,4 @@
-// libs/shared-utils/src/lib/lifecycle.ts
+// libs/utils/src/lib/lifecycle.ts
 type CleanupCallback = () => void | Promise<void>;
 
 const lifecycle = (() => {

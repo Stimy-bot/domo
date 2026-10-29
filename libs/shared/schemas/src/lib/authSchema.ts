@@ -1,4 +1,4 @@
-// lids/shared-schemas/src/lib/authSchema.ts
+// lids/schemas/src/lib/authSchema.ts
 import { z } from 'zod';
 
 // ─────────────────────────────────────────────

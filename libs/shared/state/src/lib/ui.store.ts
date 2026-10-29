@@ -1,3 +1,4 @@
+// libs/shared/state/src/lib/ui.store.ts
 import { create } from 'zustand';
 
 export type ThemeMode = 'light' | 'dark' | 'auto';
@@ -5,10 +6,23 @@ export type ThemeMode = 'light' | 'dark' | 'auto';
 interface UIState {
   themeMode: ThemeMode;
   setThemeMode: (mode: ThemeMode) => void;
+  initTheme: () => void;
 }
 
-function resolveTheme(mode: ThemeMode): ThemeMode {
+function getStoredTheme(): ThemeMode {
+  if (typeof window === 'undefined') {
+    return 'auto';
+  }
+  const stored = window.localStorage.getItem('theme');
+  if (stored === 'light' || stored === 'dark' || stored === 'auto') {
+    return stored;
+  }
+  return 'auto';
+}
+
+function resolveTheme(mode: ThemeMode): 'light' | 'dark' {
   if (mode === 'auto') {
+    if (typeof window === 'undefined') return 'light';
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     return prefersDark ? 'dark' : 'light';
   }
@@ -16,6 +30,7 @@ function resolveTheme(mode: ThemeMode): ThemeMode {
 }
 
 function applyTheme(mode: ThemeMode) {
+  if (typeof window === 'undefined') return;
   const resolved = resolveTheme(mode);
 
   document.documentElement.classList.remove('light', 'dark');
@@ -30,13 +45,21 @@ function applyTheme(mode: ThemeMode) {
   document.documentElement.style.colorScheme = resolved;
 }
 
-export const useUIStore = create<UIState>(set => ({
-  themeMode: 'auto',
+export const useUIStore = create<UIState>((set) => ({
+  themeMode: getStoredTheme(), // Initialize directly from localStorage on load
 
-  setThemeMode: mode => {
+  setThemeMode: (mode) => {
+    set({ themeMode: mode });
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('theme', mode);
+    }
+    applyTheme(mode);
+  },
+
+  initTheme: () => {
+    const mode = getStoredTheme();
     set({ themeMode: mode });
     applyTheme(mode);
-    window.localStorage.setItem('theme', mode);
   },
 }));
 

@@ -1,4 +1,4 @@
-// libs/shared-constants/src/lib/verificationCodeType.ts
+// libs/constants/src/lib/verificationCodeType.ts
 const VerificationCodeType = {
   EmailVerification: 'EmailVerification',
   PasswordReset: 'PasswordReset',

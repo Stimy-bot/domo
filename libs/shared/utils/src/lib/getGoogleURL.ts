@@ -1,9 +1,11 @@
+/// <reference types="vite/client" />
 // libs/shared/utils/src/lib/getGoogleURL.ts
 function getGoogleOAuthURL() {
   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
 
-  const redirect_uri = process.env.VITE_GOOGLE_OAUTH_REDIRECT_URL;
-  const client_id = process.env.VITE_GOOGLE_CLIENT_ID;
+  // Fallback to support both Vite client environments and Node/Nitro server environments
+  const redirect_uri = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_GOOGLE_OAUTH_REDIRECT_URL) || process.env.GOOGLE_OAUTH_REDIRECT_URL;
+  const client_id = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_GOOGLE_CLIENT_ID) || process.env.GOOGLE_CLIENT_ID;
 
   // Safety Check
   if (!redirect_uri || !client_id) {

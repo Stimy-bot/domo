@@ -5,8 +5,27 @@
     <title>MyStart</title>
     <base href="/" />
     <meta name="author" content="Dominic Patrick" />
-    <meta name="description" content="Hire a skilled web developer proficient in React, MERN stack, and Firebase to create modern, responsive websites and applications. Find out more about their expertise and how they can elevate your online presence." />
+    <meta
+      name="description"
+      content="Hire a skilled web developer proficient in React, MERN stack, and Firebase to create modern, responsive websites and applications. Find out more about their expertise and how they can elevate your online presence."
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      try {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const resolved =
+          stored === "dark" ||
+          (stored === "auto" && prefersDark) ||
+          (!stored && prefersDark);
+        if (resolved) {
+          document.documentElement.classList.add("dark");
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    </script>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>

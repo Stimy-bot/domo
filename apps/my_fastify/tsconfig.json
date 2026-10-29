@@ -7,37 +7,13 @@
     "outDir": "../../dist/apps/my_fastify",
     "tsBuildInfoFile": "../../dist/apps/my_fastify/my_fastify.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/index.ts"],
+  "files": [],
   "references": [
     {
-      "path": "../../libs/shared/utils"
+      "path": "./tsconfig.app.json"
     },
     {
-      "path": "../../libs/shared/validates"
-    },
-    {
-      "path": "../../libs/shared/models"
-    },
-    {
-      "path": "../../libs/shared/config"
-    },
-    {
-      "path": "../../libs/shared/controllers"
-    },
-    {
-      "path": "../../libs/shared/types"
-    },
-    {
-      "path": "../../libs/shared/services"
-    },
-    {
-      "path": "../../libs/shared/schemas"
-    },
-    {
-      "path": "../../libs/shared/constants"
-    },
-    {
-      "path": "../../libs/shared/middleware"
+      "path": "./tsconfig.spec.json"
     }
   ]
 }

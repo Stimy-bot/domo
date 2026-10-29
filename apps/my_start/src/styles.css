@@ -1,8 +1,5 @@
-/* apps/my_start/src/styles.css */
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap");
-@import "tailwindcss";
-
-@custom-variant dark (&:where(.dark, .dark *));
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import 'tailwindcss';
 
 /* nx-tailwind-sources:start */
 @source "../../../libs/shared/client";
@@ -24,7 +21,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -49,7 +46,7 @@
   --hero-b: rgba(47, 106, 74, 0.2);
 }
 
-:root[data-theme="dark"] {
+:root[data-theme='dark'] {
   --sea-ink: #d7ece8;
   --sea-ink-soft: #afcdc8;
   --lagoon: #60d7cf;
@@ -72,7 +69,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme='light']) {
     --sea-ink: #d7ece8;
     --sea-ink-soft: #afcdc8;
     --lagoon: #60d7cf;
@@ -113,7 +110,11 @@ body {
   background:
     radial-gradient(1100px 620px at -8% -10%, var(--hero-a), transparent 58%),
     radial-gradient(1050px 620px at 112% -12%, var(--hero-b), transparent 62%),
-    radial-gradient(720px 380px at 50% 115%, rgba(79, 184, 178, 0.1), transparent 68%),
+    radial-gradient(
+      720px 380px at 50% 115%,
+      rgba(79, 184, 178, 0.1),
+      transparent 68%
+    ),
     linear-gradient(
       180deg,
       color-mix(in oklab, var(--sand) 68%, white) 0%,
@@ -126,36 +127,44 @@ body {
 }
 
 body::before {
+  content: '';
   position: fixed;
   inset: 0;
-  z-index: -1;
   pointer-events: none;
-  content: "";
-  background:
-    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.8), transparent 34%),
-    radial-gradient(circle at 78% 26%, rgba(79, 184, 178, 0.2), transparent 42%),
-    radial-gradient(circle at 42% 82%, rgba(47, 106, 74, 0.14), transparent 36%);
+  z-index: -1;
   opacity: 0.28;
+  background:
+    radial-gradient(
+      circle at 20% 15%,
+      rgba(255, 255, 255, 0.8),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 78% 26%,
+      rgba(79, 184, 178, 0.2),
+      transparent 42%
+    ),
+    radial-gradient(circle at 42% 82%, rgba(47, 106, 74, 0.14), transparent 36%);
 }
 
 body::after {
+  content: '';
   position: fixed;
   inset: 0;
-  z-index: -1;
   pointer-events: none;
-  content: "";
+  z-index: -1;
+  opacity: 0.14;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 28px 28px;
-  opacity: 0.14;
   mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%);
 }
 
 a {
   color: var(--lagoon-deep);
-  text-decoration-thickness: 1px;
   text-decoration-color: rgba(50, 143, 151, 0.4);
+  text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
 
@@ -164,20 +173,20 @@ a:hover {
 }
 
 code {
-  padding: 2px 7px;
   font-size: 0.9em;
-  background: color-mix(in oklab, var(--surface-strong) 82%, white 18%);
   border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--surface-strong) 82%, white 18%);
   border-radius: 7px;
+  padding: 2px 7px;
 }
 
 pre code {
+  border: 0;
+  background: transparent;
   padding: 0;
+  border-radius: 0;
   font-size: inherit;
   color: inherit;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
 }
 
 .page-wrap {
@@ -186,12 +195,12 @@ pre code {
 }
 
 .display-title {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: 'Fraunces', Georgia, serif;
 }
 
 .island-shell {
-  background: linear-gradient(165deg, var(--surface-strong), var(--surface));
   border: 1px solid var(--line);
+  background: linear-gradient(165deg, var(--surface-strong), var(--surface));
   box-shadow:
     0 1px 0 var(--inset-glint) inset,
     0 22px 44px rgba(30, 90, 72, 0.1),
@@ -212,14 +221,14 @@ pre code {
 }
 
 .feature-card:hover {
-  border-color: color-mix(in oklab, var(--lagoon-deep) 35%, var(--line));
   transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--lagoon-deep) 35%, var(--line));
 }
 
 .demo-page {
   width: min(1080px, calc(100% - 2rem));
-  padding-block: clamp(2.25rem, 6vw, 4.5rem);
   margin-inline: auto;
+  padding-block: clamp(2.25rem, 6vw, 4.5rem);
   color: var(--sea-ink);
 }
 
@@ -228,16 +237,16 @@ pre code {
 }
 
 .demo-center {
+  min-height: calc(100vh - 13rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 13rem);
 }
 
 .demo-panel,
 .demo-card {
-  background: linear-gradient(165deg, var(--surface-strong), var(--surface));
   border: 1px solid var(--line);
+  background: linear-gradient(165deg, var(--surface-strong), var(--surface));
   box-shadow:
     0 1px 0 var(--inset-glint) inset,
     0 18px 34px rgba(30, 90, 72, 0.1),
@@ -246,29 +255,29 @@ pre code {
 }
 
 .demo-panel {
-  padding: clamp(1.25rem, 4vw, 2rem);
   border-radius: 1.25rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
 }
 
 .demo-card {
-  padding: 1rem;
   border-radius: 1rem;
+  padding: 1rem;
 }
 
 .demo-title {
   margin: 0;
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: 800;
-  line-height: 1.05;
   color: var(--sea-ink);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  line-height: 1.05;
+  font-weight: 800;
   letter-spacing: 0;
 }
 
 .demo-section-title {
   margin: 0;
+  color: var(--sea-ink);
   font-size: 1rem;
   font-weight: 700;
-  color: var(--sea-ink);
 }
 
 .demo-muted {
@@ -279,11 +288,11 @@ pre code {
 .demo-select,
 .demo-textarea {
   width: 100%;
-  color: var(--sea-ink);
-  outline: none;
-  background: color-mix(in oklab, var(--surface-strong) 88%, white 12%);
   border: 1px solid var(--line);
   border-radius: 0.75rem;
+  background: color-mix(in oklab, var(--surface-strong) 88%, white 12%);
+  color: var(--sea-ink);
+  outline: none;
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
@@ -314,23 +323,23 @@ pre code {
 
 .demo-button {
   display: inline-flex;
-  gap: 0.5rem;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid color-mix(in oklab, var(--lagoon-deep) 34%, var(--line));
+  border-radius: 0.85rem;
+  background: color-mix(in oklab, var(--lagoon) 22%, var(--surface-strong));
+  color: var(--sea-ink);
   padding: 0.72rem 1rem;
   font-size: 0.9rem;
   font-weight: 700;
   line-height: 1;
-  color: var(--sea-ink);
   cursor: pointer;
-  background: color-mix(in oklab, var(--lagoon) 22%, var(--surface-strong));
-  border: 1px solid color-mix(in oklab, var(--lagoon-deep) 34%, var(--line));
-  border-radius: 0.85rem;
 }
 
 .demo-button:hover {
-  background: color-mix(in oklab, var(--lagoon) 30%, var(--surface-strong));
   transform: translateY(-1px);
+  background: color-mix(in oklab, var(--lagoon) 30%, var(--surface-strong));
 }
 
 .demo-button:disabled {
@@ -340,82 +349,82 @@ pre code {
 }
 
 .demo-button-secondary {
-  color: var(--sea-ink-soft);
-  background: color-mix(in oklab, var(--surface-strong) 74%, transparent);
   border-color: var(--line);
+  background: color-mix(in oklab, var(--surface-strong) 74%, transparent);
+  color: var(--sea-ink-soft);
 }
 
 .demo-button-danger {
-  color: #9f3030;
-  background: rgba(196, 71, 71, 0.1);
   border-color: rgba(196, 71, 71, 0.28);
+  background: rgba(196, 71, 71, 0.1);
+  color: #9f3030;
 }
 
 .demo-list-item {
-  padding: 0.9rem 1rem;
-  background: color-mix(in oklab, var(--chip-bg) 82%, transparent);
   border: 1px solid var(--line);
   border-radius: 0.9rem;
+  background: color-mix(in oklab, var(--chip-bg) 82%, transparent);
+  padding: 0.9rem 1rem;
 }
 
 .demo-pill {
   display: inline-flex;
-  gap: 0.35rem;
   align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--chip-line);
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--sea-ink-soft);
   padding: 0.35rem 0.65rem;
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--sea-ink-soft);
-  background: var(--chip-bg);
-  border: 1px solid var(--chip-line);
-  border-radius: 999px;
 }
 
 .demo-alert {
-  padding: 1rem;
-  color: var(--sea-ink);
-  background: rgba(193, 126, 42, 0.1);
   border: 1px solid rgba(193, 126, 42, 0.3);
   border-radius: 1rem;
+  background: rgba(193, 126, 42, 0.1);
+  color: var(--sea-ink);
+  padding: 1rem;
 }
 
 .demo-alert-danger {
-  background: rgba(196, 71, 71, 0.1);
   border-color: rgba(196, 71, 71, 0.3);
+  background: rgba(196, 71, 71, 0.1);
 }
 
 .demo-code-block {
-  padding: 1rem;
-  color: var(--sea-ink);
-  background: color-mix(in oklab, var(--chip-bg) 88%, transparent);
   border: 1px solid var(--line);
   border-radius: 1rem;
+  background: color-mix(in oklab, var(--chip-bg) 88%, transparent);
+  color: var(--sea-ink);
+  padding: 1rem;
 }
 
 .demo-table-shell {
   overflow-x: auto;
-  background: color-mix(in oklab, var(--surface-strong) 78%, transparent);
   border: 1px solid var(--line);
   border-radius: 1rem;
+  background: color-mix(in oklab, var(--surface-strong) 78%, transparent);
 }
 
 .demo-table {
   width: 100%;
-  color: var(--sea-ink);
   border-collapse: collapse;
+  color: var(--sea-ink);
 }
 
 .demo-table th,
 .demo-table td {
+  border-bottom: 1px solid var(--line);
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid var(--line);
 }
 
 .demo-table th {
-  font-weight: 700;
-  color: var(--sea-ink);
   background: color-mix(in oklab, var(--chip-bg) 88%, transparent);
+  color: var(--sea-ink);
+  font-weight: 700;
 }
 
 .demo-table tr:hover td {
@@ -433,31 +442,31 @@ a {
 }
 
 .island-kicker {
-  font-size: 0.69rem;
-  font-weight: 700;
-  color: var(--kicker);
-  text-transform: uppercase;
   letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.69rem;
+  color: var(--kicker);
 }
 
 .nav-link {
   position: relative;
   display: inline-flex;
   align-items: center;
-  color: var(--sea-ink-soft);
   text-decoration: none;
+  color: var(--sea-ink-soft);
 }
 
 .nav-link::after {
+  content: '';
   position: absolute;
-  bottom: -6px;
   left: 0;
+  bottom: -6px;
   width: 100%;
   height: 2px;
-  content: "";
-  background: linear-gradient(90deg, var(--lagoon), #7ed3bf);
   transform: scaleX(0);
   transform-origin: left;
+  background: linear-gradient(90deg, var(--lagoon), #7ed3bf);
   transition: transform 170ms ease;
 }
 
@@ -478,8 +487,8 @@ a {
 }
 
 .site-footer {
-  background: color-mix(in oklab, var(--header-bg) 84%, transparent 16%);
   border-top: 1px solid var(--line);
+  background: color-mix(in oklab, var(--header-bg) 84%, transparent 16%);
 }
 
 .rise-in {

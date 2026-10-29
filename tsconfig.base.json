@@ -10,10 +10,8 @@
     /* Modules & Resolution */
     "module": "preserve",
     "moduleResolution": "bundler",
-    "ignoreDeprecations": "6.0",
-    "baseUrl": ".",
     "paths": {
-      "@domo/*": [".libs/*"],
+      "@domo/*": ["./libs/*"],
       "@domo/my_fastapi": ["./apps/my_fastapi/*"],
       "@domo/my_fastify": ["./apps/my_fastify/src/index.ts"],
       "@domo/my_fastify/*": ["./apps/my_fastify/src/*"],

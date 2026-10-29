@@ -1,6 +1,6 @@
 {
   "bundler": "vite",
-  "projectName": "start",
+  "projectName": "my_start",
   "mode": "file-router",
   "typescript": true,
   "packageManager": "pnpm",

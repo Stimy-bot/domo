@@ -1,5 +1,5 @@
 {
   "secrets": {
-    "MongoConnectionString": "mongodb://localhost:27017/mydatabase"
+    "MongoConnectionString": "mongodb+srv://patricktotaldatadominic:1963Vivian1941@cluster0.p7lfv4r.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   }
 }

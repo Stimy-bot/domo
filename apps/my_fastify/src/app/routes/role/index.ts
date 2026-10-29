@@ -39,12 +39,12 @@ const roleRoutes: FastifyPluginAsync = async fastify => {
     return reply.status(OK).send(roles);
   });
 
-  fastify.patch(
+fastify.patch<{ Params: ParamsId; Body: PatchBody }>(
     '/user/:id/role',
     {
       preHandler: [authenticateHook, authorize('canChangeAnyUserRole'), requireValidTargetId],
     },
-    async (req: FastifyRequest<{ Params: ParamsId; Body: PatchBody }>, reply) => {
+    async (req, reply) => {
       const { id } = req.params;
       const { role } = req.body ?? {};
 
@@ -115,6 +115,5 @@ const roleRoutes: FastifyPluginAsync = async fastify => {
       }
     },
   );
-};
-
+}
 export { roleRoutes };
