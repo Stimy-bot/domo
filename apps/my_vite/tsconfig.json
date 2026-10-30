@@ -13,19 +13,5 @@
     ]
   },
   "files": [],
-  "include": ["src/**/*.tsx", "src/**/*"],
-  "references": [
-    {
-      "path": "../../libs/shared/ui-buttons"
-    },
-    {
-      "path": "../../libs/shared/forms"
-    },
-    {
-      "path": "../../libs/shared/context"
-    },
-    {
-      "path": "../../libs/shared/reusableComponents"
-    }
-  ]
+  "references": []
 }

@@ -1,40 +1,25 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "jsx": "react-jsx",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "paths": {
-      "@/*": ["./src/*"],
-      "#/*": ["./src/*"],
-      "@domo/config": ["../../libs/shared/config/src/index.ts"],
-      "@domo/utils": ["../../libs/shared/utils/src/index.ts"]
+    "outDir": "../../dist/out-tsc",
+    "types": [
+      "node",
+      "vite-plugin-node-polyfills",
+      "vite/client",
+      "vitest/globals",
+      "vitest/importMeta"
+    ]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
+  "references": [
+    {
+      "path": "../../libs/shared/reusableComponents/tsconfig.lib.json"
     },
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["node", "vite/client"],
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
-
-    /* Linting */
-    "skipLibCheck": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"],
-"references": [
-  {
-    "path": "../../libs/shared/reusableComponents/tsconfig.lib.json"
-  },
-  {
-    "path": "../../libs/shared/state/tsconfig.lib.json"
-  },
-  {
-    "path": "../../libs/shared/ui-buttons/tsconfig.lib.json"
-  }
-]
+    {
+      "path": "../../libs/shared/state/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/ui-buttons/tsconfig.lib.json"
+    }
+  ]
 }

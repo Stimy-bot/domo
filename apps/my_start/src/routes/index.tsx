@@ -31,10 +31,10 @@ function App() {
   };
 
   return (
-    <main className="h-screen flex flex-col items-center lg:px-40 rounded-md border border-(--chip-line) bg-(--chip-bg) text-sm text-(--sea-ink) no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] p-6">
+    <main className="page-wrap h-vh mb-20 lg:m-30 flex flex-col items-center rounded-md border border-(--chip-line) bg-(--chip-bg) text-sm text-(--sea-ink) no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] p-6">
       <h1 className="text-4xl font-semibold pt-5 mb-6">WELCOME ALL</h1>
 
-      <section className="border rounded-md px-6 py-4">
+      <section className="island-shell border rounded-md px-6 py-4">
         <div className="p-5 flex flex-col items-center gap-3">
           {session && <Link to="/dashboard">Dashboard</Link>}
 
