@@ -4,6 +4,7 @@
     "jsx": "react-jsx",
     "composite": true,
     "moduleResolution": "bundler",
+    "module": "ESNext",
     "types": ["vite/client"],
     "typeRoots": [
       "./node_modules/@types",

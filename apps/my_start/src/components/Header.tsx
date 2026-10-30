@@ -1,7 +1,7 @@
 // apps/my_start/src/components/Header.tsx
 import { Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
-import BetterAuthHeader from '../integrations/better-auth/header-user.tsx';
+import BetterAuthHeader from '../integrations/better-auth/header-user';
 import ThemeToggle from './ThemeToggle';
 
 export default function Header() {

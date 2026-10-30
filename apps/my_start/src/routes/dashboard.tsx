@@ -2,8 +2,8 @@ import { UiButton } from '@domo/ui-buttons';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
-import { signOut } from '@/lib/auth-client';
-import { getAvatar, getUserID } from '@/lib/auth-server-func';
+import { signOut } from '../lib/auth-client';
+import { getAvatar, getUserID } from '../lib/auth-server-func';
 // import { useTRPC } from "../integrations/trpc/react";
 
 export const Route = createFileRoute('/dashboard')({

@@ -31,7 +31,10 @@ function App() {
   };
 
   return (
-    <main className="page-wrap h-vh mb-20 lg:m-30 flex flex-col items-center rounded-md border border-(--chip-line) bg-(--chip-bg) text-sm text-(--sea-ink) no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] p-6">
+        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden p-4">
+      <main className="island-shell rise-in flex flex-col items-center justify-center max-w-200 min-h-[60vh] px-4 text-center rounded-lg">
+      <div className="pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
+      <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
       <h1 className="text-4xl font-semibold pt-5 mb-6">WELCOME ALL</h1>
 
       <section className="island-shell border rounded-md px-6 py-4">
@@ -136,8 +139,8 @@ function App() {
           </p>
         )}
       </section>
-      
-      <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+      <section className="my-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
           [
             "Type-Safe Routing",
@@ -169,5 +172,6 @@ function App() {
         ))}
       </section>
     </main>
+    </div>
   );
 }
