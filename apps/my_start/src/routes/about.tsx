@@ -10,12 +10,12 @@ export const Route = createFileRoute("/about")({
 
 function About() {
   return (
-    <div className="relative w-full flex items-center justify-center overflow-hidden p-4">
-      <main className="island-shell rise-in flex flex-col items-center justify-center h-[20vh] px-4 text-left rounded-lg">
+    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden p-4">
+      <main className="island-shell rise-in flex flex-col items-center justify-center max-w-9/10 min-h-[60vh] px-4 text-left rounded-lg">
         <div className="pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
-        <div className="pointer-events-none absolute -bottom-20 -right-20 h-40 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
+        <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
         <section className=" p-6 sm:p-8">
-          <div className=" flex justify-center w-full">
+                <div className="pt-8 flex justify-center w-full">
             <UiButton className="z-10 w-full max-w-sm">
               <Link
                 to="/login"
@@ -51,19 +51,12 @@ function About() {
                   src="domoservices_site.webp"
                   alt="webpage"
                 />
-                <div className="pt-10">
+                    <div className='pt-10'>
                   <p className="uppercase text-center text-green-700 font-bold text-3xl italic">
                     Your Onestop Print Needs!
                   </p>
-                  <h6 className="my-6 text-md md:text-l text-dark-light">
-                    While digital marketing is extremely important for large or
-                    small businesses, there is still no substitute for good
-                    printed marketing materials. Typically, businesses need
-                    business cards, letterhead, brochures, and postcards, but
-                    numerous other printed materials can help you develop your
-                    brand. These include signage and promotional materials such
-                    as branded merchandise and giveawaysâ€”especially helpful if
-                    you regularly launch events as part of your marketing.
+              <h6 className='my-6 text-md md:text-l text-dark-light'>
+                While digital marketing is extremely important for large or small businesses, there is still no substitute for good printed marketing materials. Typically, businesses need business cards, letterhead, brochures, and postcards, but numerous other printed materials can help you develop your brand. These include signage and promotional materials such as branded merchandise and giveawaysâ€”especially helpful if you regularly launch events as part of your marketing.
                   </h6>
                   <img
                     className="size-112 md:size-160 rounded-xl justify-center"
@@ -76,15 +69,7 @@ function About() {
                 <div className="lg:pr-4">
                   <div className="max-w-xl text-base leading-7 text-gray-700 lg:max-w-lg">
                     <p>
-                      We will establish a direction for a new, custom logo mark
-                      that utilizes icons to reflect both topics of identity and
-                      functionality, that implements a bold and playful
-                      typographic treatment and color palette. Furthering these
-                      design elements, print advertising materials, such as a
-                      direct mail piece and flyer, were designed to help further
-                      communicate the message of the companies and share details
-                      on the unique services they offer to those who are
-                      interested.
+              We will establish a direction for a new, custom logo mark that utilizes icons to reflect both topics of identity and functionality, that implements a bold and playful typographic treatment and color palette. Furthering these design elements, print advertising materials, such as a direct mail piece and flyer, were designed to help further communicate the message of the companies and share details on the unique services they offer to those who are interested.
                     </p>
                     <ul className="mt-8 space-y-8 text-gray-600">
                       <li className="flex gap-x-3">
