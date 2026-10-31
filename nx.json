@@ -182,5 +182,6 @@
   },
   "sync": {
     "disabledTaskSyncGenerators": ["@aishop/tailwind-sync-plugin:update-tailwind-globs"]
-  }
+  },
+  "nxCloudId": "6ae5bf1f0ccb8a9fb18cff8a"
 }
