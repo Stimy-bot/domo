@@ -10,7 +10,7 @@ export const Route = createFileRoute("/about")({
 
 function About() {
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden p-4">
+    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden p-4 pb-19">
       <main className="island-shell rise-in flex flex-col items-center justify-center max-w-9/10 min-h-[60vh] px-4 text-left rounded-lg">
         <div className="pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
         <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />

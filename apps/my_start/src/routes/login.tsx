@@ -13,8 +13,8 @@ function RouteComponent() {
         <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
         <form className="pt-5 w-75 flex flex-col items-center">
           <h1 className="text-4xl font-semibold pt-5 mb-2">LOGIN</h1>
-          <input type="email" placeholder="Enter Email" className="demo-input m-2"/>
-          <input type="text" placeholder="Enter Password" className="demo-input m-2"/>
+          <Input type="email" placeholder="Enter Email" className="demo-input m-2"/>
+          <Input type="text" placeholder="Enter Password" className="demo-input m-2"/>
           <button type="submit" className="demo-button m-2">Submit</button>
         </form>
       </main>

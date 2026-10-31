@@ -1,15 +1,15 @@
 // apps/my_start/src/components/Header.tsx
 import { Link } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import BetterAuthHeader from '../integrations/better-auth/header-user';
 import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
-  const [isMounted, setIsMounted] = useState(false);
+  // const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsMounted(true);
+  // }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-(--line) bg-(--header-bg) px-4 backdrop-blur-lg">
@@ -25,7 +25,7 @@ export default function Header() {
         </h2>
 
         <div className="ml-auto flex items-center gap-1.5 sm:ml-0 sm:gap-2">
-          {isMounted ? <BetterAuthHeader /> : null}
+     <BetterAuthHeader />
 
           <ThemeToggle />
         </div>
