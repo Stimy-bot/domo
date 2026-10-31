@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-// import { router } from "./router";
+// import type { router } from "@domo/types";
 
 interface ImportMetaEnv {
   readonly BETTER_AUTH_SECRET: string;
