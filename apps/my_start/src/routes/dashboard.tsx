@@ -4,7 +4,7 @@ import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { signOut } from '../lib/auth-client';
 import { getAvatar, getUserID } from '../lib/auth-server-func';
-// import { useTRPC } from "../integrations/trpc/react";
+import { useTRPC } from "../integrations/trpc/react";
 
 export const Route = createFileRoute('/dashboard')({
   component: RouteComponent,
@@ -39,10 +39,10 @@ function RouteComponent() {
     queryFn: () => fetch('/api/name').then(res => res.json()),
   });
 
-  // const trpc = useTRPC();
-  // const { data: userNameFromTRPC } = useQuery({
-  //   ...trpc.people.currentUserName.queryOptions(),
-  // });
+  const trpc = useTRPC();
+  const { data: userNameFromTRPC } = useQuery({
+    ...trpc.people.currentUserName.queryOptions(),
+  });
 
   return (
     <div>
@@ -53,9 +53,9 @@ function RouteComponent() {
       </UiButton>
       {avatar && <img src={avatar} alt="Avatar" className="w-40 h-40" />}
       {userName && <p>User Name: {JSON.stringify(userName)}</p>}
-      {/* {userNameFromTRPC && (
+       {userNameFromTRPC && (
         <p>User Name from TRPC: {JSON.stringify(userNameFromTRPC)}</p>
-      )} */}
+      )}
     </div>
   );
 }

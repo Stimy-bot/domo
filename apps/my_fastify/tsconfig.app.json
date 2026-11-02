@@ -8,7 +8,8 @@
     "src/**/*.tsx",
     "types/**/*.d.ts",
     "../../libs/shared/**/*.ts",
-    "../../libs/shared/**/*.tsx"
+    "../../libs/shared/**/*.tsx",
+    "../my_start/src/utils/trpc.ts"
   ],
   "exclude": [
     "src/**/*.spec.ts",
