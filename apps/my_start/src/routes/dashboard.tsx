@@ -4,7 +4,7 @@ import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { useTRPC } from '../integrations/trpc/react';
 import { signOut } from '../lib/auth-client';
-import { getAvatar, getUserID } from '../lib/auth-server-func';
+import { getAvatar, getUserID, getUsers, type UserDTO } from '../lib/auth-server-func';
 
 export const Route = createFileRoute('/dashboard')({
   component: RouteComponent,
@@ -18,14 +18,19 @@ export const Route = createFileRoute('/dashboard')({
     if (!context.userID) {
       throw redirect({ to: '/' });
     }
+
+    const users = await getUsers();
+
     return {
       userID: context.userID,
+      
+      users,
     };
   },
 });
 
 function RouteComponent() {
-  const { userID } = Route.useLoaderData();
+  const { userID, users } = Route.useLoaderData();
   const navigate = useNavigate();
 
   const [avatar, setAvatar] = useState<string | null>(null);
@@ -45,15 +50,35 @@ function RouteComponent() {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-6 p-6">
       <h1 className="text-4xl font-bold">Dashboard</h1>
       <p className="text-lg">User ID: {userID}</p>
-      <UiButton onClick={() => signOut({}, { onSuccess: () => navigate({ to: '/' }) })}>
+      
+      {/* <UiButton onClick={() => signOut({}, { onSuccess: () => navigate({ to: '/' }) })}>
         Sign out
-      </UiButton>
-      {avatar && <img src={avatar} alt="Avatar" className="w-40 h-40" />}
-      {userName && <p className='text-lg'>User Name: {JSON.stringify(userName)}</p>}
-      {userNameFromTRPC && <p className='text-lg'>User Name from TRPC: {JSON.stringify(userNameFromTRPC)}</p>}
+      </UiButton> */}
+      {userName && <p className="text-lg">User Name: {JSON.stringify(userName)}</p>}
+      {userNameFromTRPC && <p className="text-lg">User Name from TRPC: {JSON.stringify(userNameFromTRPC)}</p>}
+
+      {/* Database Users Section */}
+      <div className="w-full max-w-2xl mt-6 rounded-lg border border-slate-200 dark:border-slate-800 p-4">
+        <h2 className="text-2xl font-semibold mb-4 text-center">Database Users ({users.length})</h2>
+        {users.length === 0 ? (
+          <p className="text-center text-gray-500">No users found in database.</p>
+        ) : (
+          <ul className="divide-y divide-slate-200 dark:divide-slate-800">
+            {users.map((user: UserDTO) => (
+              <li key={user.id} className="py-3 flex justify-between items-center px-2">
+                <div>
+                  <p className="font-medium">{user.name}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
+                </div>
+                <span className="text-xs font-mono text-gray-400">{user.id}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

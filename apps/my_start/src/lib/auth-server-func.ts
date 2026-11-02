@@ -2,16 +2,33 @@ import { createServerFn } from '@tanstack/react-start';
 import clientPromise from '../lib/db';
 import { authMiddleware } from './auth-middleware';
 
-export const getUsers = createServerFn({ method: 'GET' }).handler(async () => {
-  const client = await clientPromise;
-  const db = client.db();
-  const users = await db.collection('users').find({}).toArray();
+export interface UserDTO {
+  id: string;
+  email: string;
+  name?: string;
+  image?: string;
+  role?: string;
+  createdAt?: string;
+}
 
-  return users.map(user => ({
-    ...user,
-    _id: user._id.toString(),
-  }));
-});
+export const getUsers = createServerFn({ method: 'GET' }).handler(
+  async (): Promise<UserDTO[]> => {
+    const client = await clientPromise;
+    const db = client.db();
+
+    // Query 'user' collection (or 'users' depending on your schema)
+    const users = await db.collection('user').find({}).toArray();
+
+    return users.map((user) => ({
+      id: user._id.toString(),
+      email: user.email ?? '',
+      name: user.name ?? 'Anonymous',
+      image: user.avatar ?? '',
+      role: user.role ?? 'user',
+      createdAt: user.createdAt ? new Date(user.createdAt).toISOString() : undefined,
+    }));
+  }
+);
 
 export const getUserID = createServerFn({ method: 'GET' })
   .middleware([authMiddleware])

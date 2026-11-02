@@ -1,10 +1,11 @@
 // apps/my_start/src/routes/about.tsx
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { BsCloudArrowUpFill } from "react-icons/bs";
-import { FaLock, FaServer } from "react-icons/fa";
-import { UiButton } from "@domo/ui-buttons";
 
-export const Route = createFileRoute("/about")({
+import { UiButton } from '@domo/ui-buttons';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { BsCloudArrowUpFill } from 'react-icons/bs';
+import { FaLock, FaServer } from 'react-icons/fa';
+
+export const Route = createFileRoute('/about')({
   component: About,
 });
 
@@ -15,10 +16,10 @@ function About() {
         <div className="pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
         <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
         <section className=" p-6 sm:p-8">
-                <div className="pt-8 flex justify-center w-full">
+          <div className="pt-8 flex justify-center w-full">
             <UiButton className="z-10 w-full max-w-sm">
               <Link
-                to="/quotes"
+                to="/#"
                 className="text-center bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded block w-full"
               >
                 Click Here For A Free Estimate
@@ -37,10 +38,9 @@ function About() {
                       A better workflow
                     </h1>
                     <p className="mt-6 text-md md:text-xl leading-8">
-                      Optimize your web development process with full-stack web
-                      development experts from Me and my associates. Our
-                      dedicated developers can help you build, expand, and
-                      deliver your web assets at scale.
+                      Optimize your web development process with full-stack web development experts
+                      from Me and my associates. Our dedicated developers can help you build,
+                      expand, and deliver your web assets at scale.
                     </p>
                   </div>
                 </div>
@@ -51,12 +51,18 @@ function About() {
                   src="domoservices_site.webp"
                   alt="webpage"
                 />
-                    <div className='pt-10'>
+                <div className="pt-10">
                   <p className="uppercase text-center text-green-700 font-bold text-3xl italic">
                     Your Onestop Print Needs!
                   </p>
-              <h6 className='my-6 text-md md:text-l text-dark-light'>
-                While digital marketing is extremely important for large or small businesses, there is still no substitute for good printed marketing materials. Typically, businesses need business cards, letterhead, brochures, and postcards, but numerous other printed materials can help you develop your brand. These include signage and promotional materials such as branded merchandise and giveawaysâ€”especially helpful if you regularly launch events as part of your marketing.
+                  <h6 className="my-6 text-md md:text-l text-dark-light">
+                    While digital marketing is extremely important for large or small businesses,
+                    there is still no substitute for good printed marketing materials. Typically,
+                    businesses need business cards, letterhead, brochures, and postcards, but
+                    numerous other printed materials can help you develop your brand. These include
+                    signage and promotional materials such as branded merchandise and
+                    giveawaysâ€”especially helpful if you regularly launch events as part of your
+                    marketing.
                   </h6>
                   <img
                     className="size-112 md:size-160 rounded-xl justify-center"
@@ -69,7 +75,12 @@ function About() {
                 <div className="lg:pr-4">
                   <div className="max-w-xl text-base leading-7 lg:max-w-lg">
                     <p>
-              We will establish a direction for a new, custom logo mark that utilizes icons to reflect both topics of identity and functionality, that implements a bold and playful typographic treatment and color palette. Furthering these design elements, print advertising materials, such as a direct mail piece and flyer, were designed to help further communicate the message of the companies and share details on the unique services they offer to those who are interested.
+                      We will establish a direction for a new, custom logo mark that utilizes icons
+                      to reflect both topics of identity and functionality, that implements a bold
+                      and playful typographic treatment and color palette. Furthering these design
+                      elements, print advertising materials, such as a direct mail piece and flyer,
+                      were designed to help further communicate the message of the companies and
+                      share details on the unique services they offer to those who are interested.
                     </p>
                     <ul className="mt-8 space-y-8">
                       <li className="flex gap-x-3">
@@ -78,12 +89,9 @@ function About() {
                           aria-hidden="true"
                         />
                         <span>
-                          <strong className="font-semibold dark:">
-                            Push to deploy.
-                          </strong>{" "}
-                          Build frontend, backend, and mobile in a clear and
-                          telling UI. Switch between visual and code
-                          configuration. Define custom actions, or let our team
+                          <strong className="font-semibold dark:">Push to deploy.</strong> Build
+                          frontend, backend, and mobile in a clear and telling UI. Switch between
+                          visual and code configuration. Define custom actions, or let our team
                           deliver the features your company needs.
                         </span>
                       </li>
@@ -93,16 +101,12 @@ function About() {
                           aria-hidden="true"
                         />
                         <span>
-                          <strong className="font-semibold">
-                            SSL certificates.
-                          </strong>{" "}
-                          Me and my associates offer the best SSL certificates
-                          options to meet varying needs. Whether you’re an
-                          e-Commerce site seeking the highest level of
-                          authentication for your domain name, an enterprise
-                          looking to secure multiple subdomains, or have
-                          different business needs, Sectigo is your trusted
-                          certificate provider.
+                          <strong className="font-semibold">SSL certificates.</strong> Me and my
+                          associates offer the best SSL certificates options to meet varying needs.
+                          Whether you’re an e-Commerce site seeking the highest level of
+                          authentication for your domain name, an enterprise looking to secure
+                          multiple subdomains, or have different business needs, Sectigo is your
+                          trusted certificate provider.
                         </span>
                       </li>
                       <li className="flex gap-x-3">
@@ -111,21 +115,16 @@ function About() {
                           aria-hidden="true"
                         />
                         <span>
-                          <strong className="font-semibold">
-                            Database backups.
-                          </strong>{" "}
-                          If you’re looking to optimize your technology systems,
-                          improve productivity, and save money, working with Me
-                          and my associates can help. With a team of expert
-                          consultants and customizable solutions tailored to
-                          meet your specific needs, Me and my associates can
-                          help you achieve your business goals and build a
-                          long-term partnership focused on delivering value.
-                          Whether you need help with database management,
-                          enterprise portals and collaboration, business
-                          intelligence and analytics, or technology consulting,
-                          Me and my associates has the expertise to help your
-                          business succeed.
+                          <strong className="font-semibold">Database backups.</strong> If you’re
+                          looking to optimize your technology systems, improve productivity, and
+                          save money, working with Me and my associates can help. With a team of
+                          expert consultants and customizable solutions tailored to meet your
+                          specific needs, Me and my associates can help you achieve your business
+                          goals and build a long-term partnership focused on delivering value.
+                          Whether you need help with database management, enterprise portals and
+                          collaboration, business intelligence and analytics, or technology
+                          consulting, Me and my associates has the expertise to help your business
+                          succeed.
                         </span>
                       </li>
                     </ul>
@@ -133,11 +132,10 @@ function About() {
                       No server? No problem.
                     </h2>
                     <p className="mt-6">
-                      Me and my associates can still write code using your
-                      favorite language and platforms! Only now you focus on
-                      creating the best APIs for your application. Or, you can
-                      use your developer skills to automate the generation of
-                      static assets and deploy your application.
+                      Me and my associates can still write code using your favorite language and
+                      platforms! Only now you focus on creating the best APIs for your application.
+                      Or, you can use your developer skills to automate the generation of static
+                      assets and deploy your application.
                     </p>
                     <div className="px-10">
                       <ol className="list-disc">
