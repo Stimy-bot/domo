@@ -2,31 +2,15 @@
 import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { tanstackStartCookies } from 'better-auth/tanstack-start';
-import { MongoClient } from 'mongodb';
+import clientPromise from './db';
 
-declare global {
-  // Prevent duplicate client connections in development HMR
-  // eslint-disable-next-line no-var
-  var mongoClient: MongoClient | undefined;
-}
-
-const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/database';
-
-let client: MongoClient;
-
-if (process.env.NODE_ENV === 'development') {
-  if (!global.mongoClient) {
-    global.mongoClient = new MongoClient(mongoUri);
-  }
-  client = global.mongoClient;
-} else {
-  client = new MongoClient(mongoUri);
-}
-
+const client = await clientPromise;
 const db = client.db();
 
 export const auth = betterAuth({
-  database: mongodbAdapter(db),
+  database: mongodbAdapter(db, {
+    client, 
+  }),
   secret: process.env.BETTER_AUTH_SECRET || 'development_fallback_secret_32_chars_long',
   baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:5173',
   plugins: [tanstackStartCookies()],
@@ -34,7 +18,6 @@ export const auth = betterAuth({
     enabled: true,
   },
   socialProviders: {
-    // Better Auth gracefully handles undefined properties if keys are missing
     google:
       process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
         ? {

@@ -12,7 +12,8 @@ const monorepoRoot = resolve(rootDir, '../../');
 dotenv.config({ path: resolve(monorepoRoot, '.env') });
 
 export default defineConfig(({ mode }) => {
-  Object.assign(process.env, loadEnv(mode, monorepoRoot, ''));
+  const env = loadEnv(mode, monorepoRoot, '');
+  Object.assign(process.env, env);
 
   return {
     root: rootDir,
@@ -20,6 +21,7 @@ export default defineConfig(({ mode }) => {
     cacheDir: resolve(rootDir, '../../node_modules/.vite/my_start'),
     define: {
       global: 'globalThis',
+      'process.env.MONGODB_URI': JSON.stringify(env.MONGODB_URI || process.env.MONGODB_URI),
     },
     optimizeDeps: {
       exclude: ['mongodb', 'bson'],

@@ -2,9 +2,9 @@ import { UiButton } from '@domo/ui-buttons';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
+import { useTRPC } from '../integrations/trpc/react';
 import { signOut } from '../lib/auth-client';
 import { getAvatar, getUserID } from '../lib/auth-server-func';
-import { useTRPC } from "../integrations/trpc/react";
 
 export const Route = createFileRoute('/dashboard')({
   component: RouteComponent,
@@ -31,7 +31,7 @@ function RouteComponent() {
   const [avatar, setAvatar] = useState<string | null>(null);
 
   useEffect(() => {
-    getAvatar().then((userAvatar) => setAvatar(userAvatar ?? null));
+    getAvatar().then(userAvatar => setAvatar(userAvatar ?? null));
   }, []);
 
   const { data: userName } = useQuery({
@@ -45,17 +45,15 @@ function RouteComponent() {
   });
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>User ID: {userID}</p>
+    <div className="flex flex-col items-center justify-center gap-4">
+      <h1 className="text-4xl font-bold">Dashboard</h1>
+      <p className="text-lg">User ID: {userID}</p>
       <UiButton onClick={() => signOut({}, { onSuccess: () => navigate({ to: '/' }) })}>
         Sign out
       </UiButton>
       {avatar && <img src={avatar} alt="Avatar" className="w-40 h-40" />}
-      {userName && <p>User Name: {JSON.stringify(userName)}</p>}
-       {userNameFromTRPC && (
-        <p>User Name from TRPC: {JSON.stringify(userNameFromTRPC)}</p>
-      )}
+      {userName && <p className='text-lg'>User Name: {JSON.stringify(userName)}</p>}
+      {userNameFromTRPC && <p className='text-lg'>User Name from TRPC: {JSON.stringify(userNameFromTRPC)}</p>}
     </div>
   );
 }
