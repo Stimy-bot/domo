@@ -1,6 +1,6 @@
 import { createMiddleware } from '@tanstack/react-start';
 import { getRequestHeaders } from '@tanstack/react-start/server';
-import { getSession } from '@/lib/auth-client';
+import { getSession } from './auth-client';
 
 export const authMiddleware = createMiddleware().server(async ({ next }) => {
   const { data: session } = await getSession({

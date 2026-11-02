@@ -1,5 +1,14 @@
-import { StartClient } from '@tanstack/react-start/client';
+// apps/my_start/src/client.tsx
 
-export default function App() {
-  return <StartClient />;
-}
+import { StartClient } from '@tanstack/react-start/client';
+import { StrictMode, startTransition } from 'react';
+import { hydrateRoot } from 'react-dom/client';
+
+startTransition(() => {
+  hydrateRoot(
+    document,
+    <StrictMode>
+      <StartClient />
+    </StrictMode>,
+  );
+});

@@ -1,3 +1,4 @@
+// apps/my_start/src/ssr.tsx
 import {
   createStartHandler,
   defaultStreamHandler,

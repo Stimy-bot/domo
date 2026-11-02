@@ -31,7 +31,7 @@ function RouteComponent() {
   const [avatar, setAvatar] = useState<string | null>(null);
 
   useEffect(() => {
-    getAvatar().then(setAvatar);
+    getAvatar().then((userAvatar) => setAvatar(userAvatar ?? null));
   }, []);
 
   const { data: userName } = useQuery({

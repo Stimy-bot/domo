@@ -1,3 +1,4 @@
+// apps/my_start/src/integrations/better-auth/header-user.tsx
 import { UiButton } from '@domo/ui-buttons';
 import { Link } from '@tanstack/react-router';
 import { authClient } from '../../lib/auth-client';

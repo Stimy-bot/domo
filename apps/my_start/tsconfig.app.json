@@ -14,9 +14,6 @@
   "include": ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
   "references": [
     {
-      "path": "../../libs/shared/reusableComponents/tsconfig.lib.json"
-    },
-    {
       "path": "../../libs/shared/ui-buttons/tsconfig.lib.json"
     }
   ]
