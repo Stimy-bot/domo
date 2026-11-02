@@ -10,6 +10,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools';
 import type { ReactNode } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Notfound from '../pages/Notfound';
 
 import appCss from '../styles.css?url';
 
@@ -26,7 +27,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'My Start',
       },
     ],
     links: [
@@ -37,6 +38,7 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
+  notFoundComponent: Notfound
 });
 
 function RootComponent() {

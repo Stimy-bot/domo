@@ -5,7 +5,22 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* nx-tailwind-sources:start */
+@source "../../../libs/shared/client";
+@source "../../../libs/shared/config";
+@source "../../../libs/shared/constants";
+@source "../../../libs/shared/context";
+@source "../../../libs/shared/firebase";
+@source "../../../libs/shared/forms";
+@source "../../../libs/shared/hooks";
+@source "../../../libs/shared/reusableComponents";
+@source "../../../libs/shared/schemas";
+@source "../../../libs/shared/state";
+@source "../../../libs/shared/types";
 @source "../../../libs/shared/ui-buttons";
+@source "../../../libs/shared/ui-footer";
+@source "../../../libs/shared/ui-header";
+@source "../../../libs/shared/utils";
+@source "../../../libs/shared/validates";
 /* nx-tailwind-sources:end */
 @plugin "@tailwindcss/typography";
 

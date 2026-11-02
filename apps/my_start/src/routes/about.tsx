@@ -2,7 +2,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BsCloudArrowUpFill } from "react-icons/bs";
 import { FaLock, FaServer } from "react-icons/fa";
-import { UiButton } from "@domo/shared/ui-buttons/src";
+import { UiButton } from "@domo/ui-buttons";
 
 export const Route = createFileRoute("/about")({
   component: About,
@@ -18,7 +18,7 @@ function About() {
                 <div className="pt-8 flex justify-center w-full">
             <UiButton className="z-10 w-full max-w-sm">
               <Link
-                to="/login"
+                to="/quotes"
                 className="text-center bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded block w-full"
               >
                 Click Here For A Free Estimate
@@ -33,10 +33,10 @@ function About() {
                     <p className="text-base font-semibold leading-7 text-red-600">
                       Developing a better web experience
                     </p>
-                    <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-800 sm:text-4xl">
+                    <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
                       A better workflow
                     </h1>
-                    <p className="mt-6 text-md md:text-xl leading-8 text-gray-700">
+                    <p className="mt-6 text-md md:text-xl leading-8">
                       Optimize your web development process with full-stack web
                       development experts from Me and my associates. Our
                       dedicated developers can help you build, expand, and
@@ -67,18 +67,18 @@ function About() {
               </div>
               <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                 <div className="lg:pr-4">
-                  <div className="max-w-xl text-base leading-7 text-gray-700 lg:max-w-lg">
+                  <div className="max-w-xl text-base leading-7 lg:max-w-lg">
                     <p>
               We will establish a direction for a new, custom logo mark that utilizes icons to reflect both topics of identity and functionality, that implements a bold and playful typographic treatment and color palette. Furthering these design elements, print advertising materials, such as a direct mail piece and flyer, were designed to help further communicate the message of the companies and share details on the unique services they offer to those who are interested.
                     </p>
-                    <ul className="mt-8 space-y-8 text-gray-600">
+                    <ul className="mt-8 space-y-8">
                       <li className="flex gap-x-3">
                         <BsCloudArrowUpFill
                           className="mt-1 h-5 w-5 flex-none text-red-600"
                           aria-hidden="true"
                         />
                         <span>
-                          <strong className="font-semibold text-gray-900">
+                          <strong className="font-semibold dark:">
                             Push to deploy.
                           </strong>{" "}
                           Build frontend, backend, and mobile in a clear and
@@ -93,7 +93,7 @@ function About() {
                           aria-hidden="true"
                         />
                         <span>
-                          <strong className="font-semibold text-gray-900">
+                          <strong className="font-semibold">
                             SSL certificates.
                           </strong>{" "}
                           Me and my associates offer the best SSL certificates
@@ -111,7 +111,7 @@ function About() {
                           aria-hidden="true"
                         />
                         <span>
-                          <strong className="font-semibold text-gray-900">
+                          <strong className="font-semibold">
                             Database backups.
                           </strong>{" "}
                           If you’re looking to optimize your technology systems,
@@ -129,7 +129,7 @@ function About() {
                         </span>
                       </li>
                     </ul>
-                    <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+                    <h2 className="mt-16 text-2xl font-bold tracking-tight">
                       No server? No problem.
                     </h2>
                     <p className="mt-6">

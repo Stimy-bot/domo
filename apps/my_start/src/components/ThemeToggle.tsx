@@ -34,15 +34,17 @@ function applyThemeMode(mode: ThemeMode) {
 
 export default function ThemeToggle() {
   const [mode, setMode] = useState<ThemeMode>('auto')
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     const initialMode = getInitialMode()
     setMode(initialMode)
     applyThemeMode(initialMode)
   }, [])
 
   useEffect(() => {
-    if (mode !== 'auto') {
+    if (!mounted || mode !== 'auto') {
       return
     }
 
@@ -53,7 +55,7 @@ export default function ThemeToggle() {
     return () => {
       media.removeEventListener('change', onChange)
     }
-  }, [mode])
+  }, [mode, mounted])
 
   function toggleMode() {
     const systemMode: Exclude<ThemeMode, 'auto'> = window.matchMedia(
@@ -73,12 +75,14 @@ export default function ThemeToggle() {
     window.localStorage.setItem('theme', nextMode)
   }
 
+  // Fall back to a static client/server match baseline until mounted is true
   const systemMode =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches
+    mounted && window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light'
+  
   const resolvedMode = mode === 'auto' ? systemMode : mode
+  
   const label =
     mode === 'auto'
       ? `Theme mode: auto (${systemMode}). Click to switch to ${systemMode === 'dark' ? 'light' : 'dark'} mode.`
