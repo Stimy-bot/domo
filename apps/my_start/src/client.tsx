@@ -1,5 +1,4 @@
 // apps/my_start/src/client.tsx
-
 import { StartClient } from '@tanstack/react-start/client';
 import { StrictMode, startTransition } from 'react';
 import { hydrateRoot } from 'react-dom/client';
