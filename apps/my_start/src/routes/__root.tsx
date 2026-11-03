@@ -1,6 +1,8 @@
 // apps/my_start/src/routes/__root.tsx
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import type { QueryClient } from '@tanstack/react-query';
+import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
+import { formDevtoolsPlugin } from '@tanstack/react-form-devtools';
 import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query';
@@ -17,7 +19,6 @@ const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getIte
 
 export interface MyRouterContext {
   queryClient: QueryClient;
-
   trpc: TRPCOptionsProxy<TRPCRouter>;
 }
 
@@ -75,6 +76,11 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
                 name: 'Tanstack Router',
                 render: <TanStackRouterDevtoolsPanel />,
               },
+              {
+                name: 'Tanstack Query',
+                render: <ReactQueryDevtoolsPanel />,
+              },
+              formDevtoolsPlugin(),
             ]}
           />
           <Scripts />

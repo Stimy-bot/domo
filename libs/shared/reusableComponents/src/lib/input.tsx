@@ -1,6 +1,6 @@
 // libs/shared/reusableComponents/src/lib/input.tsx
 
-import { cn } from '@domo/utils';
+import { cn } from '@domo/utils/client';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type React from 'react';
 import type { ReactNode } from 'react';

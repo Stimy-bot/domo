@@ -5,3 +5,4 @@ export * from './lib/useCurrentUser';
 export * from './lib/useMarkers';
 export * from './lib/useOtpVerification';
 export * from './lib/useUpdateProfilePicture';
+export * from './lib/useUsers';

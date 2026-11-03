@@ -13,7 +13,7 @@ import {
   type SubmissionResult,
   TextInput,
 } from '@domo/reusableComponents';
-import { navigate } from '@domo/utils';
+import { navigate } from '@domo/utils/client';
 import { useMutation } from '@tanstack/react-query';
 import type React from 'react';
 import { useState } from 'react';

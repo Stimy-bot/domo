@@ -1,10 +1,14 @@
-import { UiButton } from '@domo/ui-buttons';
+// import { UiButton } from '@domo/ui-buttons';
 import { useQuery } from '@tanstack/react-query';
-import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
+import { createFileRoute, redirect
+  // , useNavigate
+} from '@tanstack/react-router';
+// import { useEffect, useState } from 'react';
 import { useTRPC } from '../integrations/trpc/react';
-import { signOut } from '../lib/auth-client';
-import { getAvatar, getUserID, getUsers, type UserDTO } from '../lib/auth-server-func';
+// import { signOut } from '../lib/auth-client';
+import {
+  //  getAvatar,
+   getUserID, getUsers, type UserDTO } from '../lib/auth-server-func';
 
 export const Route = createFileRoute('/dashboard')({
   component: RouteComponent,
@@ -31,13 +35,13 @@ export const Route = createFileRoute('/dashboard')({
 
 function RouteComponent() {
   const { userID, users } = Route.useLoaderData();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const [avatar, setAvatar] = useState<string | null>(null);
+  // const [avatar, setAvatar] = useState<string | null>(null);
 
-  useEffect(() => {
-    getAvatar().then(userAvatar => setAvatar(userAvatar ?? null));
-  }, []);
+  // useEffect(() => {
+  //   getAvatar().then(userAvatar => setAvatar(userAvatar ?? null));
+  // }, []);
 
   const { data: userName } = useQuery({
     queryKey: ['name'],

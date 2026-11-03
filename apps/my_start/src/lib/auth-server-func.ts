@@ -1,3 +1,4 @@
+// apps/my_start/src/lib/auth-server-func.ts
 import { createServerFn } from '@tanstack/react-start';
 import clientPromise from '../lib/db';
 import { authMiddleware } from './auth-middleware';
@@ -5,6 +6,7 @@ import { authMiddleware } from './auth-middleware';
 export interface UserDTO {
   id: string;
   email: string;
+  phoneNumber?: string;
   name?: string;
   image?: string;
   role?: string;

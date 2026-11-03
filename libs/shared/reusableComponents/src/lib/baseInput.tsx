@@ -1,5 +1,5 @@
 // libs/shared/reusableComponents/src/lib/baseInput.tsx
-import { formatNameToTitle } from '@domo/utils';
+import { formatNameToTitle } from '@domo/utils/client';
 import { useState } from 'react';
 
 // --- Icon Definitions ---
