@@ -19,19 +19,22 @@
   ],
   "references": [
     {
-      "path": "../ui-footer"
+      "path": "../client"
     },
     {
       "path": "../ui-header"
     },
     {
-      "path": "../utils"
+      "path": "../ui-footer"
     },
     {
       "path": "../hooks"
     },
     {
       "path": "../context"
+    },
+    {
+      "path": "../utils"
     }
   ]
 }

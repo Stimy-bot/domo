@@ -54,9 +54,6 @@ function RouteComponent() {
       <h1 className="text-4xl font-bold">Dashboard</h1>
       <p className="text-lg">User ID: {userID}</p>
       
-      {/* <UiButton onClick={() => signOut({}, { onSuccess: () => navigate({ to: '/' }) })}>
-        Sign out
-      </UiButton> */}
       {userName && <p className="text-lg">User Name: {JSON.stringify(userName)}</p>}
       {userNameFromTRPC && <p className="text-lg">User Name from TRPC: {JSON.stringify(userNameFromTRPC)}</p>}
 
