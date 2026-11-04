@@ -7,4 +7,5 @@ export * from './lib/lifecycle';
 export * from './lib/catchErrors';
 export * from './lib/AppError';
 export * from './lib/jwt';
+export * from './lib/jwt.server';
 
