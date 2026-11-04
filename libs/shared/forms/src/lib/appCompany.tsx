@@ -15,7 +15,7 @@ import {
   TextInput,
 } from '@domo/reusableComponents';
 import { type addressSchema, type CreateCompany, companyCategoryEnum } from '@domo/schemas';
-import { formatNameToTitle } from '@domo/utils/client';
+import { formatNameToTitle } from '@domo/utils';
 import { format } from 'date-fns';
 import type React from 'react';
 import type z from 'zod';

@@ -39,7 +39,7 @@ export function getRefreshToken(sessionId: ObjectId | string): string {
 
   return signToken(payload, {
     secret,
-    expiresIn: 30 * 24 * 60 * 60 * 1000,
+    expiresIn: '30d',
   });
 }
 

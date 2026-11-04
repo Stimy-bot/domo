@@ -3,7 +3,7 @@
 import { AppErrorCode } from '@domo/constants';
 import type { SessionEntity } from '@domo/models';
 import { NOT_FOUND, OK, UNAUTHORIZED } from '@domo/types';
-import { appAssert, catchErrors } from '@domo/utils/client';
+import { appAssert, catchErrors } from '@domo/utils/server';
 import { ObjectId } from '@fastify/mongodb';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';

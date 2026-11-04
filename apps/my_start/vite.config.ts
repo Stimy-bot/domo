@@ -60,6 +60,15 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': resolve(rootDir, './src'),
         '@domo/client': resolve(monorepoRoot, 'libs/shared/client/src/index.ts'),
+        '@domo/config/server': resolve(monorepoRoot, 'libs/shared/config/src/index.ts'),
+        '@domo/constants/client': resolve(
+          monorepoRoot,
+          'libs/shared/constants/src/lib/env.client.ts',
+        ),
+        '@domo/constants/server': resolve(
+          monorepoRoot,
+          'libs/shared/constants/src/lib/env.server.ts',
+        ),
         '@domo/config': resolve(monorepoRoot, 'libs/shared/config/src/index.ts'),
         '@domo/constants': resolve(monorepoRoot, 'libs/shared/constants/src/index.ts'),
         '@domo/context': resolve(monorepoRoot, 'libs/shared/context/src/index.ts'),

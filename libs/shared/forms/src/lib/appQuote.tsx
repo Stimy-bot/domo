@@ -14,7 +14,7 @@ import {
   TextArea,
   TextInput,
 } from '@domo/reusableComponents';
-import { exportQuoteToCSV } from '@domo/utils/client';
+import { exportQuoteToCSV } from '@domo/utils';
 import type React from 'react';
 import { useState } from 'react';
 

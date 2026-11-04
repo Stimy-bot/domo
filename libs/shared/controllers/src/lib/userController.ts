@@ -12,7 +12,7 @@ import {
   UNAUTHORIZED,
 } from '@domo/types';
 import { verifyToken, clearAuthCookies } from '@domo/utils';
-import { appAssert, catchErrors } from '@domo/utils/client';
+import { appAssert, catchErrors } from '@domo/utils/server';
 import { ObjectId } from 'bson';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import z from 'zod';

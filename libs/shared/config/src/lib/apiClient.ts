@@ -1,7 +1,7 @@
 // client/src/config/apiClient.ts
 
 // import { UNAUTHORIZED } from "@domo/constants";
-import { navigate } from '@domo/utils/client';
+import { navigate } from '@domo/utils';
 import axios from 'axios';
 import queryClient from './queryClient';
 

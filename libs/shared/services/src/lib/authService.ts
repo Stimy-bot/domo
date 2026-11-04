@@ -16,17 +16,17 @@ import {
   thirtyDaysFromNow,
   getPasswordResetTemplate,
   getVerifyEmailTemplate,
-  verifyToken,
 } from '@domo/utils';
 import {
   compareValue,
   hashValue,
   sendMail,
   signToken,
+  verifyToken,
 } from '@domo/utils/server';
 import {
   appAssert,
-} from '@domo/utils/client';
+} from '@domo/utils';
 
 import { ObjectId } from '@fastify/mongodb';
 import type { FastifyBaseLogger } from 'fastify';
@@ -177,7 +177,7 @@ export const createSessionAndTokens = async (
   // Refresh token: sign with explicit refresh secret and expiry duration
   const refreshToken = signToken(
     { sessionId },
-    '30d',
+    { expiresIn: '30d' },
   );
 
   return { accessToken, refreshToken, sessionId };
@@ -331,8 +331,9 @@ export const loginUser = async (
 };
 
 export const refreshUserAccessToken = async (ctx: ServiceContext, refreshToken: string) => {
-  const payload = verifyToken(refreshToken);
-  const sessionId = (payload as typeof payload & { sessionId?: string })?.sessionId;
+  const { payload } = verifyToken<{ sessionId?: string }>(refreshToken);
+  appAssert(payload, UNAUTHORIZED, 'Invalid refresh token');
+  const sessionId = payload.sessionId;
 
   appAssert(sessionId, UNAUTHORIZED, 'Invalid refresh token');
 
@@ -370,12 +371,12 @@ export const refreshUserAccessToken = async (ctx: ServiceContext, refreshToken: 
       role: user.role,
       sessionId: session._id.toString(),
     },
-    '15m',
+    { expiresIn: '15m' },
   );
 
   const newRefreshToken = signToken(
     { sessionId: session._id.toString() },
-    '30d',
+    { expiresIn: '30d' },
   );
 
   return { accessToken: newAccessToken, newRefreshToken };

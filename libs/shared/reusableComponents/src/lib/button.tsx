@@ -1,6 +1,6 @@
 // client/src/components/ReusableComponents/Button.tsx
 
-import { cn } from '@domo/utils/client';
+import { cn } from '@domo/utils';
 import { Slot } from '@radix-ui/react-slot';
 import type { LinkProps } from '@tanstack/react-router'; // Ensure this import is correct
 import { cva, type VariantProps } from 'class-variance-authority';

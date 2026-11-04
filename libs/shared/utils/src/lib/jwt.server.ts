@@ -21,9 +21,18 @@ userId?: string;
  */
 export function signToken(
   payload: UserPayload,
-  expiresIn: SignOptions['expiresIn'] = '1d',
+  expiresInOrOptions:
+    | SignOptions['expiresIn']
+    | { secret?: string; expiresIn?: SignOptions['expiresIn'] } = '1d',
 ): string {
-  return jwt.sign(payload, serverEnv.JWT_SECRET, { expiresIn });
+  const options =
+    typeof expiresInOrOptions === 'object' && expiresInOrOptions !== null
+      ? expiresInOrOptions
+      : { expiresIn: expiresInOrOptions };
+
+  return jwt.sign(payload, options.secret ?? serverEnv.JWT_SECRET, {
+    expiresIn: options.expiresIn ?? '1d',
+  });
 }
 
 /**

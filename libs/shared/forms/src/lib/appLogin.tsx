@@ -10,7 +10,7 @@ import {
   PasswordInput,
   type SubmissionResult,
 } from '@domo/reusableComponents';
-import { getGoogleOAuthURL } from '@domo/utils/client';
+import { getGoogleOAuthURL } from '@domo/utils';
 import { useMutation } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 

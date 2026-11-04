@@ -3,7 +3,7 @@ import { AppErrorCode } from '@domo/constants';
 import type { RoleType, UserEntity } from '@domo/models';
 import type { AccessTokenPayload } from '@domo/types';
 import { UNAUTHORIZED } from '@domo/types';
-import { appAssert } from '@domo/utils/client';
+import { appAssert } from '@domo/utils';
 import { verifyToken } from '@domo/utils';
 import { ObjectId } from '@fastify/mongodb';
 import type { FastifyPluginAsync, FastifyRequest } from 'fastify';
