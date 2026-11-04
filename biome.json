@@ -23,10 +23,12 @@
       "!**/tmp/**/*"
     ]
   },
-  "formatter": {
+ "formatter": {
     "enabled": true,
+    "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
+    "lineEnding": "lf",
     "lineWidth": 100
   },
   "linter": {
@@ -43,6 +45,8 @@
         "noUnusedVariables": "warn"
       },
       "style": {
+        "useConst": "error",
+        "useImportType": "error",
         "noDefaultExport": "off",
         "useNodejsImportProtocol": "off"
       }
@@ -61,7 +65,11 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "arrowParentheses": "asNeeded"
+      "jsxQuoteStyle": "single",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "all",
+      "semicolons": "always",
+      "arrowParentheses": "always"
     }
   }
 }

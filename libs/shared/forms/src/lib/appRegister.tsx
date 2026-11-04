@@ -17,7 +17,6 @@ import { navigate } from '@domo/utils';
 import { useMutation } from '@tanstack/react-query';
 import type React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { OtpVerificationForm } from './otpVerificationForm';
 
 type RegisterFormValues = {
@@ -230,9 +229,9 @@ function AppRegister() {
                 />
                 <p className="text-dark-hard text-sm text-center  dark:text-dark-light">
                   Already have an account?{' '}
-                  <Link to="/login" className="text-blue-400 font-bold hover:underline">
+                  <a href="/login" className="text-blue-400 font-bold hover:underline">
                     Sign in
-                  </Link>
+                  </a>
                 </p>
               </>
             ) : (

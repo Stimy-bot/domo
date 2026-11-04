@@ -10,3 +10,4 @@ export * from './lib/utils';
 export * from './lib/ip';
 export * from './lib/emailTemplates'
 export * from './lib/cookies'
+export * from './lib/jwt';
