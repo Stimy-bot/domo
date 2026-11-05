@@ -8,7 +8,6 @@ import {
   useLayoutStore,
   useUIStore,
 } from '@domo/state';
-import { Link } from 'react-router-dom';
 import { navbarLinks } from './navbarLinks';
 
 function UiHeader() {
@@ -50,9 +49,9 @@ function UiHeader() {
       <main className="navbar flex items-center justify-between p-4">
         {/* Brand */}
         <section className="flex items-center text-dark-light">
-          <Link to="/" className="text-lg font-semibold hover:text-white transition-colors">
+          <a href="/" className="text-lg font-semibold hover:text-white transition-colors">
             Domo
-          </Link>
+          </a>
         </section>
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6 text-dark-light ml-auto pr-5">
@@ -65,9 +64,9 @@ function UiHeader() {
           </button>
           {/* Dynamic navbar links */}
           {filteredLinks.map(link => (
-            <Link key={link.title} to={link.link} className="hover:text-white transition-colors">
+            <a key={link.title} href={link.link} className="hover:text-white transition-colors">
               {link.title}
-            </Link>
+            </a>
           ))}
         </nav>
 
@@ -86,9 +85,9 @@ function UiHeader() {
           <nav className="flex flex-col space-y-4 text-dark-light">
             {/* Dynamic mobile links */}
             {filteredLinks.map(link => (
-              <Link key={link.title} to={link.link} className="hover:text-white transition-colors">
+              <a key={link.title} href={link.link} className="hover:text-white transition-colors">
                 {link.title}
-              </Link>
+              </a>
             ))}
             {/* Theme toggle */}
             <button

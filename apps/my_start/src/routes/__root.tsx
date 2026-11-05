@@ -4,6 +4,7 @@ import type { QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
 import { formDevtoolsPlugin } from '@tanstack/react-form-devtools';
 import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
+import { ToastProvider } from '@domo/context';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query';
 import type { ReactNode } from 'react';
@@ -63,28 +64,30 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]">
-        <Provider>
-          <Header />
-          {children}
-          <Footer />
-          <TanStackDevtools
-            config={{
-              position: 'bottom-right',
-            }}
-            plugins={[
-              {
-                name: 'Tanstack Router',
-                render: <TanStackRouterDevtoolsPanel />,
-              },
-              {
-                name: 'Tanstack Query',
-                render: <ReactQueryDevtoolsPanel />,
-              },
-              formDevtoolsPlugin(),
-            ]}
-          />
-          <Scripts />
-        </Provider>
+        <ToastProvider>
+          <Provider>
+            <Header />
+            {children}
+            <Footer />
+            <TanStackDevtools
+              config={{
+                position: 'bottom-right',
+              }}
+              plugins={[
+                {
+                  name: 'Tanstack Router',
+                  render: <TanStackRouterDevtoolsPanel />,
+                },
+                {
+                  name: 'Tanstack Query',
+                  render: <ReactQueryDevtoolsPanel />,
+                },
+                formDevtoolsPlugin(),
+              ]}
+            />
+            <Scripts />
+          </Provider>
+        </ToastProvider>
       </body>
     </html>
   );

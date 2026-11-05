@@ -1,6 +1,6 @@
 // @domo/libs/models/src/lib/sessionModel.ts
 
-import { signToken } from '@domo/utils';
+import { signToken } from '@domo/utils/server';
 import type { Db, ObjectId } from 'mongodb';
 
 const thirtyDaysFromNow = () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);

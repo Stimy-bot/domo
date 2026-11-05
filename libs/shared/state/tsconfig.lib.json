@@ -1,9 +1,19 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/libs/shared/state",
+    "tsBuildInfoFile": "../../../dist/libs/shared/state.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "apps/**/*.ts",
+    "libs/**/*.ts",
+    "types/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts"
+  ],
   "references": []
 }

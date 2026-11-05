@@ -10,7 +10,6 @@ import {
 } from '@tanstack/react-form';
 import type React from 'react';
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Captcha from './captcha';
 import { SubmitButton } from './submitButton';
 
@@ -105,7 +104,6 @@ function FormFactory<TFormValues extends Record<string, unknown>>({
   submitButtonText, // Added this missing prop to the destructuring
 }: FormFactoryProps<TFormValues>) {
   const { addToast } = useToast();
-  const navigate = useNavigate();
 
   const [captchaVerified, setCaptchaVerified] = useState(false);
   const [captchaError, setCaptchaError] = useState('');
@@ -126,7 +124,7 @@ function FormFactory<TFormValues extends Record<string, unknown>>({
       if (result.success) {
         addToast({ message: result.message, type: 'success' });
         if (result.redirect) {
-          navigate(result.redirect, { replace: true });
+          window.location.replace(result.redirect);
         }
       } else {
         addToast({

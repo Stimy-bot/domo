@@ -8,29 +8,29 @@ export interface UserDTO {
   email: string;
   phoneNumber?: string;
   name?: string;
+  birthDate?: string;
   image?: string;
   role?: string;
   createdAt?: string;
 }
 
-export const getUsers = createServerFn({ method: 'GET' }).handler(
-  async (): Promise<UserDTO[]> => {
-    const client = await clientPromise;
-    const db = client.db();
+export const getUsers = createServerFn({ method: 'GET' }).handler(async (): Promise<UserDTO[]> => {
+  const client = await clientPromise;
+  const db = client.db();
 
-    // Query 'user' collection (or 'users' depending on your schema)
-    const users = await db.collection('user').find({}).toArray();
+  // Query 'user' collection (or 'users' depending on your schema)
+  const users = await db.collection('user').find({}).toArray();
 
-    return users.map((user) => ({
-      id: user._id.toString(),
-      email: user.email ?? '',
-      name: user.name ?? 'Anonymous',
-      image: user.avatar ?? '',
-      role: user.role ?? 'user',
-      createdAt: user.createdAt ? new Date(user.createdAt).toISOString() : undefined,
-    }));
-  }
-);
+  return users.map((user) => ({
+    id: user._id.toString(),
+    email: user.email ?? '',
+    name: user.name ?? 'Anonymous',
+    birthDate: user.name ?? '',
+    image: user.avatar ?? '',
+    role: user.role ?? 'user',
+    createdAt: user.createdAt ? new Date(user.createdAt).toISOString() : undefined,
+  }));
+});
 
 export const getUserID = createServerFn({ method: 'GET' })
   .middleware([authMiddleware])

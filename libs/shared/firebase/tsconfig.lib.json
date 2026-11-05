@@ -1,9 +1,20 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/libs/shared/firebase",
+    "tsBuildInfoFile": "../../../dist/libs/shared/firebase.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "apps/**/*.ts",
+    "libs/**/*.ts",
+    "types/**/*.d.ts"
+  ],
+  "exclude": [
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ],
   "references": []
 }

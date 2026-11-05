@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { AppRegister } from '@domo/forms'
+import { Register } from '@domo/forms'
 
 export const Route = createFileRoute('/register')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return  < AppRegister/>
+  return  < Register/>
 }

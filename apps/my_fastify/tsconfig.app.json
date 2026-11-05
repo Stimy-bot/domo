@@ -6,7 +6,10 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "types/**/*.d.ts"
+    "types/**/*.d.ts",
+    "../../libs/**/*.ts",
+    "../../libs/**/*.tsx",
+    "../../types/**/*.d.ts"
   ],
   "exclude": [
     "src/**/*.spec.ts",

@@ -4,7 +4,7 @@ import type { RoleType, UserEntity } from '@domo/models';
 import type { AccessTokenPayload } from '@domo/types';
 import { UNAUTHORIZED } from '@domo/types';
 import { appAssert } from '@domo/utils';
-import { verifyToken } from '@domo/utils';
+import { verifyToken } from '@domo/utils/server';
 import { ObjectId } from '@fastify/mongodb';
 import type { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';

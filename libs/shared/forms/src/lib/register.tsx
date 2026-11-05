@@ -1,0 +1,265 @@
+// libs/shared/forms/src/lib/register.tsx
+import { register } from '@domo/client';
+import { phoneRegex, pwRegex } from '@domo/constants';
+import {
+  EmailInput,
+  type FieldConfig,
+  FormFactory,
+  PasswordInput,
+  PhoneNumberInput,
+  StyledDatePicker,
+  type SubmissionResult,
+  TextInput,
+} from '@domo/reusableComponents';
+import { navigate } from '@domo/utils';
+import { useMutation } from '@tanstack/react-query';
+import type React from 'react';
+import { useState } from 'react';
+import { OtpVerificationForm } from './otpVerificationForm';
+//import { Divide } from 'lucide-react';
+
+type RegisterFormValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+  birthDate: string;
+};
+
+function Register() {
+  const [step, setStep] = useState<'register' | 'otp'>('register');
+  const [phone, setPhone] = useState<string>('');
+
+  const registerFormOptions = {
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      confirmPassword: '',
+      email: '',
+      phone: '',
+      password: '',
+      birthDate: '',
+    },
+  };
+  // Use mutateAsync to integrate cleanly with FormFactory's awaitable submission
+  const { mutateAsync: registerAsync } = useMutation({
+    mutationFn: register,
+  });
+
+  // Centralized submission handler for FormFactory
+  const handleRegisterSubmit = async ({
+    value,
+  }: {
+    value: RegisterFormValues;
+  }): Promise<SubmissionResult> => {
+    try {
+      // 1. Perform the Mutation
+      await registerAsync(value as any);
+
+      setPhone(value.phone);
+
+      // Switch to OTP step
+      setStep('otp');
+      // 2. Return success object for FormFactory to show toast and navigate
+      return {
+        success: true,
+        message: 'Account created successfully',
+        // redirect: "/",
+      };
+    } catch (error) {
+      // 3. Handle mutation errors (e.g., failed API call, invalid data)
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Failed to create account. Please check your information.';
+      return {
+        success: false,
+        message: errorMessage,
+      };
+    }
+  };
+
+  // --- Field Configuration Array ---
+  const registerFieldsConfig: FieldConfig<RegisterFormValues>[] = [
+    {
+      name: 'firstName',
+      label: 'First Name',
+      placeholder: 'Enter First Name',
+      props: { className: 'demo-input m-2' },
+      component: TextInput as React.ComponentType<any>,
+      validators: {
+        onChangeAsyncDebounceMs: 500,
+        onChangeAsync: ({ value }: { value: string }) => {
+          if (!value) return 'First and last name required';
+          if (value.length < 3) return 'First name must be at least 3 characters long';
+          return undefined;
+        },
+      },
+    },
+    {
+      name: 'lastName',
+      label: 'Last Name',
+      placeholder: 'Enter Last Name',
+      props: { className: 'demo-input m-2' },
+      component: TextInput as React.ComponentType<any>,
+      validators: {
+        onChangeAsyncDebounceMs: 500,
+        onChangeAsync: ({ value }: { value: string }) => {
+          if (!value) return 'First and last name required';
+          if (value.length < 3) return 'Last name must be at least 3 characters long';
+          return undefined;
+        },
+      },
+    },
+    {
+      name: 'phone',
+      label: 'Phone Number',
+      placeholder: 'Enter phone number',
+      props: { className: 'demo-input m-2' },
+      component: PhoneNumberInput as React.ComponentType<any>,
+      validators: {
+        onChangeAsyncDebounceMs: 500,
+        onChangeAsync: ({ value }: { value: string }) => {
+          if (!value) {
+            return 'Phone number is required';
+          }
+          if (!phoneRegex.test(value)) {
+            return 'Invalid phone number';
+          }
+          return undefined;
+        },
+      },
+    },
+    {
+      name: 'email',
+      label: 'Email address',
+      placeholder: 'Enter email',
+      props: { className: 'demo-input m-2' },
+      component: EmailInput,
+      validators: {
+        onChangeAsyncDebounceMs: 500,
+        onChangeAsync: ({ value }: { value: string }) => {
+          if (!value) return 'Email is required';
+          if (!value.includes('@')) return 'Invalid email'; // Basic check, ideally use proper emailRegex
+          return undefined;
+        },
+      },
+    },
+    {
+      name: 'birthDate',
+      label: 'Your Date of Birth',
+      component: StyledDatePicker as React.ComponentType<any>,
+      props: { type: 'date', className: 'demo-input m-2' },
+
+      validators: {
+        onChangeAsync: ({ value }: { value: string }) => {
+          if (!value) return 'Date of birth is required';
+
+          // Frontend Age Calculation
+          const dob = new Date(value);
+          const today = new Date();
+          let age = today.getFullYear() - dob.getFullYear();
+          const monthDiff = today.getMonth() - dob.getMonth();
+
+          if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+            age--;
+          }
+
+          if (age < 18) return 'You must be at least 18 years old';
+          return undefined;
+        },
+      },
+    },
+    {
+      name: 'password',
+      label: 'Password',
+      placeholder: 'Enter Password',
+      component: PasswordInput,
+      props: { type: 'password', className: 'demo-input m-2' },
+      validators: {
+        onChangeAsyncDebounceMs: 500,
+        onChangeAsync: ({ value }: { value: string }) => {
+          if (!value) return 'Password is required';
+          if (!pwRegex.test(value)) {
+            return 'Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters.';
+          }
+          return undefined;
+        },
+      },
+    },
+    {
+      name: 'confirmPassword',
+      label: 'Confirm Password',
+      placeholder: 'Confirm password',
+      component: PasswordInput,
+      props: { type: 'password', className: 'demo-inn mt-2' },
+      validators: {
+        onChangeAsyncDebounceMs: 500,
+        onChangeListenTo: ['password'],
+        onChangeAsync: ({
+          value,
+          fieldApi,
+        }: {
+          value: string;
+          fieldApi: any; // Type is simplified for FormFactory usage
+        }) => {
+          if (!value) return 'Must enter a matching password';
+          if (value !== fieldApi.form.getFieldValue('password')) {
+            return 'Passwords do not match';
+          }
+          return undefined;
+        },
+      },
+    },
+  ];
+
+  return (
+     <div className="container md:w-150 mx-auto py-20">
+    <div className='relative h-screen flex items-center justify-center overflow-hidden p-4'>
+      <main className='island-shell rise-in flex flex-col items-center justify-center max-w-400 min-h-[60vh] px-4 text-center rounded-lg'>
+        <div className='pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]' />
+        <div className='pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]' />
+        <h2 className='font-roboto text-4xl font-bold text-center'>
+          {step === 'register' ? 'Create an account' : 'Verify your phone'}
+        </h2>
+        <div className='p-8 rounded-lg border-solid shadow-2xl pt-10'>
+          {step === 'register' ? (
+            <>
+              <FormFactory
+                formOptions={registerFormOptions}
+                fieldsConfig={registerFieldsConfig}
+                onValidSubmit={handleRegisterSubmit}
+                submitButtonText='Register'
+              />
+              <p className='text-sm text-center '>
+                Already have an account?{' '}
+                <a href='/login' className='text-blue-400 font-bold hover:underline'>
+                  Sign in
+                </a>
+              </p>
+            </>
+          ) : (
+            <div className='flex flex-col items-center'>
+              <p className='text-center mb-4'>
+                We sent a code to <strong>{phone}</strong>
+              </p>
+              <OtpVerificationForm phone={phone} onSuccess={() => navigate('/')} />
+              <button
+                type='button'
+                onClick={() => setStep('register')}
+                className='relative mt-4 text-sm text-blue-500 hover:underline'
+              >
+                ← Back to registration
+              </button>
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
+    </div>
+  );
+}
+
+export { Register };

@@ -19,7 +19,7 @@ function About() {
           <div className="pt-8 flex justify-center w-full">
             <UiButton className="z-10 w-full max-w-sm">
               <Link
-                to="/#"
+                to="/quote"
                 className="text-center bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded block w-full"
               >
                 Click Here For A Free Estimate

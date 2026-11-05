@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { AppQuote } from '@domo/forms'
+import { Quote } from '@domo/forms'
 
-export const Route = createFileRoute('/quotes')({
+export const Route = createFileRoute('/quote')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <AppQuote />
+  return <Quote />
 }

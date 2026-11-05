@@ -6,8 +6,11 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "verbatimModuleSyntax": false,
-    "types": ["node"],
-    "outDir": "../../../dist/out-tsc"
+    "types": [
+      "node"
+    ],
+    "outDir": "../../../dist/libs/shared/validates",
+    "tsBuildInfoFile": "../../../dist/libs/shared/validates.tsbuildinfo"
   },
   "include": [
     "vite.config.ts",
