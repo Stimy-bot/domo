@@ -6,4 +6,3 @@ export * from './lib/navigation';
 export * from './lib/utils';
 export * from './lib/jwt.client'
 export * from './lib/ip'
-export * from './lib/jwt';

@@ -1,5 +1,4 @@
 // apps/my_start/src/routes/about.tsx
-
 import { UiButton } from '@domo/ui-buttons';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { BsCloudArrowUpFill } from 'react-icons/bs';

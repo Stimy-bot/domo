@@ -26,8 +26,8 @@ const CustomDateInput = React.forwardRef<HTMLInputElement, CustomDateInputProps>
         'custom-class',
         'additional-class',
         'w-full',
-        'mt-1 rounded-lg',
-        'outline-none border text-dark-light font-semibold bg-white',
+        'mt-1',
+        'outline-none font-semibold',
       )}
     />
   ),

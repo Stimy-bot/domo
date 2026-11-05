@@ -24,7 +24,7 @@ interface TextAreaProps {
 
 const TextArea = ({ field, label, rows = 4 }: TextAreaProps) => (
   <div className="mb-5 w-full">
-    <label htmlFor={field.name} className="text-dark-light font-semibold block">
+    <label htmlFor={field.name} className="font-semibold block">
       {label}
     </label>
     <textarea
@@ -36,7 +36,7 @@ const TextArea = ({ field, label, rows = 4 }: TextAreaProps) => (
       rows={rows}
       placeholder={label}
       // Added 'text-base' for iOS zoom prevention and 'focus:border-primary' for better UX
-      className="  placeholder:text-dark-light bg-white text-dark-hard my-3 rounded-lg px-5 py-4 font-semibold block outline-none border w-full"
+      className="  placeholder:my-3 rounded-lg px-5 py-4 font-semibold block outline-none border w-full"
     ></textarea>
     {field.state.meta.errors.length > 0 ? (
       <div className="mt-1">

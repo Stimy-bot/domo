@@ -39,7 +39,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   const displayValue = Array.isArray(value) ? (value[0] ?? '') : (value ?? '');
   return (
     <div className="py-4">
-      <label htmlFor={name} className="block text-dark-light font-semibold mb-2">
+      <label htmlFor={name} className="block font-semibold mb-2">
         {label}
       </label>
       <select
@@ -48,7 +48,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
         value={displayValue}
         onBlur={handleBlur}
         onChange={e => handleChange(e.target.value)}
-        className=" font-semibold border rounded w-full py-4.5 px-3 text-dark-light bg-white leading-tight focus:outline-none focus:shadow-outline"
+        className=" font-semibold border rounded w-full py-4.5 px-3 leading-tight focus:outline-none focus:shadow-outline"
       >
         <option value="" disabled>
           {placeholder}

@@ -1,31 +1,64 @@
 // apps/my_start/src/lib/auth.ts
-import { betterAuth } from 'better-auth';
-import { mongodbAdapter } from 'better-auth/adapters/mongodb';
-import { tanstackStartCookies } from 'better-auth/tanstack-start';
-import { jwt, bearer, phoneNumber, twoFactor } from 'better-auth/plugins';
-import clientPromise from './db';
+import { betterAuth } from "better-auth";
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
+import { bearer, jwt, phoneNumber, twoFactor } from "better-auth/plugins";
+import { tanstackStartCookies } from "better-auth/tanstack-start";
+import clientPromise from "./db";
 
 const client = await clientPromise;
 const db = client.db();
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
-    client, 
+    client,
   }),
-  secret: process.env.JWT_SECRET || process.env.BETTER_AUTH_SECRET || 'development_fallback_secret_32_chars_long',
-  baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:5173',
+  secret:
+    process.env.JWT_SECRET ||
+    process.env.BETTER_AUTH_SECRET ||
+    "development_fallback_secret_32_chars_long",
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:5173",
 
   // Session lifetime set to 30 days
   session: {
     expiresIn: 60 * 60 * 24 * 30, // 30 Days
-    updateAge: 60 * 60 * 24,       // Extends session window daily on activity
+    updateAge: 60 * 60 * 24, // Extends session window daily on activity
   },
 
   // Explicitly declare additional user fields for TypeScript and MongoDB schema
   user: {
     additionalFields: {
+      firstName: {
+        type: "string",
+        required: false,
+        returned: true,
+      },
+      lastName: {
+        type: "string",
+        required: false,
+        returned: true,
+      },
       phoneNumber: {
-        type: 'string',
+        type: "string",
+        required: false,
+        returned: true,
+      },
+      birthDate: {
+        type: "string",
+        required: false,
+        returned: true,
+      },
+            image: {
+        type: "string",
+        required: false,
+        returned: true,
+      },
+            gender: {
+        type: "string",
+        required: false,
+        returned: true,
+      },
+            bio: {
+        type: "string",
         required: false,
         returned: true,
       },
@@ -34,7 +67,7 @@ export const auth = betterAuth({
 
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
+    requireEmailVerification: process.env.NODE_ENV === "production",
   },
 
   emailVerification: {
@@ -49,12 +82,18 @@ export const auth = betterAuth({
     // 1. JWT Plugin utilizing your JWT_REFRESH_SECRET
     jwt({
       jwt: {
-        secret: process.env.JWT_REFRESH_SECRET || 'development_refresh_secret_32_chars_long',
-        expirationTime: '15m',
+        secret:
+          process.env.JWT_REFRESH_SECRET ||
+          "development_refresh_secret_32_chars_long",
+        expirationTime: "15m",
         definePayload: ({ user }) => ({
           id: user.id,
+          firstName: (user as { firstName?: string }).firstName,
+          lastName: (user as { lastName?: string }).lastName,
           email: user.email,
-          phoneNumber: (user as any).phoneNumber,
+          phoneNumber: (user as Record<string, unknown>).phoneNumber as
+            string | undefined,
+          birthDate: (user as { birthDate?: string }).birthDate,
         }),
       },
     }),

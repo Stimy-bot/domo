@@ -1,15 +1,7 @@
 // libs/shared/reusableComponents/src/lib/baseInput.tsx
 import { formatNameToTitle } from '@domo/utils';
+import type { ComponentProps } from 'react';
 import { useState } from 'react';
-
-// --- Icon Definitions ---
-
-// export const formatNameToTitle = (snakeCaseStr: string): string => {
-//   return snakeCaseStr
-//     .split('_')
-//     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-//     .join(' ');
-// };
 
 // SVG for 'Hide password' (Eye with slash)
 const EyeOffIcon = () => (
@@ -57,12 +49,22 @@ const EyeIcon = () => (
 
 interface Field {
   state: {
-    meta: any;
+    meta: {
+      isTouched?: boolean;
+      errors?: string[];
+      isValidating?: boolean;
+      [key: string]: any;
+    };
     value: string | null;
   };
   name: string;
   handleChange: (value: string) => void;
   handleBlur: () => void;
+}
+
+export interface BaseInputProps extends Omit<ComponentProps<'input'>, 'field'> {
+  field?: Field;
+  label?: string;
 }
 
 // --- BaseInput Component ---
@@ -72,42 +74,70 @@ const BaseInput = ({
   label,
   type = 'text',
   className = '',
-}: {
-  field: Field;
-  label: string;
-  type?: string;
-  className?: string;
-}) => {
+  id,
+  name,
+  value,
+  onChange,
+  onBlur,
+  placeholder,
+  ...rest
+}: BaseInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordType = type === 'password';
 
-  // Determine the actual HTML input type
+  // Determine actual HTML input type
   const inputType = isPasswordType && showPassword ? 'text' : type;
 
-  // Determine if the field has an error for potential border color change
-  const isError = field.state.meta.isTouched && field.state.meta.errors.length > 0;
+  // Resolve values whether using TanStack form `field` or standard React props
+  const inputId = id ?? field?.name;
+  const inputName = name ?? field?.name;
+  const inputValue = field ? (field.state.value ?? '') : (value ?? '');
+  const inputPlaceholder = placeholder ?? label;
+
+  // Resolve errors from TanStack Form field meta (if present)
+  const meta = field?.state?.meta;
+  const errors = meta?.errors ?? [];
+  const isTouched = meta?.isTouched ?? false;
+  const isValidating = meta?.isValidating ?? false;
+  const isError = isTouched && errors.length > 0;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (field) {
+      field.handleChange(e.target.value);
+    }
+    onChange?.(e);
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (field) {
+      field.handleBlur();
+    }
+    onBlur?.(e);
+  };
 
   return (
     <div className={`mb-4 ${className}`}>
-      <label htmlFor={field.name} className="text-dark-light font-semibold block">
-        {formatNameToTitle(field.name)}
-      </label>
+      {(inputName || label) && (
+        <label htmlFor={inputId} className="text-dark-light block font-semibold">
+          {label ?? (inputName ? formatNameToTitle(inputName) : '')}
+        </label>
+      )}
 
       {/* Input container for positioning the toggle button */}
       <div className="relative w-full">
         <input
-          id={field.name}
-          name={field.name}
-          value={field.state.value ?? ''}
-          onBlur={field.handleBlur}
-          onChange={e => field.handleChange(e.target.value)}
-          // Use the determined inputType
+          {...rest}
+          id={inputId}
+          name={inputName}
+          value={inputValue}
+          onBlur={handleBlur}
+          onChange={handleChange}
           type={inputType}
-          placeholder={label}
+          placeholder={inputPlaceholder}
           className={`
-            placeholder:text-dark-light bg-white text-dark-hard my-3 rounded-lg px-5 py-4  block outline-none border w-full
-            ${isPasswordType ? 'pr-12' : ''} 
-            ${isError ? 'border-red-500' : 'border-dark-light'}
+            placeholder:block w-full
+            ${isPasswordType ? 'pr-12' : ''}
+            ${isError ? 'border-red-500' : 'border-gray-300'}
           `}
         />
 
@@ -116,7 +146,7 @@ const BaseInput = ({
           <button
             type="button"
             onClick={() => setShowPassword(prev => !prev)}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dark-light hover:text-dark-soft"
+            className="absolute right-2 top-1/2 -translate-y-1/2 transform"
             aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
             {showPassword ? <EyeOffIcon /> : <EyeIcon />}
@@ -124,12 +154,12 @@ const BaseInput = ({
         )}
       </div>
 
-      {field.state.meta.errors.length > 0 && field.state.meta.isTouched ? (
-        <em className="text-red-500 text-xs italic">{field.state.meta.errors.join(', ')}</em>
-      ) : null}
-      {field.state.meta.isValidating ? (
-        <p className="text-blue-500 text-xs italic">Validating...</p>
-      ) : null}
+      {isError && (
+        <em className="text-xs italic text-red-500">{errors.join(', ')}</em>
+      )}
+      {isValidating && (
+        <p className="text-xs italic text-blue-500">Validating...</p>
+      )}
     </div>
   );
 };

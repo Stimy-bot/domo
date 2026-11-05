@@ -36,8 +36,8 @@ import {
   getAccessTokenCookieOptions,
   getRefreshTokenCookieOptions,
   setAuthCookies,
+  verifyToken,
 } from '@domo/utils/server';
-import { verifyToken } from '@domo/utils/client';
 import { ObjectId } from 'bson';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';

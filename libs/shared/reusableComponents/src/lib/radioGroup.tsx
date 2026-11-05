@@ -23,9 +23,9 @@ const RadioGroup = ({
   options: Option[];
 }) => (
   <div className="mb-4">
-    <label className="block text-dark-light text-sm font-bold mb-2">{label}</label>
+    <label className="block text-sm font-bold mb-2">{label}</label>
     {options.map(option => (
-      <div key={option.value} className="flex items-center mb-2 text-dark-light">
+      <div key={option.value} className="flex items-center mb-2 ">
         <input
           type="radio"
           id={`${field.name}-${option.value}`}

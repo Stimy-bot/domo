@@ -1,16 +1,15 @@
 // libs/shared/reusableComponents/src/lib/passwordInput.tsx
 import type { AnyFieldApi } from '@tanstack/react-form';
+import type { ComponentProps } from 'react';
 import { BaseInput } from './baseInput';
 
-// Use AnyFieldApi and a rest spread for the extra props
-const PasswordInput = ({
-  field,
-  label,
-  ...rest
-}: {
-  field: AnyFieldApi;
-  label: string;
-  [key: string]: any;
-}) => <BaseInput field={field} label={label} type="password" {...rest} />;
+interface PasswordInputProps extends Omit<ComponentProps<'input'>, 'field'> {
+  field?: AnyFieldApi;
+  label?: string;
+}
+
+const PasswordInput = ({ field, label = '', ...rest }: PasswordInputProps) => (
+  <BaseInput field={field as AnyFieldApi} label={label} type="password" {...rest} />
+);
 
 export { PasswordInput };
