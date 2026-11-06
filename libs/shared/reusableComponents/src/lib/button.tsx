@@ -86,7 +86,7 @@ const Button = React.forwardRef<
       variant,
       size,
       isLoading = false,
-      loader = <span className="loader" aria-hidden="true" />,
+      loader = <span className='loader' aria-hidden='true' />,
       asChild = false,
       children,
       disabled,

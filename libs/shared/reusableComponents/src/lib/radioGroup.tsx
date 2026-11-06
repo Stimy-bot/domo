@@ -22,27 +22,27 @@ const RadioGroup = ({
   label: string;
   options: Option[];
 }) => (
-  <div className="mb-4">
-    <label className="block text-sm font-bold mb-2">{label}</label>
-    {options.map(option => (
-      <div key={option.value} className="flex items-center mb-2 ">
+  <div className='mb-4'>
+    <label className='block text-sm font-bold mb-2'>{label}</label>
+    {options.map((option) => (
+      <div key={option.value} className='flex items-center mb-2 '>
         <input
-          type="radio"
+          type='radio'
           id={`${field.name}-${option.value}`}
           name={field.name}
           value={option.value}
           checked={field.state.value === option.value}
           onBlur={field.handleBlur}
-          onChange={e => field.handleChange(e.target.value)}
-          className="mr-2 leading-tight"
+          onChange={(e) => field.handleChange(e.target.value)}
+          className='mr-2 leading-tight'
         />
-        <label htmlFor={`${field.name}-${option.value}`} className="text -sm text-dark-light">
+        <label htmlFor={`${field.name}-${option.value}`} className='text -sm text-dark-light'>
           {option.label}
         </label>
       </div>
     ))}
     {field.state.meta.errors ? (
-      <em className="text-red-500 text-xs italic">{field.state.meta.errors.join(', ')}</em>
+      <em className='text-red-500 text-xs italic'>{field.state.meta.errors.join(', ')}</em>
     ) : null}
   </div>
 );

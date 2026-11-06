@@ -34,17 +34,17 @@ function SubmitButton<TValues>({
 }: SubmitButtonProps<TValues>) {
   // FIX APPLIED: Remove the explicit 's: typeof form.store' type declaration.
   // We allow TypeScript to infer the correct internal FormState type.
-  const [isSubmitting, canSubmit] = useStore(form.store, s => [s.isSubmitting, s.canSubmit]);
+  const [isSubmitting, canSubmit] = useStore(form.store, (s) => [s.isSubmitting, s.canSubmit]);
 
   const isDisabled = disabled || isSubmitting || !canSubmit;
 
   return (
     <Button
-      type="submit"
+      type='submit'
       disabled={isDisabled}
-      className="bg-blue-400 text-white font-semibold text-lg w-full rounded-lg my-6  hover:opacity-75 flex items-center justify-center gap-3"
+      className='bg-blue-400 text-white font-semibold text-lg w-full rounded-lg my-6  hover:opacity-75 flex items-center justify-center gap-3'
     >
-      {isSubmitting && <Spinner size="sm" variant="light" />}
+      {isSubmitting && <Spinner size='sm' variant='light' />}
       {isSubmitting ? 'Submitting...' : (submitButtonText ?? children)}
     </Button>
   );

@@ -65,9 +65,9 @@ function UserCard({ user }: UserCardProps) {
   });
 
   return (
-    <div className="flex flex-col items-center justify-between p-4 border-2 rounded-lg shadow-md">
-      <div className="flex flex-col items-center justify-center">
-        <span className=" mx-auto text-center md:text-md sm:text-xs ">
+    <div className='flex flex-col items-center justify-between p-4 border-2 rounded-lg shadow-md'>
+      <div className='flex flex-col items-center justify-center'>
+        <span className=' mx-auto text-center md:text-md sm:text-xs '>
           {firstName} {''} {lastName}
           <br />
           {email}
@@ -77,39 +77,39 @@ function UserCard({ user }: UserCardProps) {
             profilePicture ||
             `https://ui-avatars.com/api/?name=${encodeURIComponent(`${firstName} ${lastName}`)}`
           }
-          alt="profile"
-          className="rounded-full size-12 content-fit"
+          alt='profile'
+          className='rounded-full size-12 content-fit'
         />
       </div>
-      <div className="flex gap-10 justify-between">
-        <Button title="Delete User" onClick={() => deleteUser(user._id)} disabled={isPending}>
-          <Trash2 className="size-8" aria-hidden="true" />
+      <div className='flex gap-10 justify-between'>
+        <Button title='Delete User' onClick={() => deleteUser(user._id)} disabled={isPending}>
+          <Trash2 className='size-8' aria-hidden='true' />
         </Button>
         <Button
-          title="Update User"
+          title='Update User'
           onClick={() => navigate({ to: '/profile' })}
           disabled={isPending}
         >
-          <Pencil className="size-8" aria-hidden="true" />
+          <Pencil className='size-8' aria-hidden='true' />
         </Button>
       </div>
-  <Wrapper>
+      <Wrapper>
         <button
-          type="button"
+          type='button'
           onClick={() => setOpenModal(true)}
-          className="bg-transparent w-full hover:bg-transparent text-xs cursor-pointer p-2 rounded-md text-left"
+          className='bg-transparent w-full hover:bg-transparent text-xs cursor-pointer p-2 rounded-md text-left'
         >
           Click for more details
         </button>
         <Modal open={openModal} onClose={() => setOpenModal(false)}>
-          <div className="flex flex-col text-center w-96 p-5 text-xs">
+          <div className='flex flex-col text-center w-96 p-5 text-xs'>
             <p>
               Name: {firstName} {lastName}
             </p>
             <img
               src={profilePicture}
-              alt="Company Logo"
-              className="flex flex-col rounded-full size-6 content-fit mx-auto my-2"
+              alt='Company Logo'
+              className='flex flex-col rounded-full size-6 content-fit mx-auto my-2'
             />
             <p>
               Email: {currentUser.email} <br />
@@ -122,7 +122,7 @@ function UserCard({ user }: UserCardProps) {
             </p>
           </div>
           <Button
-            className="w-full rounded-none text-xs cursor-pointer border-none"
+            className='w-full rounded-none text-xs cursor-pointer border-none'
             onClick={() => setOpenModal(false)}
           >
             Close Details

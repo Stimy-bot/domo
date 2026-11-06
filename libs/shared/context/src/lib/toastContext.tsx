@@ -23,13 +23,13 @@ export const ToastProvider: React.FC<React.PropsWithChildren<object>> = ({ child
 
   const addToast = useCallback((t: Omit<Toast, 'id'>) => {
     const id = String(Date.now());
-    setToasts(s => [...s, { id, ...t }]);
+    setToasts((s) => [...s, { id, ...t }]);
     // auto remove after 5s
-    setTimeout(() => setToasts(s => s.filter(x => x.id !== id)), 5000);
+    setTimeout(() => setToasts((s) => s.filter((x) => x.id !== id)), 5000);
   }, []);
 
   const removeToast = useCallback((id: string) => {
-    setToasts(s => s.filter(x => x.id !== id));
+    setToasts((s) => s.filter((x) => x.id !== id));
   }, []);
 
   const value = useMemo<ToastContextType>(

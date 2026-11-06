@@ -1,6 +1,10 @@
 // apps/my_start/src/lib/auth-client.ts
-import { inferAdditionalFields } from 'better-auth/client/plugins';
-import { jwtClient, twoFactorClient, phoneNumberClient } from 'better-auth/client/plugins';
+import {
+  inferAdditionalFields,
+  jwtClient,
+  phoneNumberClient,
+  twoFactorClient,
+} from 'better-auth/client/plugins';
 import { createAuthClient } from 'better-auth/react';
 import type { auth } from './auth';
 

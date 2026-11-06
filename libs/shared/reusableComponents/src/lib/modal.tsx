@@ -1,5 +1,5 @@
-import { useLayoutEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -45,7 +45,7 @@ function Modal({ children, open, onClose }: Props) {
           e.currentTarget.close();
         }
       }}
-      className="justify-center "
+      className='justify-center '
     >
       {children}
     </dialog>

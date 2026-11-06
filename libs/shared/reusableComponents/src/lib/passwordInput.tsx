@@ -9,7 +9,7 @@ interface PasswordInputProps extends Omit<ComponentProps<'input'>, 'field'> {
 }
 
 const PasswordInput = ({ field, label = '', ...rest }: PasswordInputProps) => (
-  <BaseInput field={field as AnyFieldApi} label={label} type="password" {...rest} />
+  <BaseInput field={field as AnyFieldApi} label={label} type='password' {...rest} />
 );
 
 export { PasswordInput };

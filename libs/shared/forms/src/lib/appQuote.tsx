@@ -68,7 +68,7 @@ function AppQuote() {
         value,
       )) as unknown as ApiResponse;
 
-      setData(prevData => [...prevData, value]);
+      setData((prevData) => [...prevData, value]);
 
       // API client already returns response.data
       return {
@@ -225,21 +225,21 @@ function AppQuote() {
 
   return (
     <MainLayout>
-      <div className="container md:w-150 mx-auto py-20">
-        <div className="w-full m-w-sm mx-auto">
-          <h2 className="font-roboto text-4xl font-bold text-center text-dark-hard dark:text-dark-light">
+      <div className='container md:w-150 mx-auto py-20'>
+        <div className='w-full m-w-sm mx-auto'>
+          <h2 className='font-roboto text-4xl font-bold text-center text-dark-hard dark:text-dark-light'>
             Request a Quote
           </h2>
           <FormFactory
             formOptions={quoteFormOptions}
             fieldsConfig={quoteFieldsConfig}
             onValidSubmit={handleQuoteSubmit}
-            submitButtonText="Request Quote"
+            submitButtonText='Request Quote'
           />
-          <span className="flex flex-col items-center text-sm font-bold text-center text-dark-hard dark:text-dark-light mb-8">
+          <span className='flex flex-col items-center text-sm font-bold text-center text-dark-hard dark:text-dark-light mb-8'>
             <Button
               onClick={handleExport}
-              className="w-3/4 mx-auto text-white text-lg font-extrabold bg-yellow-400 hover:bg-yellow-500"
+              className='w-3/4 mx-auto text-white text-lg font-extrabold bg-yellow-400 hover:bg-yellow-500'
             >
               Export CSV
             </Button>

@@ -17,7 +17,7 @@ interface CustomDateInputProps {
 const CustomDateInput = React.forwardRef<HTMLInputElement, CustomDateInputProps>(
   ({ onClick, value }, ref) => (
     <Input
-      type="date"
+      type='date'
       onClick={onClick}
       value={value}
       ref={ref}
@@ -35,16 +35,16 @@ const CustomDateInput = React.forwardRef<HTMLInputElement, CustomDateInputProps>
 CustomDateInput.displayName = 'CustomDateInput';
 
 // Fully controlled date picker with no internal state
-const CustomDatePicker: React.FC<React.ComponentProps<typeof DatePicker>> = props => {
+const CustomDatePicker: React.FC<React.ComponentProps<typeof DatePicker>> = (props) => {
   return (
     <DatePicker
       {...props}
       customInput={<CustomDateInput />}
       // If needed, configure defaults like dateFormat or dropdown options here
-      dateFormat="yyyy-MM-dd"
+      dateFormat='yyyy-MM-dd'
       showMonthDropdown
       showYearDropdown
-      dropdownMode="select"
+      dropdownMode='select'
     />
   );
 };

@@ -44,8 +44,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
     mapRef.current = map;
   };
 
-  if (loadError) return <div className="p-4 text-red-500">Error loading Maps. Check API Key.</div>;
-  if (!isLoaded) return <div className="p-4">Initializing Map...</div>;
+  if (loadError) return <div className='p-4 text-red-500'>Error loading Maps. Check API Key.</div>;
+  if (!isLoaded) return <div className='p-4'>Initializing Map...</div>;
 
   return (
     <GoogleMap
@@ -56,7 +56,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
       onLoad={onMapLoad}
       onClick={() => setActiveMarker(null)}
     >
-      {markers.map(marker => (
+      {markers.map((marker) => (
         <MarkerF
           key={marker.id}
           position={{

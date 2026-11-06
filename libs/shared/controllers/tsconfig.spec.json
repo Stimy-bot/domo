@@ -5,12 +5,7 @@
     "declaration": true,
     "moduleResolution": "Nodenext",
     "jsx": "react-jsx",
-    "types": [
-      "vitest/globals",
-      "vitest/importMeta",
-      "vite/client",
-      "node"
-    ],
+    "types": ["vitest/globals", "vitest/importMeta", "vite/client", "node"],
     "outDir": "../../../dist/libs/shared/controllers",
     "tsBuildInfoFile": "../../../dist/libs/shared/controllers.tsbuildinfo"
   },

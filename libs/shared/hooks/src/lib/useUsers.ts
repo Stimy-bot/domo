@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
 import { getUsers } from '@domo/client';
+import { useQuery } from '@tanstack/react-query';
 
 export const USERS = 'users';
 

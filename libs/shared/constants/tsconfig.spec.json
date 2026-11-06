@@ -5,12 +5,7 @@
     "incremental": false,
     "moduleResolution": "Nodenext",
     "jsx": "react-jsx",
-    "types": [
-      "vitest/globals",
-      "vitest/importMeta",
-      "vite/client",
-      "node"
-    ],
+    "types": ["vitest/globals", "vitest/importMeta", "vite/client", "node"],
     "outDir": "../../../dist/libs/shared/constants",
     "tsBuildInfoFile": "../../../dist/libs/shared/constants.tsbuildinfo"
   },

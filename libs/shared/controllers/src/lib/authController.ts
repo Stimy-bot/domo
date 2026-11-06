@@ -30,8 +30,6 @@ import {
   AppError,
   appAssert,
   catchErrors,
-} from '@domo/utils/server';
-import {
   clearAuthCookies,
   getAccessTokenCookieOptions,
   getRefreshTokenCookieOptions,
@@ -179,7 +177,7 @@ export const loginHandler = catchErrors(async (req: FastifyRequest, reply: Fasti
     },
     'user_login',
     { method: 'password', success: true },
-  ).catch(err => req.log.error({ err }, 'Audit log failed'));
+  ).catch((err) => req.log.error({ err }, 'Audit log failed'));
 
   setAuthCookies({ reply, accessToken, refreshToken });
   return reply.status(OK).send({ message: 'Login successful', user });

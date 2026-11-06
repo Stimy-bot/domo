@@ -51,7 +51,7 @@ const StyledDatePicker = ({
   const isError = isTouched && errors.length > 0;
 
   const handleDateChange = (date: Date | null) => {
-    const formattedDate: string | null = date ? date.toISOString().split('T')[0] ?? null : null;
+    const formattedDate: string | null = date ? (date.toISOString().split('T')[0] ?? null) : null;
 
     if (field) {
       field.handleChange(formattedDate);
@@ -72,7 +72,7 @@ const StyledDatePicker = ({
   return (
     <div className={`mb-4 flex flex-col ${className}`}>
       {label && (
-        <label htmlFor={inputId} className="mb-1 block font-semibold">
+        <label htmlFor={inputId} className='mb-1 block font-semibold'>
           {label}
         </label>
       )}
@@ -85,9 +85,7 @@ const StyledDatePicker = ({
         name={inputName}
         id={inputId}
       />
-      {isError && (
-        <p className="mt-1 text-xs italic text-red-500">{errors.join(', ')}</p>
-      )}
+      {isError && <p className='mt-1 text-xs italic text-red-500'>{errors.join(', ')}</p>}
     </div>
   );
 };

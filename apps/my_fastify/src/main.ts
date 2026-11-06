@@ -31,7 +31,7 @@ const server: FastifyInstance = Fastify({
 // Load environment variables via helper
 const env = loadEnv();
 
-process.on('unhandledRejection', r => {
+process.on('unhandledRejection', (r) => {
   console.error('UNHANDLED REJECTION', r);
   try {
     server.log.error(r as Error);
@@ -40,7 +40,7 @@ process.on('unhandledRejection', r => {
   }
 });
 
-process.on('uncaughtException', e => {
+process.on('uncaughtException', (e) => {
   console.error('UNCAUGHT EXCEPTION', e);
   try {
     server.log.error(e as Error);

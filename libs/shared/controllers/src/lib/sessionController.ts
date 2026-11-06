@@ -47,7 +47,7 @@ export const getSessionsHandler = catchErrors(async (req: FastifyRequest, reply:
     .toArray();
 
   // 3. Map sessions and mark current session
-  const response = sessions.map(session => {
+  const response = sessions.map((session) => {
     const stringId = session._id.toString();
     return {
       ...session,

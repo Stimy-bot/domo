@@ -30,7 +30,7 @@ const auditActorFromReq = (req: FastifyRequest) => {
   };
 };
 
-const roleRoutes: FastifyPluginAsync = async fastify => {
+const roleRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.get('/', async (_req, reply) => {
     const roles = Object.entries(rolePermissions).map(([name, permissions]) => ({
       name,
@@ -39,7 +39,7 @@ const roleRoutes: FastifyPluginAsync = async fastify => {
     return reply.status(OK).send(roles);
   });
 
-fastify.patch<{ Params: ParamsId; Body: PatchBody }>(
+  fastify.patch<{ Params: ParamsId; Body: PatchBody }>(
     '/user/:id/role',
     {
       preHandler: [authenticateHook, authorize('canChangeAnyUserRole'), requireValidTargetId],
@@ -60,7 +60,7 @@ fastify.patch<{ Params: ParamsId; Body: PatchBody }>(
 
       const validRoles = Object.keys(rolePermissions);
       const normalizedRole = typeof role === 'string' ? role.trim().toLowerCase() : '';
-      const matchedRole = validRoles.find(r => r.toLowerCase() === normalizedRole) as
+      const matchedRole = validRoles.find((r) => r.toLowerCase() === normalizedRole) as
         | RoleType
         | undefined;
 
@@ -115,5 +115,5 @@ fastify.patch<{ Params: ParamsId; Body: PatchBody }>(
       }
     },
   );
-}
+};
 export { roleRoutes };

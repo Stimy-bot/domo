@@ -39,7 +39,7 @@ export const authorize = (requiredPermissions: Permission | Permission[]) => {
       : [];
 
     // 6) Check if user possesses ANY of the required permissions (OR logic)
-    const hasPermission = permissionsArray.some(permission => userPerms.includes(permission));
+    const hasPermission = permissionsArray.some((permission) => userPerms.includes(permission));
 
     appAssert(
       hasPermission,

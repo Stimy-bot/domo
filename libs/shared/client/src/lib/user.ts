@@ -35,7 +35,7 @@ export async function fetchUserByRole(role: Role) {
 }
 
 export async function fetchCurrentUser(): Promise<User> {
-  const response = await API.get<User>('/user', { withCredentials: true }).catch(err => {
+  const response = await API.get<User>('/user', { withCredentials: true }).catch((err) => {
     if (err.response?.status === 401) {
       const e: any = new Error('Unauthorized');
       e.status = 401;

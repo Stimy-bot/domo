@@ -102,7 +102,7 @@ declare module 'fastify' {
   }
 }
 
-const notificationPlugin: FastifyPluginAsync = async fastify => {
+const notificationPlugin: FastifyPluginAsync = async (fastify) => {
   const svc = new NotificationService(fastify);
   fastify.decorate('notificationService', svc);
 };

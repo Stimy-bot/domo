@@ -4,11 +4,7 @@
     "outDir": "../../../dist/libs/shared/utils",
     "tsBuildInfoFile": "../../../dist/libs/shared/utils.tsbuildinfo"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "../../../apps/my_start/src/utils/trpc.ts"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "../../../apps/my_start/src/utils/trpc.ts"],
   "exclude": [
     "jest.config.ts",
     "node_modules",

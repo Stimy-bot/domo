@@ -9,7 +9,7 @@ export interface EmailInputProps extends Omit<ComponentProps<'input'>, 'field'> 
 }
 
 const EmailInput = ({ field, label = '', ...rest }: EmailInputProps) => (
-  <BaseInput field={field as AnyFieldApi} label={label} type="email" {...rest} />
+  <BaseInput field={field as AnyFieldApi} label={label} type='email' {...rest} />
 );
 
 export { EmailInput };

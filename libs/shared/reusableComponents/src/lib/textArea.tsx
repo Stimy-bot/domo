@@ -23,8 +23,8 @@ interface TextAreaProps {
 }
 
 const TextArea = ({ field, label, rows = 4 }: TextAreaProps) => (
-  <div className="mb-5 w-full">
-    <label htmlFor={field.name} className="font-semibold block">
+  <div className='mb-5 w-full'>
+    <label htmlFor={field.name} className='font-semibold block'>
       {label}
     </label>
     <textarea
@@ -32,16 +32,16 @@ const TextArea = ({ field, label, rows = 4 }: TextAreaProps) => (
       name={field.name}
       value={field.state.value}
       onBlur={field.handleBlur}
-      onChange={e => field.handleChange(e.target.value)}
+      onChange={(e) => field.handleChange(e.target.value)}
       rows={rows}
       placeholder={label}
       // Added 'text-base' for iOS zoom prevention and 'focus:border-primary' for better UX
-      className="  placeholder:my-3 rounded-lg px-5 py-4 font-semibold block outline-none border w-full"
+      className='  placeholder:my-3 rounded-lg px-5 py-4 font-semibold block outline-none border w-full'
     ></textarea>
     {field.state.meta.errors.length > 0 ? (
-      <div className="mt-1">
+      <div className='mt-1'>
         {field.state.meta.errors.map((error: string, i: number) => (
-          <p key={i} className="text-red-500 text-xs md:text-sm italic">
+          <p key={i} className='text-red-500 text-xs md:text-sm italic'>
             {error}
           </p>
         ))}

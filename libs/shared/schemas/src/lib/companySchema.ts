@@ -55,7 +55,7 @@ export const baseCompany = z.object({
   logo_url: z.url().optional(),
   date_founded: z
     .string()
-    .refine(val => !isNaN(Date.parse(val)), {
+    .refine((val) => !isNaN(Date.parse(val)), {
       message: 'Invalid date format',
     })
     .optional(),

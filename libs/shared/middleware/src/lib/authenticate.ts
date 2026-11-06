@@ -105,7 +105,7 @@ export const authenticateHook = async (req: FastifyRequest) => {
   reqWithUser.sessionId = pl.sessionId;
 };
 
-const authenticatePlugin: FastifyPluginAsync = async fastify => {
+const authenticatePlugin: FastifyPluginAsync = async (fastify) => {
   fastify.decorateRequest('user', null as never);
   fastify.decorateRequest('authUser', null as never);
   fastify.decorateRequest('userId', undefined);

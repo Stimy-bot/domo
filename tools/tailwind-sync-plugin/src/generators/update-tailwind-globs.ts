@@ -125,7 +125,7 @@ function collectDependencies(projectName: string, projectGraph: ProjectGraph): S
     visited.add(current);
 
     const deps = projectGraph.dependencies[current] || [];
-    deps.forEach(dep => {
+    deps.forEach((dep) => {
       dependencies.add(dep.target);
       queue.push(dep.target);
     });
@@ -149,7 +149,7 @@ function updateSourceDirectives(
   const sourceDirectives: string[] = [];
   const cssDir = dirname(cssFilePath);
 
-  dependencies.forEach(dep => {
+  dependencies.forEach((dep) => {
     const project = projectGraph.nodes[dep];
     if (project && project.data.root) {
       // Calculate relative path from CSS file directory to dependency root

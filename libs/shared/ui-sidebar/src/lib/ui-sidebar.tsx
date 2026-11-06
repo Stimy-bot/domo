@@ -54,14 +54,14 @@ export function Sidebar() {
       )}
     >
       {/* Header Area */}
-      <div className="flex items-center justify-between h-16 px-4 border-b border-slate-800">
+      <div className='flex items-center justify-between h-16 px-4 border-b border-slate-800'>
         {!isCollapsed && (
-          <span className="font-bold text-lg tracking-wide text-indigo-400">Workspace</span>
+          <span className='font-bold text-lg tracking-wide text-indigo-400'>Workspace</span>
         )}
         <button
-        type='button'
+          type='button'
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-100 transition-colors"
+          className='p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-100 transition-colors'
           aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           {isCollapsed ? <Menu size={18} /> : <ChevronLeft size={18} />}
@@ -69,8 +69,8 @@ export function Sidebar() {
       </div>
 
       {/* Navigation Items */}
-      <nav className="flex-1 py-4 space-y-1 px-2">
-        {defaultNavigation.map(item => {
+      <nav className='flex-1 py-4 space-y-1 px-2'>
+        {defaultNavigation.map((item) => {
           const Icon = item.icon;
           return (
             <SidebarLink key={item.label} href={item.href} active={item.active}>
@@ -95,14 +95,14 @@ export function Sidebar() {
       </nav>
 
       {/* Footer Area */}
-      <div className="p-4 border-t border-slate-800 flex items-center gap-3 overflow-hidden pb-30">
-        <div className="h-8 w-8 rounded-full bg-dark-hard shrink-0 flex items-center justify-center font-semibold text-dark-light">
+      <div className='p-4 border-t border-slate-800 flex items-center gap-3 overflow-hidden pb-30'>
+        <div className='h-8 w-8 rounded-full bg-dark-hard shrink-0 flex items-center justify-center font-semibold text-dark-light'>
           D
         </div>
         {!isCollapsed && (
-          <div className="flex flex-col min-w-0">
-            <span className="text-sm font-medium text-dark-light truncate">Dominic</span>
-            <span className="text-xs text-dark-light truncate">domo@workspace.internal</span>
+          <div className='flex flex-col min-w-0'>
+            <span className='text-sm font-medium text-dark-light truncate'>Dominic</span>
+            <span className='text-xs text-dark-light truncate'>domo@workspace.internal</span>
           </div>
         )}
       </div>

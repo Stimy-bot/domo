@@ -13,7 +13,7 @@ export default defineConfig(() => ({
   cacheDir: '../../../node_modules/.vite/libs/shared/ui-sidebar',
   plugins: [
     react(),
-    
+
     dts({
       entryRoot: 'src',
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
@@ -31,7 +31,7 @@ export default defineConfig(() => ({
     lib: {
       entry: 'src/index.ts',
       name: 'ui-sidebar',
-      fileName: format => `index.${format === 'es' ? 'mjs' : 'js'}`,
+      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
       formats: ['es' as const, 'cjs' as const],
     },
     rollupOptions: {

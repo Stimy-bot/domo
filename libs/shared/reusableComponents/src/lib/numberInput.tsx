@@ -15,7 +15,7 @@ interface Field {
 }
 
 const NumberInput = ({ field, label }: { field: Field; label: string }) => (
-  <BaseInput field={field} label={label} type="number" />
+  <BaseInput field={field} label={label} type='number' />
 );
 
 export { NumberInput };

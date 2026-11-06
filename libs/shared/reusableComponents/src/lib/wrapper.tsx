@@ -6,5 +6,5 @@ interface Props {
 }
 
 export function Wrapper({ children }: Props) {
-  return <div className="flex justify-center">{children}</div>;
+  return <div className='flex justify-center'>{children}</div>;
 }

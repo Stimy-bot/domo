@@ -1,10 +1,11 @@
 // apps/my_start/src/routes/__root.tsx
+
+import { ToastProvider } from '@domo/context';
 import { TanStackDevtools } from '@tanstack/react-devtools';
+import { formDevtoolsPlugin } from '@tanstack/react-form-devtools';
 import type { QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
-import { formDevtoolsPlugin } from '@tanstack/react-form-devtools';
 import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
-import { ToastProvider } from '@domo/context';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query';
 import type { ReactNode } from 'react';
@@ -58,12 +59,12 @@ function RootComponent() {
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang='en' suppressHydrationWarning>
       <head>
         <script>{THEME_INIT_SCRIPT}</script>
         <HeadContent />
       </head>
-      <body className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]">
+      <body className='font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]'>
         <ToastProvider>
           <Provider>
             <Header />

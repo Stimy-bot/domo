@@ -35,10 +35,7 @@ export default defineConfig(({ mode }) => {
         '@tanstack/start-server-core',
       ],
       include: ['better-auth'],
-      entries: [
-        './index.html',
-        './src/**/*',
-      ],
+      entries: ['./index.html', './src/**/*'],
     },
     ssr: {
       noExternal: ['better-auth'],
@@ -46,7 +43,15 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       rolldownOptions: {
-        external: ['fast-jwt', '@tanstack/ai-client', '@tanstack/ai-react', 'crypto', 'util', 'fs', 'path'],
+        external: [
+          'fast-jwt',
+          '@tanstack/ai-client',
+          '@tanstack/ai-react',
+          'crypto',
+          'util',
+          'fs',
+          'path',
+        ],
         output: {
           codeSplitting: true,
         },

@@ -58,7 +58,7 @@ const UiButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {isLoading ? (
-          <span className="loader" aria-hidden="true"></span> // Add a loader if isLoading is true
+          <span className='loader' aria-hidden='true'></span> // Add a loader if isLoading is true
         ) : (
           children
         )}

@@ -1,9 +1,16 @@
 // apps/my_start/src/routes/register.tsx
-import { Input, PasswordInput, PhoneNumberInput, EmailInput, StyledDatePicker } from '@domo/reusableComponents';
-import { UiButton } from '@domo/ui-buttons';
-import { Link, createFileRoute } from '@tanstack/react-router';
-import { type ChangeEvent, type SyntheticEvent, useState } from 'react';
+
 import { dateRegex, emailRegex, phoneRegex, pwRegex } from '@domo/constants';
+import {
+  EmailInput,
+  Input,
+  PasswordInput,
+  PhoneNumberInput,
+  StyledDatePicker,
+} from '@domo/reusableComponents';
+import { UiButton } from '@domo/ui-buttons';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { type ChangeEvent, type SyntheticEvent, useState } from 'react';
 import { signUp } from '../lib/auth-client';
 
 export const Route = createFileRoute('/register')({
@@ -122,13 +129,12 @@ function RouteComponent() {
           />
 
           <StyledDatePicker
-            type='date'
             placeholder='YYYY-MM-DD'
             className='demo-input m-2'
             autoComplete='bday'
             required
             value={birthDate}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => setBirthDate(event.target.value)}
+            onChange={(val) => setBirthDate(typeof val === 'string' ? val : val.target.value)}
             disabled={isPending}
           />
 

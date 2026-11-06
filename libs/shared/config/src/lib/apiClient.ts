@@ -54,8 +54,8 @@ const getErrorData = (error: any) => {
 };
 
 API.interceptors.response.use(
-  response => response.data,
-  async error => {
+  (response) => response.data,
+  async (error) => {
     const { config, response } = error;
     const status = response?.status || 500;
     const data = getErrorData(error); // Safely get the error object

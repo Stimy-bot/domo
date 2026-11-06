@@ -9,24 +9,16 @@ import {
   UNAUTHORIZED,
 } from '@domo/types';
 import {
+  appAssert,
   fiveMinutesAgo,
+  getPasswordResetTemplate,
+  getVerifyEmailTemplate,
   ONE_DAY_MS,
   oneHourFromNow,
   oneYearFromNow,
   thirtyDaysFromNow,
-  getPasswordResetTemplate,
-  getVerifyEmailTemplate,
 } from '@domo/utils';
-import {
-  compareValue,
-  hashValue,
-  sendMail,
-  signToken,
-  verifyToken,
-} from '@domo/utils/server';
-import {
-  appAssert,
-} from '@domo/utils';
+import { compareValue, hashValue, sendMail, signToken, verifyToken } from '@domo/utils/server';
 
 import { ObjectId } from '@fastify/mongodb';
 import type { FastifyBaseLogger } from 'fastify';
@@ -175,10 +167,7 @@ export const createSessionAndTokens = async (
   });
 
   // Refresh token: sign with explicit refresh secret and expiry duration
-  const refreshToken = signToken(
-    { sessionId },
-    { expiresIn: '30d' },
-  );
+  const refreshToken = signToken({ sessionId }, { expiresIn: '30d' });
 
   return { accessToken, refreshToken, sessionId };
 };
@@ -374,10 +363,7 @@ export const refreshUserAccessToken = async (ctx: ServiceContext, refreshToken: 
     { expiresIn: '15m' },
   );
 
-  const newRefreshToken = signToken(
-    { sessionId: session._id.toString() },
-    { expiresIn: '30d' },
-  );
+  const newRefreshToken = signToken({ sessionId: session._id.toString() }, { expiresIn: '30d' });
 
   return { accessToken: newAccessToken, newRefreshToken };
 };
@@ -509,7 +495,7 @@ export const updateAccount = async (
   const updateFields: Record<string, unknown> = {};
   let profileChanged = false;
 
-  Object.keys(fields).forEach(key => {
+  Object.keys(fields).forEach((key) => {
     if (allowedFields.includes(key) && fields[key] !== undefined) {
       if (user[key] !== fields[key]) {
         profileChanged = true;
@@ -585,7 +571,7 @@ export const updateAccount = async (
       metadata: {
         method: method === 'oauth' ? 'oauth' : 'manual',
         action: 'profile_update',
-        updatedFields: Object.keys(fields).filter(k => allowedFields.includes(k)),
+        updatedFields: Object.keys(fields).filter((k) => allowedFields.includes(k)),
       },
     }).catch((err: unknown) => ctx.logger?.error({ err }, 'Audit Log Failed'));
   }
@@ -693,7 +679,7 @@ export const verifyOtpService = async (
   const user = await usersCollection.findOne({ phone });
   appAssert(user, NOT_FOUND, 'User not found');
 
-let check: { valid?: boolean };
+  let check: { valid?: boolean };
   try {
     check = await twilioService.checkVerificationCode(phone, otp, ctx.logger);
   } catch (err: unknown) {

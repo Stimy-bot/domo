@@ -33,7 +33,7 @@ function Login() {
   };
 
   const { mutateAsync: loginAsync } = useMutation<LoginResponse, Error, LoginFormValues>({
-    mutationFn: async variables => {
+    mutationFn: async (variables) => {
       const response = await login(variables);
       // If 'login' returns the Axios object, extract .data here
       return (response as any).data;
@@ -123,43 +123,41 @@ function Login() {
   ];
 
   return (
-      <div className="container md:w-150 mx-auto py-20">
-        <div className="w-full m-w-sm mx-auto">
-          <h2 className="font-roboto text-4xl font-bold text-center">
-            Sign in to your account
-          </h2>
-          <div className="p-8 rounded-lg border-solid shadow-2xl">
-            {/* The FormFactory handles form rendering, submission, and validation */}
-            <FormFactory
-              formOptions={loginFormOptions}
-              fieldsConfig={loginFieldsConfig}
-              onValidSubmit={handleLoginSubmit}
-              submitButtonText="Sign in"
-            />
-            {/* Links and secondary buttons are placed outside the FormFactory */}
-            <div className="flex flex-col mb-6 w-full">
-              <a
-                href={getGoogleOAuthURL()}
-                className="bg-red-600 text-white text-center font-bold py-4 px-8 rounded-lg hover:opacity-75"
-              >
-                Login with Google
-              </a>
-              <Link
-                to="/password/forgot"
-                className="text-red-600 text-center font-semibold block mt-4"
-              >
-                Forgot password?
+    <div className='container md:w-150 mx-auto py-20'>
+      <div className='w-full m-w-sm mx-auto'>
+        <h2 className='font-roboto text-4xl font-bold text-center'>Sign in to your account</h2>
+        <div className='p-8 rounded-lg border-solid shadow-2xl'>
+          {/* The FormFactory handles form rendering, submission, and validation */}
+          <FormFactory
+            formOptions={loginFormOptions}
+            fieldsConfig={loginFieldsConfig}
+            onValidSubmit={handleLoginSubmit}
+            submitButtonText='Sign in'
+          />
+          {/* Links and secondary buttons are placed outside the FormFactory */}
+          <div className='flex flex-col mb-6 w-full'>
+            <a
+              href={getGoogleOAuthURL()}
+              className='bg-red-600 text-white text-center font-bold py-4 px-8 rounded-lg hover:opacity-75'
+            >
+              Login with Google
+            </a>
+            <Link
+              to='/password/forgot'
+              className='text-red-600 text-center font-semibold block mt-4'
+            >
+              Forgot password?
+            </Link>
+            <p className='text-dark-hard text-sm text-center mt-4'>
+              Don&apos;t have an account?{' '}
+              <Link to='/register' className='font-bold text-blue-400 hover:underline'>
+                Sign up
               </Link>
-              <p className="text-dark-hard text-sm text-center mt-4">
-                Don&apos;t have an account?{' '}
-                <Link to="/register" className="font-bold text-blue-400 hover:underline">
-                  Sign up
-                </Link>
-              </p>
-            </div>
+            </p>
           </div>
         </div>
       </div>
+    </div>
   );
 }
 

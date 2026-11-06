@@ -100,10 +100,10 @@ function AppComment() {
 
   return (
     <MainLayout>
-      <div className="dark:bg-dark-hard w-full max-w-2xl min-h-full py-20 px-4 mx-auto">
-        <div className="dark:bg-dark-hard rounded-lg  md:shadow-2xl bg-white dark:bg-dark-bg">
-          <main className="dark:bg-dark-hard ">
-            <h2 className="font-roboto text-3xl md:text-4xl font-bold text-center text-dark-hard mb-6 md:mb-8 dark:text-dark-light">
+      <div className='dark:bg-dark-hard w-full max-w-2xl min-h-full py-20 px-4 mx-auto'>
+        <div className='dark:bg-dark-hard rounded-lg  md:shadow-2xl bg-white dark:bg-dark-bg'>
+          <main className='dark:bg-dark-hard '>
+            <h2 className='font-roboto text-3xl md:text-4xl font-bold text-center text-dark-hard mb-6 md:mb-8 dark:text-dark-light'>
               Leave a Comment
             </h2>
 

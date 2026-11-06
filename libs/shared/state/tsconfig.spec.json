@@ -3,15 +3,9 @@
   "compilerOptions": {
     "composite": false,
     "incremental": false,
-    "types": [
-      "vitest/globals",
-      "node"
-    ],
+    "types": ["vitest/globals", "node"],
     "outDir": "../../../dist/libs/shared/state",
     "tsBuildInfoFile": "../../../dist/libs/shared/state.tsbuildinfo"
   },
-  "include": [
-    "src/**/*.test.ts",
-    "src/**/*.spec.ts"
-  ]
+  "include": ["src/**/*.test.ts", "src/**/*.spec.ts"]
 }

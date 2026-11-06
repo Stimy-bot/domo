@@ -37,7 +37,7 @@ type CreateAuditInput = z.infer<typeof createAuditLogInputSchema>;
 //
 // Fastify Plugin
 //
-const auditRoutes: FastifyPluginAsync = async fastify => {
+const auditRoutes: FastifyPluginAsync = async (fastify) => {
   //
   // GET /api/audit-logs
   //

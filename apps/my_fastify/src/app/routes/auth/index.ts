@@ -11,7 +11,7 @@ import {
 } from '@domo/controllers';
 import type { FastifyPluginAsync } from 'fastify';
 
-const authRoutes: FastifyPluginAsync = async fastify => {
+const authRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.post('/register', registerHandler);
   fastify.post('/login', loginHandler);
   fastify.get('/refresh', refreshHandler);
