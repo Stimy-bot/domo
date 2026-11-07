@@ -162,7 +162,7 @@ function FormFactory<TFormValues extends Record<string, unknown>>({
   }, [fieldsConfig]);
 
   return (
-    <div className='container pb-20 mx-auto px-5 dark:bg-dark-hard bg-white'>
+    <div className='container pb-20 mx-auto px-5 dark:bg-dark-hard'>
       <form onSubmit={handleSubmit} className='flex flex-col w-full'>
         {Object.entries(groupedFields).map(([section, fields]) => (
           <div key={section} className='mb-6'>

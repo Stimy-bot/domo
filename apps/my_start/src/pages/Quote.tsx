@@ -231,7 +231,7 @@ function Quote() {
       <main className='island-shell rise-in flex flex-col items-center justify-center max-w-400 px-4 rounded-lg'>
         <div className='pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]' />
         <div className='pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]' />
-        <h2 className='font-roboto text-4xl font-bold text-center'>Request a Quote</h2>
+        <h2 className='pt-5 font-roboto text-4xl font-bold text-center'>Request a Quote</h2>
         <FormFactory
           formOptions={quoteFormOptions}
           fieldsConfig={quoteFieldsConfig}
