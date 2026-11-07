@@ -17,7 +17,7 @@ const lifecycle = (() => {
   const shutdown = async (): Promise<void> => {
     // Run all tasks and collect results
     const results = await Promise.allSettled(
-      cleanupTasks.map(callback => Promise.resolve().then(() => callback())),
+      cleanupTasks.map((callback) => Promise.resolve().then(() => callback())),
     );
 
     // Log errors for any failed cleanups

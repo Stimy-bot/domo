@@ -252,7 +252,7 @@ function AppUser() {
       formOptions={userFormOptions}
       fieldsConfig={userFieldsConfig}
       onValidSubmit={handleUserSubmit}
-      submitButtonText="Create User"
+      submitButtonText='Create User'
     />
   );
 }

@@ -4,7 +4,7 @@ import validator from 'validator';
 import { z } from 'zod';
 
 export const ipAddressSchema = z.preprocess(
-  val => {
+  (val) => {
     if (typeof val === 'string' && val.includes(',')) {
       return val.split(',')[0]?.trim() ?? '';
     }
@@ -17,7 +17,7 @@ export const ipAddressSchema = z.preprocess(
   z
     .string()
     .refine(
-      ip => {
+      (ip) => {
         // Relaxed check: as long as it's a valid IP, "unknown", or looks like a local Docker IP
         return (
           validator.isIP(ip) || ip === 'unknown' || ip === '127.0.0.1' || ip.startsWith('172.')

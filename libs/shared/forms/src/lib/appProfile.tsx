@@ -84,7 +84,7 @@ function AppProfile() {
     },
   });
 
-  if (!user || !profileData) return <div className="p-20 text-center">Loading profile...</div>;
+  if (!user || !profileData) return <div className='p-20 text-center'>Loading profile...</div>;
 
   // 3. Handle Submit with Firebase Upload
   const handleProfileSubmit = async ({
@@ -294,21 +294,21 @@ function AppProfile() {
 
   return (
     <MainLayout>
-      <main className="container md:w-150 mx-auto py-20 px-4">
-        <div className="w-full m-w-sm mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-2 dark:text-white">
+      <main className='container md:w-150 mx-auto py-20 px-4'>
+        <div className='w-full m-w-sm mx-auto'>
+          <h2 className='text-3xl font-bold text-center mb-2 dark:text-white'>
             {profileData.firstName}'s Account
           </h2>
-          <p className="text-center text-gray-500 text-sm mb-6">
+          <p className='text-center text-gray-500 text-sm mb-6'>
             Member since {profileData.createdAt}
           </p>
 
           {!profileData.verified && (
-            <div className="p-4 mb-6 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl flex items-center gap-3">
-              <span className="text-xl">⚠️</span>
+            <div className='p-4 mb-6 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl flex items-center gap-3'>
+              <span className='text-xl'>⚠️</span>
               <Link
-                to="/email/verify?code=manual"
-                className="text-sm font-medium hover:underline hover:text-amber-900 transition-colors"
+                to='/email/verify?code=manual'
+                className='text-sm font-medium hover:underline hover:text-amber-900 transition-colors'
               >
                 Click here to resend verification link or enter code.
               </Link>
@@ -319,7 +319,7 @@ function AppProfile() {
             formOptions={profileFormOptions}
             fieldsConfig={profileFieldsConfig}
             onValidSubmit={handleProfileSubmit}
-            submitButtonText="Update Profile"
+            submitButtonText='Update Profile'
           />
         </div>
       </main>

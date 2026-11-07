@@ -11,7 +11,7 @@ import { ipAddressSchema, objectIdSchema } from './primitives.js';
 //   .regex(/^[0-9a-fA-F]{24}$/, 'Invalid Mongo ObjectId');
 
 export const isoDateSchema = z.preprocess(
-  arg => (typeof arg === 'string' ? new Date(arg) : arg),
+  (arg) => (typeof arg === 'string' ? new Date(arg) : arg),
   z.date(),
 );
 
@@ -146,7 +146,7 @@ function makeLogVariant<T extends AuditEventType>(type: T, metadata: z.ZodTypeAn
     .catchall(z.any());
 }
 
-const auditLogVariants = (Object.keys(auditEventMetadataMap) as AuditEventType[]).map(type =>
+const auditLogVariants = (Object.keys(auditEventMetadataMap) as AuditEventType[]).map((type) =>
   makeLogVariant(type, auditEventMetadataMap[type]),
 );
 
@@ -159,13 +159,14 @@ export const auditLogListSchema = z.array(auditLogSchema);
 export type AuditLog = z.infer<typeof auditLogSchema>;
 
 // --- 7. Create Input Schema ---
-const createAuditLogVariants = (Object.keys(auditEventMetadataMap) as AuditEventType[]).map(type =>
-  z.object({
-    type: z.literal(type),
-    metadata: auditEventMetadataMap[type],
-    actor: userRefSchema.nullish(),
-    target: userRefSchema.nullish(),
-  }),
+const createAuditLogVariants = (Object.keys(auditEventMetadataMap) as AuditEventType[]).map(
+  (type) =>
+    z.object({
+      type: z.literal(type),
+      metadata: auditEventMetadataMap[type],
+      actor: userRefSchema.nullish(),
+      target: userRefSchema.nullish(),
+    }),
 );
 
 export const createAuditLogInputSchema = z.discriminatedUnion(

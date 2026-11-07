@@ -21,14 +21,14 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
 
   return (
     <div
-      role="status"
-      aria-live="polite"
+      role='status'
+      aria-live='polite'
       className={`${classes.toast} ${classes[`toast-${type}`]}`}
     >
       <img src={iconMap[type]} alt={`${type} icon`} className={classes['toast-icon']} />
       <p className={classes['toast-message']}>{message}</p>
-      <button className={classes['toast-close-btn']} onClick={onClose} aria-label="Close toast">
-        <img src={xIcon} alt="close icon" />
+      <button className={classes['toast-close-btn']} onClick={onClose} aria-label='Close toast'>
+        <img src={xIcon} alt='close icon' />
       </button>
     </div>
   );

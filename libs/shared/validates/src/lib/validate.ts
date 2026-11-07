@@ -13,7 +13,7 @@ function validateBody(schema: ZodType<unknown>) {
       req.body = await schema.parseAsync(req.body);
     } catch (err: unknown) {
       if (err instanceof ZodError) {
-        const issues = err.issues.map(i => ({
+        const issues = err.issues.map((i) => ({
           path: i.path.join('.'),
           message: i.message,
           code: i.code,
@@ -21,7 +21,7 @@ function validateBody(schema: ZodType<unknown>) {
 
         req.log.warn({ issues }, '[validateBody] validation failed (detailed)');
 
-        const errorMessages = issues.map(i => `${i.path || '<root>'}: ${i.message}`);
+        const errorMessages = issues.map((i) => `${i.path || '<root>'}: ${i.message}`);
 
         return reply.status(BAD_REQUEST).send({ errors: errorMessages });
       }

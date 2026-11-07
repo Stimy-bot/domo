@@ -1,25 +1,29 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/libs/shared/reusableComponents",
+    "tsBuildInfoFile": "../../../dist/libs/shared/reusableComponents.tsbuildinfo"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
   "exclude": ["src/**/*.spec.ts", "src/**/*.spec.tsx", "src/**/*.test.ts", "src/**/*.test.tsx"],
   "references": [
     {
-      "path": "../ui-footer/tsconfig.lib.json"
+      "path": "../client/tsconfig.lib.json"
     },
     {
       "path": "../ui-header/tsconfig.lib.json"
     },
     {
-      "path": "../utils/tsconfig.lib.json"
+      "path": "../ui-footer/tsconfig.lib.json"
     },
     {
       "path": "../hooks/tsconfig.lib.json"
     },
     {
       "path": "../context/tsconfig.lib.json"
+    },
+    {
+      "path": "../utils/tsconfig.lib.json"
     }
   ]
 }

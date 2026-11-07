@@ -7,12 +7,12 @@ import { twMerge } from 'tailwind-merge';
 export const formatNameToTitle = (snakeCaseStr: string): string => {
   return snakeCaseStr
     .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 };
 
 export const sleep = async (ms: number): Promise<void> =>
-  new Promise(resolve => setTimeout(resolve, ms));
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));

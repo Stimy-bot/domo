@@ -2,7 +2,6 @@
 
 import { useOtpVerification } from '@domo/hooks';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 interface OtpVerificationFormProps {
   phone: string;
@@ -15,7 +14,6 @@ const OtpVerificationForm: React.FC<OtpVerificationFormProps> = ({
   onSuccess,
   otpLength = 6,
 }) => {
-  const navigate = useNavigate();
   const [otp, setOtp] = useState('');
 
   const { handleVerify, handleResend, resetStatus, isLoading, error, isSuccess, timer, canResend } =
@@ -34,13 +32,13 @@ const OtpVerificationForm: React.FC<OtpVerificationFormProps> = ({
 
     if (isSuccess) {
       onSuccess?.();
-      timeout = setTimeout(() => navigate('/'), 2000);
+      timeout = setTimeout(() => window.location.assign('/'), 2000);
     }
 
     return () => {
       if (timeout) clearTimeout(timeout);
     };
-  }, [isSuccess, navigate, onSuccess]);
+  }, [isSuccess, onSuccess]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.replace(/\D/g, '');

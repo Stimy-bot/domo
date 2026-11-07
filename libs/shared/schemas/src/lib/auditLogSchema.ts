@@ -373,7 +373,7 @@ export const auditLogSchema = z.discriminatedUnion('type', [
 ]);
 
 export type AuditLog = z.infer<typeof auditLogSchema>;
-const auditLogEntryPreprocess = z.preprocess(val => {
+const auditLogEntryPreprocess = z.preprocess((val) => {
   if (!val || typeof val !== 'object') return val;
   const entry = { ...val } as Record<string, unknown>;
   // Ensure metadata exists so the Discriminated Union doesn't choke

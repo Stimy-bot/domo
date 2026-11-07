@@ -1,10 +1,11 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "../../../dist/libs/shared/types",
     "composite": true,
     "incremental": true,
-    "types": ["node", "vitest/globals"]
+    "types": ["node", "vitest/globals"],
+    "tsBuildInfoFile": "../../../dist/libs/shared/types.tsbuildinfo"
   },
   "include": [
     "src/**/*.ts",

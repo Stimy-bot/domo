@@ -13,7 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as QuotesRouteImport } from './routes/quotes'
+import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ApiNameRouteImport } from './routes/api.name'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -38,9 +38,9 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QuotesRoute = QuotesRouteImport.update({
-  id: '/quotes',
-  path: '/quotes',
+const QuoteRoute = QuoteRouteImport.update({
+  id: '/quote',
+  path: '/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RegisterRoute = RegisterRouteImport.update({
@@ -64,7 +64,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/quotes': typeof QuotesRoute
+  '/quote': typeof QuoteRoute
   '/register': typeof RegisterRoute
   '/api/name': typeof ApiNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -74,7 +74,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/quotes': typeof QuotesRoute
+  '/quote': typeof QuoteRoute
   '/register': typeof RegisterRoute
   '/api/name': typeof ApiNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -85,7 +85,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/quotes': typeof QuotesRoute
+  '/quote': typeof QuoteRoute
   '/register': typeof RegisterRoute
   '/api/name': typeof ApiNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -97,7 +97,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/dashboard'
     | '/login'
-    | '/quotes'
+    | '/quote'
     | '/register'
     | '/api/name'
     | '/api/auth/$'
@@ -107,7 +107,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/dashboard'
     | '/login'
-    | '/quotes'
+    | '/quote'
     | '/register'
     | '/api/name'
     | '/api/auth/$'
@@ -117,7 +117,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/dashboard'
     | '/login'
-    | '/quotes'
+    | '/quote'
     | '/register'
     | '/api/name'
     | '/api/auth/$'
@@ -128,7 +128,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
-  QuotesRoute: typeof QuotesRoute
+  QuoteRoute: typeof QuoteRoute
   RegisterRoute: typeof RegisterRoute
   ApiNameRoute: typeof ApiNameRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -164,11 +164,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/quotes': {
-      id: '/quotes'
-      path: '/quotes'
-      fullPath: '/quotes'
-      preLoaderRoute: typeof QuotesRouteImport
+    '/quote': {
+      id: '/quote'
+      path: '/quote'
+      fullPath: '/quote'
+      preLoaderRoute: typeof QuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/register': {
@@ -200,7 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
-  QuotesRoute: QuotesRoute,
+  QuoteRoute: QuoteRoute,
   RegisterRoute: RegisterRoute,
   ApiNameRoute: ApiNameRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

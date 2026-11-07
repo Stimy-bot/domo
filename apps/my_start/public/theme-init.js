@@ -1,4 +1,4 @@
-;(() => {
+(() => {
   try {
     const stored = window.localStorage.getItem('theme');
     const mode = stored === 'light' || stored === 'dark' || stored === 'auto' ? stored : 'auto';

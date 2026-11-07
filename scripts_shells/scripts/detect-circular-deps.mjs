@@ -16,8 +16,8 @@ function getLibraries() {
 
   return fs
     .readdirSync(libsDir, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name);
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
 }
 
 // 2. Scan TypeScript files for import/export statements

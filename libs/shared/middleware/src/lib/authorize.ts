@@ -1,6 +1,6 @@
 import type { Permission } from '@domo/config';
 import { FORBIDDEN, UNAUTHORIZED } from '@domo/types';
-import { appAssert } from '@domo/utils/client';
+import { appAssert } from '@domo/utils/server';
 import type { FastifyRequest } from 'fastify';
 
 export const authorize = (requiredPermissions: Permission | Permission[]) => {
@@ -39,7 +39,7 @@ export const authorize = (requiredPermissions: Permission | Permission[]) => {
       : [];
 
     // 6) Check if user possesses ANY of the required permissions (OR logic)
-    const hasPermission = permissionsArray.some(permission => userPerms.includes(permission));
+    const hasPermission = permissionsArray.some((permission) => userPerms.includes(permission));
 
     appAssert(
       hasPermission,

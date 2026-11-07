@@ -30,14 +30,12 @@ import {
   AppError,
   appAssert,
   catchErrors,
-} from '@domo/utils/client';
-import {
   clearAuthCookies,
   getAccessTokenCookieOptions,
   getRefreshTokenCookieOptions,
   setAuthCookies,
+  verifyToken,
 } from '@domo/utils/server';
-import { verifyToken } from '@domo/utils'
 import { ObjectId } from 'bson';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
@@ -179,7 +177,7 @@ export const loginHandler = catchErrors(async (req: FastifyRequest, reply: Fasti
     },
     'user_login',
     { method: 'password', success: true },
-  ).catch(err => req.log.error({ err }, 'Audit log failed'));
+  ).catch((err) => req.log.error({ err }, 'Audit log failed'));
 
   setAuthCookies({ reply, accessToken, refreshToken });
   return reply.status(OK).send({ message: 'Login successful', user });

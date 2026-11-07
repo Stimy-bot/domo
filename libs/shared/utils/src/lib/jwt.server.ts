@@ -1,18 +1,18 @@
 // libs/shared/utils/src/lib/jwt.server.ts
 
 import { serverEnv } from '@domo/constants/server';
-import jwt, { type SignOptions } from 'jsonwebtoken';
 import type { Role } from '@domo/types';
+import jwt, { type SignOptions } from 'jsonwebtoken';
 
 if (typeof window !== 'undefined') {
   throw new Error('[SECURITY ERROR] jwt.server.ts was imported in a browser environment!');
 }
 
 export interface UserPayload {
-userId?: string;
+  userId?: string;
   email?: string;
   role?: string | Role[];
-  fullName?: string;  
+  fullName?: string;
   sessionId?: string;
 }
 
@@ -21,9 +21,18 @@ userId?: string;
  */
 export function signToken(
   payload: UserPayload,
-  expiresIn: SignOptions['expiresIn'] = '1d',
+  expiresInOrOptions:
+    | SignOptions['expiresIn']
+    | { secret?: string; expiresIn?: SignOptions['expiresIn'] } = '1d',
 ): string {
-  return jwt.sign(payload, serverEnv.JWT_SECRET, { expiresIn });
+  const options =
+    typeof expiresInOrOptions === 'object' && expiresInOrOptions !== null
+      ? expiresInOrOptions
+      : { expiresIn: expiresInOrOptions };
+
+  return jwt.sign(payload, options.secret ?? serverEnv.JWT_SECRET, {
+    expiresIn: options.expiresIn ?? '1d',
+  });
 }
 
 /**

@@ -1,7 +1,8 @@
 // apps/my_start/src/lib/db.ts
 import { MongoClient } from 'mongodb';
 
-const uri = process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/my_tanstack_db';
+const uri =
+  process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/my_tanstack_db';
 if (!uri) {
   throw new Error('Please add your MONGODB_URI to .env');
 }

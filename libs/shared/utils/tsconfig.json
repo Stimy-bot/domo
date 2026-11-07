@@ -8,11 +8,7 @@
     "tsBuildInfoFile": "../../../dist/libs/shared/utils/utils.tsbuildinfo",
     "types": ["node", "vite/client"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/index.ts",
-    "../../../apps/my_start/src/utils/trpc.ts"
-  ],
+  "include": ["src/**/*.ts", "src/index.ts", "../../../apps/my_start/src/utils/trpc.ts"],
   "references": [
     {
       "path": "../state"

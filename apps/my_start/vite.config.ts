@@ -24,11 +24,34 @@ export default defineConfig(({ mode }) => {
       'process.env.MONGODB_URI': JSON.stringify(env.MONGODB_URI || process.env.MONGODB_URI),
     },
     optimizeDeps: {
-      exclude: ['mongodb', 'bson'],
+      exclude: [
+        'mongodb',
+        'bson',
+        'better-auth',
+        'fast-jwt',
+        '@better-auth/mongo-adapter',
+        'vinxi',
+        '@tanstack/start',
+        '@tanstack/start-server-core',
+      ],
+      include: ['better-auth'],
+      entries: ['./index.html', './src/**/*'],
+    },
+    ssr: {
+      noExternal: ['better-auth'],
+      external: ['fast-jwt', 'mongodb', 'bson'],
     },
     build: {
       rolldownOptions: {
-        external: ['@tanstack/ai-client', '@tanstack/ai-react', 'crypto', 'util', 'fs', 'path'],
+        external: [
+          'fast-jwt',
+          '@tanstack/ai-client',
+          '@tanstack/ai-react',
+          'crypto',
+          'util',
+          'fs',
+          'path',
+        ],
         output: {
           codeSplitting: true,
         },
@@ -42,6 +65,15 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': resolve(rootDir, './src'),
         '@domo/client': resolve(monorepoRoot, 'libs/shared/client/src/index.ts'),
+        '@domo/config/server': resolve(monorepoRoot, 'libs/shared/config/src/index.ts'),
+        '@domo/constants/client': resolve(
+          monorepoRoot,
+          'libs/shared/constants/src/lib/env.client.ts',
+        ),
+        '@domo/constants/server': resolve(
+          monorepoRoot,
+          'libs/shared/constants/src/lib/env.server.ts',
+        ),
         '@domo/config': resolve(monorepoRoot, 'libs/shared/config/src/index.ts'),
         '@domo/constants': resolve(monorepoRoot, 'libs/shared/constants/src/index.ts'),
         '@domo/context': resolve(monorepoRoot, 'libs/shared/context/src/index.ts'),
@@ -65,6 +97,8 @@ export default defineConfig(({ mode }) => {
         '@domo/ui-header': resolve(monorepoRoot, 'libs/shared/ui-header/src/index.ts'),
         '@domo/ui-sidebar': resolve(monorepoRoot, 'libs/shared/ui-sidebar/src/index.ts'),
         '@domo/utils': resolve(monorepoRoot, 'libs/shared/utils/src/index.ts'),
+        '@domo/utils/client': resolve(monorepoRoot, 'libs/shared/utils/src/index.client.ts'),
+        '@domo/utils/server': resolve(monorepoRoot, 'libs/shared/utils/src/index.server.ts'),
         '@domo/validates': resolve(monorepoRoot, 'libs/shared/validates/src/index.ts'),
       },
     },

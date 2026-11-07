@@ -11,7 +11,7 @@ import { updateSchema } from '@domo/schemas';
 import { validateBody } from '@domo/validates';
 import type { FastifyPluginAsync, RouteHandlerMethod } from 'fastify';
 
-const userRoutes: FastifyPluginAsync = async fastify => {
+const userRoutes: FastifyPluginAsync = async (fastify) => {
   // --- 1. Current User Routes (Self) ---
   fastify.get('/', getUserHandler);
 

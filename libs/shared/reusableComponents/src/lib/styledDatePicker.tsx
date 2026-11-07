@@ -1,39 +1,91 @@
 // libs/shared/reusableComponents/src/lib/styledDatePicker.tsx
+import type { ChangeEvent, FocusEvent } from 'react';
 import { CustomDatePicker } from './customDatePicker';
 
-interface Field {
+interface SimpleField {
   name: string;
   state: {
     value: string;
-    meta: any;
+    meta: {
+      errors?: string[];
+      isTouched?: boolean;
+    };
   };
   handleBlur: () => void;
-  handleChange: (value: any) => void;
+  handleChange: (value: string | null) => void;
+}
+
+export interface StyledDatePickerProps {
+  field?: SimpleField;
+  label?: string;
+  placeholder?: string;
+  name?: string;
+  id?: string;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement> | string) => void;
+  onBlur?: (e?: FocusEvent<HTMLInputElement>) => void;
+  className?: string;
+  disabled?: boolean;
+  required?: boolean;
+  autoComplete?: string;
 }
 
 const StyledDatePicker = ({
   field,
-  label,
-  placeholder = 'YYYY-DD-MM',
-}: {
-  field: Field;
-  label: string;
-  placeholder?: string;
-}) => {
+  label = '',
+  placeholder = 'YYYY-MM-DD',
+  name,
+  id,
+  value,
+  onChange,
+  onBlur,
+  className = '',
+  disabled = false,
+}: StyledDatePickerProps) => {
+  const inputName = name ?? field?.name ?? 'birthDate';
+  const inputId = id ?? field?.name ?? 'birthDate';
+  const rawValue = field ? field.state.value : (value ?? '');
+
+  const errors = field?.state?.meta?.errors ?? [];
+  const isTouched = field?.state?.meta?.isTouched ?? false;
+  const isError = isTouched && errors.length > 0;
+
+  const handleDateChange = (date: Date | null) => {
+    const formattedDate: string | null = date ? (date.toISOString().split('T')[0] ?? null) : null;
+
+    if (field) {
+      field.handleChange(formattedDate);
+    }
+
+    if (onChange) {
+      onChange(formattedDate ?? '');
+    }
+  };
+
+  const handleBlur = () => {
+    if (field) {
+      field.handleBlur();
+    }
+    onBlur?.();
+  };
+
   return (
-    <div className="mb-4">
-      <label htmlFor={field.name} className="block font-semibold text-dark-light mb-1">
-        {label}
-      </label>
-      <CustomDatePicker
-        selected={field.state.value ? new Date(field.state.value) : null}
-        onChange={(date: Date | null) => field.handleChange(date ? date.toISOString() : null)}
-        onBlur={field.handleBlur}
-        placeholderText={placeholder}
-      />
-      {field.state.meta.errors?.length > 0 && (
-        <p className="text-red-500 text-xs italic mt-1">{field.state.meta.errors.join(', ')}</p>
+    <div className={`mb-4 flex flex-col ${className}`}>
+      {label && (
+        <label htmlFor={inputId} className='mb-1 block font-semibold'>
+          {label}
+        </label>
       )}
+      <CustomDatePicker
+        selected={rawValue ? new Date(rawValue) : null}
+        onChange={handleDateChange}
+        onBlur={handleBlur}
+        placeholderText={placeholder}
+        disabled={disabled}
+        name={inputName}
+        id={inputId}
+      />
+      {isError && <p className='mt-1 text-xs italic text-red-500'>{errors.join(', ')}</p>}
     </div>
   );
 };

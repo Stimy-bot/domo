@@ -16,7 +16,7 @@ function findFiles(dir) {
 }
 
 const files = findFiles(root);
-const targetFiles = files.filter(f => {
+const targetFiles = files.filter((f) => {
   try {
     const txt = fs.readFileSync(f, 'utf8');
     return /"outDir"\s*:\s*".*dist\/out-tsc/.test(txt);

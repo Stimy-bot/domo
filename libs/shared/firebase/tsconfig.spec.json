@@ -3,22 +3,17 @@
   "compilerOptions": {
     "composite": false,
     "incremental": false,
-
     "moduleResolution": "Nodenext",
     "jsx": "react-jsx",
-
     "types": ["vitest/globals", "vitest/importMeta", "vite/client", "node"],
-
-
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/libs/shared/firebase",
+    "tsBuildInfoFile": "../../../dist/libs/shared/firebase.tsbuildinfo"
   },
-
   "include": [
     "vite.config.ts",
     "vite.config.mts",
     "vitest.config.ts",
     "vitest.config.mts",
-
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
     "src/**/*.test.tsx",

@@ -1,0 +1,29 @@
+DNS records for domain verification of contact.domoservices.site on Resend
+
+Add the following DNS records at your domain provider for contact.domoservices.site:
+
+DKIM
+  Type: TXT
+  Name: resend._domainkey.contact
+  Value: p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCiLugDJuQS1LJWY/USToWaR2WyQj4ekW6Zz+zPUuZfQI0peaXpck8WwMjKbvG62TT1pXnq9tZUe0RFqatPA38Bj24VbPv5tsVupssM4vvH1OgXx0RoezxwXjnaERZka0Cq1WiHNpactJi8Rtp7//CP7uYQ6CbSbVa4gz4ydVc81wIDAQAB
+  TTL: Auto
+
+SPF
+  Type: CNAME
+  Name: rsend.contact
+  Value: rsend.forge.rmta.net
+  TTL: Auto
+
+  Type: CNAME
+  Name: send.contact
+  Value: send.forge.rmta.net
+  TTL: Auto
+
+DMARC (recommended)
+  Type: TXT
+  Name: _dmarc
+  Value: v=DMARC1; p=none;
+  TTL: Auto
+
+After adding these records, return to Resend to verify.
+Docs: https://resend.com/docs/dashboard/domains/introduction

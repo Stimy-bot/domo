@@ -3,7 +3,7 @@
 import { INTERNAL_SERVER_ERROR, OK } from '@domo/types';
 import type { FastifyPluginAsync } from 'fastify';
 
-const markerRoutes: FastifyPluginAsync = async fastify => {
+const markerRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.get('/', async (_req, reply) => {
     try {
       const markers = [

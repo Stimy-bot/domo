@@ -7,13 +7,15 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "types/**/*.d.ts",
-    "../../libs/shared/**/*.ts",
-    "../../libs/shared/**/*.tsx",
-    "../my_start/src/utils/trpc.ts"
+    "../../libs/**/*.ts",
+    "../../libs/**/*.tsx",
+    "../../types/**/*.d.ts"
   ],
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
     "../../dist",
     "../../node_modules",
     "node_modules"
