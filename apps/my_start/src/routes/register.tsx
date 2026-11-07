@@ -3,10 +3,10 @@
 import { dateRegex, emailRegex, phoneRegex, pwRegex } from '@domo/constants';
 import {
   EmailInput,
-  Input,
   PasswordInput,
   PhoneNumberInput,
   StyledDatePicker,
+  TextInput,
 } from '@domo/reusableComponents';
 import { UiButton } from '@domo/ui-buttons';
 import { createFileRoute, Link } from '@tanstack/react-router';
@@ -85,10 +85,8 @@ function RouteComponent() {
         <form className='flex w-75 flex-col items-center' onSubmit={handleSubmit}>
           <h1 className='m-4 text-4xl font-semibold'>Create account</h1>
 
-          <Input
-            type='text'
+          <TextInput
             placeholder='Enter First Name'
-            className='demo-input m-2'
             autoComplete='given-name'
             required
             value={firstName}
@@ -96,10 +94,8 @@ function RouteComponent() {
             disabled={isPending}
           />
 
-          <Input
-            type='text'
+          <TextInput
             placeholder='Enter Last Name'
-            className='demo-input m-2'
             autoComplete='family-name'
             required
             value={lastName}
@@ -108,9 +104,7 @@ function RouteComponent() {
           />
 
           <EmailInput
-            type='email'
             placeholder='Enter Email'
-            className='demo-input m-2'
             autoComplete='email'
             required
             value={email}
@@ -120,7 +114,6 @@ function RouteComponent() {
 
           <PhoneNumberInput
             placeholder='Enter Phone Number'
-            className='demo-input m-2'
             autoComplete='tel'
             required
             value={phoneNumber}
@@ -140,7 +133,6 @@ function RouteComponent() {
 
           <PasswordInput
             placeholder='Enter Password'
-            className='demo-input m-2'
             autoComplete='new-password'
             required
             value={password}
@@ -150,7 +142,6 @@ function RouteComponent() {
 
           <PasswordInput
             placeholder='Confirm Password'
-            className='demo-input m-2'
             autoComplete='new-password'
             required
             value={confirmPassword}

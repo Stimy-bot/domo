@@ -3,7 +3,7 @@ import type { AnyFieldApi } from '@tanstack/react-form';
 import type { ComponentProps } from 'react';
 import { BaseInput } from './baseInput';
 
-export interface EmailInputProps extends Omit<ComponentProps<'input'>, 'field'> {
+export interface EmailInputProps extends Omit<ComponentProps<'input'>, 'field' | 'type'> {
   field?: AnyFieldApi;
   label?: string;
 }

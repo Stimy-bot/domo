@@ -43,9 +43,7 @@ function RouteComponent() {
         <form className='pt-5 w-75 flex flex-col items-center' onSubmit={handleSubmit}>
           <h1 className='text-4xl font-semibold pt-5 mb-2'> Sign in to your account</h1>
           <EmailInput
-            type='email'
             placeholder='Enter Email'
-            className='demo-input m-2'
             autoComplete='email'
             required
             value={email}
@@ -53,9 +51,7 @@ function RouteComponent() {
             disabled={isPending}
           />
           <PasswordInput
-            type='password'
             placeholder='Enter Password'
-            className='demo-input m-2'
             autoComplete='current-password'
             required
             value={password}

@@ -1,5 +1,5 @@
 // libs/shared/reusableComponents/src/lib/numberInput.tsx
-import { BaseInput } from './baseInput';
+import { BaseInput, type FieldValue } from './baseInput';
 
 interface Field {
   name: string;
@@ -10,7 +10,7 @@ interface Field {
       isValidating: boolean;
     };
   };
-  handleChange: (value: string) => void;
+  handleChange: (value: FieldValue) => void;
   handleBlur: () => void;
 }
 

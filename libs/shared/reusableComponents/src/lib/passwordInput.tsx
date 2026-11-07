@@ -3,7 +3,7 @@ import type { AnyFieldApi } from '@tanstack/react-form';
 import type { ComponentProps } from 'react';
 import { BaseInput } from './baseInput';
 
-interface PasswordInputProps extends Omit<ComponentProps<'input'>, 'field'> {
+interface PasswordInputProps extends Omit<ComponentProps<'input'>, 'field' | 'type'> {
   field?: AnyFieldApi;
   label?: string;
 }

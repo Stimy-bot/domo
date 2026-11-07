@@ -2,7 +2,6 @@
 import * as React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Input } from './input';
 
 // Utility for dynamic class names
 const cn = (...classes: string[]) => classes.filter(Boolean).join(' ');
@@ -16,7 +15,7 @@ interface CustomDateInputProps {
 // Custom input used by react-datepicker
 const CustomDateInput = React.forwardRef<HTMLInputElement, CustomDateInputProps>(
   ({ onClick, value }, ref) => (
-    <Input
+    <input
       type='date'
       onClick={onClick}
       value={value}

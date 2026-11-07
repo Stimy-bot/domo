@@ -1,6 +1,5 @@
-// libs/shared/reusableComponents/src/lib/baseInput.tsx
 import { formatNameToTitle } from '@domo/utils';
-import type { ComponentProps } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { useState } from 'react';
 
 // SVG for 'Hide password' (Eye with slash)
@@ -47,25 +46,56 @@ const EyeIcon = () => (
 
 // --- Component Interface ---
 
+export interface OptionItem {
+  label: string;
+  value: string | number;
+}
+
+// Field values can be primitive input values, multi-select string arrays, or FileList
+export type FieldValue = string | number | string[] | FileList | null | undefined;
+
 interface Field {
   state: {
     meta: {
       isTouched?: boolean;
       errors?: string[];
       isValidating?: boolean;
-      [key: string]: any;
+      [key: string]: unknown;
     };
-    value: string | null;
+    value: FieldValue;
   };
   name: string;
-  handleChange: (value: string) => void;
+  handleChange: (value: FieldValue) => void;
   handleBlur: () => void;
 }
 
-export interface BaseInputProps extends Omit<ComponentProps<'input'>, 'field'> {
+export type BaseInputProps = (
+  | Omit<ComponentProps<'input'>, 'type'>
+  | ComponentProps<'textarea'>
+  | ComponentProps<'select'>
+) & {
   field?: Field;
   label?: string;
-}
+  type?:
+    | 'text'
+    | 'password'
+    | 'email'
+    | 'number'
+    | 'date'
+    | 'textarea'
+    | 'select'
+    | 'image'
+    | 'file';
+  options?: OptionItem[];
+  accept?: string;
+  placeholder?: string;
+  children?: ReactNode;
+};
+
+// Union event types for all three elements
+type FormElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+type ChangeEvent = React.ChangeEvent<FormElement>;
+type BlurEvent = React.FocusEvent<FormElement>;
 
 // --- BaseInput Component ---
 
@@ -80,68 +110,122 @@ const BaseInput = ({
   onChange,
   onBlur,
   placeholder,
+  accept,
+  options = [],
+  children,
   ...rest
 }: BaseInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordType = type === 'password';
+  const isFileType = type === 'image' || type === 'file';
 
-  // Determine actual HTML input type
-  const inputType = isPasswordType && showPassword ? 'text' : type;
+  const inputType = isPasswordType && showPassword ? 'text' : isFileType ? 'file' : type;
 
-  // Resolve values whether using TanStack form `field` or standard React props
   const inputId = id ?? field?.name;
   const inputName = name ?? field?.name;
-  const inputValue = field ? (field.state.value ?? '') : (value ?? '');
+  const inputValue = field
+    ? (field.state.value ?? (isFileType ? undefined : ''))
+    : (value ?? '');
   const inputPlaceholder = placeholder ?? label;
 
-  // Resolve errors from TanStack Form field meta (if present)
   const meta = field?.state?.meta;
   const errors = meta?.errors ?? [];
   const isTouched = meta?.isTouched ?? false;
   const isValidating = meta?.isValidating ?? false;
   const isError = isTouched && errors.length > 0;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (field) {
-      field.handleChange(e.target.value);
+  const handleChange = (e: ChangeEvent) => {
+    let val: FieldValue = e.target.value;
+
+    if (isFileType) {
+      const target = e.target as HTMLInputElement;
+      val = target.files;
     }
-    onChange?.(e);
+
+    if (field) {
+      field.handleChange(val);
+    }
+
+    onChange?.(e as React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLTextAreaElement> & React.ChangeEvent<HTMLSelectElement>);
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (e: BlurEvent) => {
     if (field) {
       field.handleBlur();
     }
-    onBlur?.(e);
+
+    onBlur?.(e as React.FocusEvent<HTMLInputElement> & React.FocusEvent<HTMLTextAreaElement> & React.FocusEvent<HTMLSelectElement>);
   };
+
+  const commonClassName = `
+    placeholder:block w-full
+    vite-placeholder
+    vite-input
+    vite-comment
+    demo-input
+    demo-select
+    demo-textarea
+    ${isError ? 'border-red-500' : 'border-gray-300'}
+  `;
 
   return (
     <div className={`mb-4 ${className}`}>
       {(inputName || label) && (
-        <label htmlFor={inputId} className='text-dark-light block font-semibold'>
+        <label htmlFor={inputId} className='vite-label block font-semibold mb-1'>
           {label ?? (inputName ? formatNameToTitle(inputName) : '')}
         </label>
       )}
 
-      {/* Input container for positioning the toggle button */}
       <div className='relative w-full'>
-        <input
-          {...rest}
-          id={inputId}
-          name={inputName}
-          value={inputValue}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          type={inputType}
-          placeholder={inputPlaceholder}
-          className={`
-            placeholder:block w-full
-            ${isPasswordType ? 'pr-12' : ''}
-            ${isError ? 'border-red-500' : 'border-gray-300'}
-          `}
-        />
+        {type === 'textarea' ? (
+          <textarea
+            {...(rest as ComponentProps<'textarea'>)}
+            id={inputId}
+            name={inputName}
+            value={inputValue as string | number | readonly string[] | undefined}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            placeholder={inputPlaceholder}
+            className={commonClassName}
+          />
+        ) : type === 'select' ? (
+          <select
+            {...(rest as ComponentProps<'select'>)}
+            id={inputId}
+            name={inputName}
+            value={inputValue as string | number | readonly string[] | undefined}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            className={commonClassName}
+          >
+            <option value='' disabled>
+              {inputPlaceholder || 'Select an option'}
+            </option>
+            {options.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+            {children}
+          </select>
+        ) : (
+          <input
+            {...(rest as ComponentProps<'input'>)}
+            id={inputId}
+            name={inputName}
+            value={isFileType ? undefined : (inputValue as string | number | readonly string[] | undefined)}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            type={inputType}
+            accept={type === 'image' ? 'image/*' : accept}
+            placeholder={inputPlaceholder}
+            className={`
+              ${commonClassName}
+              ${isPasswordType ? 'pr-12' : ''}
+            `}
+          />
+        )}
 
-        {/* Password Toggle Button */}
         {isPasswordType && (
           <button
             type='button'
