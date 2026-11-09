@@ -8,6 +8,7 @@
     "tsBuildInfoFile": "../../../dist/libs/shared/firebase.tsbuildinfo"
   },
   "include": [
+    "src/**/*", 
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.tsx",

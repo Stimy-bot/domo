@@ -4,7 +4,7 @@
     "composite": true,
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.tsx"],
+  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/**/*.tsx"],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx"],
   "references": []
 }

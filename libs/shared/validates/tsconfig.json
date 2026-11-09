@@ -7,7 +7,7 @@
     "outDir": "../../../dist/libs/shared/validates",
     "tsBuildInfoFile": "../../../dist/libs/shared/validates.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/index.ts"],
+  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/index.ts"],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
     {

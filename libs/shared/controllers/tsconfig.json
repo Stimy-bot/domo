@@ -7,7 +7,7 @@
     "outDir": "../../../dist/libs/shared/controllers",
     "tsBuildInfoFile": "../../../dist/libs/shared/controllers.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/index.ts"],
+  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/index.ts"],
   "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"],
   "references": [
     {

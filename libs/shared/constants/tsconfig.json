@@ -7,7 +7,7 @@
     "outDir": "../../../dist/libs/shared/constants",
     "tsBuildInfoFile": "../../../dist/libs/shared/constants.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.tsx", "src/index.ts"],
+  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/**/*.tsx", "src/index.ts"],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
     {

@@ -2,7 +2,7 @@
   position: fixed;
   top: 1rem;
   margin: 0 auto;
-  box-align: middle;
+  align-items: center;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

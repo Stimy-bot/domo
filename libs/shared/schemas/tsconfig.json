@@ -7,6 +7,6 @@
     "outDir": "../../../dist/libs/shared/schemas",
     "tsBuildInfoFile": "../../../dist/libs/shared/schemas.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
+  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx", "apps/**/*.ts", "libs/**/*.ts", "types/**/*.d.ts"],
   "references": []
 }

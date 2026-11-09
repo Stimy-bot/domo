@@ -1,4 +1,5 @@
 // apps/my_start/src/routes/login.tsx
+import { useToast } from '@domo/context';
 import { EmailInput, PasswordInput } from '@domo/reusableComponents';
 import { UiButton } from '@domo/ui-buttons';
 import { createFileRoute, Link } from '@tanstack/react-router';
@@ -14,6 +15,7 @@ function RouteComponent() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
+  const { addToast } = useToast();
 
   const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,13 +25,18 @@ function RouteComponent() {
     try {
       const response = await signIn.email({ email, password });
       if (response.error) {
-        setError(response.error.message ?? 'Unable to sign in. Please try again.');
+        const message = response.error.message ?? 'Unable to sign in. Please try again.';
+        setError(message);
+        addToast({ message, type: 'error' });
         return;
       }
 
+      addToast({ message: 'Signed in successfully! Redirecting...', type: 'success' });
       window.location.assign('/dashboard');
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Unable to sign in. Please try again.');
+      const message = error instanceof Error ? error.message : 'Unable to sign in. Please try again.';
+      setError(message);
+      addToast({ message, type: 'error' });
     } finally {
       setIsPending(false);
     }

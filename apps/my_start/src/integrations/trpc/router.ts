@@ -1,5 +1,4 @@
 // apps/my_start/src/integrations/trpc/router.ts
-
 import type { TRPCRouterRecord } from '@trpc/server';
 import { TRPCError } from '@trpc/server';
 

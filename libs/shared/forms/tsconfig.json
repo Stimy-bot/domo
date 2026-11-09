@@ -8,7 +8,7 @@
     "outDir": "../../../dist/libs/shared/forms",
     "tsBuildInfoFile": "../../../dist/libs/shared/forms.tsbuildinfo"
   },
-  "include": ["src/**/*.tsx", "src/**/*"],
+  "include": ["src/**/*", "src/**/*.tsx", "src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
     {

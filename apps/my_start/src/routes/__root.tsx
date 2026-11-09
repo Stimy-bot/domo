@@ -1,5 +1,4 @@
 // apps/my_start/src/routes/__root.tsx
-
 import { ToastProvider } from '@domo/context';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { formDevtoolsPlugin } from '@tanstack/react-form-devtools';
@@ -65,8 +64,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body className='font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]'>
+                <Provider>
         <ToastProvider>
-          <Provider>
             <Header />
             {children}
             <Footer />
@@ -87,8 +86,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
               ]}
             />
             <Scripts />
-          </Provider>
         </ToastProvider>
+                  </Provider>
       </body>
     </html>
   );
