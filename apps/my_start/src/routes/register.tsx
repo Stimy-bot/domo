@@ -1,6 +1,7 @@
 // apps/my_start/src/routes/register.tsx
 import { dateRegex, emailRegex, phoneRegex, pwRegex } from '@domo/constants';
 import {
+  Captcha,
   EmailInput,
   PasswordInput,
   PhoneNumberInput,
@@ -25,7 +26,9 @@ function RouteComponent() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [isPending, setIsPending] = useState(false);
+const [isPending, setIsPending] = useState(false);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [captchaError, setCaptchaError] = useState('');
 
   const validateForm = (): string | null => {
     if (!firstName.trim()) return 'First name is required.';
@@ -43,10 +46,16 @@ function RouteComponent() {
   const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
+    setCaptchaError('');
 
     const validationError = validateForm();
     if (validationError) {
       setError(validationError);
+      return;
+    }
+
+     if (!captchaVerified) {
+      setCaptchaError('Please complete the CAPTCHA verification.');
       return;
     }
 
@@ -150,6 +159,19 @@ function RouteComponent() {
           {error && (
             <p role='alert' className='text-sm text-red-600 dark:text-red-400'>
               {error}
+            </p>
+          )}
+
+           <Captcha
+            onVerify={(isVerified: boolean) => {
+              setCaptchaVerified(isVerified);
+              if (isVerified) setCaptchaError('');
+            }}
+          />
+
+          {captchaError && (
+            <p className='p-4 text-center text-red-500 text-sm mt-2 font-semibold'>
+              {captchaError}
             </p>
           )}
 

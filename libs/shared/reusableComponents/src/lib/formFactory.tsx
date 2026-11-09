@@ -10,7 +10,7 @@ import {
 } from '@tanstack/react-form';
 import type React from 'react';
 import { useMemo, useState } from 'react';
-import Captcha from './captcha';
+import { Captcha } from './captcha';
 import { SubmitButton } from './submitButton';
 
 export type ConsistentFormApi<TFormValues extends Record<string, unknown>> = FormApi<

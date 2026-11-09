@@ -156,4 +156,4 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerify }) => {
   );
 };
 
-export default Captcha;
+export { Captcha };

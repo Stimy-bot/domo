@@ -1,9 +1,9 @@
 // apps/my_start/src/routes/login.tsx
-import { useToast } from '@domo/context';
-import { EmailInput, PasswordInput } from '@domo/reusableComponents';
+
+import { emailRegex, pwRegex } from '@domo/constants';import { EmailInput, PasswordInput, Captcha } from '@domo/reusableComponents';
 import { UiButton } from '@domo/ui-buttons';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { type SyntheticEvent, useState } from 'react';
+import { type ChangeEvent, type SyntheticEvent, useState } from 'react';
 import { signIn } from '../lib/auth-client';
 
 export const Route = createFileRoute('/login')({
@@ -15,32 +15,49 @@ function RouteComponent() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
-  const { addToast } = useToast();
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [captchaError, setCaptchaError] = useState('');
+
+    const validateForm = (): string | null => {
+      if (!emailRegex.test(email)) return 'Please enter a valid email address.';
+
+      if (!pwRegex.test(password))
+        return 'Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character (@$!%*?&).';
+      return null;
+    };
 
   const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
+    setCaptchaError('');
+
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+     if (!captchaVerified) {
+      setCaptchaError('Please complete the CAPTCHA verification.');
+      return;
+    }
+
     setIsPending(true);
 
     try {
       const response = await signIn.email({ email, password });
-      if (response.error) {
-        const message = response.error.message ?? 'Unable to sign in. Please try again.';
-        setError(message);
-        addToast({ message, type: 'error' });
+        if (response.error) {
+        setError(response.error.message ?? 'Unable to sign in. Please try again.');
         return;
       }
-
-      addToast({ message: 'Signed in successfully! Redirecting...', type: 'success' });
       window.location.assign('/dashboard');
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unable to sign in. Please try again.';
-      setError(message);
-      addToast({ message, type: 'error' });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to sign in. Please try again.');
     } finally {
       setIsPending(false);
     }
   };
+
 
   return (
     <div className='relative flex h-vh items-center justify-center overflow-hidden p-4 pb-15 mb-4'>
@@ -54,22 +71,35 @@ function RouteComponent() {
             autoComplete='email'
             required
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            disabled={isPending}
+     onChange={(event: ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}            disabled={isPending}
           />
           <PasswordInput
             placeholder='Enter Password'
             autoComplete='current-password'
             required
             value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            disabled={isPending}
+     onChange={(event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}            disabled={isPending}
           />
           {error && (
             <p role='alert' className='text-sm text-red-600 dark:text-red-400'>
               {error}
             </p>
           )}
+
+
+           <Captcha
+            onVerify={(isVerified: boolean) => {
+              setCaptchaVerified(isVerified);
+              if (isVerified) setCaptchaError('');
+            }}
+          />
+
+          {captchaError && (
+            <p className='p-4 text-center text-red-500 text-sm mt-2 font-semibold'>
+              {captchaError}
+            </p>
+          )}
+
           <p className='text-dark-hard text-sm text-center mt-4'>
             Don&apos;t have an account?{' '}
             <Link to='/register' className='font-bold text-blue-400 hover:underline'>
