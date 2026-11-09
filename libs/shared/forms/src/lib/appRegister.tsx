@@ -26,7 +26,7 @@ type RegisterFormValues = {
   phone: string;
   password: string;
   confirmPassword: string;
-  birthDate: Date;
+  birthDate: string;
 };
 
 function AppRegister() {
@@ -57,7 +57,8 @@ function AppRegister() {
   }): Promise<SubmissionResult> => {
     try {
       // 1. Perform the Mutation
-      await registerAsync(value as any);
+      // biome-ignore lint/suspicious/noExplicitAny: <>
+            await registerAsync(value as any);
 
       setPhone(value.phone);
 
@@ -88,6 +89,7 @@ function AppRegister() {
       name: 'firstName',
       label: 'First Name',
       placeholder: 'Enter First Name',
+      // biome-ignore lint/suspicious/noExplicitAny: <>
       component: TextInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -102,6 +104,7 @@ function AppRegister() {
       name: 'lastName',
       label: 'Last Name',
       placeholder: 'Enter Last Name',
+      // biome-ignore lint/suspicious/noExplicitAny: <>
       component: TextInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -116,6 +119,7 @@ function AppRegister() {
       name: 'phone',
       label: 'Phone Number',
       placeholder: 'Enter phone number',
+      // biome-ignore lint/suspicious/noExplicitAny: <>
       component: PhoneNumberInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -135,6 +139,7 @@ function AppRegister() {
       label: 'Email address',
       placeholder: 'Enter email',
       component: EmailInput,
+      props: { className: 'w-full py-4' },
       validators: {
         onChangeAsyncDebounceMs: 500,
         onChangeAsync: ({ value }: { value: string }) => {
@@ -147,6 +152,7 @@ function AppRegister() {
     {
       name: 'birthDate',
       label: 'Your Date of Birth',
+      // biome-ignore lint/suspicious/noExplicitAny: <>
       component: StyledDatePicker as React.ComponentType<any>,
       props: { type: 'date' },
       validators: {
@@ -199,7 +205,7 @@ function AppRegister() {
           fieldApi,
         }: {
           value: string;
-          fieldApi: any; // Type is simplified for FormFactory usage
+          fieldApi: { form: { getFieldValue: (field: 'password') => string } };
         }) => {
           if (!value) return 'Must enter a matching password';
           if (value !== fieldApi.form.getFieldValue('password')) {

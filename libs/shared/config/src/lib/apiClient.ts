@@ -46,8 +46,12 @@ const getErrorData = (error: any) => {
     };
   }
 
-  if (typeof responseData === 'string' && responseData.includes('<!doctype html>')) {
-    return { message: 'API URL mismatch (Received HTML)', errorCode: 'HTML_RESPONSE_ERROR' };
+  if (typeof responseData === 'string') {
+    if (/^\s*(?:<!doctype\s+html|<html\b)/i.test(responseData)) {
+      return { message: 'API URL mismatch (Received HTML)', errorCode: 'HTML_RESPONSE_ERROR' };
+    }
+
+    return { message: responseData };
   }
 
   return responseData || {};

@@ -40,7 +40,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         // CRITICAL: Point to 'backend' service for Docker-to-Docker talk
-        target: 'http://backend:5000',
+        target: 'http://localhost:5000',
         changeOrigin: true,
       },
     },

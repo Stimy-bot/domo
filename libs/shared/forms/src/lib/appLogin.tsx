@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 
 export interface LoginResponse {
   message: string;
-  userId?: string; // This is the one you need!
+  userId?: string;
   accessToken?: string;
   refreshToken?: string;
 }
@@ -36,12 +36,9 @@ function AppLogin() {
   const { mutateAsync: loginAsync } = useMutation<LoginResponse, Error, LoginFormValues>({
     mutationFn: async (variables) => {
       const response = await login(variables);
-      // If 'login' returns the Axios object, extract .data here
       return (response as any).data;
     },
   });
-
-  // Centralized submission handler for FormFactory
 
   const handleLoginSubmit = async ({
     value,

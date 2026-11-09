@@ -21,6 +21,10 @@ export default defineConfig(() => ({
       exclude: ['src/**/*.spec.ts', 'src/**/*.spec.tsx', 'src/**/*.test.ts', 'src/**/*.test.tsx'],
     }),
   ],
+  resolve: {
+    tsconfigPaths: true,
+  },
+
   build: {
     outDir: '../../../dist/libs/shared/forms',
     emptyOutDir: true,
