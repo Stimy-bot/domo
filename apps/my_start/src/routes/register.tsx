@@ -1,5 +1,4 @@
 // apps/my_start/src/routes/register.tsx
-
 import { dateRegex, emailRegex, phoneRegex, pwRegex } from '@domo/constants';
 import {
   EmailInput,
@@ -34,7 +33,7 @@ function RouteComponent() {
     if (!emailRegex.test(email)) return 'Please enter a valid email address.';
     if (!phoneRegex.test(phoneNumber))
       return 'Please enter a valid phone number (e.g., +12025550123).';
-    if (!dateRegex.test(birthDate)) return 'Please enter a valid birth date in YYYY-MM-DD format.';
+    if (!dateRegex.test(birthDate)) return 'Please enter a valid birth date in MM-DD-YYYY format.';
     if (!pwRegex.test(password))
       return 'Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character (@$!%*?&).';
     if (password !== confirmPassword) return 'Passwords do not match.';
@@ -122,18 +121,16 @@ function RouteComponent() {
           />
 
           <StyledDatePicker
-            placeholder='YYYY-MM-DD'
-            className='demo-input m-2'
-            autoComplete='bday'
+            placeholder='DD-MM-YYYY'
             required
             value={birthDate}
             onChange={(val) => setBirthDate(typeof val === 'string' ? val : val.target.value)}
             disabled={isPending}
+            className='demo-select m-4'
           />
 
           <PasswordInput
             placeholder='Enter Password'
-            autoComplete='new-password'
             required
             value={password}
             onChange={(event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
@@ -142,7 +139,6 @@ function RouteComponent() {
 
           <PasswordInput
             placeholder='Confirm Password'
-            autoComplete='new-password'
             required
             value={confirmPassword}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -164,7 +160,7 @@ function RouteComponent() {
             </Link>
           </p>
 
-          <UiButton type='submit' className='demo-button m-2' disabled={isPending}>
+          <UiButton type='submit' className='demo-button w-full m-2' disabled={isPending}>
             {isPending ? 'Signing up...' : 'Submit'}
           </UiButton>
         </form>

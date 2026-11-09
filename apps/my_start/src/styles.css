@@ -293,6 +293,8 @@ pre code {
 .demo-input,
 .demo-select {
   padding: 0.7rem 0.9rem;
+    width: auto;
+
 }
 
 .demo-input-fit {
@@ -307,7 +309,7 @@ pre code {
 
 .demo-input:focus,
 .demo-select:focus,
-.demo-textarea:focus {
+.demo-textarea:focus{
   border-color: color-mix(in oklab, var(--lagoon-deep) 58%, var(--line));
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--lagoon) 24%, transparent);
 }

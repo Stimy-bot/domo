@@ -33,7 +33,7 @@ export interface StyledDatePickerProps {
 const StyledDatePicker = ({
   field,
   label = '',
-  placeholder = 'YYYY-MM-DD',
+  placeholder = 'MM-DD-YYYY',
   name,
   id,
   value,

@@ -69,7 +69,7 @@ function RouteComponent() {
               Sign up
             </Link>
           </p>
-          <UiButton type='submit' className='demo-button m-2' disabled={isPending}>
+          <UiButton type='submit' className='demo-button w-full m-2' disabled={isPending}>
             {isPending ? 'Signing in...' : 'Submit'}
           </UiButton>
         </form>

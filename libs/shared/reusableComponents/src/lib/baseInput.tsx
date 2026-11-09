@@ -158,13 +158,11 @@ const BaseInput = ({
   };
 
   const commonClassName = `
-    placeholder:block w-full
     vite-placeholder
     vite-input
     vite-comment
     demo-input
     demo-select
-    demo-textarea
     ${isError ? 'border-red-500' : 'border-gray-300'}
   `;
 
@@ -177,7 +175,21 @@ const BaseInput = ({
       )}
 
       <div className='relative w-full'>
-        {type === 'textarea' ? (
+        {type === 'date' ? (
+          <input
+            {...(rest as ComponentProps<'input'>)}
+            id={inputId}
+            name={inputName}
+            type='date'
+            value={inputValue as number | readonly string[] | undefined}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            placeholder={inputPlaceholder}
+            className={commonClassName}
+          />
+        ) :
+
+        type === 'textarea' ? (
           <textarea
             {...(rest as ComponentProps<'textarea'>)}
             id={inputId}

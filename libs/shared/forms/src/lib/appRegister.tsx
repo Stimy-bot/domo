@@ -26,7 +26,7 @@ type RegisterFormValues = {
   phone: string;
   password: string;
   confirmPassword: string;
-  birthDate: string;
+  birthDate: Date;
 };
 
 function AppRegister() {

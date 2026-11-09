@@ -78,7 +78,7 @@
             "--label",
             "org.opencontainers.image.created={currentDate}",
             "--build-arg",
-            "BUILD_DATE={currentDate|YYYY-MM-DD}",
+            "BUILD_DATE={currentDate|MM-DD-YYYY}",
             "--build-arg",
             "VERSION={env.VERSION}",
             "--tag",

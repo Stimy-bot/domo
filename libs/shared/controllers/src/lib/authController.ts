@@ -470,7 +470,7 @@ export const googleCallbackHandler = catchErrors(
 
     setAuthCookies({ reply, accessToken, refreshToken });
 
-    const appOrigin = process.env['APP_ORIGIN'] || 'http://localhost:3000';
+    const appOrigin = process.env['APP_ORIGIN'] || 'http://localhost:5173';
     if (!user.birthDate) {
       return reply.redirect(`${appOrigin}/complete-profile?reason=missing_info`);
     }

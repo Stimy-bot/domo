@@ -18,7 +18,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     let displayValue = props.value;
     if (type === 'date' && typeof displayValue === 'string' && displayValue !== '') {
-      // Regex checks if it's actually YYYY-MM-DD
+      // Regex checks if it's actually MM-DD-YYYY
       const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
       if (!dateRegex.test(displayValue)) {
         displayValue = '';

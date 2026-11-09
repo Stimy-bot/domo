@@ -30,8 +30,8 @@ type QuoteFormValues = {
   serviceType: string;
   priceRange: string;
   quoteDetails: string;
-  phone?: string; // Optional
-  website?: string; // Optional
+  phone?: string;
+  website?: string;
 };
 
 function Quote() {
@@ -105,7 +105,7 @@ function Quote() {
     {
       name: 'companyName',
       label: 'Company Name',
-      props: { className: 'demo-input m-2' },
+      props: { className: 'demo-input' },
       component: TextInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -116,7 +116,7 @@ function Quote() {
     {
       name: 'firstName',
       label: 'First Name',
-      props: { className: 'demo-input m-2' },
+      props: { className: 'demo-input' },
       component: TextInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -127,7 +127,7 @@ function Quote() {
     {
       name: 'lastName',
       label: 'Last Name',
-      props: { className: 'demo-input m-2' },
+      props: { className: 'demo-input' },
       component: TextInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -138,7 +138,7 @@ function Quote() {
     {
       name: 'email',
       label: 'Email',
-      props: { className: 'demo-input m-2' },
+      props: { className: 'demo-input' },
       component: EmailInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -153,7 +153,7 @@ function Quote() {
     {
       name: 'phone',
       label: 'Phone Number',
-      props: { className: 'demo-input m-2' },
+      props: { className: 'demo-input' },
       component: PhoneNumberInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -175,7 +175,7 @@ function Quote() {
       props: {
         options: SERVICE_TYPE_OPTIONS,
         placeholder: 'Select type of service...',
-        className: 'demo-input mt-2',
+        className: 'demo-select',
       },
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -190,7 +190,7 @@ function Quote() {
       props: {
         options: PRICE_RANGE_OPTIONS,
         placeholder: 'Select your budget...',
-        className: 'demo-input mt-2',
+        className: 'demo-select',
       },
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -202,7 +202,7 @@ function Quote() {
       name: 'quoteDetails',
       label: 'Project Description',
       component: TextArea as React.ComponentType<any>,
-      props: { rows: 5, className: 'demo-input mt-2' },
+      props: { rows: 5, className: 'demo-input demo-textarea' },
       validators: {
         onChangeAsyncDebounceMs: 500,
         onChangeAsync: ({ value }: { value: string }) =>
@@ -212,7 +212,7 @@ function Quote() {
     {
       name: 'website',
       label: 'Existing Website URL (Optional)',
-      props: { className: 'demo-input m-2' },
+      props: { className: 'demo-input' },
       component: TextInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -227,29 +227,29 @@ function Quote() {
   ];
 
   return (
-    <div className='relative flex h-vh justify-center overflow-hidden p-4 pb-15 mb-4'>
+    <div className='relative island-shell rise-in flex h-vh justify-center overflow-hidden p-4 pb-15 mb-4'>
       <main className='island-shell rise-in flex flex-col items-center justify-center max-w-400 px-4 rounded-lg'>
         <div className='pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]' />
         <div className='pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]' />
-        <h2 className='pt-5 font-roboto text-4xl font-bold text-center'>Request a Quote</h2>
+        <h2 className='p-5 font-roboto text-4xl font-bold text-center'>Request a Quote</h2>
         <FormFactory
           formOptions={quoteFormOptions}
           fieldsConfig={quoteFieldsConfig}
           onValidSubmit={handleQuoteSubmit}
           submitButtonText='Request Quote'
         />
-        <div className='flex flex-col items-center text-sm font-bold text-center'>
+
           <UiButton
             onClick={handleExport}
-            className='w-3/4 mx-auto text-white text-lg font-extrabold bg-yellow-400 hover:bg-yellow-500 mb-4'
+            className='demo-button w-3/4 mb-4'
           >
             Export CSV
           </UiButton>
           <span>You will receive an email with the quote within 24 hours!</span>
-          <span className='mtz-1'>
+          <span className='pb-3'>
             You can also click the button above to download the quote as a CSV!
           </span>
-        </div>
+
       </main>
     </div>
   );

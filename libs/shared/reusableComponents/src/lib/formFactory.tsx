@@ -33,6 +33,7 @@ type ConsistentFieldApi<
 > = TanstackFieldApi<
   TFormValues,
   TName,
+  // biome-ignore lint/suspicious/noExplicitAny: <>
   any,
   undefined,
   undefined,
@@ -64,6 +65,7 @@ export interface SubmissionResult {
 
 export interface FormFactoryProps<TFormValues extends Record<string, unknown>> {
   formOptions: Omit<
+    // biome-ignore lint/suspicious/noExplicitAny: <>
     FormOptions<TFormValues, any, any, any, any, any, any, any, any, any, any>,
     'onSubmit'
   >;

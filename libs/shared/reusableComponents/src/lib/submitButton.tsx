@@ -42,7 +42,7 @@ function SubmitButton<TValues>({
     <Button
       type='submit'
       disabled={isDisabled}
-      className='bg-blue-400 text-white font-semibold text-lg w-full rounded-lg my-6  hover:opacity-75 flex items-center justify-center gap-3'
+      className='bg-blue-400 text-white font-semibold text-lg rounded-lg my-6  hover:opacity-75 flex items-center justify-center'
     >
       {isSubmitting && <Spinner size='sm' variant='light' />}
       {isSubmitting ? 'Submitting...' : (submitButtonText ?? children)}

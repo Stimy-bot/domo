@@ -4,29 +4,24 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 // Utility for dynamic class names
-const cn = (...classes: string[]) => classes.filter(Boolean).join(' ');
-
-// Props for custom input
-interface CustomDateInputProps {
-  onClick?: () => void;
-  value?: string;
-}
+const cn = (...classes: (string | undefined)[]) => classes.filter(Boolean).join(' ');
 
 // Custom input used by react-datepicker
-const CustomDateInput = React.forwardRef<HTMLInputElement, CustomDateInputProps>(
-  ({ onClick, value }, ref) => (
+const CustomDateInput = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentPropsWithoutRef<'input'>
+>(
+  ({ className, ...props }, ref) => (
     <input
-      type='date'
-      onClick={onClick}
-      value={value}
+      {...props}
       ref={ref}
-      readOnly
+      type='text'
       className={cn(
         'custom-class',
         'additional-class',
         'w-full',
         'mt-1',
-        'outline-none font-semibold',
+        className,
       )}
     />
   ),
@@ -40,7 +35,7 @@ const CustomDatePicker: React.FC<React.ComponentProps<typeof DatePicker>> = (pro
       {...props}
       customInput={<CustomDateInput />}
       // If needed, configure defaults like dateFormat or dropdown options here
-      dateFormat='yyyy-MM-dd'
+      dateFormat='MM-dd-yyyy'
       showMonthDropdown
       showYearDropdown
       dropdownMode='select'

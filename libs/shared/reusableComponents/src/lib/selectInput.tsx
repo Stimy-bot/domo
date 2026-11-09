@@ -48,7 +48,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
         value={displayValue}
         onBlur={handleBlur}
         onChange={(e) => handleChange(e.target.value)}
-        className=' font-semibold border rounded w-full p-3 leading-tight focus:outline-none focus:shadow-outline'
+        className='selectInput'
       >
         <option value='' disabled>
           {placeholder}
