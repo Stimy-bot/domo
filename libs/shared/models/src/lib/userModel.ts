@@ -106,7 +106,7 @@ export function getUserFullName(user: Pick<UserEntity, 'firstName' | 'lastName'>
 
 export function getUserPermissions(roles: RoleType[] = []): string[] {
   const permissionSet = new Set<string>();
-  roles.forEach(role => {
+  roles.forEach((role) => {
     const perms = rolePermissions[role];
     if (perms) perms.forEach((p: string) => permissionSet.add(p));
   });

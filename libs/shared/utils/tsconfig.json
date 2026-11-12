@@ -8,11 +8,7 @@
     "tsBuildInfoFile": "../../../dist/libs/shared/utils/utils.tsbuildinfo",
     "types": ["node", "vite/client"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/index.ts",
-    "../../../apps/my_start/src/utils/trpc.ts"
-  ],
+  "include": ["src/**/*"],
   "references": [
     {
       "path": "../state"
@@ -22,12 +18,6 @@
     },
     {
       "path": "../constants"
-    },
-    {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

@@ -1,5 +1,4 @@
 // apps/my_fastify/src/app/app.ts
-
 import { authenticateHook } from '@domo/middleware';
 import type { AutoloadPluginOptions } from '@fastify/autoload';
 import type { FastifyPluginAsync, FastifyServerOptions } from 'fastify';
@@ -25,7 +24,7 @@ export interface AppOptions extends FastifyServerOptions, Partial<AutoloadPlugin
 
 const options: AppOptions = {};
 
-const app: FastifyPluginAsync<AppOptions> = async (fastify: any, opts: any): Promise<void> => {
+const app: FastifyPluginAsync<AppOptions> = async (fastify, opts): Promise<void> => {
   await fastify.register(mongodb, opts);
   await fastify.register(cookiePlugin, opts);
   await fastify.register(corsPlugin, opts);
@@ -38,7 +37,7 @@ const app: FastifyPluginAsync<AppOptions> = async (fastify: any, opts: any): Pro
   await fastify.register(healthCheck, { ...opts, prefix: '/healthcheck' });
   await fastify.register(authRoutes, { ...opts, prefix: '/auth' });
   await fastify.register(root, { ...opts, prefix: '/' });
-  await fastify.register(async (protectedScope: any) => {
+  await fastify.register(async (protectedScope) => {
     protectedScope.addHook('onRequest', authenticateHook);
     await protectedScope.register(userRoutes, {
       ...opts,

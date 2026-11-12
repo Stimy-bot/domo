@@ -1,30 +1,42 @@
 // apps/my_start/src/integrations/trpc/router.ts
-import { TRPCError } from "@trpc/server";
-import type { TRPCRouterRecord } from "@trpc/server";
-
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "./init";
+import type { TRPCRouterRecord } from '@trpc/server';
+import { TRPCError } from '@trpc/server';
+import clientPromise from '../../lib/db';
+import { createTRPCRouter, publicProcedure } from './init'; // Adjust import path if needed
 
 const peopleRouter = {
-  list: publicProcedure.query(async () =>
-    fetch("https://swapi.dev/api/people")
-      .then((res) => res.json())
-      .then((d) => d.results as { name: string }[])
-  ),
-  currentUserName: protectedProcedure.query(async (opts) => {
-    // Check if the session or user does not exist
-    if (!opts.ctx.session?.user) {
+  // Matches trpc.people.currentUserName in dashboard.tsx
+  currentUserName: publicProcedure.query(({ ctx }) => {
+    return ctx.session?.user?.name ?? null;
+  }),
+
+  // Your MongoDB list procedure
+  list: publicProcedure.query(async () => {
+    try {
+      const client = await clientPromise;
+      const db = client.db();
+
+      const items = await db
+        .collection('users') // Adjust collection name if needed
+        .find({})
+        .toArray();
+
+      return items.map((item) => ({
+        ...item,
+        _id: item._id.toString(),
+      }));
+    } catch (error) {
       throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "You must be signed in to view this information.",
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Failed to fetch records from MongoDB',
+        cause: error,
       });
     }
-    
-    return opts.ctx.session.user.name;
   }),
 } satisfies TRPCRouterRecord;
 
 export const trpcRouter = createTRPCRouter({
   people: peopleRouter,
 });
-export type TRPCRouter = typeof trpcRouter;
 
+export type TRPCRouter = typeof trpcRouter;

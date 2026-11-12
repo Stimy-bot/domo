@@ -16,7 +16,7 @@ function findFiles(dir) {
 }
 
 const files = findFiles(root);
-const targetFiles = files.filter(f => {
+const targetFiles = files.filter((f) => {
   try {
     const txt = fs.readFileSync(f, 'utf8');
     return /"outDir"\s*:\s*".*dist\/out-tsc/.test(txt);
@@ -67,7 +67,7 @@ for (const file of targetFiles) {
       : desired;
 
     // Write back with 2-space formatting
-    fs.writeFileSync(file, JSON.stringify(json, null, 2) + '\n', 'utf8');
+    fs.writeFileSync(file, `${JSON.stringify(json, null, 2)}\n`, 'utf8');
     console.log('Updated', file);
   } catch (err) {
     console.error('Failed to process', file, err.message);

@@ -30,14 +30,12 @@ import {
   AppError,
   appAssert,
   catchErrors,
-} from '@domo/utils/client';
-import {
   clearAuthCookies,
   getAccessTokenCookieOptions,
   getRefreshTokenCookieOptions,
   setAuthCookies,
+  verifyToken,
 } from '@domo/utils/server';
-import { verifyToken } from '@domo/utils'
 import { ObjectId } from 'bson';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
@@ -124,12 +122,12 @@ export const registerHandler = catchErrors(async (req: FastifyRequest, reply: Fa
   await logAuthEvent(
     req,
     {
-      _id: user['_id'] as string | ObjectId,
-      email: (user['email'] as string) || email,
+      _id: user._id as string | ObjectId,
+      email: (user.email as string) || email,
       fullName: getFullName(user),
     },
     'user_register',
-    { method: 'manual', email: (user['email'] as string) || email },
+    { method: 'manual', email: (user.email as string) || email },
   );
 
   setAuthCookies({ reply, accessToken, refreshToken });
@@ -164,7 +162,7 @@ export const loginHandler = catchErrors(async (req: FastifyRequest, reply: Fasti
   );
 
   appAssert(
-    user['active'] ?? true,
+    user.active ?? true,
     UNAUTHORIZED,
     'Your account is not active.',
     AppErrorCode.AccountInactive,
@@ -173,20 +171,20 @@ export const loginHandler = catchErrors(async (req: FastifyRequest, reply: Fasti
   logAuthEvent(
     req,
     {
-      _id: user['_id'] as string | ObjectId,
+      _id: user._id as string | ObjectId,
       email: typeof user?.email === 'string' ? user.email : undefined,
       fullName: getFullName(user),
     },
     'user_login',
     { method: 'password', success: true },
-  ).catch(err => req.log.error({ err }, 'Audit log failed'));
+  ).catch((err) => req.log.error({ err }, 'Audit log failed'));
 
   setAuthCookies({ reply, accessToken, refreshToken });
   return reply.status(OK).send({ message: 'Login successful', user });
 });
 
 export const logoutHandler = catchErrors(async (req: FastifyRequest, reply: FastifyReply) => {
-  const accessToken = req.cookies['accessToken'];
+  const accessToken = req.cookies.accessToken;
 
   if (!accessToken) {
     clearAuthCookies(reply);
@@ -232,7 +230,7 @@ export const logoutHandler = catchErrors(async (req: FastifyRequest, reply: Fast
 });
 
 export const refreshHandler = catchErrors(async (req: FastifyRequest, reply: FastifyReply) => {
-  const refreshToken = req.cookies['refreshToken'];
+  const refreshToken = req.cookies.refreshToken;
   appAssert(refreshToken, UNAUTHORIZED, 'Missing refresh token');
 
   const { accessToken, newRefreshToken } = await refreshUserAccessToken(
@@ -256,15 +254,15 @@ export const verifyEmailHandler = catchErrors(
     await logAuthEvent(
       req,
       {
-        _id: result.user['_id'] as string | ObjectId,
-        email: typeof result.user['email'] === 'string' ? result.user['email'] : undefined,
+        _id: result.user._id as string | ObjectId,
+        email: typeof result.user.email === 'string' ? result.user.email : undefined,
         fullName: getFullName(result.user),
       },
       'email_verification',
       {
         method: 'link_click',
         verificationId: verificationCode,
-        email: typeof result.user['email'] === 'string' ? result.user['email'] : undefined,
+        email: typeof result.user.email === 'string' ? result.user.email : undefined,
       },
     );
 
@@ -306,8 +304,8 @@ export const resetPasswordHandler = catchErrors(
     await logAuthEvent(
       req,
       {
-        _id: result.user['_id'] as string | ObjectId,
-        email: typeof result.user['email'] === 'string' ? result.user['email'] : undefined,
+        _id: result.user._id as string | ObjectId,
+        email: typeof result.user.email === 'string' ? result.user.email : undefined,
         fullName: getFullName(result.user),
       },
       'password_reset',
@@ -367,7 +365,7 @@ export const verifyOtpHandler = catchErrors(async (req: FastifyRequest, reply: F
   await logAuthEvent(
     req,
     {
-      _id: user['_id'] as string | ObjectId,
+      _id: user._id as string | ObjectId,
       email: typeof user?.email === 'string' ? user.email : undefined,
       fullName: getFullName(user),
     },
@@ -472,7 +470,7 @@ export const googleCallbackHandler = catchErrors(
 
     setAuthCookies({ reply, accessToken, refreshToken });
 
-    const appOrigin = process.env['APP_ORIGIN'] || 'http://localhost:3000';
+    const appOrigin = process.env.APP_ORIGIN || 'http://localhost:5173';
     if (!user.birthDate) {
       return reply.redirect(`${appOrigin}/complete-profile?reason=missing_info`);
     }

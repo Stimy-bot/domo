@@ -22,10 +22,14 @@ function getStoredTheme(): ThemeMode {
 
 function resolveTheme(mode: ThemeMode): 'light' | 'dark' {
   if (mode === 'auto') {
-    if (typeof window === 'undefined') return 'light';
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+      return 'light';
+    }
+
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     return prefersDark ? 'dark' : 'light';
   }
+
   return mode;
 }
 

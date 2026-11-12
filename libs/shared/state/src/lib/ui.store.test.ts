@@ -16,7 +16,7 @@ describe('UI Store - Theme Mode', () => {
   });
 
   it('persists theme mode to localStorage', () => {
-    const setItem = vi.spyOn(window.localStorage['__proto__'], 'setItem');
+    const setItem = vi.spyOn(window.localStorage.__proto__, 'setItem');
 
     useUIStore.getState().setThemeMode('dark');
 

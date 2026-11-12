@@ -2,8 +2,8 @@
 import type { FastifyBaseLogger } from 'fastify';
 import Twilio from 'twilio';
 
-const IS_MOCK = process.env['SMS_MOCK'] === 'true';
-const MOCK_OTP = process.env['MOCK_OTP'] || '123456';
+const IS_MOCK = process.env.SMS_MOCK === 'true';
+const MOCK_OTP = process.env.MOCK_OTP || '123456';
 
 export interface VerificationCheckResult {
   status: string;
@@ -14,9 +14,9 @@ export interface VerificationCheckResult {
  * Helper to initialize Twilio Client with validation
  */
 const getTwilioConfig = () => {
-  const sid = process.env['TWILIO_ACCOUNT_SID']?.trim();
-  const token = process.env['TWILIO_AUTH_TOKEN']?.trim();
-  const serviceSid = process.env['TWILIO_VERIFY_SERVICE_SID']?.trim();
+  const sid = process.env.TWILIO_ACCOUNT_SID?.trim();
+  const token = process.env.TWILIO_AUTH_TOKEN?.trim();
+  const serviceSid = process.env.TWILIO_VERIFY_SERVICE_SID?.trim();
 
   if (!IS_MOCK && (!sid || !token || !serviceSid)) {
     throw new Error(

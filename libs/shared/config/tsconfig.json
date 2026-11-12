@@ -7,14 +7,8 @@
     "outDir": "../../../dist/libs/shared/config",
     "tsBuildInfoFile": "../../../dist/libs/shared/config.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/index.ts"],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "**/*.spec.tsx",
-    "**/*.test.ts",
-    "**/*.test.tsx"
-  ],
+  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/index.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
     {
       "path": "../types"

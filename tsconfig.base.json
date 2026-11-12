@@ -67,12 +67,8 @@
       "@domo/config/server": ["./libs/shared/config/src/index.ts"],
       "@domo/constants/client": ["./libs/shared/constants/src/lib/env.client.ts"],
       "@domo/constants/server": ["./libs/shared/constants/src/lib/env.server.ts"],
-   "@domo/utils/client": [
-  "./libs/shared/utils/src/index.client.ts"
-],
-"@domo/utils/server": [
-  "./libs/shared/utils/src/index.server.ts"
-],
+      "@domo/utils/client": ["./libs/shared/utils/src/index.client.ts"],
+      "@domo/utils/server": ["./libs/shared/utils/src/index.server.ts"],
       "@domo/tailwind-sync-plugin/*": ["./tools/tailwind-sync-plugin/src/*"]
     },
 

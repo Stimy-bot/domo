@@ -1,6 +1,7 @@
 // client/src/components/Captcha.tsx
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { IoReloadOutline } from 'react-icons/io5';
 
 interface CaptchaProps {
   onVerify: (isVerified: boolean) => void;
@@ -107,51 +108,51 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerify }) => {
 
   if (isVerified) {
     return (
-      <div className="flex items-center justify-center p-4 bg-green-100 text-green-700 rounded-lg border border-green-200">
-        <span className="font-bold">✓ Verified</span>
+      <div className='flex items-center justify-center p-4 bg-green-100 text-green-700 rounded-lg border border-green-200'>
+        <span className='font-bold'>✓ Verified</span>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center dark:bg-dark-hard p-6 rounded-lg shadow-md border border-dark-soft text-dark-light mx-auto w-full max-w-87.5">
+    <div className='flex flex-col items-center dark:bg-dark-hard p-6 rounded-lg shadow-md border border-dark-soft text-dark-light mx-auto w-full max-w-87.5'>
       {/* Canvas and Reload Button Row */}
-      <div className="flex flex-row items-center justify-between w-full mb-4">
+      <div className='flex flex-row items-center justify-between w-full mb-4'>
         <canvas
           ref={canvasRef}
           style={{ width: '400px', height: '50px' }} // Maintain CSS size
-          className="rounded-lg border border-dark-soft bg-gray-100"
+          className='rounded-lg border border-dark-soft bg-gray-100'
         />
         <button
-          type="button"
+          type='button'
           onClick={reloadCaptcha}
-          className="flex flex-col items-center ml-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none text-sm transition-colors"
+          className='flex flex-col items-center ml-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none text-sm transition-colors'
         >
-          Reload
+          <IoReloadOutline />
         </button>
       </div>
 
       {/* Input Field */}
       <input
-        type="text"
+        type='text'
         value={userInput}
-        onChange={e => setUserInput(e.target.value)}
-        placeholder="Enter CAPTCHA"
-        className="w-full p-3 border border-dark-soft rounded mb-3 focus:ring-2 focus:ring-blue-500 outline-none dark:bg-dark-hard dark:text-white"
+        onChange={(e) => setUserInput(e.target.value)}
+        placeholder='Enter CAPTCHA'
+        className='w-full p-3 border border-dark-soft rounded mb-3 focus:ring-2 focus:ring-blue-500 outline-none dark:bg-dark-hard dark:text-white'
       />
 
       {/* Verify Button */}
       <button
-        type="button"
+        type='button'
         onClick={handleVerify}
-        className="w-full p-3 bg-green-500 text-white font-bold rounded hover:bg-green-600 transition-transform active:scale-95"
+        className='w-full p-3 bg-green-500 text-white font-bold rounded hover:bg-green-600 transition-transform active:scale-95'
       >
         Verify
       </button>
 
-      {error && <p className="text-red-500 mt-2 text-sm font-medium">{error}</p>}
+      {error && <p className='text-red-500 mt-2 text-sm font-medium'>{error}</p>}
     </div>
   );
 };
 
-export default Captcha;
+export { Captcha };

@@ -11,18 +11,9 @@ type AppAssert = (
   appErrorCode?: AppErrorCode,
 ) => asserts condition;
 
-const appAssert: AppAssert = (
-  condition,
-  httpStatusCode,
-  message,
-  appErrorCode,
-) => {
+const appAssert: AppAssert = (condition, httpStatusCode, message, appErrorCode) => {
   if (!condition) {
-    throw new AppError(
-      httpStatusCode,
-      message,
-      appErrorCode,
-    );
+    throw new AppError(httpStatusCode, message, appErrorCode);
   }
 };
 

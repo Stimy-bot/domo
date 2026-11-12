@@ -13,7 +13,7 @@ export default defineConfig(() => ({
   cacheDir: '../../../node_modules/.vite/libs/shared/hooks',
   plugins: [
     react(),
-    
+
     dts({
       entryRoot: 'src',
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
@@ -21,6 +21,10 @@ export default defineConfig(() => ({
       exclude: ['src/**/*.spec.ts', 'src/**/*.spec.tsx', 'src/**/*.test.ts', 'src/**/*.test.tsx'],
     }),
   ],
+  resolve: {
+    tsconfigPaths: true,
+  },
+
   build: {
     outDir: '../../../dist/libs/shared/hooks',
     emptyOutDir: true,
@@ -31,7 +35,7 @@ export default defineConfig(() => ({
     lib: {
       entry: 'src/index.ts',
       name: 'hooks',
-      fileName: format => `index.${format === 'es' ? 'mjs' : 'js'}`,
+      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
       formats: ['es' as const, 'cjs' as const],
     },
     rollupOptions: {

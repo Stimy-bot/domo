@@ -9,24 +9,16 @@ import {
   UNAUTHORIZED,
 } from '@domo/types';
 import {
+  appAssert,
   fiveMinutesAgo,
+  getPasswordResetTemplate,
+  getVerifyEmailTemplate,
   ONE_DAY_MS,
   oneHourFromNow,
   oneYearFromNow,
   thirtyDaysFromNow,
-  getPasswordResetTemplate,
-  getVerifyEmailTemplate,
-  verifyToken,
 } from '@domo/utils';
-import {
-  compareValue,
-  hashValue,
-  sendMail,
-  signToken,
-} from '@domo/utils/server';
-import {
-  appAssert,
-} from '@domo/utils/client';
+import { compareValue, hashValue, sendMail, signToken, verifyToken } from '@domo/utils/server';
 
 import { ObjectId } from '@fastify/mongodb';
 import type { FastifyBaseLogger } from 'fastify';
@@ -47,7 +39,7 @@ const normalizeIp = (ip?: string) =>
  */
 const sanitizeUser = <T extends Record<string, unknown>>(user: T) => {
   const sanitized = { ...user };
-  delete sanitized['password'];
+  delete sanitized.password;
   return sanitized as Omit<T, 'password'>;
 };
 
@@ -175,10 +167,7 @@ export const createSessionAndTokens = async (
   });
 
   // Refresh token: sign with explicit refresh secret and expiry duration
-  const refreshToken = signToken(
-    { sessionId },
-    '30d',
-  );
+  const refreshToken = signToken({ sessionId }, { expiresIn: '30d' });
 
   return { accessToken, refreshToken, sessionId };
 };
@@ -331,8 +320,9 @@ export const loginUser = async (
 };
 
 export const refreshUserAccessToken = async (ctx: ServiceContext, refreshToken: string) => {
-  const payload = verifyToken(refreshToken);
-  const sessionId = (payload as typeof payload & { sessionId?: string })?.sessionId;
+  const { payload } = verifyToken<{ sessionId?: string }>(refreshToken);
+  appAssert(payload, UNAUTHORIZED, 'Invalid refresh token');
+  const sessionId = payload.sessionId;
 
   appAssert(sessionId, UNAUTHORIZED, 'Invalid refresh token');
 
@@ -370,13 +360,10 @@ export const refreshUserAccessToken = async (ctx: ServiceContext, refreshToken: 
       role: user.role,
       sessionId: session._id.toString(),
     },
-    '15m',
+    { expiresIn: '15m' },
   );
 
-  const newRefreshToken = signToken(
-    { sessionId: session._id.toString() },
-    '30d',
-  );
+  const newRefreshToken = signToken({ sessionId: session._id.toString() }, { expiresIn: '30d' });
 
   return { accessToken: newAccessToken, newRefreshToken };
 };
@@ -508,7 +495,7 @@ export const updateAccount = async (
   const updateFields: Record<string, unknown> = {};
   let profileChanged = false;
 
-  Object.keys(fields).forEach(key => {
+  Object.keys(fields).forEach((key) => {
     if (allowedFields.includes(key) && fields[key] !== undefined) {
       if (user[key] !== fields[key]) {
         profileChanged = true;
@@ -518,20 +505,20 @@ export const updateAccount = async (
   });
 
   if (role) {
-    updateFields['role'] = Array.isArray(role) ? role : [role];
+    updateFields.role = Array.isArray(role) ? role : [role];
   }
   if (typeof active === 'boolean') {
-    updateFields['active'] = active;
+    updateFields.active = active;
   }
 
-  if (updateFields['firstName'] || updateFields['lastName']) {
-    const fn = (updateFields['firstName'] as string) || user.firstName;
-    const ln = (updateFields['lastName'] as string) || user.lastName;
-    updateFields['fullName'] = `${fn} ${ln}`.trim();
+  if (updateFields.firstName || updateFields.lastName) {
+    const fn = (updateFields.firstName as string) || user.firstName;
+    const ln = (updateFields.lastName as string) || user.lastName;
+    updateFields.fullName = `${fn} ${ln}`.trim();
   }
 
   if (Object.keys(updateFields).length > 0) {
-    updateFields['updatedAt'] = new Date();
+    updateFields.updatedAt = new Date();
     await usersCollection.updateOne({ _id: targetId }, { $set: updateFields });
   }
 
@@ -584,7 +571,7 @@ export const updateAccount = async (
       metadata: {
         method: method === 'oauth' ? 'oauth' : 'manual',
         action: 'profile_update',
-        updatedFields: Object.keys(fields).filter(k => allowedFields.includes(k)),
+        updatedFields: Object.keys(fields).filter((k) => allowedFields.includes(k)),
       },
     }).catch((err: unknown) => ctx.logger?.error({ err }, 'Audit Log Failed'));
   }
@@ -692,7 +679,7 @@ export const verifyOtpService = async (
   const user = await usersCollection.findOne({ phone });
   appAssert(user, NOT_FOUND, 'User not found');
 
-let check: { valid?: boolean };
+  let check: { valid?: boolean };
   try {
     check = await twilioService.checkVerificationCode(phone, otp, ctx.logger);
   } catch (err: unknown) {
@@ -702,7 +689,7 @@ let check: { valid?: boolean };
     appAssert(false, UNAUTHORIZED, 'Invalid or expired OTP');
   }
 
-  appAssert(check && check.valid, UNAUTHORIZED, 'Invalid or expired OTP');
+  appAssert(check?.valid, UNAUTHORIZED, 'Invalid or expired OTP');
 
   await usersCollection.updateOne({ _id: user._id }, { $set: { phoneVerified: true } });
 

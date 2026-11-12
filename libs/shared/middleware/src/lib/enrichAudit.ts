@@ -37,7 +37,7 @@ export function enrichAudit(defaultType: AuditEventType) {
         : undefined;
 
       const params = req.params as Record<string, string | undefined>;
-      const targetParam = params?.['id'];
+      const targetParam = params?.id;
       let autoTarget: { _id: string } | undefined;
 
       if (targetParam && typeof targetParam === 'string' && ObjectId.isValid(targetParam)) {

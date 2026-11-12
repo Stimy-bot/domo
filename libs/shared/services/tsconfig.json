@@ -8,6 +8,7 @@
     "tsBuildInfoFile": "../../../dist/libs/shared/services.tsbuildinfo"
   },
   "include": [
+    "src/**/*",
     "src/**/*.ts",
     "src/**/*.tsx",
     "types/**/*.d.ts",

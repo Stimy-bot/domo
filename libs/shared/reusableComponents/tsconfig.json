@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
+    "rootDir": "src",
     "jsx": "react-jsx",
     "composite": true,
     "declaration": true,
@@ -8,7 +9,7 @@
     "outDir": "../../../dist/libs/shared/reusableComponents",
     "tsBuildInfoFile": "../../../dist/libs/shared/reusableComponents.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
     "node_modules",
     "dist",
@@ -19,19 +20,22 @@
   ],
   "references": [
     {
-      "path": "../ui-footer"
+      "path": "../client"
     },
     {
       "path": "../ui-header"
     },
     {
-      "path": "../utils"
+      "path": "../ui-footer"
     },
     {
       "path": "../hooks"
     },
     {
       "path": "../context"
+    },
+    {
+      "path": "../utils"
     }
   ]
 }

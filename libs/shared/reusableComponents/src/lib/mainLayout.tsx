@@ -10,7 +10,7 @@ interface MainLayoutProps {
 
 function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="animate-slide-in-left dark:bg-dark-hard bg-white">
+    <div className='animate-slide-in-left dark:bg-dark-hard bg-white'>
       <UiHeader />
       {children}
       <UiFooter />

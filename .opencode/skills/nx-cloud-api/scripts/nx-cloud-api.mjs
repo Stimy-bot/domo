@@ -181,7 +181,7 @@ function parseArgs(argv) {
         throw new CliError(
           `--${key.replace(
             /[A-Z]/g,
-            letter => `-${letter.toLowerCase()}`,
+            (letter) => `-${letter.toLowerCase()}`,
           )} is valid only with request.`,
         );
       }
@@ -409,7 +409,7 @@ async function resolvePersonalAccessToken(options, cloudUrl) {
     );
   }
   const expectedUrl = cloudUrlIdentity(cloudUrl);
-  const matches = parseIni(contents).filter(section => {
+  const matches = parseIni(contents).filter((section) => {
     const token = section.values.get('personalaccesstoken');
     if (!token) return false;
     try {
@@ -533,7 +533,7 @@ function resolveReference(spec, value) {
     const parts = current.$ref
       .slice(2)
       .split('/')
-      .map(part => part.replace(/~1/g, '/').replace(/~0/g, '~'));
+      .map((part) => part.replace(/~1/g, '/').replace(/~0/g, '~'));
     let resolved = spec;
     for (const part of parts) resolved = resolved?.[part];
     if (!resolved) break;
@@ -610,7 +610,7 @@ function schemaSummary(spec, schema, depth = 0) {
   if (itemSchema) result.items = schemaSummary(spec, resolved.items, depth + 1);
   for (const keyword of ['oneOf', 'anyOf', 'allOf']) {
     if (Array.isArray(resolved[keyword]) && depth < 2) {
-      result[keyword] = resolved[keyword].map(entry => schemaSummary(spec, entry, depth + 1));
+      result[keyword] = resolved[keyword].map((entry) => schemaSummary(spec, entry, depth + 1));
     }
   }
   return result;
@@ -620,7 +620,7 @@ function responseContent(spec, responseValue) {
   const response = resolveReference(spec, responseValue);
   const content = response?.content ?? {};
   const mediaType =
-    Object.keys(content).find(key => key.toLowerCase().includes('json')) ??
+    Object.keys(content).find((key) => key.toLowerCase().includes('json')) ??
     Object.keys(content)[0] ??
     null;
   return {
@@ -647,8 +647,8 @@ function documentedResponses(spec, entry) {
 
 function successfulResponse(responses) {
   return (
-    responses.find(response => /^2\d\d$/.test(response.status)) ??
-    responses.find(response => /^3\d\d$/.test(response.status)) ??
+    responses.find((response) => /^2\d\d$/.test(response.status)) ??
+    responses.find((response) => /^3\d\d$/.test(response.status)) ??
     null
   );
 }
@@ -662,8 +662,8 @@ function collectionItemSummary(spec, schema) {
 
 function describeSecurity(spec, entry) {
   const requirements = entry.operation.security ?? spec.security ?? [];
-  return requirements.map(requirement =>
-    Object.keys(requirement).map(name => {
+  return requirements.map((requirement) =>
+    Object.keys(requirement).map((name) => {
       const scheme = resolveReference(spec, spec.components?.securitySchemes?.[name] ?? {});
       return {
         name,
@@ -696,7 +696,7 @@ function describeOperation(spec, entry) {
     summary: entry.operation.summary ?? '',
     description: entry.operation.description ?? '',
     security: describeSecurity(spec, entry),
-    parameters: parametersFor(spec, entry).map(parameter => ({
+    parameters: parametersFor(spec, entry).map((parameter) => ({
       in: parameter.in,
       name: parameter.name,
       required: Boolean(parameter.required),
@@ -759,7 +759,7 @@ function resolveSelector(spec, cloudUrl, selector) {
     linkQueryPairs = [...link.searchParams.entries()];
     const cipeUiMatch = /^\/cipes\/([^/]+)\/?$/.exec(link.pathname);
     if (cipeUiMatch) {
-      const cipeOperation = operations.find(entry => /\/cipes\/\{[^}]+}$/.test(entry.path));
+      const cipeOperation = operations.find((entry) => /\/cipes\/\{[^}]+}$/.test(entry.path));
       if (!cipeOperation)
         throw new CliError('The supplied CIPE URL has no matching Nx Cloud API operation.');
       pathSelector = cipeOperation.path.replace(
@@ -775,20 +775,20 @@ function resolveSelector(spec, cloudUrl, selector) {
   const normalizedSelector = pathSelector.replace(/^\//, '');
   let matches = operations
     .filter(
-      entry =>
+      (entry) =>
         entry.path === pathSelector ||
         entry.path.replace(/^\//, '') === normalizedSelector ||
         entry.path.endsWith(`/${normalizedSelector}`),
     )
-    .map(entry => ({ entry, pathValues: new Map() }));
+    .map((entry) => ({ entry, pathValues: new Map() }));
 
   if (matches.length === 0 && isLink) {
     matches = operations
-      .map(entry => ({
+      .map((entry) => ({
         entry,
         pathValues: matchTemplate(entry.path, pathSelector),
       }))
-      .filter(candidate => candidate.pathValues !== null);
+      .filter((candidate) => candidate.pathValues !== null);
   }
 
   if (matches.length === 0) {
@@ -797,7 +797,7 @@ function resolveSelector(spec, cloudUrl, selector) {
     );
   }
   if (matches.length > 1) {
-    const paths = matches.map(candidate => candidate.entry.path).join(', ');
+    const paths = matches.map((candidate) => candidate.entry.path).join(', ');
     throw new CliError(`Endpoint selector ${JSON.stringify(selector)} is ambiguous: ${paths}`);
   }
 
@@ -840,7 +840,7 @@ function validateValue(spec, parameter, value) {
   }
   if (Array.isArray(schema.enum)) {
     const valid = schema.enum.map(String);
-    if (!valid.some(entry => entry.toLowerCase() === value.toLowerCase())) {
+    if (!valid.some((entry) => entry.toLowerCase() === value.toLowerCase())) {
       throw new CliError(`Query parameter ${parameter.name} must be one of: ${valid.join(', ')}.`);
     }
   }
@@ -864,16 +864,16 @@ function buildRequestPlan(spec, selection, options) {
   const parameters = parametersFor(spec, selection.entry);
   const pathParameters = new Map(
     parameters
-      .filter(parameter => parameter.in === 'path')
-      .map(parameter => [parameter.name, parameter]),
+      .filter((parameter) => parameter.in === 'path')
+      .map((parameter) => [parameter.name, parameter]),
   );
   const queryParameters = new Map(
     parameters
-      .filter(parameter => parameter.in === 'query')
-      .map(parameter => [parameter.name, parameter]),
+      .filter((parameter) => parameter.in === 'query')
+      .map((parameter) => [parameter.name, parameter]),
   );
-  const userPathPairs = options.path.map(value => parseKeyValue(value, '--path'));
-  const userQueryPairs = options.query.map(value => parseKeyValue(value, '--query'));
+  const userPathPairs = options.path.map((value) => parseKeyValue(value, '--path'));
+  const userQueryPairs = options.query.map((value) => parseKeyValue(value, '--query'));
   const pathValues = new Map(selection.linkPathValues);
 
   for (const [name, value] of userPathPairs) {
@@ -989,7 +989,7 @@ async function writePrivateFile(outputPath, contents) {
 }
 
 async function emitNdjsonPage(rows, outputPath, isFirstPage) {
-  const text = rows.map(row => JSON.stringify(row)).join('\n');
+  const text = rows.map((row) => JSON.stringify(row)).join('\n');
   const contents = text ? `${text}\n` : '';
   if (outputPath) {
     if (isFirstPage) await writePrivateFile(outputPath, contents);
@@ -1003,7 +1003,7 @@ async function emitJson(value, format, outputPath) {
   let text;
   if (format === 'ndjson') {
     const rows = Array.isArray(value) ? value : [value];
-    text = rows.map(row => JSON.stringify(row)).join('\n');
+    text = rows.map((row) => JSON.stringify(row)).join('\n');
     if (text) text += '\n';
   } else {
     text = `${JSON.stringify(value, null, 2)}\n`;
@@ -1170,7 +1170,7 @@ function printDescription(description) {
   process.stdout.write('Authentication alternatives:\n');
   if (description.security.length === 0) process.stdout.write('  None documented\n');
   for (const alternative of description.security) {
-    process.stdout.write(`  ${alternative.map(scheme => scheme.name).join(' + ')}\n`);
+    process.stdout.write(`  ${alternative.map((scheme) => scheme.name).join(' + ')}\n`);
     for (const scheme of alternative) {
       if (scheme.description)
         process.stdout.write(`    ${scheme.description.replace(/\s+/g, ' ').trim()}\n`);
@@ -1205,7 +1205,7 @@ function printDescription(description) {
     process.stdout.write(`  item: ${description.response.item.type}; fields: ${itemFields}\n`);
   }
   const otherResponses = description.responses.filter(
-    response => response.status !== description.response.status,
+    (response) => response.status !== description.response.status,
   );
   if (otherResponses.length > 0) {
     process.stdout.write('Other responses:\n');
@@ -1246,12 +1246,12 @@ async function main() {
       title: spec.info?.title ?? 'Nx Cloud API',
       version: spec.info?.version ?? spec.openapi ?? 'unknown',
       openapi: spec.openapi ?? 'unknown',
-      security: (spec.security ?? []).map(requirement => Object.keys(requirement)),
-      operations: listOperations(spec).map(entry => ({
+      security: (spec.security ?? []).map((requirement) => Object.keys(requirement)),
+      operations: listOperations(spec).map((entry) => ({
         method: entry.method,
         path: entry.path,
         summary: entry.operation.summary ?? '',
-        parameters: parametersFor(spec, entry).map(parameter => ({
+        parameters: parametersFor(spec, entry).map((parameter) => ({
           in: parameter.in,
           name: parameter.name,
           required: Boolean(parameter.required),
@@ -1359,7 +1359,7 @@ function recoverySteps(error) {
   ];
 }
 
-main().catch(error => {
+main().catch((error) => {
   const message = error instanceof CliError ? error.message : `Unexpected error: ${error.message}`;
   process.stderr.write(`Error: ${message}\n`);
   const steps = recoverySteps(error);

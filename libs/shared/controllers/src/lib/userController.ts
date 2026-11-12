@@ -11,8 +11,7 @@ import {
   OK,
   UNAUTHORIZED,
 } from '@domo/types';
-import { verifyToken, clearAuthCookies } from '@domo/utils';
-import { appAssert, catchErrors } from '@domo/utils/client';
+import { appAssert, catchErrors, clearAuthCookies, verifyToken } from '@domo/utils/server';
 import { ObjectId } from 'bson';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import z from 'zod';
@@ -58,14 +57,14 @@ export const getUsersHandler = catchErrors(async (req: FastifyRequest, reply: Fa
     .project({ password: 0, otp: 0, otpExpiresAt: 0 })
     .toArray();
 
-  const sanitizedUsers = users.map(u => sanitizeUser(u as UserEntity));
+  const sanitizedUsers = users.map((u) => sanitizeUser(u as UserEntity));
   return reply.status(OK).send(sanitizedUsers);
 });
 
 /* GET /user/me */
 export const getCurrentUserHandler = catchErrors(
   async (req: FastifyRequest, reply: FastifyReply) => {
-    const accessToken = req.cookies['accessToken'];
+    const accessToken = req.cookies.accessToken;
     appAssert(accessToken, UNAUTHORIZED, 'Missing access token');
 
     try {
@@ -121,7 +120,7 @@ export const updateHandler = catchErrors(
 
     const isSelf = requestingUserId === targetUserId;
     const permissions = (r.authUser?.permissions ?? []) as string[];
-    const hasPerm = (permissions || []).some(p =>
+    const hasPerm = (permissions || []).some((p) =>
       [
         'canEditUser',
         'canEditAnyUser',

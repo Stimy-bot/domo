@@ -7,6 +7,6 @@
     "outDir": "../../../dist/libs/shared/state",
     "tsBuildInfoFile": "../../../dist/libs/shared/state.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx"],
   "references": []
 }

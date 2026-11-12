@@ -10,8 +10,7 @@ import {
 } from '@tanstack/react-form';
 import type React from 'react';
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Captcha from './captcha';
+import { Captcha } from './captcha';
 import { SubmitButton } from './submitButton';
 
 export type ConsistentFormApi<TFormValues extends Record<string, unknown>> = FormApi<
@@ -34,6 +33,7 @@ type ConsistentFieldApi<
 > = TanstackFieldApi<
   TFormValues,
   TName,
+  // biome-ignore lint/suspicious/noExplicitAny: <>
   any,
   undefined,
   undefined,
@@ -65,6 +65,7 @@ export interface SubmissionResult {
 
 export interface FormFactoryProps<TFormValues extends Record<string, unknown>> {
   formOptions: Omit<
+    // biome-ignore lint/suspicious/noExplicitAny: <>
     FormOptions<TFormValues, any, any, any, any, any, any, any, any, any, any>,
     'onSubmit'
   >;
@@ -105,7 +106,6 @@ function FormFactory<TFormValues extends Record<string, unknown>>({
   submitButtonText, // Added this missing prop to the destructuring
 }: FormFactoryProps<TFormValues>) {
   const { addToast } = useToast();
-  const navigate = useNavigate();
 
   const [captchaVerified, setCaptchaVerified] = useState(false);
   const [captchaError, setCaptchaError] = useState('');
@@ -126,7 +126,7 @@ function FormFactory<TFormValues extends Record<string, unknown>>({
       if (result.success) {
         addToast({ message: result.message, type: 'success' });
         if (result.redirect) {
-          navigate(result.redirect, { replace: true });
+          window.location.replace(result.redirect);
         }
       } else {
         addToast({
@@ -164,17 +164,17 @@ function FormFactory<TFormValues extends Record<string, unknown>>({
   }, [fieldsConfig]);
 
   return (
-    <div className="container pb-20 mx-auto px-5 dark:bg-dark-hard bg-white">
-      <form onSubmit={handleSubmit} className="flex flex-col w-full">
+    <div className='container pb-20 mx-auto px-5 dark:bg-dark-hard'>
+      <form onSubmit={handleSubmit} className='flex flex-col w-full'>
         {Object.entries(groupedFields).map(([section, fields]) => (
-          <div key={section} className="mb-6">
+          <div key={section} className='mb-6'>
             {section !== 'default' && (
-              <div className="col-span-full mb-6">
-                <div className="flex items-center gap-4">
-                  <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+              <div className='col-span-full mb-6'>
+                <div className='flex items-center gap-4'>
+                  <h3 className='text-xl font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider'>
                     {section}
                   </h3>
-                  <div className="h-px grow bg-gray-200 dark:bg-zinc-800" />
+                  <div className='h-px grow bg-gray-200 dark:bg-zinc-800' />
                 </div>
               </div>
             )}
@@ -183,7 +183,7 @@ function FormFactory<TFormValues extends Record<string, unknown>>({
                 if (visible && !visible(form)) return null;
                 return (
                   <form.Field key={name} name={name} validators={validators as any}>
-                    {field => (
+                    {(field) => (
                       <Component
                         field={field as unknown as ConsistentFieldApi<TFormValues>}
                         label={label}
@@ -199,14 +199,14 @@ function FormFactory<TFormValues extends Record<string, unknown>>({
         ))}
 
         <Captcha
-          onVerify={isVerified => {
+          onVerify={(isVerified) => {
             setCaptchaVerified(isVerified);
             if (isVerified) setCaptchaError('');
           }}
         />
 
         {captchaError && (
-          <p className="p-4 text-center text-red-500 text-sm mt-2 font-semibold">{captchaError}</p>
+          <p className='p-4 text-center text-red-500 text-sm mt-2 font-semibold'>{captchaError}</p>
         )}
 
         <SubmitButton

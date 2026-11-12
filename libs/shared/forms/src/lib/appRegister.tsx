@@ -17,7 +17,6 @@ import { navigate } from '@domo/utils';
 import { useMutation } from '@tanstack/react-query';
 import type React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { OtpVerificationForm } from './otpVerificationForm';
 
 type RegisterFormValues = {
@@ -58,6 +57,7 @@ function AppRegister() {
   }): Promise<SubmissionResult> => {
     try {
       // 1. Perform the Mutation
+      // biome-ignore lint/suspicious/noExplicitAny: <>
       await registerAsync(value as any);
 
       setPhone(value.phone);
@@ -89,6 +89,7 @@ function AppRegister() {
       name: 'firstName',
       label: 'First Name',
       placeholder: 'Enter First Name',
+      // biome-ignore lint/suspicious/noExplicitAny: <>
       component: TextInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -103,6 +104,7 @@ function AppRegister() {
       name: 'lastName',
       label: 'Last Name',
       placeholder: 'Enter Last Name',
+      // biome-ignore lint/suspicious/noExplicitAny: <>
       component: TextInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -117,6 +119,7 @@ function AppRegister() {
       name: 'phone',
       label: 'Phone Number',
       placeholder: 'Enter phone number',
+      // biome-ignore lint/suspicious/noExplicitAny: <>
       component: PhoneNumberInput as React.ComponentType<any>,
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -136,6 +139,7 @@ function AppRegister() {
       label: 'Email address',
       placeholder: 'Enter email',
       component: EmailInput,
+      props: { className: 'w-full py-4' },
       validators: {
         onChangeAsyncDebounceMs: 500,
         onChangeAsync: ({ value }: { value: string }) => {
@@ -148,6 +152,7 @@ function AppRegister() {
     {
       name: 'birthDate',
       label: 'Your Date of Birth',
+      // biome-ignore lint/suspicious/noExplicitAny: <>
       component: StyledDatePicker as React.ComponentType<any>,
       props: { type: 'date' },
       validators: {
@@ -200,7 +205,7 @@ function AppRegister() {
           fieldApi,
         }: {
           value: string;
-          fieldApi: any; // Type is simplified for FormFactory usage
+          fieldApi: { form: { getFieldValue: (field: 'password') => string } };
         }) => {
           if (!value) return 'Must enter a matching password';
           if (value !== fieldApi.form.getFieldValue('password')) {
@@ -214,37 +219,37 @@ function AppRegister() {
 
   return (
     <MainLayout>
-      <section className="container h-full md:w-150 w-full mx-auto px-5 py-20">
-        <div className="w-full h-full mx-auto">
-          <h2 className="font-roboto text-4xl font-bold text-center text-dark-hard dark:text-#5a7184">
+      <section className='container h-full md:w-150 w-full mx-auto px-5 py-20'>
+        <div className='w-full h-full mx-auto'>
+          <h2 className='font-roboto text-4xl font-bold text-center text-dark-hard dark:text-#5a7184'>
             {step === 'register' ? 'Create an account' : 'Verify your phone'}
           </h2>
-          <div className="p-8 rounded-lg border-solid border-dark-light shadow-2xl pt-10">
+          <div className='p-8 rounded-lg border-solid border-dark-light shadow-2xl pt-10'>
             {step === 'register' ? (
               <>
                 <FormFactory
                   formOptions={registerFormOptions}
                   fieldsConfig={registerFieldsConfig}
                   onValidSubmit={handleRegisterSubmit}
-                  submitButtonText="Register"
+                  submitButtonText='Register'
                 />
-                <p className="text-dark-hard text-sm text-center  dark:text-dark-light">
+                <p className='text-dark-hard text-sm text-center  dark:text-dark-light'>
                   Already have an account?{' '}
-                  <Link to="/login" className="text-blue-400 font-bold hover:underline">
+                  <a href='/login' className='text-blue-400 font-bold hover:underline'>
                     Sign in
-                  </Link>
+                  </a>
                 </p>
               </>
             ) : (
-              <div className="flex flex-col items-center">
-                <p className="text-center mb-4 text-dark-light">
+              <div className='flex flex-col items-center'>
+                <p className='text-center mb-4 text-dark-light'>
                   We sent a code to <strong>{phone}</strong>
                 </p>
                 <OtpVerificationForm phone={phone} onSuccess={() => navigate('/')} />
                 <button
-                type='button'
+                  type='button'
                   onClick={() => setStep('register')}
-                  className="relative mt-4 text-sm text-blue-500 hover:underline"
+                  className='relative mt-4 text-sm text-blue-500 hover:underline'
                 >
                   ← Back to registration
                 </button>

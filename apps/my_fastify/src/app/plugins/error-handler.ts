@@ -6,7 +6,7 @@ import { AppError } from '@domo/constants';
 import type { FastifyError, FastifyPluginAsync } from 'fastify';
 import fp from 'fastify-plugin';
 
-const errorHandlerPlugin: FastifyPluginAsync = async fastify => {
+const errorHandlerPlugin: FastifyPluginAsync = async (fastify) => {
   const viewsDir = path.resolve(process.cwd(), 'apps/api/src/views');
 
   fastify.setErrorHandler((error: FastifyError | AppError | Error, request, reply) => {

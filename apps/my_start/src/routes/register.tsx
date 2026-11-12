@@ -1,5 +1,16 @@
+// apps/my_start/src/routes/register.tsx
+import { dateRegex, emailRegex, phoneRegex, pwRegex } from '@domo/constants';
+import {
+  Captcha,
+  EmailInput,
+  PasswordInput,
+  PhoneNumberInput,
+  StyledDatePicker,
+  TextInput,
+} from '@domo/reusableComponents';
+import { UiButton } from '@domo/ui-buttons';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { type FormEvent, useState } from 'react';
+import { type ChangeEvent, type SyntheticEvent, useState } from 'react';
 import { signUp } from '../lib/auth-client';
 
 export const Route = createFileRoute('/register')({
@@ -10,111 +21,170 @@ function RouteComponent() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [captchaError, setCaptchaError] = useState('');
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const validateForm = (): string | null => {
+    if (!firstName.trim()) return 'First name is required.';
+    if (!lastName.trim()) return 'Last name is required.';
+    if (!emailRegex.test(email)) return 'Please enter a valid email address.';
+    if (!phoneRegex.test(phoneNumber))
+      return 'Please enter a valid phone number (e.g., +12025550123).';
+    if (!dateRegex.test(birthDate)) return 'Please enter a valid birth date in MM-DD-YYYY format.';
+    if (!pwRegex.test(password))
+      return 'Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character (@$!%*?&).';
+    if (password !== confirmPassword) return 'Passwords do not match.';
+    return null;
+  };
+
+  const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
+    setCaptchaError('');
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    if (!captchaVerified) {
+      setCaptchaError('Please complete the CAPTCHA verification.');
       return;
     }
 
     setIsPending(true);
+
     try {
       const response = await signUp.email({
-        name: `${firstName.trim()} ${lastName.trim()}`.trim(),
         email,
         password,
+        name: `${firstName} ${lastName}`.trim(),
+        firstName,
+        lastName,
+        phoneNumber,
+        birthDate,
       });
+
       if (response.error) {
-        setError(response.error.message ?? 'Unable to register. Please try again.');
+        setError(response.error.message ?? 'Unable to sign up. Please try again.');
         return;
       }
 
       window.location.assign('/dashboard');
-    } catch (error) {
-      setError(error instanceof Error ? error.message : 'Unable to register. Please try again.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to sign up. Please try again.');
     } finally {
       setIsPending(false);
     }
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden p-4">
-      <main className="island-shell rise-in flex flex-col items-center justify-center max-w-400 min-h-[60vh] px-4 text-center rounded-lg">
-        <div className="pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
-        <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
-        <form className="pt-5 w-75 flex flex-col items-center" onSubmit={handleSubmit}>
-          <h1 className="text-4xl font-semibold pt-5 mb-2">REGISTER</h1>
-          <input
-            type="text"
-            placeholder="Enter First Name"
-            className="demo-input m-2"
-            autoComplete="given-name"
+    <div className='relative flex h-vh items-center justify-center overflow-hidden p-4 pb-15 mb-4'>
+      <main className='island-shell rise-in max-w-400 flex min-h-[60vh] flex-col items-center justify-center rounded-lg px-4 text-center'>
+        <div className='pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]' />
+        <div className='pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]' />
+        <form className='flex w-75 flex-col items-center' onSubmit={handleSubmit}>
+          <h1 className='m-4 text-4xl font-semibold'>Create account</h1>
+
+          <TextInput
+            placeholder='Enter First Name'
+            autoComplete='given-name'
             required
             value={firstName}
-            onChange={event => setFirstName(event.target.value)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setFirstName(event.target.value)}
             disabled={isPending}
           />
-          <input
-            type="text"
-            placeholder="Enter Last Name"
-            className="demo-input m-2"
-            autoComplete="family-name"
+
+          <TextInput
+            placeholder='Enter Last Name'
+            autoComplete='family-name'
             required
             value={lastName}
-            onChange={event => setLastName(event.target.value)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setLastName(event.target.value)}
             disabled={isPending}
           />
-          <input
-            type="email"
-            placeholder="Enter Email"
-            className="demo-input m-2"
-            autoComplete="email"
+
+          <EmailInput
+            placeholder='Enter Email'
+            autoComplete='email'
             required
             value={email}
-            onChange={event => setEmail(event.target.value)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
             disabled={isPending}
           />
-          <input
-            type="password"
-            placeholder="Enter Password"
-            className="demo-input m-2"
-            autoComplete="new-password"
+
+          <PhoneNumberInput
+            placeholder='Enter Phone Number'
+            autoComplete='tel'
+            required
+            value={phoneNumber}
+            onChange={(val) => setPhoneNumber(typeof val === 'string' ? val : val.target.value)}
+            disabled={isPending}
+          />
+
+          <StyledDatePicker
+            placeholder='DD-MM-YYYY'
+            required
+            value={birthDate}
+            onChange={(val) => setBirthDate(typeof val === 'string' ? val : val.target.value)}
+            disabled={isPending}
+            className='demo-select m-4'
+          />
+
+          <PasswordInput
+            placeholder='Enter Password'
             required
             value={password}
-            onChange={event => setPassword(event.target.value)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
             disabled={isPending}
           />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            className="demo-input m-2"
-            autoComplete="new-password"
+
+          <PasswordInput
+            placeholder='Confirm Password'
             required
             value={confirmPassword}
-            onChange={event => setConfirmPassword(event.target.value)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              setConfirmPassword(event.target.value)
+            }
             disabled={isPending}
           />
+
           {error && (
-            <p role="alert" className="text-sm text-red-600 dark:text-red-400">
+            <p role='alert' className='text-sm text-red-600 dark:text-red-400'>
               {error}
             </p>
           )}
-          <p className="text-dark-hard text-sm text-center  dark:text-dark-light">
+
+          <Captcha
+            onVerify={(isVerified: boolean) => {
+              setCaptchaVerified(isVerified);
+              if (isVerified) setCaptchaError('');
+            }}
+          />
+
+          {captchaError && (
+            <p className='p-4 text-center text-red-500 text-sm mt-2 font-semibold'>
+              {captchaError}
+            </p>
+          )}
+
+          <p className='text-dark-hard mt-4 text-center text-sm'>
             Already have an account?{' '}
-            <Link to="/login" className="text-blue-400 font-bold hover:underline">
+            <Link to='/login' className='font-bold text-blue-400 hover:underline'>
               Sign in
             </Link>
           </p>
-          <button type="submit" className="demo-button m-2" disabled={isPending}>
-            {isPending ? 'Creating account...' : 'Submit'}
-          </button>
+
+          <UiButton type='submit' className='demo-button w-full m-2' disabled={isPending}>
+            {isPending ? 'Signing up...' : 'Submit'}
+          </UiButton>
         </form>
       </main>
     </div>

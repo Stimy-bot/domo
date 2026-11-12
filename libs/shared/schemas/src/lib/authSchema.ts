@@ -39,7 +39,7 @@ export const phoneSchema = z
   .regex(/^\+?[1-9]\d{7,14}$/, {
     message: 'Invalid phone number format (E.164)',
   })
-  .transform(val => (val.startsWith('+') ? val : `+${val}`));
+  .transform((val) => (val.startsWith('+') ? val : `+${val}`));
 export const carrierSchema = z.enum(['att', 'verizon', 'tmobile']);
 export const otpSchema = z
   .string()
@@ -67,10 +67,10 @@ export const birthDateSchema = z
     message: 'Birth date is required',
   })
   .pipe(z.coerce.date({ message: 'Invalid date format' }))
-  .refine(date => !isNaN(date.getTime()), {
+  .refine((date) => !Number.isNaN(date.getTime()), {
     message: 'Invalid date format',
   })
-  .refine(date => calculateAge(date) >= 18, {
+  .refine((date) => calculateAge(date) >= 18, {
     message: 'You must be at least 18 years old',
   });
 
@@ -87,12 +87,12 @@ export const familyNameSchema = z.string().trim().min(3).max(64).optional().or(z
  * Used for: The final validation of the 6-digit code
  */
 export const verifyOtpSchema = z.preprocess(
-  input => {
+  (input) => {
     if (typeof input === 'object' && input !== null) {
       const obj = input as Record<string, unknown>;
       // Accept either `code` or `otp` from clients
-      if (obj['code'] && !obj['otp']) obj['otp'] = obj['code'];
-      if (obj['otp'] != null) obj['otp'] = String(obj['otp']);
+      if (obj.code && !obj.otp) obj.otp = obj.code;
+      if (obj.otp != null) obj.otp = String(obj.otp);
       return obj;
     }
     return input;
@@ -154,7 +154,7 @@ export const registerSchema = loginSchema
     ip: z.string().default('unknown'),
     otp: otpSchema.optional(),
   })
-  .refine(data => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   });
@@ -183,7 +183,7 @@ const baseUpdate = z.object({
  * Used for: Updating User Information
  */
 export const updateSchema = baseUpdate.partial().refine(
-  data => {
+  (data) => {
     if (data.password == null && data.confirmPassword == null) return true;
     return data.password === data.confirmPassword;
   },

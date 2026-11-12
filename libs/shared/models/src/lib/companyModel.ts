@@ -148,7 +148,7 @@ export class CompanyModel {
     };
 
     if (updateData.company_email) {
-      setPayload['company_email'] = updateData.company_email.trim().toLowerCase();
+      setPayload.company_email = updateData.company_email.trim().toLowerCase();
     }
 
     const result = await getCompanyCollection(db).findOneAndUpdate(

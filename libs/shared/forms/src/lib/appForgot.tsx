@@ -69,19 +69,19 @@ function AppForgot() {
 
   return (
     <MainLayout>
-      <div className="container md:w-150 mx-auto py-20">
-        <div className="w-full m-w-sm mx-auto">
-          <div className="w-150 h-full py-20 m-w-sm mx-auto dark:text-dark-light">
-            <div className="p-8 rounded-lg border-solid border-dark-light shadow-2xl">
+      <div className='container md:w-150 mx-auto py-20'>
+        <div className='w-full m-w-sm mx-auto'>
+          <div className='w-150 h-full py-20 m-w-sm mx-auto dark:text-dark-light'>
+            <div className='p-8 rounded-lg border-solid border-dark-light shadow-2xl'>
               <main>
-                <h2 className="font-roboto text-4xl font-bold text-center text-dark-hard mb-8 dark:text-dark-light">
+                <h2 className='font-roboto text-4xl font-bold text-center text-dark-hard mb-8 dark:text-dark-light'>
                   Forgot Password
                 </h2>
                 <FormFactory
                   formOptions={forgotFormOptions}
                   fieldsConfig={forgotFieldsConfig}
                   onValidSubmit={handleForgotSubmit}
-                  submitButtonText="Send Reset Link"
+                  submitButtonText='Send Reset Link'
                 />
               </main>
             </div>

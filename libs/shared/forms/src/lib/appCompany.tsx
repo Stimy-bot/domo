@@ -39,7 +39,7 @@ type CompanyFormValues = {
 // Helper to determine the type used by the mutation
 type CreateCompanyPayload = CreateCompany;
 // Options for the SelectInput component
-const categoryOptions = companyCategoryEnum.options.map(value => ({
+const categoryOptions = companyCategoryEnum.options.map((value) => ({
   value,
   label: formatNameToTitle(value),
 }));
@@ -314,15 +314,15 @@ function AppCompany() {
 
   return (
     <MainLayout>
-      <hgroup className="pt-20">
-        <h2 className="flex justify-center font-roboto text-4xl font-bold text-center text-dark-hard mb-2 dark:text-dark-light">
+      <hgroup className='pt-20'>
+        <h2 className='flex justify-center font-roboto text-4xl font-bold text-center text-dark-hard mb-2 dark:text-dark-light'>
           Join Directory
         </h2>
-        <p className="font-roboto text-md font-bold text-center text-dark-hard mb-2 dark:text-dark-light">
+        <p className='font-roboto text-md font-bold text-center text-dark-hard mb-2 dark:text-dark-light'>
           Please provide your information below
         </p>
       </hgroup>
-      <div className="min-h-screen grid place-content-center px-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className='min-h-screen grid place-content-center px-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
         <FormFactory<CompanyFormValues>
           formOptions={companyFormOptions}
           fieldsConfig={companyFormConfig}

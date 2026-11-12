@@ -8,6 +8,7 @@
     "tsBuildInfoFile": "../../../dist/libs/shared/models.tsbuildinfo"
   },
   "include": [
+    "src/**/*",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.tsx",

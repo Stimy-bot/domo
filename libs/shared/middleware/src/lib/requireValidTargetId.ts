@@ -15,10 +15,10 @@ export async function requireValidTargetId(req: FastifyRequest, reply: FastifyRe
 
   // Support both :id and :userId route param names
   const rawId =
-    typeof params['id'] === 'string'
-      ? params['id']
-      : typeof params['userId'] === 'string'
-        ? params['userId']
+    typeof params.id === 'string'
+      ? params.id
+      : typeof params.userId === 'string'
+        ? params.userId
         : undefined;
 
   // 1) Missing or literally "undefined"

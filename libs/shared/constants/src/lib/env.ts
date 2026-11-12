@@ -41,7 +41,7 @@ export function loadEnv() {
   const raw = Value.Cast(EnvSchema, process.env) as unknown as RawEnv;
 
   // Normalize and convert types
-  const nodeEnv = raw.NODE_ENV ?? process.env['NODE_ENV'] ?? 'development';
+  const nodeEnv = raw.NODE_ENV ?? process.env.NODE_ENV ?? 'development';
   const smsMock = raw.SMS_MOCK === 'true' || raw.SMS_MOCK === '1';
 
   const config = {
@@ -50,7 +50,7 @@ export function loadEnv() {
     JWT_REFRESH_SECRET: raw.JWT_REFRESH_SECRET,
     COOKIE_SECRET: raw.COOKIE_SECRET,
     NODE_ENV: nodeEnv as 'development' | 'production' | 'test',
-    SERVER_PORT: raw.SERVER_PORT ?? process.env['SERVER_PORT'],
+    SERVER_PORT: raw.SERVER_PORT ?? process.env.SERVER_PORT,
     HOST: raw.HOST,
     PORT: raw.PORT,
     APP_ORIGIN: raw.APP_ORIGIN,

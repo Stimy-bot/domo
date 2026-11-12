@@ -11,10 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as QuotesRouteImport } from './routes/quotes'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as ApiNameRouteImport } from './routes/api.name'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
@@ -28,6 +31,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -38,14 +46,24 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QuotesRoute = QuotesRouteImport.update({
-  id: '/quotes',
-  path: '/quotes',
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuoteRoute = QuoteRouteImport.update({
+  id: '/quote',
+  path: '/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThankYouRoute = ThankYouRouteImport.update({
+  id: '/thank-you',
+  path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiNameRoute = ApiNameRouteImport.update({
@@ -62,20 +80,26 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/quotes': typeof QuotesRoute
+  '/profile': typeof ProfileRoute
+  '/quote': typeof QuoteRoute
   '/register': typeof RegisterRoute
+  '/thank-you': typeof ThankYouRoute
   '/api/name': typeof ApiNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/quotes': typeof QuotesRoute
+  '/profile': typeof ProfileRoute
+  '/quote': typeof QuoteRoute
   '/register': typeof RegisterRoute
+  '/thank-you': typeof ThankYouRoute
   '/api/name': typeof ApiNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -83,10 +107,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
-  '/quotes': typeof QuotesRoute
+  '/profile': typeof ProfileRoute
+  '/quote': typeof QuoteRoute
   '/register': typeof RegisterRoute
+  '/thank-you': typeof ThankYouRoute
   '/api/name': typeof ApiNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -95,30 +122,39 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/contact'
     | '/dashboard'
     | '/login'
-    | '/quotes'
+    | '/profile'
+    | '/quote'
     | '/register'
+    | '/thank-you'
     | '/api/name'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/contact'
     | '/dashboard'
     | '/login'
-    | '/quotes'
+    | '/profile'
+    | '/quote'
     | '/register'
+    | '/thank-you'
     | '/api/name'
     | '/api/auth/$'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/contact'
     | '/dashboard'
     | '/login'
-    | '/quotes'
+    | '/profile'
+    | '/quote'
     | '/register'
+    | '/thank-you'
     | '/api/name'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
@@ -126,10 +162,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
-  QuotesRoute: typeof QuotesRoute
+  ProfileRoute: typeof ProfileRoute
+  QuoteRoute: typeof QuoteRoute
   RegisterRoute: typeof RegisterRoute
+  ThankYouRoute: typeof ThankYouRoute
   ApiNameRoute: typeof ApiNameRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
@@ -150,6 +189,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -164,11 +210,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/quotes': {
-      id: '/quotes'
-      path: '/quotes'
-      fullPath: '/quotes'
-      preLoaderRoute: typeof QuotesRouteImport
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quote': {
+      id: '/quote'
+      path: '/quote'
+      fullPath: '/quote'
+      preLoaderRoute: typeof QuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/register': {
@@ -176,6 +229,13 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/thank-you': {
+      id: '/thank-you'
+      path: '/thank-you'
+      fullPath: '/thank-you'
+      preLoaderRoute: typeof ThankYouRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/name': {
@@ -198,10 +258,13 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
-  QuotesRoute: QuotesRoute,
+  ProfileRoute: ProfileRoute,
+  QuoteRoute: QuoteRoute,
   RegisterRoute: RegisterRoute,
+  ThankYouRoute: ThankYouRoute,
   ApiNameRoute: ApiNameRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }

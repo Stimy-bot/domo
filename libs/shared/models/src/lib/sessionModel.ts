@@ -1,6 +1,6 @@
 // @domo/libs/models/src/lib/sessionModel.ts
 
-import { signToken } from '@domo/utils';
+import { signToken } from '@domo/utils/server';
 import type { Db, ObjectId } from 'mongodb';
 
 const thirtyDaysFromNow = () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
@@ -31,7 +31,7 @@ export function getRefreshToken(sessionId: ObjectId | string): string {
   const payload: RefreshTokenPayload = {
     sessionId: sessionId.toString(),
   };
-  const secret = process.env['JWT_REFRESH_SECRET'];
+  const secret = process.env.JWT_REFRESH_SECRET;
 
   if (!secret) {
     throw new Error('JWT_REFRESH_SECRET is not configured');
@@ -39,7 +39,7 @@ export function getRefreshToken(sessionId: ObjectId | string): string {
 
   return signToken(payload, {
     secret,
-    expiresIn: 30 * 24 * 60 * 60 * 1000,
+    expiresIn: '30d',
   });
 }
 

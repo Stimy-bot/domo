@@ -1,4 +1,4 @@
-;(() => {
+(() => {
   try {
     const stored = window.localStorage.getItem('theme');
     const mode = stored === 'light' || stored === 'dark' || stored === 'auto' ? stored : 'auto';
@@ -16,5 +16,5 @@
     }
 
     root.style.colorScheme = resolved;
-  } catch (e) {}
+  } catch (_e) {}
 })();

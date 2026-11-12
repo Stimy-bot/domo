@@ -3,8 +3,8 @@ import { AppErrorCode } from '@domo/constants';
 import type { RoleType, UserEntity } from '@domo/models';
 import type { AccessTokenPayload } from '@domo/types';
 import { UNAUTHORIZED } from '@domo/types';
-import { appAssert } from '@domo/utils/client';
-import { verifyToken } from '@domo/utils';
+import { appAssert } from '@domo/utils';
+import { verifyToken } from '@domo/utils/server';
 import { ObjectId } from '@fastify/mongodb';
 import type { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
@@ -15,7 +15,7 @@ export const authenticateHook = async (req: FastifyRequest) => {
 
   const authHeader = String(req.headers.authorization || '');
   const bearerToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : undefined;
-  const accessToken = cookies?.['accessToken'] || bearerToken;
+  const accessToken = cookies?.accessToken || bearerToken;
 
   if (!accessToken) {
     appAssert(false, UNAUTHORIZED, 'Not authorized', AppErrorCode.InvalidAccessToken);
@@ -105,7 +105,7 @@ export const authenticateHook = async (req: FastifyRequest) => {
   reqWithUser.sessionId = pl.sessionId;
 };
 
-const authenticatePlugin: FastifyPluginAsync = async fastify => {
+const authenticatePlugin: FastifyPluginAsync = async (fastify) => {
   fastify.decorateRequest('user', null as never);
   fastify.decorateRequest('authUser', null as never);
   fastify.decorateRequest('userId', undefined);

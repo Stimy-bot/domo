@@ -11,7 +11,7 @@ export const useOtpVerification = (phone: string) => {
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (timer > 0) {
-      interval = setInterval(() => setTimer(prev => prev - 1), 1000);
+      interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
     } else {
       setCanResend(true);
     }

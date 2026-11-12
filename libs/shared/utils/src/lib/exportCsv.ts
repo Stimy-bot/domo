@@ -3,7 +3,7 @@ import type { AuditLog, Quote } from '@domo/types';
 
 export const exportAuditLogsToCSV = (logs: AuditLog[]) => {
   const headers = ['Event', 'Actor', 'Target', 'Date'];
-  const rows = logs.map(log => [
+  const rows = logs.map((log) => [
     log.type,
     (log.actor as { email?: string } | null | undefined)?.email || '-',
     (log.target as { email?: string } | null | undefined)?.email || '-',
@@ -11,7 +11,7 @@ export const exportAuditLogsToCSV = (logs: AuditLog[]) => {
   ]);
 
   const csvContent = [headers, ...rows]
-    .map(row => row.map(cell => `"${cell}"`).join(','))
+    .map((row) => row.map((cell) => `"${cell}"`).join(','))
     .join('\n');
 
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -40,7 +40,7 @@ export const exportQuoteToCSV = (quotes: Quote[]) => {
   ];
 
   // 2. Map the quote data to rows
-  const rows = quotes.map(quote => [
+  const rows = quotes.map((quote) => [
     quote.firstName,
     quote.lastName,
     quote.email,
@@ -55,7 +55,7 @@ export const exportQuoteToCSV = (quotes: Quote[]) => {
 
   // 3. Generate CSV content
   const csvContent = [headers, ...rows]
-    .map(row => row.map(cell => `"${cell}"`).join(','))
+    .map((row) => row.map((cell) => `"${cell}"`).join(','))
     .join('\n');
 
   // 4. Create and trigger download

@@ -12,7 +12,7 @@ import { auditEventTypeSchema, companySchema } from '@domo/schemas';
 import type { FastifyPluginAsync } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 
-const companyRoutes: FastifyPluginAsync = async fastify => {
+const companyRoutes: FastifyPluginAsync = async (fastify) => {
   const server = fastify.withTypeProvider<ZodTypeProvider>();
 
   // Create Company
