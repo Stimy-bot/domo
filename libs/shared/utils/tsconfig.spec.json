@@ -7,7 +7,7 @@
     "jsx": "react-jsx",
     "types": ["vitest/globals", "vitest/importMeta", "vite/client", "node"],
     "outDir": "../../../dist/libs/shared/utils",
-    "tsBuildInfoFile": "../../../dist/libs/shared/utils.tsbuildinfo"
+    "tsBuildInfoFile": "../../../dist/libs/shared/utils/tsconfig.spec.tsbuildinfo"
   },
   "include": [
     "vite.config.ts",

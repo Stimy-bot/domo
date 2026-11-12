@@ -1,5 +1,4 @@
 // libs/shared/forms/src/lib/appQuote.tsx
-
 import { API } from '@domo/config';
 import { emailRegex, phoneRegex, urlRegex } from '@domo/constants';
 import {

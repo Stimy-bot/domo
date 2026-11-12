@@ -38,7 +38,7 @@ export default defineConfig({
       clientPort: 5173, // The port your browser uses
     },
     proxy: {
-      '/api': {
+      '/auth': {
         // CRITICAL: Point to 'backend' service for Docker-to-Docker talk
         target: 'http://localhost:5000',
         changeOrigin: true,

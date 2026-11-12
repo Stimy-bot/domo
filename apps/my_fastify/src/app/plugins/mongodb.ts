@@ -21,7 +21,7 @@ export default fp(
       forceClose: true,
       url,
       // cspell:disable-next-line
-      database: 'totaldata',
+      database: 'Totaldata',
     });
 
     // 2. Wait for fastifyMongo to complete connection & decoration

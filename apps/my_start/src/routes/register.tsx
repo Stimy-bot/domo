@@ -26,7 +26,7 @@ function RouteComponent() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
-const [isPending, setIsPending] = useState(false);
+  const [isPending, setIsPending] = useState(false);
   const [captchaVerified, setCaptchaVerified] = useState(false);
   const [captchaError, setCaptchaError] = useState('');
 

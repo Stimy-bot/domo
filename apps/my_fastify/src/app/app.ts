@@ -1,5 +1,4 @@
 // apps/my_fastify/src/app/app.ts
-
 import { authenticateHook } from '@domo/middleware';
 import type { AutoloadPluginOptions } from '@fastify/autoload';
 import type { FastifyPluginAsync, FastifyServerOptions } from 'fastify';
@@ -36,7 +35,7 @@ const app: FastifyPluginAsync<AppOptions> = async (fastify, opts): Promise<void>
   // Register routes
   await fastify.register(markerRoutes, { ...opts, prefix: '/marker' });
   await fastify.register(healthCheck, { ...opts, prefix: '/healthcheck' });
-  await fastify.register(authRoutes, { ...opts, prefix: '/api/auth' });
+  await fastify.register(authRoutes, { ...opts, prefix: '/auth' });
   await fastify.register(root, { ...opts, prefix: '/' });
   await fastify.register(async (protectedScope) => {
     protectedScope.addHook('onRequest', authenticateHook);

@@ -1,5 +1,4 @@
 // libs/shared/forms/src/lib/appQuote.tsx
-import { API } from '@domo/config';
 import { emailRegex, phoneRegex, urlRegex } from '@domo/constants';
 import {
   EmailInput,
@@ -12,14 +11,10 @@ import {
   TextInput,
 } from '@domo/reusableComponents';
 import { UiButton } from '@domo/ui-buttons';
+import { sendQuoteFn } from '@domo/utils';
 import { exportQuoteToCSV } from '@domo/utils';
 import type React from 'react';
 import { useState } from 'react';
-
-interface ApiResponse {
-  status: string;
-  message: string;
-}
 
 // Define the structure for the quote form values
 type QuoteFormValues = {
@@ -61,25 +56,21 @@ function Quote() {
     value: QuoteFormValues;
   }): Promise<SubmissionResult> => {
     try {
-      const response = (await API.post<any, ApiResponse>(
-        '/sendMail',
-        value,
-      )) as unknown as ApiResponse;
+      // Invoke TanStack Start server function directly
+      await sendQuoteFn({ data: value });
 
       setData((prevData) => [...prevData, value]);
 
-      // API client already returns response.data
       return {
         success: true,
-        message: response.message || 'Message sent successfully!',
+        message: 'Quote request submitted successfully!',
         redirect: '/thank-you',
       };
     } catch (err: any) {
-      console.error('Submission error:', err);
+      console.error('Quote submission error:', err);
       return {
         success: false,
-        // If backend sends a specific error (like "Unverified domain"), show it!
-        message: err.message || 'Something went wrong. Please try again.',
+        message: err.message || 'Failed to submit quote. Please try again.',
       };
     }
   };
@@ -175,7 +166,7 @@ function Quote() {
       props: {
         options: SERVICE_TYPE_OPTIONS,
         placeholder: 'Select type of service...',
-        className: 'demo-select',
+        className: 'demo-input demo-select',
       },
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -190,7 +181,7 @@ function Quote() {
       props: {
         options: PRICE_RANGE_OPTIONS,
         placeholder: 'Select your budget...',
-        className: 'demo-select',
+        className: 'demo-input demo-select',
       },
       validators: {
         onChangeAsyncDebounceMs: 500,
@@ -239,17 +230,16 @@ function Quote() {
           submitButtonText='Request Quote'
         />
 
-          <UiButton
-            onClick={handleExport}
-            className='demo-button w-3/4 mb-4'
-          >
-            Export CSV
-          </UiButton>
-          <span>You will receive an email with the quote within 24 hours!</span>
-          <span className='pb-3'>
-            You can also click the button above to download the quote as a CSV!
-          </span>
-
+        <UiButton
+          onClick={handleExport}
+          className='demo-button w-3/4 mb-4'
+        >
+          Export CSV
+        </UiButton>
+        <span>You will receive an email with the quote within 24 hours!</span>
+        <span className='pb-3'>
+          You can also click the button above to download the quote as a CSV!
+        </span>
       </main>
     </div>
   );

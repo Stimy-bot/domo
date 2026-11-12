@@ -15,6 +15,26 @@ export interface UserDTO {
   createdAt?: string;
 }
 
+export const getUser = createServerFn({ method: 'GET' }).handler(async (): Promise<UserDTO[]> => {
+  const client = await clientPromise;
+  const db = client.db();
+
+  // Query 'user' collection (or 'users' depending on your schema)
+  const user = await db.collection('user').find({}).toArray();
+
+  return user.map((user) => ({
+    id: user._id.toString(),
+    email: user.email ?? '',
+    phoneNumber: user.phoneNumber ?? '',
+    name: user.name ?? 'Anonymous',
+    birthDate: user.name ?? '',
+    image: user.avatar ?? '',
+    role: user.role ?? 'user',
+    bio: user.bio ?? '',
+    createdAt: user.createdAt ? new Date(user.createdAt).toISOString() : undefined,
+  }));
+});
+
 export const getUsers = createServerFn({ method: 'GET' }).handler(async (): Promise<UserDTO[]> => {
   const client = await clientPromise;
   const db = client.db();

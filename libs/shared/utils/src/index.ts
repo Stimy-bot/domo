@@ -10,3 +10,4 @@ export * from './lib/ip';
 export * from './lib/navigation';
 export * from './lib/roles';
 export * from './lib/utils';
+export * from './lib/send-quote'

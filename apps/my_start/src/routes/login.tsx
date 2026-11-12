@@ -1,7 +1,7 @@
 // apps/my_start/src/routes/login.tsx
+import { UiButton } from '@domo/ui-buttons';
 
 import { emailRegex, pwRegex } from '@domo/constants';import { EmailInput, PasswordInput, Captcha } from '@domo/reusableComponents';
-import { UiButton } from '@domo/ui-buttons';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { type ChangeEvent, type SyntheticEvent, useState } from 'react';
 import { signIn } from '../lib/auth-client';
@@ -64,8 +64,8 @@ function RouteComponent() {
       <main className='island-shell rise-in flex flex-col items-center justify-center max-w-400 px-4 text-center rounded-lg'>
         <div className='pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]' />
         <div className='pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]' />
-        <form className='pt-5 w-75 flex flex-col items-center' onSubmit={handleSubmit}>
-          <h1 className='text-4xl font-semibold pt-5 mb-2'> Sign in to your account</h1>
+        <form className='flex w-75 flex-col items-center' onSubmit={handleSubmit}>
+          <h1 className='m-4 text-4xl font-semibold'> Sign in</h1>
           <EmailInput
             placeholder='Enter Email'
             autoComplete='email'

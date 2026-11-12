@@ -4,24 +4,22 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
+    "rootDir": "src",
     "outDir": "../../../dist/libs/shared/client",
     "tsBuildInfoFile": "../../../dist/libs/shared/client.tsbuildinfo"
   },
-  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "files": [],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
-    {
-      "path": "../types"
-    },
-    {
-      "path": "../config"
-    },
-    {
-      "path": "../schemas"
-    },
-    {
-      "path": "../utils"
-    }
+    { "path": "../types" },
+    { "path": "../config" },
+    { "path": "../schemas" },
+    { "path": "../utils" },
+    { "path": "../controllers" },
+    { "path": "../forms" },
+    { "path": "../middleware" },
+    { "path": "../ui-sidebar" },
+    { "path": "../../../tools/tailwind-sync-plugin" }
   ]
 }
