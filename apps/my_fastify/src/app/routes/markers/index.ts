@@ -15,7 +15,7 @@ const markerRoutes: FastifyPluginAsync = async (fastify) => {
       ];
 
       return reply.status(OK).send(markers);
-    } catch (error) {
+    } catch (_error) {
       return reply.status(INTERNAL_SERVER_ERROR).send({ message: 'Failed to load markers' });
     }
   });

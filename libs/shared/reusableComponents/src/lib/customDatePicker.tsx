@@ -7,22 +7,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 const cn = (...classes: (string | undefined)[]) => classes.filter(Boolean).join(' ');
 
 // Custom input used by react-datepicker
-const CustomDateInput = React.forwardRef<
-  HTMLInputElement,
-  React.ComponentPropsWithoutRef<'input'>
->(
+const CustomDateInput = React.forwardRef<HTMLInputElement, React.ComponentPropsWithoutRef<'input'>>(
   ({ className, ...props }, ref) => (
     <input
       {...props}
       ref={ref}
       type='text'
-      className={cn(
-        'custom-class',
-        'additional-class',
-        'w-full',
-        'mt-1',
-        className,
-      )}
+      className={cn('custom-class', 'additional-class', 'w-full', 'mt-1', className)}
     />
   ),
 );

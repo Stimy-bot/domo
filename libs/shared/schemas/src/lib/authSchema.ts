@@ -67,7 +67,7 @@ export const birthDateSchema = z
     message: 'Birth date is required',
   })
   .pipe(z.coerce.date({ message: 'Invalid date format' }))
-  .refine((date) => !isNaN(date.getTime()), {
+  .refine((date) => !Number.isNaN(date.getTime()), {
     message: 'Invalid date format',
   })
   .refine((date) => calculateAge(date) >= 18, {
@@ -91,8 +91,8 @@ export const verifyOtpSchema = z.preprocess(
     if (typeof input === 'object' && input !== null) {
       const obj = input as Record<string, unknown>;
       // Accept either `code` or `otp` from clients
-      if (obj['code'] && !obj['otp']) obj['otp'] = obj['code'];
-      if (obj['otp'] != null) obj['otp'] = String(obj['otp']);
+      if (obj.code && !obj.otp) obj.otp = obj.code;
+      if (obj.otp != null) obj.otp = String(obj.otp);
       return obj;
     }
     return input;

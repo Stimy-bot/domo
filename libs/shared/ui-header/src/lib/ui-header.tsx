@@ -57,6 +57,7 @@ function UiHeader() {
         <nav className='hidden md:flex items-center space-x-6 text-dark-light ml-auto pr-5'>
           {/* Theme Toggle */}
           <button
+          type='button'
             onClick={toggleTheme}
             className='mr-4 rounded border border-(--chip-line) bg-(--chip-bg) px-3 py-1.5 text-sm font-semibold text-(--sea-ink) shadow-[0_8px_22px_rgba(30,90,72,0.08)] transition hover:-translate-y-0.5'
           >
@@ -72,6 +73,7 @@ function UiHeader() {
 
         {/* Mobile Menu Button */}
         <button
+        type='button'
           onClick={toggleMobileMenu}
           className='md:hidden text-dark-light px-3 py-2 rounded hover:bg-dark-soft'
         >
@@ -91,6 +93,7 @@ function UiHeader() {
             ))}
             {/* Theme toggle */}
             <button
+            type='button'
               onClick={toggleTheme}
               className='rounded border border-(--chip-line) bg-(--chip-bg) px-3 py-1.5 text-sm font-semibold text-(--sea-ink) shadow-[0_8px_22px_rgba(30,90,72,0.08)] transition hover:-translate-y-0.5'
             >

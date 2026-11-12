@@ -31,7 +31,7 @@ export function getRefreshToken(sessionId: ObjectId | string): string {
   const payload: RefreshTokenPayload = {
     sessionId: sessionId.toString(),
   };
-  const secret = process.env['JWT_REFRESH_SECRET'];
+  const secret = process.env.JWT_REFRESH_SECRET;
 
   if (!secret) {
     throw new Error('JWT_REFRESH_SECRET is not configured');

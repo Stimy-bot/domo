@@ -123,9 +123,7 @@ const BaseInput = ({
 
   const inputId = id ?? field?.name;
   const inputName = name ?? field?.name;
-  const inputValue = field
-    ? (field.state.value ?? (isFileType ? undefined : ''))
-    : (value ?? '');
+  const inputValue = field ? (field.state.value ?? (isFileType ? undefined : '')) : (value ?? '');
   const inputPlaceholder = placeholder ?? label;
 
   const meta = field?.state?.meta;
@@ -146,7 +144,11 @@ const BaseInput = ({
       field.handleChange(val);
     }
 
-    onChange?.(e as React.ChangeEvent<HTMLInputElement> & React.ChangeEvent<HTMLTextAreaElement> & React.ChangeEvent<HTMLSelectElement>);
+    onChange?.(
+      e as React.ChangeEvent<HTMLInputElement> &
+        React.ChangeEvent<HTMLTextAreaElement> &
+        React.ChangeEvent<HTMLSelectElement>,
+    );
   };
 
   const handleBlur = (e: BlurEvent) => {
@@ -154,7 +156,11 @@ const BaseInput = ({
       field.handleBlur();
     }
 
-    onBlur?.(e as React.FocusEvent<HTMLInputElement> & React.FocusEvent<HTMLTextAreaElement> & React.FocusEvent<HTMLSelectElement>);
+    onBlur?.(
+      e as React.FocusEvent<HTMLInputElement> &
+        React.FocusEvent<HTMLTextAreaElement> &
+        React.FocusEvent<HTMLSelectElement>,
+    );
   };
 
   const commonClassName = `
@@ -187,9 +193,7 @@ const BaseInput = ({
             placeholder={inputPlaceholder}
             className={commonClassName}
           />
-        ) :
-
-        type === 'textarea' ? (
+        ) : type === 'textarea' ? (
           <textarea
             {...(rest as ComponentProps<'textarea'>)}
             id={inputId}
@@ -225,7 +229,11 @@ const BaseInput = ({
             {...(rest as ComponentProps<'input'>)}
             id={inputId}
             name={inputName}
-            value={isFileType ? undefined : (inputValue as string | number | readonly string[] | undefined)}
+            value={
+              isFileType
+                ? undefined
+                : (inputValue as string | number | readonly string[] | undefined)
+            }
             onBlur={handleBlur}
             onChange={handleChange}
             type={inputType}

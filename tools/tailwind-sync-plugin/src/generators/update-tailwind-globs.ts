@@ -151,7 +151,7 @@ function updateSourceDirectives(
 
   dependencies.forEach((dep) => {
     const project = projectGraph.nodes[dep];
-    if (project && project.data.root) {
+    if (project?.data.root) {
       // Calculate relative path from CSS file directory to dependency root
       const relativePath = relative(cssDir, project.data.root);
       sourceDirectives.push(`@source "${relativePath}";`);
@@ -207,10 +207,10 @@ function updateSourceDirectives(
     const importEndIndex = cleanedContent.indexOf('\n', importMatch.index) + 1;
     const beforeImport = cleanedContent.substring(0, importEndIndex);
     const afterImport = cleanedContent.substring(importEndIndex);
-    newContent = beforeImport + '\n' + managedBlock + '\n' + afterImport;
+    newContent = `${beforeImport}\n${managedBlock}\n${afterImport}`;
   } else {
     // No imports found, prepend to file
-    newContent = managedBlock + '\n\n' + cleanedContent;
+    newContent = `${managedBlock}\n\n${cleanedContent}`;
   }
 
   tree.write(cssFilePath, newContent);

@@ -9,8 +9,8 @@ function assertIsAccessTokenPayload(payload: unknown): asserts payload is Access
   if (
     typeof payload !== 'object' ||
     payload === null ||
-    typeof (payload as Record<string, unknown>)['userId'] !== 'string' ||
-    typeof (payload as Record<string, unknown>)['sessionId'] !== 'string'
+    typeof (payload as Record<string, unknown>).userId !== 'string' ||
+    typeof (payload as Record<string, unknown>).sessionId !== 'string'
   ) {
     throw new AppError(UNAUTHORIZED, 'Malformed token payload', AppErrorCode.InvalidAccessToken);
   }

@@ -64,7 +64,7 @@ export const getUsersHandler = catchErrors(async (req: FastifyRequest, reply: Fa
 /* GET /user/me */
 export const getCurrentUserHandler = catchErrors(
   async (req: FastifyRequest, reply: FastifyReply) => {
-    const accessToken = req.cookies['accessToken'];
+    const accessToken = req.cookies.accessToken;
     appAssert(accessToken, UNAUTHORIZED, 'Missing access token');
 
     try {

@@ -9,7 +9,7 @@
     "tsBuildInfoFile": "../../../dist/libs/shared/error.tsbuildinfo"
   },
   "include": [
-    "src/**/*", 
+    "src/**/*",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.tsx",

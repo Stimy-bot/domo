@@ -3,15 +3,15 @@ import twilio from 'twilio';
 
 dotenv.config();
 
-const accountSid = process.env['TWILIO_ACCOUNT_SID'] || '';
-const authToken = process.env['TWILIO_AUTH_TOKEN'] || '';
-const verifyServiceSid = process.env['TWILIO_VERIFY_SERVICE_SID'] || '';
+const accountSid = process.env.TWILIO_ACCOUNT_SID || '';
+const authToken = process.env.TWILIO_AUTH_TOKEN || '';
+const verifyServiceSid = process.env.TWILIO_VERIFY_SERVICE_SID || '';
 
 // Normalize the config flag to boolean
-const useMock = String(process.env['SMS_MOCK'] || '').toLowerCase() === 'true';
+const useMock = String(process.env.SMS_MOCK || '').toLowerCase() === 'true';
 
 // Safety: never allow mock in production
-const isProd = String(process.env['NODE_ENV'] || '').toLowerCase() === 'production';
+const isProd = String(process.env.NODE_ENV || '').toLowerCase() === 'production';
 const allowMock = useMock && !isProd;
 
 if (!accountSid || !authToken || !verifyServiceSid) {

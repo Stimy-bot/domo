@@ -9,7 +9,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "types/**/*.d.ts",
-       "../../libs/**/*.ts",
+    "../../libs/**/*.ts",
     "../../libs/**/*.tsx",
     "../../types/**/*.d.ts"
   ],

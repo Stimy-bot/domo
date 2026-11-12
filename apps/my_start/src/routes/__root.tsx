@@ -64,8 +64,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body className='font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]'>
-                <Provider>
-        <ToastProvider>
+        <Provider>
+          <ToastProvider>
             <Header />
             {children}
             <Footer />
@@ -86,8 +86,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
               ]}
             />
             <Scripts />
-        </ToastProvider>
-                  </Provider>
+          </ToastProvider>
+        </Provider>
       </body>
     </html>
   );

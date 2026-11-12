@@ -74,7 +74,7 @@ function AppProfile() {
       }
 
       // 3. Send the transformed payload to your API
-      const res = await updateUser(profileData!.id, userPayload);
+      const res = await updateUser(profileData?.id, userPayload);
 
       // Unwrap AxiosResponse if your service returns it
       return (res as any)?.data ?? res;

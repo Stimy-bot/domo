@@ -58,7 +58,7 @@ function AppRegister() {
     try {
       // 1. Perform the Mutation
       // biome-ignore lint/suspicious/noExplicitAny: <>
-            await registerAsync(value as any);
+      await registerAsync(value as any);
 
       setPhone(value.phone);
 

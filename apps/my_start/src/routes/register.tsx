@@ -54,7 +54,7 @@ function RouteComponent() {
       return;
     }
 
-     if (!captchaVerified) {
+    if (!captchaVerified) {
       setCaptchaError('Please complete the CAPTCHA verification.');
       return;
     }
@@ -162,7 +162,7 @@ function RouteComponent() {
             </p>
           )}
 
-           <Captcha
+          <Captcha
             onVerify={(isVerified: boolean) => {
               setCaptchaVerified(isVerified);
               if (isVerified) setCaptchaError('');

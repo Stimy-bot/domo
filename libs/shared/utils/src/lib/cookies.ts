@@ -4,7 +4,7 @@ import type { FastifyReply } from 'fastify';
 import { fifteenMinutesFromNow, thirtyDaysFromNow } from './date';
 
 export const REFRESH_PATH = '/api/refresh';
-const secure = process.env['NODE_ENV'] !== 'development';
+const secure = process.env.NODE_ENV !== 'development';
 
 const defaults: CookieSerializeOptions = {
   sameSite: 'strict',

@@ -26,7 +26,7 @@ function ensureEmail(email: any, fallbackBase = 'no-reply'): string {
 function normalizeActor(raw: any, idx: number) {
   const id = ensureString(raw?._id ?? raw?.id);
   return {
-    _id: id || makePlaceholderId(idx) + '-actor',
+    _id: id || `${makePlaceholderId(idx)}-actor`,
     email: ensureEmail(raw?.email ?? raw?.emailAddress, 'actor'),
     fullName: ensureString(raw?.fullName ?? raw?.name ?? ''),
   };
@@ -35,7 +35,7 @@ function normalizeActor(raw: any, idx: number) {
 function normalizeTarget(raw: any, idx: number) {
   const id = ensureString(raw?._id ?? raw?.id);
   return {
-    _id: id || makePlaceholderId(idx) + '-target',
+    _id: id || `${makePlaceholderId(idx)}-target`,
     email: ensureEmail(raw?.email ?? raw?.emailAddress, 'target'),
     fullName: ensureString(raw?.fullName ?? raw?.name ?? ''),
   };

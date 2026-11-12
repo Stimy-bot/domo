@@ -15,7 +15,7 @@ export const authenticateHook = async (req: FastifyRequest) => {
 
   const authHeader = String(req.headers.authorization || '');
   const bearerToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : undefined;
-  const accessToken = cookies?.['accessToken'] || bearerToken;
+  const accessToken = cookies?.accessToken || bearerToken;
 
   if (!accessToken) {
     appAssert(false, UNAUTHORIZED, 'Not authorized', AppErrorCode.InvalidAccessToken);

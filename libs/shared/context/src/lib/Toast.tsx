@@ -27,7 +27,7 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
     >
       <img src={iconMap[type]} alt={`${type} icon`} className={classes['toast-icon']} />
       <p className={classes['toast-message']}>{message}</p>
-      <button className={classes['toast-close-btn']} onClick={onClose} aria-label='Close toast'>
+      <button type='button' className={classes['toast-close-btn']} onClick={onClose} aria-label='Close toast'>
         <img src={xIcon} alt='close icon' />
       </button>
     </div>

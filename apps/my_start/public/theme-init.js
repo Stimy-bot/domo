@@ -16,5 +16,5 @@
     }
 
     root.style.colorScheme = resolved;
-  } catch (e) {}
+  } catch (_e) {}
 })();

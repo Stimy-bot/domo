@@ -1,7 +1,7 @@
 // client/src/components/Captcha.tsx
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { IoReloadOutline } from "react-icons/io5";
+import { IoReloadOutline } from 'react-icons/io5';
 
 interface CaptchaProps {
   onVerify: (isVerified: boolean) => void;
@@ -129,7 +129,6 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerify }) => {
           className='flex flex-col items-center ml-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none text-sm transition-colors'
         >
           <IoReloadOutline />
-
         </button>
       </div>
 

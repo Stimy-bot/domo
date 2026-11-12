@@ -1,7 +1,8 @@
 // apps/my_start/src/routes/login.tsx
-import { UiButton } from '@domo/ui-buttons';
 
-import { emailRegex, pwRegex } from '@domo/constants';import { EmailInput, PasswordInput, Captcha } from '@domo/reusableComponents';
+import { emailRegex, pwRegex } from '@domo/constants';
+import { Captcha, EmailInput, PasswordInput } from '@domo/reusableComponents';
+import { UiButton } from '@domo/ui-buttons';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { type ChangeEvent, type SyntheticEvent, useState } from 'react';
 import { signIn } from '../lib/auth-client';
@@ -18,13 +19,13 @@ function RouteComponent() {
   const [captchaVerified, setCaptchaVerified] = useState(false);
   const [captchaError, setCaptchaError] = useState('');
 
-    const validateForm = (): string | null => {
-      if (!emailRegex.test(email)) return 'Please enter a valid email address.';
+  const validateForm = (): string | null => {
+    if (!emailRegex.test(email)) return 'Please enter a valid email address.';
 
-      if (!pwRegex.test(password))
-        return 'Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character (@$!%*?&).';
-      return null;
-    };
+    if (!pwRegex.test(password))
+      return 'Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character (@$!%*?&).';
+    return null;
+  };
 
   const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,7 +38,7 @@ function RouteComponent() {
       return;
     }
 
-     if (!captchaVerified) {
+    if (!captchaVerified) {
       setCaptchaError('Please complete the CAPTCHA verification.');
       return;
     }
@@ -46,7 +47,7 @@ function RouteComponent() {
 
     try {
       const response = await signIn.email({ email, password });
-        if (response.error) {
+      if (response.error) {
         setError(response.error.message ?? 'Unable to sign in. Please try again.');
         return;
       }
@@ -57,7 +58,6 @@ function RouteComponent() {
       setIsPending(false);
     }
   };
-
 
   return (
     <div className='relative flex h-vh items-center justify-center overflow-hidden p-4 pb-15 mb-4'>
@@ -71,14 +71,16 @@ function RouteComponent() {
             autoComplete='email'
             required
             value={email}
-     onChange={(event: ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}            disabled={isPending}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
+            disabled={isPending}
           />
           <PasswordInput
             placeholder='Enter Password'
             autoComplete='current-password'
             required
             value={password}
-     onChange={(event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}            disabled={isPending}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
+            disabled={isPending}
           />
           {error && (
             <p role='alert' className='text-sm text-red-600 dark:text-red-400'>
@@ -86,8 +88,7 @@ function RouteComponent() {
             </p>
           )}
 
-
-           <Captcha
+          <Captcha
             onVerify={(isVerified: boolean) => {
               setCaptchaVerified(isVerified);
               if (isVerified) setCaptchaError('');

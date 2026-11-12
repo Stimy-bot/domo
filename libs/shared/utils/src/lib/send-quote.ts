@@ -1,28 +1,28 @@
 // libs/shared/utils/src/lib/send-quote.ts
-import { createServerFn } from '@tanstack/react-start'
-import { Resend } from 'resend'
+import { createServerFn } from '@tanstack/react-start';
+import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export interface QuoteFormData {
-  email: string
-  firstName?: string
-  lastName?: string
-  companyName?: string
-  serviceType?: string
-  priceRange?: string
-  phone?: string
-  website?: string
-  quoteDetails: string
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  companyName?: string;
+  serviceType?: string;
+  priceRange?: string;
+  phone?: string;
+  website?: string;
+  quoteDetails: string;
 }
 
 export const sendQuoteFn = createServerFn({ method: 'POST' })
   .validator((data: unknown): QuoteFormData => {
-    const formData = data as QuoteFormData
+    const formData = data as QuoteFormData;
     if (!formData?.email || !formData?.quoteDetails) {
-      throw new Error('Email and quote details are required.')
+      throw new Error('Email and quote details are required.');
     }
-    return formData
+    return formData;
   })
   .handler(async ({ data }: { data: QuoteFormData }) => {
     const {
@@ -35,9 +35,9 @@ export const sendQuoteFn = createServerFn({ method: 'POST' })
       phone = 'N/A',
       website = 'N/A',
       quoteDetails,
-    } = data
+    } = data;
 
-    const senderName = `${firstName} ${lastName}`.trim() || email
+    const senderName = `${firstName} ${lastName}`.trim() || email;
 
     const textContent = `
 New Quote Request:
@@ -52,9 +52,10 @@ Price Range: ${priceRange}
 
 Details:
 ${quoteDetails}
-`.trim()
+`.trim();
 
-const recipientEmail = process.env.QUOTE_RECIPIENT_EMAIL || 'patrick.totaldata.dominic@gmail.com';
+    const recipientEmail =
+      process.env.QUOTE_RECIPIENT_EMAIL || 'patrick.totaldata.dominic@gmail.com';
 
     const response = await resend.emails.send({
       from: 'Contact Form <onboarding@resend.dev>',
@@ -62,11 +63,11 @@ const recipientEmail = process.env.QUOTE_RECIPIENT_EMAIL || 'patrick.totaldata.d
       subject: `New Quote Request from ${senderName}`,
       replyTo: email,
       text: textContent,
-    })
+    });
 
     if (response.error) {
-      throw new Error(response.error.message)
+      throw new Error(response.error.message);
     }
 
-    return { success: true }
-  })
+    return { success: true };
+  });

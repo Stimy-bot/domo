@@ -11,8 +11,7 @@ import {
   TextInput,
 } from '@domo/reusableComponents';
 import { UiButton } from '@domo/ui-buttons';
-import { sendQuoteFn } from '@domo/utils';
-import { exportQuoteToCSV } from '@domo/utils';
+import { exportQuoteToCSV, sendQuoteFn } from '@domo/utils';
 import type React from 'react';
 import { useState } from 'react';
 
@@ -230,10 +229,7 @@ function Quote() {
           submitButtonText='Request Quote'
         />
 
-        <UiButton
-          onClick={handleExport}
-          className='demo-button w-3/4 mb-4'
-        >
+        <UiButton onClick={handleExport} className='demo-button w-3/4 mb-4'>
           Export CSV
         </UiButton>
         <span>You will receive an email with the quote within 24 hours!</span>

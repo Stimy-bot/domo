@@ -33,29 +33,29 @@ const toHexString = (v: unknown): string | undefined => {
 const toISOString = (v: unknown): string | undefined => {
   if (v instanceof Date) return v.toISOString();
   const d = new Date(v as string | number | Date);
-  return isNaN(d.getTime()) ? undefined : d.toISOString();
+  return Number.isNaN(d.getTime()) ? undefined : d.toISOString();
 };
 
 function normalizeAuditDoc(doc: WithId<Document> | Record<string, unknown>) {
   return {
-    _id: toHexString(doc['_id']),
-    type: doc['type'],
-    metadata: doc['metadata'] ?? {},
-    ip: doc['ip'] ?? undefined,
-    createdAt: toISOString(doc['createdAt']),
-    updatedAt: toISOString(doc['updatedAt']),
-    actor: doc['actor']
+    _id: toHexString(doc._id),
+    type: doc.type,
+    metadata: doc.metadata ?? {},
+    ip: doc.ip ?? undefined,
+    createdAt: toISOString(doc.createdAt),
+    updatedAt: toISOString(doc.updatedAt),
+    actor: doc.actor
       ? {
-          _id: toHexString(doc['actor']._id),
-          email: doc['actor'].email,
-          fullName: doc['actor'].fullName,
+          _id: toHexString(doc.actor._id),
+          email: doc.actor.email,
+          fullName: doc.actor.fullName,
         }
       : undefined,
-    target: doc['target']
+    target: doc.target
       ? {
-          _id: toHexString(doc['target']._id),
-          email: doc['target'].email,
-          fullName: doc['target'].fullName,
+          _id: toHexString(doc.target._id),
+          email: doc.target.email,
+          fullName: doc.target.fullName,
         }
       : undefined,
   };
@@ -123,7 +123,7 @@ export async function logAuthEvent<M extends Record<string, unknown>>(
     : 'Local/Internal';
 
   // Ensure email is always present in metadata for schema validation
-  const resolvedEmail = metadata['email'] || user.email || '';
+  const resolvedEmail = metadata.email || user.email || '';
 
   const payload = {
     type,
@@ -176,7 +176,7 @@ export async function fetchLogsFromDb(
     if (result.success) {
       acc.push(result.data);
     } else {
-      console.warn(`[AUDIT] Validation failed for log ${doc['_id']}:`, result.error.format());
+      console.warn(`[AUDIT] Validation failed for log ${doc._id}:`, result.error.format());
     }
     return acc;
   }, []);

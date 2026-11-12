@@ -60,7 +60,7 @@ function ImageInput({ field, label }: ImageInputProps) {
 
   useEffect(() => {
     return () => {
-      if (preview && preview.startsWith('blob:')) {
+      if (preview?.startsWith('blob:')) {
         URL.revokeObjectURL(preview);
       }
     };

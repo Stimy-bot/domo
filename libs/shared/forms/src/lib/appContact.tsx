@@ -30,7 +30,6 @@ type ContactFormValues = {
 };
 
 function AppContact() {
-;
   const contactFormOptions = {
     defaultValues: {
       firstName: '',
@@ -41,7 +40,7 @@ function AppContact() {
       attention: '',
       message: '',
     },
-  }
+  };
   const handleContactSubmit = async ({
     value,
   }: {

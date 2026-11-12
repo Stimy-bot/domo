@@ -39,7 +39,7 @@ const normalizeIp = (ip?: string) =>
  */
 const sanitizeUser = <T extends Record<string, unknown>>(user: T) => {
   const sanitized = { ...user };
-  delete sanitized['password'];
+  delete sanitized.password;
   return sanitized as Omit<T, 'password'>;
 };
 
@@ -505,20 +505,20 @@ export const updateAccount = async (
   });
 
   if (role) {
-    updateFields['role'] = Array.isArray(role) ? role : [role];
+    updateFields.role = Array.isArray(role) ? role : [role];
   }
   if (typeof active === 'boolean') {
-    updateFields['active'] = active;
+    updateFields.active = active;
   }
 
-  if (updateFields['firstName'] || updateFields['lastName']) {
-    const fn = (updateFields['firstName'] as string) || user.firstName;
-    const ln = (updateFields['lastName'] as string) || user.lastName;
-    updateFields['fullName'] = `${fn} ${ln}`.trim();
+  if (updateFields.firstName || updateFields.lastName) {
+    const fn = (updateFields.firstName as string) || user.firstName;
+    const ln = (updateFields.lastName as string) || user.lastName;
+    updateFields.fullName = `${fn} ${ln}`.trim();
   }
 
   if (Object.keys(updateFields).length > 0) {
-    updateFields['updatedAt'] = new Date();
+    updateFields.updatedAt = new Date();
     await usersCollection.updateOne({ _id: targetId }, { $set: updateFields });
   }
 
@@ -689,7 +689,7 @@ export const verifyOtpService = async (
     appAssert(false, UNAUTHORIZED, 'Invalid or expired OTP');
   }
 
-  appAssert(check && check.valid, UNAUTHORIZED, 'Invalid or expired OTP');
+  appAssert(check?.valid, UNAUTHORIZED, 'Invalid or expired OTP');
 
   await usersCollection.updateOne({ _id: user._id }, { $set: { phoneVerified: true } });
 
